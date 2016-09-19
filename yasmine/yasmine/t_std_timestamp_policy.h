@@ -23,23 +23,9 @@ namespace sxy
 class t_std_timestamp_policy final
 {
 public:
-
-	t_std_timestamp_policy
-	(
-	) = delete;
-
-
-	~t_std_timestamp_policy
-	(
-	) = delete;
-
-
-	static std::string
-	get_timestamp
-	(
-	);
-
-
+	t_std_timestamp_policy() = delete;
+	~t_std_timestamp_policy() = delete;
+	static std::string get_timestamp();
 };
 
 

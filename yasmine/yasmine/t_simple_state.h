@@ -21,102 +21,29 @@ namespace sxy
 {
 
 
-class t_simple_state final: public virtual i_simple_state, public t_complex_state
+class t_simple_state final:
+	public virtual i_simple_state, public t_complex_state
 {
-public:		 
-	explicit t_simple_state
-	(
-		const std::string& p_name,
-		i_behavior_uptr do_action = nullptr,
-		i_behavior_uptr p_entry_action = nullptr,
-		i_behavior_uptr p_exit_action = nullptr,
-		const t_event_ids& p_deferred_events = {}
-	);
+public:
+	explicit t_simple_state( const std::string& p_name,	i_behavior_uptr do_action = nullptr, 
+		i_behavior_uptr p_entry_action = nullptr,	i_behavior_uptr p_exit_action = nullptr,
+		const t_event_ids& p_deferred_events = {} );
+	virtual ~t_simple_state() override;
+	t_simple_state( const t_simple_state& ) = delete;
+	t_simple_state& operator=( const t_simple_state& ) = delete;
+	virtual const i_behavior * get_do() const override;
+	virtual const t_regions& get_regions() const override;
+	virtual t_regions& get_regions() override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_complex_state_visitor( i_complex_state_visitor& p_visitor ) const override;
+	virtual void accept_state_visitor( i_state_visitor& p_visitor ) const override;
+	void execute_do_behavior( const i_event& p_event ) const override;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
 
-
-	virtual
-	~t_simple_state
-	(
-	) override;
-
-
-	t_simple_state
-	(
-		const t_simple_state&
-	) = delete;
-
-
-	t_simple_state&
-	operator=
-	(
-		const t_simple_state&
-	) = delete;
-
-
-	virtual const i_behavior*
-	get_do
-	(
-	) const override;
-
-
-	virtual const t_regions&
-	get_regions
-	(
-	) const override;
-
-
-	virtual t_regions&
-	get_regions
-	(
-	) override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_complex_state_visitor
-	(
-		i_complex_state_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_state_visitor
-	(
-		i_state_visitor& p_visitor
-	) const override;
-
-
-	void
-	execute_do_behavior
-	(
-		const i_event& p_event
-	) const override;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-	
 
 private:
 	i_behavior_uptr m_do;
-
-
 };
 
 

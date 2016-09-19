@@ -20,33 +20,14 @@ namespace sxy
 {
 
 
-class i_terminate_pseudostate: public virtual i_region_pseudostate
+class i_terminate_pseudostate:
+	public virtual i_region_pseudostate
 {
 public:
-	i_terminate_pseudostate
-	(
-	) = default;
-
-
-	virtual 
-	~i_terminate_pseudostate
-	(
-	)	override = default;
-
-
-	i_terminate_pseudostate
-	(
-		const i_terminate_pseudostate&
-	) = delete;
-
-
-	i_terminate_pseudostate&
-	operator=
-	(
-		const i_terminate_pseudostate&
-	) = delete;
-
-
+	i_terminate_pseudostate() = default;
+	virtual ~i_terminate_pseudostate() override = default;
+	i_terminate_pseudostate( const i_terminate_pseudostate& ) = delete;
+	i_terminate_pseudostate& operator=( const i_terminate_pseudostate& ) = delete;
 };
 
 

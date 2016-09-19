@@ -20,75 +20,20 @@ namespace sxy
 {
 
 
-class t_join: public virtual i_join, public t_region_pseudostate
+class t_join final:
+	public virtual i_join, public t_region_pseudostate
 {
 public:
-	explicit t_join
-	(
-		const std::string& p_name
-	);
-
-
-	virtual
-	~t_join
-	(
-	) override;
-
-
-	t_join
-	(
-		const t_join&
-	) = delete;
-
-
-	t_join&
-	operator=
-	(
-		const t_join&
-	) = delete;
-
-
-	virtual bool
-	check_if_all_source_states_of_incoming_transitions_are_active
-	(			
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_pseudostate_visitor
-	(
-		i_pseudostate_visitor& p_visitor
-	) const override;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-
-
-	virtual void
-	add_outgoing_transition
-	(
-		i_transition& p_outgoing_transition
-	) override;
-
-
+	explicit t_join( const std::string& p_name );
+	virtual ~t_join() override;
+	t_join( const t_join& ) = delete;
+	t_join& operator=( const t_join& ) = delete;
+	virtual bool check_if_all_source_states_of_incoming_transitions_are_active() const override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const override;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
+	virtual void add_outgoing_transition( i_transition& p_outgoing_transition ) override;
 };
 
 

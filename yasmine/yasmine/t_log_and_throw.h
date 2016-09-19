@@ -21,9 +21,9 @@ namespace sxy
 {
 
 
-#define LOG_AND_THROW( p_log_level, p_message, ...) \
-Y_LOG( p_log_level, p_message, ##__VA_ARGS__ );\
-throw t_exception(p_message, ##__VA_ARGS__);\
+#define LOG_AND_THROW( p_log_level, p_message, ... ) \
+	Y_LOG( p_log_level, p_message, ## __VA_ARGS__ ); \
+	throw t_exception( p_message, ## __VA_ARGS__ ); \
 
 
 }

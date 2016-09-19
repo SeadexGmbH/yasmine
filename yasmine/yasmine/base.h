@@ -8,7 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
- 
+
 #ifndef BASE_0C97CC9D_8A5B_4696_9964_49819CD9233A
 #define BASE_0C97CC9D_8A5B_4696_9964_49819CD9233A
 
@@ -44,7 +44,8 @@
 #define Y_ASSERTED( p_x ) static_cast< void >( p_x );
 
 
-#define Y_UNUSED_PARAMETER( p_x ) [&p_x]{}()
+#define Y_UNUSED_PARAMETER( p_x ) [ &p_x ] {} \
+	( )
 
 
 #include <cassert>

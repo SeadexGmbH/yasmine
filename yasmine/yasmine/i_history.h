@@ -21,52 +21,17 @@ namespace sxy
 {
 
 
-class i_history : public virtual i_state_pseudostate
+class i_history:
+	public virtual i_state_pseudostate
 {
 public:
-	i_history
-	(
-	) = default;
-
-
-	virtual 
-	~i_history
-	(
-	)	override = default;
-
-
-	i_history
-	(
-		const i_history&
-	) = delete;
-
-
-	i_history&
-	operator=
-	(
-		const i_history&
-	) = delete;
-
-
-	virtual t_raw_transitions
-	get_default_transitions
-	(
-	) const = 0;
-
-
-	virtual void
-	add_default_transition
-	(			
-		i_transition& p_default_transition
-	) = 0;
-
-
-	virtual bool
-	check_if_state_was_active_before
-	(
-	) const = 0;
-
-
+	i_history() = default;
+	virtual ~i_history() override = default;
+	i_history( const i_history& ) = delete;
+	i_history& operator=( const i_history& ) = delete;
+	virtual t_raw_transitions get_default_transitions() const = 0;
+	virtual void add_default_transition( i_transition& p_default_transition ) = 0;
+	virtual bool check_if_state_was_active_before() const = 0;
 };
 
 

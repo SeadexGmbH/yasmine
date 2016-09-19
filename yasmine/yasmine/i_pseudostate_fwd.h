@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_pseudostate;
-
 using i_pseudostate_uptr = std::unique_ptr< i_pseudostate >;
-
 using t_raw_const_pseudostates = std::vector< const i_pseudostate* >;
 using t_pseudostates = std::vector< i_pseudostate_uptr >;
 

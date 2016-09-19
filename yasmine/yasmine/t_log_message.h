@@ -16,7 +16,7 @@
 #include <string>
 
 #include "t_log_level.h"
-									
+
 
 namespace sxy
 {
@@ -25,16 +25,8 @@ namespace sxy
 struct t_log_message final
 {
 	t_log_message() = default;
-
-
-	t_log_message
-	(
-		const t_log_level p_log_level,
-		const std::string& p_log_time_stamp,
-		const std::string&	p_log_file,
-		const int p_log_line,
-		const std::string& p_log_message
-	);
+	t_log_message( const t_log_level p_log_level,	const std::string& p_log_time_stamp, const std::string&  p_log_file,
+		const int p_log_line,	const std::string& p_log_message );
 
 
 	t_log_level m_log_level_message;

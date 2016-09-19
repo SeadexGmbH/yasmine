@@ -19,58 +19,23 @@
 
 namespace sxy
 {
-																 
 
-class t_region_pseudostate : public virtual i_region_pseudostate, public t_pseudostate
+
+class t_region_pseudostate:
+	public virtual i_region_pseudostate, public t_pseudostate
 {
 public:
-	explicit t_region_pseudostate
-	(
-		const std::string& p_name
-	);
-
-
-	virtual 
-	~t_region_pseudostate
-	(
-	) override;
-
-
-	virtual const i_state_machine_element*
-	get_parent
-	(
-	) const override;
-
-
-	virtual i_region*
-	get_parent_region
-	(
-	) const override;
-
-
-	virtual void 
-	set_parent_region
-	( 
-		i_region* const p_parent_region 
-	) override;
-
-
-	virtual t_raw_composite_states
-	get_ancestors
-	(
-		i_composite_state* const p_final_ancestor
-	) const override;
-	
-
-	virtual t_raw_regions
-	get_ancestors_as_regions
-	(
-	) const	override;
+	explicit t_region_pseudostate( const std::string& p_name );
+	virtual ~t_region_pseudostate() override;
+	virtual const i_state_machine_element * get_parent() const override;
+	virtual i_region * get_parent_region() const override;
+	virtual void set_parent_region( i_region* const p_parent_region ) override;
+	virtual t_raw_composite_states get_ancestors( i_composite_state* const p_final_ancestor ) const override;
+	virtual t_raw_regions get_ancestors_as_regions() const override;
 
 
 private:
 	i_region* m_parent;
-
 };
 
 

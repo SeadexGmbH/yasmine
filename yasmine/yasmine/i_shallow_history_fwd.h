@@ -21,7 +21,6 @@ namespace sxy
 
 
 class i_shallow_history;
-
 using i_shallow_history_uptr = std::unique_ptr< i_shallow_history >;
 
 

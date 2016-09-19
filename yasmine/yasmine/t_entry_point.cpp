@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "t_entry_point.h"	
+#include "t_entry_point.h"
 
 #include "base.h"
 #include "i_const_vertex_visitor.h"
@@ -21,25 +21,17 @@ namespace sxy
 {
 
 
-t_entry_point::t_entry_point
-(
-	const std::string& p_name
-): t_state_pseudostate( p_name )
+t_entry_point::t_entry_point( const std::string& p_name )
+	: t_state_pseudostate( p_name )
 {
 	// Nothing to do...
 }
-	
-
-t_entry_point::~t_entry_point
-(
-) = default;
 
 
-bool
-t_entry_point::check
-(
-	t_state_machine_defects& p_defects
-) const
+t_entry_point::~t_entry_point() = default;
+
+
+bool t_entry_point::check( t_state_machine_defects& p_defects ) const
 {
 	auto l_check_ok = true;
 
@@ -53,31 +45,19 @@ t_entry_point::check
 }
 
 
-void
-t_entry_point::accept_vertex_visitor
-(
-	i_const_vertex_visitor& p_visitor
-) const
+void t_entry_point::accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const
 {
 	p_visitor.visit( *this );
 }
 
 
-void
-t_entry_point::accept_vertex_visitor
-(
-	i_vertex_visitor& p_visitor
-)
+void t_entry_point::accept_vertex_visitor( i_vertex_visitor& p_visitor )
 {
 	p_visitor.visit( *this );
 }
 
 
-void
-t_entry_point::accept_pseudostate_visitor
-(
-	i_pseudostate_visitor& p_visitor
-) const
+void t_entry_point::accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const
 {
 	p_visitor.visit( *this );
 }

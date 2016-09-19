@@ -28,45 +28,13 @@ class i_event;
 class i_execution_step
 {
 public:
-	i_execution_step
-	(
-	) = default;
-
-
-	virtual
-	~i_execution_step
-	(
-	) = default;
-
-
-	i_execution_step
-	(
-		const i_execution_step&
-	) = delete;
-
-
-	i_execution_step&
-	operator=
-	(
-		const i_execution_step&
-	) = delete;
-
-
-	virtual bool
-	execute_behavior
-	(
-		i_event_processing_callback* const p_event_processing_callback,
-		const i_event& p_event
-	) const = 0;
-
-
-	virtual void
-	accept
-	(
-		i_execution_step_visitor& p_visitor
-	) const = 0;
-
-
+	i_execution_step() = default;
+	virtual ~i_execution_step() = default;
+	i_execution_step( const i_execution_step& ) = delete;
+	i_execution_step& operator=( const i_execution_step& ) = delete;
+	virtual bool execute_behavior( i_event_processing_callback* const p_event_processing_callback, 
+		const i_event& p_event ) const = 0;
+	virtual void accept( i_execution_step_visitor& p_visitor ) const = 0;
 };
 
 

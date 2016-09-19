@@ -18,37 +18,25 @@ namespace sxy
 {
 
 
-t_event::t_event
-(
-	const t_event_id p_event_id
-):
-	i_event(),
-	m_event_id( p_event_id )
+t_event::t_event( const t_event_id p_event_id )
+	: i_event(),
+		m_event_id( p_event_id )
 {
 	// Nothing to do...
 }
-		
-
-t_event::~t_event
-(
-) = default;
 
 
-t_event_id
-t_event::get_id
-(
-) const
+t_event::~t_event() = default;
+
+
+t_event_id t_event::get_id() const
 {
-	return m_event_id;
+	return( m_event_id );
 }
 
 
-t_event_sptr
 // cppcheck-suppress unusedFunction
-t_event::create_event
-(
-	const t_event_id p_event_id
-)
+t_event_sptr t_event::create_event( const t_event_id p_event_id )
 {
 	return( std::make_shared< sxy::t_event >( p_event_id ) );
 }

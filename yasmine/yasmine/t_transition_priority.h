@@ -26,35 +26,11 @@ class i_compound_transition;
 class t_transition_priority final
 {
 public:
-	explicit t_transition_priority
-	(
-		i_compound_transition& p_compound_transition
-	);
-
-
-	virtual
-	~t_transition_priority
-	(
-	);
-
-
-	std::size_t
-	get_priority
-	(
-	) const;
-
-
-	i_compound_transition&
-	get_compound_transition
-	(
-	) const;
-
-
-	bool
-	operator<
-	(
-		const t_transition_priority& p_compare_member
-	) const;
+	explicit t_transition_priority( i_compound_transition& p_compound_transition );
+	virtual ~t_transition_priority();
+	std::size_t get_priority() const;
+	i_compound_transition& get_compound_transition() const;
+	bool operator<( const t_transition_priority& p_compare_member ) const;
 
 
 private:

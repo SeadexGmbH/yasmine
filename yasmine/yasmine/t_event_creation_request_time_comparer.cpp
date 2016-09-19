@@ -13,10 +13,11 @@
 
 
 namespace sxy
-{	
+{
 
 
-bool t_event_creation_request_time_comparer::operator() ( const std::unique_ptr<t_event_creation_request>& p_lhs, const std::unique_ptr<t_event_creation_request>& p_rhs ) const
+bool t_event_creation_request_time_comparer::operator()( const std::unique_ptr< t_event_creation_request >& p_lhs,
+	const std::unique_ptr< t_event_creation_request >& p_rhs ) const
 {
 	return( p_lhs->get_time() < p_rhs->get_time() );
 }

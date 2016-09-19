@@ -21,69 +21,19 @@ namespace sxy
 {
 
 
-class t_terminate_pseudostate: public virtual i_terminate_pseudostate, public t_region_pseudostate
+class t_terminate_pseudostate final:
+	public virtual i_terminate_pseudostate, public t_region_pseudostate
 {
 public:
-	explicit t_terminate_pseudostate
-	(			
-		const std::string& p_name
-	);
-
-
-	virtual
-	~t_terminate_pseudostate
-	(
-	) override;
-
-
-	t_terminate_pseudostate
-	(
-		const t_terminate_pseudostate&
-	) = delete;
-
-
-	t_terminate_pseudostate&
-	operator=
-	(
-		const t_terminate_pseudostate&
-	) = delete;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_pseudostate_visitor
-	(
-		i_pseudostate_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	add_outgoing_transition
-	(
-		i_transition& p_outgoing_transition
-	) override;
-
-
+	explicit t_terminate_pseudostate( const std::string& p_name );
+	virtual ~t_terminate_pseudostate() override;
+	t_terminate_pseudostate( const t_terminate_pseudostate& ) = delete;
+	t_terminate_pseudostate& operator=( const t_terminate_pseudostate& ) = delete;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const override;
+	virtual void add_outgoing_transition( i_transition& p_outgoing_transition ) override;
 };
 
 

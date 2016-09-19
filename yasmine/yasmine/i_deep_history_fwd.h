@@ -21,7 +21,6 @@ namespace sxy
 
 
 class i_deep_history;
-
 using i_deep_history_uptr = std::unique_ptr< i_deep_history >;
 
 

@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_terminate_pseudostate;
-
 using i_terminate_pseudostate_uptr = std::unique_ptr< i_terminate_pseudostate >;
-
 using t_terminate_pseudostates = std::vector< i_terminate_pseudostate_uptr >;
 using t_raw_const_terminate_pseudostates = std::vector< const i_terminate_pseudostate* >;
 

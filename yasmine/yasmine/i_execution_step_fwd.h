@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_execution_step;
-
 using i_execution_step_uptr = std::unique_ptr< i_execution_step >;
-
 using t_execution_steps = std::vector< i_execution_step_uptr >;
 
 

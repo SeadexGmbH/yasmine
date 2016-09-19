@@ -23,9 +23,9 @@ namespace sxy
 
 class i_behavior;
 class i_event;
-
 using i_behavior_uptr = std::unique_ptr< i_behavior >;
-using t_behavior_function = std::function< void( const i_event& ) >;
+using t_behavior_function = std::function< void ( const i_event& ) >;
+
 
 }
 

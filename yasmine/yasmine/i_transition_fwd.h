@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_transition;
-
 using i_transition_uptr = std::unique_ptr< i_transition >;
-
 using t_raw_const_transitions = std::vector< const i_transition* >;
 using t_raw_transitions = std::vector< i_transition* >;
 using t_transitions = std::vector< i_transition_uptr >;

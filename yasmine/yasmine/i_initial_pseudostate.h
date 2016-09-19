@@ -24,39 +24,15 @@ namespace sxy
 class i_transition;
 
 
-class i_initial_pseudostate: public virtual i_region_pseudostate
+class i_initial_pseudostate:
+	public virtual i_region_pseudostate
 {
 public:
-	i_initial_pseudostate
-	(
-	) = default;
-
-
-	virtual 
-	~i_initial_pseudostate
-	(
-	)	override = default;
-
-
-	i_initial_pseudostate
-	(
-		const i_initial_pseudostate&
-	) = delete;
-
-
-	i_initial_pseudostate&
-	operator=
-	(
-		const i_initial_pseudostate&
-	) = delete;
-
-
-	virtual i_transition*
-	get_transition
-	(
-	) const = 0;
-
-
+	i_initial_pseudostate() = default;
+	virtual ~i_initial_pseudostate() override = default;
+	i_initial_pseudostate( const i_initial_pseudostate& ) = delete;
+	i_initial_pseudostate& operator=( const i_initial_pseudostate& ) = delete;
+	virtual i_transition * get_transition() const = 0;
 };
 
 

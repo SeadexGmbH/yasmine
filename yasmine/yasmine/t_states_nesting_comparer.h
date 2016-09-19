@@ -23,34 +23,11 @@ class i_state;
 struct t_states_nesting_comparer final
 {
 public:
-	t_states_nesting_comparer
-	(			
-	);
-
-
-	~t_states_nesting_comparer
-	(
-	);
-
-
-	bool
-	operator()
-	(
-		const i_state& p_lhs,
-		const i_state& p_rhs
-	) const;
-
-
-	bool
-	operator()
-	(
-		const i_state* const p_lhs,
-		const i_state* const p_rhs
-	) const;
-
-
+	t_states_nesting_comparer();
+	~t_states_nesting_comparer();
+	bool operator()( const i_state& p_lhs, const i_state& p_rhs ) const;
+	bool operator()( const i_state* const p_lhs, const i_state* const p_rhs ) const;
 };
-
 
 }
 

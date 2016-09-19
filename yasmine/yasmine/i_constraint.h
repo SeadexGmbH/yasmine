@@ -26,36 +26,11 @@ class i_event;
 class i_constraint
 {
 public:
-	i_constraint
-	(
-	) = default;
-
-
-	virtual ~i_constraint
-	(
-	) = default;
-
-
-	i_constraint
-	(
-		const i_constraint&
-	) = delete;
-
-
-	i_constraint&
-	operator=
-	(
-		const i_constraint&
-	) = delete;
-
-
-	virtual bool
-	operator()
-	(
-		const i_event& p_event
-	) const = 0;
-
-
+	i_constraint() = default;
+	virtual ~i_constraint() = default;
+	i_constraint( const i_constraint& ) = delete;
+	i_constraint& operator=( const i_constraint& ) = delete;
+	virtual bool operator()( const i_event& p_event ) const = 0;
 };
 
 

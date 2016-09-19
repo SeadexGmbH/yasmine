@@ -15,17 +15,15 @@
 
 #include <vector>
 #include <memory>
-												
+
 
 namespace sxy
 {
 
+
 class t_state_machine_defect;
-
-
-using t_state_machine_defect_uptr = std::unique_ptr<t_state_machine_defect>;
-
-using t_state_machine_defects = std::vector< t_state_machine_defect_uptr>;
+using t_state_machine_defect_uptr = std::unique_ptr< t_state_machine_defect >;
+using t_state_machine_defects = std::vector< t_state_machine_defect_uptr >;
 
 
 }

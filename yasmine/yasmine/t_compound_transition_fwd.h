@@ -34,7 +34,7 @@ using i_compound_transition_uptr = std::shared_ptr< i_compound_transition >;
 #else
 using i_compound_transition_uptr = std::unique_ptr< i_compound_transition >;
 #endif
-									
+
 
 using t_raw_compound_transitions = std::vector< i_compound_transition* >;
 using t_compound_transitions = std::vector< i_compound_transition_uptr >;

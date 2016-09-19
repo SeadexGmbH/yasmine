@@ -20,55 +20,26 @@ namespace sxy
 {
 
 
-//!\class t_cout_logger
-//!\brief Class for printing messages in the console.
-class t_cout_logger: public i_logger
+// !\class t_cout_logger
+// !\brief Class for printing messages in the console.
+class t_cout_logger:
+	public i_logger
 {
 public:
-	//!\brief Constructor of t_cout_logger.
-	t_cout_logger
-	(
-	);
+	// !\brief Constructor of t_cout_logger.
+	t_cout_logger();
+	virtual ~t_cout_logger() override = default;
+	t_cout_logger( const t_cout_logger& ) = delete;
+	t_cout_logger& operator=( const t_cout_logger& ) = delete;
 
-
-	virtual 
-	~t_cout_logger
-	(
-	) override = default;
-
-
-	t_cout_logger
-	(
-		const t_cout_logger&
-	) = delete;
-
-
-	t_cout_logger&
-	operator=
-	(
-		const t_cout_logger&
-	) = delete;
-
-
-	//!\brief Prints the message in the console.
-	//!\param p_log_message Log message that will be printed.
-	//!\return void.
-	virtual void
-	log
-	(
-		const t_log_message& p_log_message
-	) override;
+	// !\brief Prints the message in the console.
+	// !\param p_log_message Log message that will be printed.
+	// !\return void.
+	virtual void log( const t_log_message& p_log_message ) override;
 
 
 private:
-	static
-	void
-	log_level_as_message
-	(
-		const sxy::t_log_level p_log_level
-	);
-
-
+	static void log_level_as_message( const sxy::t_log_level p_log_level );
 };
 
 

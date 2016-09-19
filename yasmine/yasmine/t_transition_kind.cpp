@@ -16,11 +16,7 @@ namespace sxy
 {
 
 
-std::string
-to_string
-(
-	const t_transition_kind p_kind
-)
+std::string to_string( const t_transition_kind p_kind )
 {
 	std::string l_kind = "";
 

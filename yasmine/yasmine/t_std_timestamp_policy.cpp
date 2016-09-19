@@ -11,12 +11,10 @@
 
 #include "t_std_timestamp_policy.h"
 
-
-//#include <chrono>
 #include <sstream>
 #include <iomanip>
 
-#include<ctime>
+#include <ctime>
 
 
 namespace sxy
@@ -31,29 +29,21 @@ const unsigned int g_width_year( 4 );
 const unsigned int g_width_clock( 2 );
 const char g_fill_value( '0' );
 const unsigned int g_1900( 1900 );
-
-
 }
 
 
-std::string
-t_std_timestamp_policy::get_timestamp
-(
-)
+std::string t_std_timestamp_policy::get_timestamp()
 {
 	std::stringstream date_time_stream;
-	
 	time_t rawtime;
 	time( &rawtime );
-
 	tm timeinfo = *localtime( &rawtime );
-	date_time_stream << std::setfill( g_fill_value ) << std::setw( g_width_year ) << ( g_1900 + timeinfo.tm_year)
-		<< "/" << std::setfill( g_fill_value ) << std::setw( g_width_clock ) << ++timeinfo.tm_mon
-		<< "/" << std::setfill( g_fill_value ) << std::setw( g_width_clock ) << timeinfo.tm_mday
-		<< " " << std::setfill( g_fill_value ) << std::setw( g_width_clock ) << timeinfo.tm_hour
-		<< ":" << std::setfill( g_fill_value ) << std::setw( g_width_clock ) << timeinfo.tm_min
-		<< ":" << std::setfill( g_fill_value ) << std::setw( g_width_clock ) << timeinfo.tm_sec;
-
+	date_time_stream << std::setfill( g_fill_value ) << std::setw( g_width_year ) << ( g_1900 + timeinfo.tm_year ) <<
+		"/" << std::setfill( g_fill_value ) << std::setw( g_width_clock ) << ++timeinfo.tm_mon << "/" << std::setfill(
+		g_fill_value ) << std::setw( g_width_clock ) << timeinfo.tm_mday << " " << std::setfill( g_fill_value ) <<
+		std::setw( g_width_clock ) << timeinfo.tm_hour << ":" << std::setfill( g_fill_value ) <<
+		std::setw( g_width_clock ) << timeinfo.tm_min << ":" << std::setfill( g_fill_value ) <<
+		std::setw( g_width_clock ) << timeinfo.tm_sec;
 	return( date_time_stream.str() );
 }
 

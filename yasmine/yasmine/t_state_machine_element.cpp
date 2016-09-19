@@ -16,35 +16,25 @@ namespace sxy
 {
 
 
-t_state_machine_element::t_state_machine_element
-(
-	const std::string& p_name
-): m_name( p_name )
+t_state_machine_element::t_state_machine_element( const std::string& p_name )
+	: m_name( p_name )
 {
 	// Nothing to do...
 }
 
 
-t_state_machine_element::~t_state_machine_element
-(
-) = default;
+t_state_machine_element::~t_state_machine_element() = default;
 
 
-const std::string&
-t_state_machine_element::get_name
-(
-) const
+const std::string& t_state_machine_element::get_name() const
 {
 	return( m_name );
-}	
+}
 
 
-const i_state_machine_element*
-t_state_machine_element::get_parent
-(
-) const 
+const i_state_machine_element* t_state_machine_element::get_parent() const
 {
-	return ( nullptr );
+	return( nullptr );
 }
 
 

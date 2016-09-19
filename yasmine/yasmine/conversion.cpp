@@ -19,29 +19,24 @@ namespace sxy
 {
 
 
-bool
-string_to_int
-(
+bool string_to_int(
 	const char* const p_int_as_string,
-	int& p_result
-)
+	int& p_result )
 {
 	auto success = false;
-
 	try
 	{
 		p_result = std::stoi( std::string( p_int_as_string ) );
 		success = true;
 	}
-	catch( const std::invalid_argument& )
+	catch ( const std::invalid_argument& )
 	{
 		success = false;
 	}
-	catch( const std::out_of_range& )
+	catch ( const std::out_of_range& )
 	{
 		success = false;
 	}
-
 	return( success );
 }
 

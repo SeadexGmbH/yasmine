@@ -21,62 +21,18 @@ namespace sxy
 {
 
 
-class t_exit_point: public virtual i_exit_point, public t_state_pseudostate
+class t_exit_point final:
+	public virtual i_exit_point, public t_state_pseudostate
 {
 public:
-	explicit t_exit_point
-	(
-		const std::string& p_name
-	);
-
-
-	virtual
-	~t_exit_point
-	(
-	) override;
-
-
-	t_exit_point
-	(
-		const t_exit_point&
-	) = delete;
-
-
-	t_exit_point&
-	operator=
-	(
-		const t_exit_point&
-	) = delete;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_pseudostate_visitor
-	(
-		i_pseudostate_visitor& p_visitor
-	) const override;
-
-
+	explicit t_exit_point( const std::string& p_name );
+	virtual ~t_exit_point() override;
+	t_exit_point( const t_exit_point& ) = delete;
+	t_exit_point& operator=( const t_exit_point& ) = delete;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const override;
 };
 
 

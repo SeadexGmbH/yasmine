@@ -22,113 +22,32 @@ namespace sxy
 {
 
 
-class t_vertex: public virtual i_vertex, public t_state_machine_element
+class t_vertex:
+	public virtual i_vertex, public t_state_machine_element
 {
 public:
-	explicit t_vertex
-	(			
-		const std::string& p_name		
-	);
+	explicit t_vertex( const std::string& p_name );
+	virtual ~t_vertex() override;
+	t_vertex( const t_vertex& ) = delete;
+	t_vertex& operator=( const t_vertex& ) = delete;
+	virtual void add_outgoing_transition( i_transition& p_outgoing_transition ) override;
+	virtual void add_incoming_transition( i_transition& p_incoming_transition ) override;
+	virtual void remove_outgoing_transition( const i_transition& p_outgoing_transition ) override;
+	virtual void remove_incoming_transition( const i_transition& p_incoming_transition ) override;
+	virtual const t_raw_transitions& get_outgoing_transitions() const override;
+	virtual const t_raw_transitions& get_incoming_transitions() const override;
+	virtual t_uri get_uri() const override;
+	i_transition * search_transition( const i_event& p_event ) const override;
+	virtual i_region * LCA_region( const i_vertex& p_target_vertex ) const override;
+	virtual i_composite_state * LCA_composite_state( const i_vertex& p_rhs ) const override;
 
 
-	virtual
-	~t_vertex
-	(
-	) override;
-
-
-	t_vertex
-	(
-		const t_vertex&
-	) = delete;
-
-
-	t_vertex&
-	operator=
-	(
-		const t_vertex&
-	) = delete;				 
-
-
-	virtual void
-	add_outgoing_transition
-	(
-		i_transition& p_outgoing_transition
-	) override;
-
-
-	virtual void
-	add_incoming_transition
-	(
-		i_transition& p_incoming_transition
-	) override;
-
-
-	virtual void
-	remove_outgoing_transition
-	(
-		const i_transition& p_outgoing_transition
-	) override;
-
-
-	virtual void
-	remove_incoming_transition
-	(
-		const i_transition& p_incoming_transition
-	) override;
-
-
-	virtual const t_raw_transitions&
-	get_outgoing_transitions
-	(
-	) const override;
-
-
-	virtual const t_raw_transitions&
-	get_incoming_transitions
-	(
-	) const override;
-
-
-	virtual t_uri
-	get_uri
-	(
-	) const override;
-
-
- 	i_transition*
-	search_transition
-	(
-		const i_event& p_event
-	) const override;
-
-
-	virtual i_region*
-	LCA_region
-	(
-		const i_vertex& p_target_vertex
-	) const override;
-
-	
-	virtual i_composite_state*
-	LCA_composite_state
-	(
-		const i_vertex& p_rhs
-	) const override;
-
-
-private:																		
-	void
-	add_ancestor_uri
-	(
-		t_uri& p_uri
-	) const override;
+private:
+	void add_ancestor_uri( t_uri& p_uri ) const override;
 
 
 	t_raw_transitions m_outgoing_transitions;
-	t_raw_transitions m_incoming_transitions;		 
-	
-
+	t_raw_transitions m_incoming_transitions;
 };
 
 

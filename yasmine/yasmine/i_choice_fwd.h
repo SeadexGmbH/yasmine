@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_choice;
-
 using i_choice_uptr = std::unique_ptr< i_choice >;
-
 using t_choices = std::vector< i_choice_uptr >;
 using t_raw_const_choices = std::vector< const i_choice* >;
 

@@ -21,33 +21,14 @@ namespace sxy
 {
 
 
-class i_exit_point: public virtual i_state_pseudostate
+class i_exit_point:
+	public virtual i_state_pseudostate
 {
 public:
-	i_exit_point
-	(
-	) = default;
-
-
-	virtual 
-	~i_exit_point
-	(
-	)	override = default;
-
-
-	i_exit_point
-	(
-		const i_exit_point&
-	) = delete;
-
-
-	i_exit_point&
-	operator=
-	(
-		const i_exit_point&
-	) = delete;
-
-
+	i_exit_point() = default;
+	virtual ~i_exit_point() override = default;
+	i_exit_point( const i_exit_point& ) = delete;
+	i_exit_point& operator=( const i_exit_point& ) = delete;
 };
 
 

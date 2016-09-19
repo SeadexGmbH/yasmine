@@ -19,23 +19,25 @@
 #include "yprintf.h"
 
 
-//!\def Y_EXCEPTION( p_name )
-//!\brief The macro creates an exception class inheriting the std::exception with the given name. It also supports creating messages with placeholders by calling yprintf.
-//!\sa yprintf
+// !\def Y_EXCEPTION( p_name )
+// !\brief The macro creates an exception class inheriting the std::exception with the given name. It also supports
+// creating messages with placeholders by calling yprintf.
+// !\sa yprintf
 #define Y_EXCEPTION( p_name ) \
-class p_name: public std::exception \
-{ \
+	class p_name: \
+		public std::exception \
+	{ \
 public: \
-		template<typename ... tt_args> \
+		template< typename ... tt_args > \
 		p_name \
 		( \
-			const std::string& p_what, \
+			const std::string & p_what, \
 			tt_args ... p_args \
 		): \
 			std::exception(), \
-			m_what( yprintf( p_what.c_str(), p_args... ) ) \
-{ \
-} \
+			m_what( yprintf( p_what.c_str(), p_args ... ) ) \
+		{ \
+		} \
 \
 \
 		virtual \
@@ -46,17 +48,17 @@ public: \
 		} \
 \
 \
-		virtual const char* what() const throw() override \
-		{ \
-			return ( m_what.c_str() ); \
-		} \
+		virtual const char* what() const throw ( )override \
+					{ \
+						return ( m_what.c_str() ); \
+					} \
 \
 \
 private: \
-		std::string m_what; \
+					std::string m_what; \
 \
 \
-};
+	};
 
 
 #endif

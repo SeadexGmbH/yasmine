@@ -16,25 +16,16 @@ namespace sxy
 {
 
 
-size_t
-get_file_size
-(
-	const std::string& p_file_name
-)
+size_t get_file_size( const std::string& p_file_name )
 {
 	std::ifstream in( p_file_name, std::ios::binary | std::ios::ate );
-	return( static_cast< size_t > ( in.tellg() ) );
+	return( static_cast< size_t >( in.tellg() ) );
 }
 
 
-bool
-does_file_exist
-(
-	const std::string& p_file_name
-)
+bool does_file_exist( const std::string& p_file_name )
 {
-	auto l_file_exists = false;	
-	
+	auto l_file_exists = false;
 	std::ifstream in( p_file_name );
 	if( in )
 	{
@@ -42,24 +33,20 @@ does_file_exist
 		in.close();
 	}
 
-	return ( l_file_exists );
+	return( l_file_exists );
 }
 
 
-std::string
-add_trailing_slash_to_directory_path
-(
-	const std::string& p_path
-)
+std::string add_trailing_slash_to_directory_path( const std::string& p_path )
 {
 	auto log_file_directory_with_trailing_slash = p_path;
-
-	if( !log_file_directory_with_trailing_slash.empty() && ( *log_file_directory_with_trailing_slash.rbegin() != '/' ) && ( *log_file_directory_with_trailing_slash.rbegin() != '\\' ) )
+	if( !log_file_directory_with_trailing_slash.empty() && ( *log_file_directory_with_trailing_slash.rbegin() != '/' ) &&
+			( *log_file_directory_with_trailing_slash.rbegin() != '\\' ) )
 	{
 		log_file_directory_with_trailing_slash += '/';
 	}
-	
-	if( !log_file_directory_with_trailing_slash.empty() && *log_file_directory_with_trailing_slash.rbegin() != '\\' )
+
+	if( !log_file_directory_with_trailing_slash.empty() && ( *log_file_directory_with_trailing_slash.rbegin() != '\\' ) )
 	{
 		*log_file_directory_with_trailing_slash.rbegin() = '/';
 	}
@@ -71,6 +58,6 @@ add_trailing_slash_to_directory_path
 
 	return( log_file_directory_with_trailing_slash );
 }
-		 
+
 
 }

@@ -29,69 +29,17 @@ class i_composite_state;
 
 class i_compound_transition_consumer
 {
-
-
 public:
-	i_compound_transition_consumer
-	(
-	) = default;
-
-
-	virtual ~i_compound_transition_consumer
-	(
-	) = default;
-
-
-	i_compound_transition_consumer
-	(
-		const i_compound_transition_consumer&
-	) = delete;
-
-
-	i_compound_transition_consumer&
-	operator=
-	(
-		const i_compound_transition_consumer&
-	) = delete;
-
-
-	virtual t_transition_steps&
-	get_transition_steps
-	(
-	) = 0;
-
-
-	virtual const i_vertex&
-	get_last_target
-	(
-	) const = 0;
-
-
-	virtual const t_compound_transitions&
-	get_sub_compound_transitions
-	(
-	) const = 0;
-
-
-	virtual i_region*
-	get_LCA_region
-	(
-	) = 0;
-
-
-	virtual i_composite_state*
-	get_LCA_composite_state
-	(
-	) = 0;
-
-
-	virtual t_transition_kind
-	get_transition_kind
-	(
-	) = 0;
-
-
-private:
+	i_compound_transition_consumer() = default;
+	virtual ~i_compound_transition_consumer() = default;
+	i_compound_transition_consumer( const i_compound_transition_consumer& ) = delete;
+	i_compound_transition_consumer& operator=( const i_compound_transition_consumer& ) = delete;
+	virtual t_transition_steps& get_transition_steps() = 0;
+	virtual const i_vertex& get_last_target() const = 0;
+	virtual const t_compound_transitions& get_sub_compound_transitions() const = 0;
+	virtual i_region * get_LCA_region() = 0;
+	virtual i_composite_state * get_LCA_composite_state() = 0;
+	virtual t_transition_kind get_transition_kind() = 0;
 };
 
 

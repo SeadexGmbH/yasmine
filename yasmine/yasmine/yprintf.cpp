@@ -21,7 +21,7 @@ namespace sxy
 {
 
 
-namespace 
+namespace
 {
 
 
@@ -37,13 +37,7 @@ const char CAPS_X = 'X';
 }
 
 
-
-std::ostream&
-operator<<
-(
-	std::ostream& p_os,
-	const sxy::t_format_settings& p_format
-)
+std::ostream& operator<<( std::ostream& p_os,	const sxy::t_format_settings& p_format )
 {
 	if( !p_format.m_correct )
 	{
@@ -85,22 +79,14 @@ operator<<
 }
 
 
-bool
-is_allowed_char
-(
-	const char p_char
-)
+bool is_allowed_char( const char p_char )
 {
 	const bool success = ( std::isdigit( p_char ) || ( X == p_char ) || ( CAPS_X == p_char ) );
 	return( success );
 }
 
 
-sxy::t_format_settings
-parse_format_string
-(		
-	const char * * const p_format
-)
+sxy::t_format_settings parse_format_string( const char** const p_format )
 {
 	sxy::t_format_settings format_settings;
 	format_settings.m_correct = true;
@@ -119,12 +105,13 @@ parse_format_string
 			format_settings.m_missing_closing_bracket = false;
 			break;
 		}
-		else if( POINT == **p_format )
+		else
+		if( POINT == **p_format )
 		{
 			if( point_found )
 			{
 				format_settings.m_correct = false;
-				break;				
+				break;
 			}
 			else
 			{
@@ -203,12 +190,7 @@ parse_format_string
 }
 
 
-void
-yprintf
-(
-	std::ostream& p_os,
-	const char* p_format
-)
+void yprintf(	std::ostream& p_os,	const char* p_format )
 {
 	while( *p_format )
 	{

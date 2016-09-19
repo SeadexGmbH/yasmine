@@ -8,20 +8,20 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
- 
+
 #ifndef T_EXCEPTION_6EFED438_B578_4EF6_B02A_53DC49B89A0D
 #define T_EXCEPTION_6EFED438_B578_4EF6_B02A_53DC49B89A0D
 
 
-#include "t_exception_template.h"	
+#include "t_exception_template.h"
 
 
 namespace sxy
 {
 
 
-//!\brief Creates yasmine's exception class.
-//!\param t_exception Name of the exception class.
+// !\brief Creates yasmine's exception class.
+// !\param t_exception Name of the exception class.
 Y_EXCEPTION( t_exception )
 
 

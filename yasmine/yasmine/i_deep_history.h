@@ -20,39 +20,15 @@ namespace sxy
 {
 
 
-class i_deep_history: public virtual i_history
+class i_deep_history:
+	public virtual i_history
 {
 public:
-	i_deep_history
-	(
-	) = default;
-
-		
-	virtual 
-	~i_deep_history
-	(
-	) override = default;
-
-
-	i_deep_history
-	(
-		const i_deep_history&
-	) = delete;
-
-
-	i_deep_history&
-	operator=
-	(
-		const i_deep_history&
-	) = delete;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override = 0;
-
+	i_deep_history() = default;
+	virtual ~i_deep_history() override = default;
+	i_deep_history( const i_deep_history& ) = delete;
+	i_deep_history& operator=( const i_deep_history& ) = delete;
+	virtual bool check( t_state_machine_defects& p_defects ) const override = 0;
 };
 
 

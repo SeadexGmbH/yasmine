@@ -29,68 +29,32 @@ namespace sxy
 class i_state_machine_element;
 
 
-class t_state_machine_defect
+class t_state_machine_defect final
 {
-
-
 public:
-	template<typename ... tt_args>
-	t_state_machine_defect
-	(
-		const i_state_machine_element& p_element,
-		const std::string& p_message,
-		tt_args ... p_args
-	):
-		m_element( &p_element ),
-		m_message( yprintf( p_message.c_str(), p_args... ) )
+	template< typename ... tt_args > t_state_machine_defect( const i_state_machine_element& p_element, 
+		const std::string& p_message,	tt_args ... p_args )
+		: m_element( &p_element ),
+			m_message( yprintf( p_message.c_str(), p_args ... ) )
 	{
 		// Nothing to do.
 	}
 
-	
-	virtual ~t_state_machine_defect
-	(
-	);
 
-
-	t_state_machine_defect
-	( 
-		const t_state_machine_defect&
-	) = delete;
-
-
-	t_state_machine_defect&
-	operator=
-	(
-		const t_state_machine_defect&
-	) = delete;
-	
-
-	const i_state_machine_element& 
-	get_element
-	(
-	) const;
-
-
-	const	std::string& 
-	get_message
-	(
-	) const;
+	virtual ~t_state_machine_defect();
+	t_state_machine_defect( const t_state_machine_defect& ) = delete;
+	t_state_machine_defect& operator=( const t_state_machine_defect& ) = delete;
+	const i_state_machine_element& get_element() const;
+	const std::string& get_message() const;
 
 
 private:
 	const i_state_machine_element* m_element;
-	const std::string m_message;	
-
-
+	const std::string m_message;
 };
 
 
-void
-write_defects_to_log
-(		
-	const t_state_machine_defects& p_defects
-);
+void write_defects_to_log( const t_state_machine_defects& p_defects );
 
 
 }

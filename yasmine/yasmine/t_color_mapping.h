@@ -25,39 +25,16 @@ namespace sxy
 
 class t_color_mapping final
 {
-public:	
-	t_color_mapping
-	(
-	); 
-
-
-	~t_color_mapping
-	(
-	) = default;
-
-
-	t_color_mapping
-	(
-		const t_color_mapping&
-	) = delete;
-
-
-	t_color_mapping&
-	operator=
-	(
-		const t_color_mapping&
-	) = delete;
-
-
-	t_color
-	get_color
-	(
-		const t_log_level p_log_level
-	);
+public:
+	t_color_mapping();
+	~t_color_mapping() = default;
+	t_color_mapping( const t_color_mapping& ) = delete;
+	t_color_mapping& operator=( const t_color_mapping& ) = delete;
+	t_color get_color( const t_log_level p_log_level );
 
 
 private:
-	std::map<t_log_level, t_color> m_color_map;
+	std::map< t_log_level, t_color > m_color_map;
 };
 
 

@@ -19,25 +19,17 @@ namespace sxy
 {
 
 
-t_check_if_all_incoming_transitions_sources_are_active_visitor::t_check_if_all_incoming_transitions_sources_are_active_visitor
-(	  
-): i_complex_state_visitor(),	
-	 m_source_is_finished( false )
+t_check_if_all_incoming_transitions_sources_are_active_visitor::t_check_if_all_incoming_transitions_sources_are_active_visitor():
+	i_complex_state_visitor(), m_source_is_finished( false )
 {
 	// Nothing to do...
 }
 
 
-t_check_if_all_incoming_transitions_sources_are_active_visitor::~t_check_if_all_incoming_transitions_sources_are_active_visitor
-(
-) = default;
+t_check_if_all_incoming_transitions_sources_are_active_visitor::~t_check_if_all_incoming_transitions_sources_are_active_visitor() = default;
 
 
-void
-t_check_if_all_incoming_transitions_sources_are_active_visitor::visit
-(
-  const i_composite_state& p_composite_state
-)
+void t_check_if_all_incoming_transitions_sources_are_active_visitor::visit( const i_composite_state& p_composite_state )
 {
 	m_source_is_finished = p_composite_state.is_active();
 	if( m_source_is_finished )
@@ -47,20 +39,13 @@ t_check_if_all_incoming_transitions_sources_are_active_visitor::visit
 }
 
 
-void
-t_check_if_all_incoming_transitions_sources_are_active_visitor::visit
-(
-  const i_simple_state& p_simple_state
-)
+void t_check_if_all_incoming_transitions_sources_are_active_visitor::visit( const i_simple_state& p_simple_state )
 {
 	m_source_is_finished = p_simple_state.is_active();
 }
 
 
-bool
-t_check_if_all_incoming_transitions_sources_are_active_visitor::get_result
-(
-) const
+bool t_check_if_all_incoming_transitions_sources_are_active_visitor::get_result() const
 {
 	return( m_source_is_finished );
 }

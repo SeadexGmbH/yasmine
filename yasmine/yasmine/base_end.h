@@ -13,7 +13,7 @@
 #define BASE_END_E349250E_B2BD_42F6_9F03_8FAD2B35300D
 
 
-#if _MSC_VER && _MSC_VER <= VS2013
+#if _MSC_VER && _MSC_VER <= 1800
 #undef constexpr
 #endif
 

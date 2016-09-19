@@ -21,62 +21,18 @@ namespace sxy
 {
 
 
-class t_choice: public virtual i_choice, public t_region_pseudostate
+class t_choice final:
+	public virtual i_choice, public t_region_pseudostate
 {
 public:
-	explicit t_choice
-	(
-		const std::string& p_name
-	);				
-
-
-	virtual
-	~t_choice
-	(
-	) override;
-
-
-	t_choice
-	(
-		const t_choice&
-	) = delete;
-
-
-	t_choice&
-	operator=
-	(
-		const t_choice&
-	) = delete;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_pseudostate_visitor
-	(
-		i_pseudostate_visitor& p_visitor
-	) const override;
-
-
+	explicit t_choice( const std::string& p_name );
+	virtual ~t_choice() override;
+	t_choice( const t_choice& ) = delete;
+	t_choice& operator=( const t_choice& ) = delete;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const override;
 };
 
 

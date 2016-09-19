@@ -15,38 +15,20 @@
 
 #include "i_pseudostate.h"
 #include "i_state_pseudostate.h"
- 
+
 
 namespace sxy
 {
 
 
-class i_entry_point: public virtual i_state_pseudostate
+class i_entry_point:
+	public virtual i_state_pseudostate
 {
 public:
-	i_entry_point
-	(
-	) = default;
-
-		
-	virtual 
-	~i_entry_point
-	(
-	) override = default;
-
-
-	i_entry_point
-	(
-		const i_entry_point&
-	) = delete;
-
-
-	i_entry_point& operator=
-	(
-		const i_entry_point&
-	) = delete;
-
-
+	i_entry_point() = default;	
+	virtual ~i_entry_point() override = default;
+	i_entry_point( const i_entry_point& ) = delete;
+	i_entry_point& operator=( const i_entry_point& ) = delete;
 };
 
 

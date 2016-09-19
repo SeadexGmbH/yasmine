@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_junction;
-
 using i_junction_uptr = std::unique_ptr< i_junction >;
-
 using t_junctions = std::vector< i_junction_uptr >;
 using t_raw_const_junctions = std::vector< const i_junction* >;
 

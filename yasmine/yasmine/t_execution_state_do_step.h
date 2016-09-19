@@ -23,61 +23,22 @@ namespace sxy
 class i_state;
 
 
-class t_execution_state_do_step final: public i_execution_step
+class t_execution_state_do_step final:
+	public i_execution_step
 {
-
-
 public:
-	explicit
-	t_execution_state_do_step
-	(
-		const i_state& p_state
-	);
-
-
-	~t_execution_state_do_step
-	(
-	);
-
-
-	t_execution_state_do_step
-	(
-		const t_execution_state_do_step&
-	) = delete;
-
-
-	t_execution_state_do_step&
-	operator=
-	(
-		const t_execution_state_do_step&
-	) = delete;
-
-
-	virtual bool
-	execute_behavior
-	(
-		i_event_processing_callback* const p_event_processing_callback,
-		const i_event& p_event
-	) const override;
-
-
-	virtual void
-	accept
-	(
-		i_execution_step_visitor& p_visitor
-	) const override;
-
-
-	const i_state&
-	get_state
-	(
-	) const;
+	explicit t_execution_state_do_step( const i_state& p_state );
+	~t_execution_state_do_step();
+	t_execution_state_do_step( const t_execution_state_do_step& ) = delete;
+	t_execution_state_do_step& operator=( const t_execution_state_do_step& ) = delete;
+	virtual bool execute_behavior( i_event_processing_callback* const p_event_processing_callback, 
+		const i_event& p_event ) const override;
+	virtual void accept( i_execution_step_visitor& p_visitor ) const override;
+	const i_state& get_state() const;
 
 
 private:
 	const i_state& m_state;
-
-
 };
 
 

@@ -16,7 +16,7 @@ namespace sxy
 {
 
 
-const t_event_id COMPLETION_EVENT = 0;	
+const t_event_id COMPLETION_EVENT = 0;
 
 
 }

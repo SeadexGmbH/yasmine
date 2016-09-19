@@ -21,41 +21,15 @@ namespace sxy
 {
 
 
-class t_pseudostate: public virtual i_pseudostate, public t_vertex
+class t_pseudostate:
+	public virtual i_pseudostate, public t_vertex
 {
 public:
-	explicit t_pseudostate
-	(			
-		const std::string& p_name
-	);
-
-
-	virtual
-	~t_pseudostate
-	(
-	) override;
-
-
-	t_pseudostate
-	(
-		const t_pseudostate&
-	) = delete;
-
-
-	t_pseudostate&
-	operator=
-	(
-		const t_pseudostate&
-	) = delete;
-
-
-	virtual bool
-	check
-	( 
-		t_state_machine_defects& p_defects 
-	) const  override;
-
-
+	explicit t_pseudostate( const std::string& p_name );
+	virtual ~t_pseudostate() override;
+	t_pseudostate( const t_pseudostate& ) = delete;
+	t_pseudostate& operator=( const t_pseudostate& ) = delete;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
 };
 
 

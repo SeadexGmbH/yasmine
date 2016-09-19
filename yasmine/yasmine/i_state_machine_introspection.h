@@ -21,54 +21,21 @@ namespace sxy
 {
 
 
-//!\interface i_state_machine_introspection
-//!brief The interface for state machine introspection. It is inherited by the state machine class t_state_machine.
+// !\interface i_state_machine_introspection
+// !brief The interface for state machine introspection. It is inherited by the state machine class t_state_machine.
 class i_state_machine_introspection
 {
-
-
 public:
-	//!\brief Constructor of i_state_machine_introspection.
-	i_state_machine_introspection
-	(
-	) = default;
-	
-	
-	virtual ~i_state_machine_introspection
-	(
-	) = default;
-	
-	
-	i_state_machine_introspection
-	(
-		const i_state_machine_introspection&
-	) = delete;
+	// !\brief Constructor of i_state_machine_introspection.
+	i_state_machine_introspection() = default;
+	virtual ~i_state_machine_introspection() = default;
+	i_state_machine_introspection( const i_state_machine_introspection& ) = delete;
+	i_state_machine_introspection& operator=( const i_state_machine_introspection& ) = delete;
 
-
-	i_state_machine_introspection&
-	operator=
-	(
-		const i_state_machine_introspection&
-	) = delete;
-
-
-	//!\brief Gets the active state configuration of the state machine.
-	//!\return A list of active states of the state machine at the moment when the function is called.
-	virtual t_raw_const_states
-	get_active_state_configuration
-	(
-	) const = 0;
-
-
-	virtual const t_events&
-	get_deferred_events
-	(
-	) const = 0;
-	
-
-private:
-
-
+	// !\brief Gets the active state configuration of the state machine.
+	// !\return A list of active states of the state machine at the moment when the function is called.
+	virtual t_raw_const_states get_active_state_configuration() const = 0;
+	virtual const t_events& get_deferred_events() const = 0;
 };
 
 

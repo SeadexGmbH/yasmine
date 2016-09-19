@@ -21,33 +21,26 @@ namespace sxy
 {
 
 
-t_pseudostate::t_pseudostate
-(		
-	const std::string& p_name
-): t_vertex( p_name )
-{	
-		// Nothing to do...
+t_pseudostate::t_pseudostate( const std::string& p_name )
+	: t_vertex( p_name )
+{
+	// Nothing to do...
 }
 
 
-t_pseudostate::~t_pseudostate
-(
-) = default;
+t_pseudostate::~t_pseudostate() = default;
 
 
-bool
-t_pseudostate::check
-(
-	t_state_machine_defects& p_defects
-) const
+bool t_pseudostate::check( t_state_machine_defects& p_defects ) const
 {
 	auto l_check_ok = true;
 
-	for(const auto l_outgoing_transition: get_outgoing_transitions())
+	for( const auto l_outgoing_transition : get_outgoing_transitions() )
 	{
 		if( !l_outgoing_transition->can_accept_event( COMPLETION_EVENT ) )
 		{
-			p_defects.push_back( std::make_unique< t_state_machine_defect >( *this, "'%' has outgoing transition with trigger!", get_name() ) );
+			p_defects.push_back( std::make_unique< t_state_machine_defect >( *this,	
+				"'%' has outgoing transition with trigger!", get_name() ) );
 			l_check_ok = false;
 		}
 	}

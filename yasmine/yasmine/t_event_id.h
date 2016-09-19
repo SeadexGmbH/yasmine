@@ -14,19 +14,19 @@
 
 
 #include <vector>
-															
+
 
 namespace sxy
 {
 
 
-//!\brief The type alias for yasmine's event IDs.
+// !\brief The type alias for yasmine's event IDs.
 using t_event_id = unsigned int;
 
-//!\brief The type alias for yasmine's event ID list.
+// !\brief The type alias for yasmine's event ID list.
 using t_event_ids = std::vector< t_event_id >;
 
-//!\brief yasmine's predefined event ID for the completion event.
+// !\brief yasmine's predefined event ID for the completion event.
 extern const t_event_id COMPLETION_EVENT;
 
 

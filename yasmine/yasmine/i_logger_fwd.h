@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_logger;
-
 using i_logger_uptr = std::unique_ptr< i_logger >;
-
 using t_loggers = std::vector< i_logger_uptr >;
 
 

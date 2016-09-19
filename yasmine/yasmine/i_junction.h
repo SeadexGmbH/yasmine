@@ -20,33 +20,14 @@ namespace sxy
 {
 
 
-class i_junction: public virtual i_region_pseudostate
+class i_junction:
+	public virtual i_region_pseudostate
 {
 public:
-	i_junction
-	(
-	) = default;
-
-
-	virtual 
-	~i_junction
-	(
-	) override = default;
-
-
-	i_junction
-	(
-		const i_junction&
-	) = delete;
-
-
-	i_junction&
-	operator=
-	(
-		const i_junction&
-	) = delete;
-
-
+	i_junction() = default;
+	virtual ~i_junction() override = default;
+	i_junction( const i_junction& ) = delete;
+	i_junction& operator=( const i_junction& ) = delete;
 };
 
 

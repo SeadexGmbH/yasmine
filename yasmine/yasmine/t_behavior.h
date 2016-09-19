@@ -23,55 +23,24 @@ namespace sxy
 class i_event;
 
 
-class t_behavior: public virtual i_behavior
+class t_behavior final:
+	public virtual i_behavior
 {
 public:
-	explicit t_behavior
-	(
-		const t_behavior_function& p_function
-	);
+	explicit t_behavior( const t_behavior_function& p_function );
+	virtual ~t_behavior() override;
+	t_behavior( const t_behavior& ) = delete;
+	t_behavior& operator=( const t_behavior& ) = delete;
+	virtual void operator()( const i_event& p_event ) const override;
 
-
-	virtual
-	~t_behavior
-	(
-	) override;
-
-
-	t_behavior
-	(
-		const t_behavior&
-	) = delete;
-
-
-	t_behavior&
-	operator=
-	(
-		const t_behavior&
-	) = delete;
-
-
-	virtual void
-	operator()
-	(
-		const i_event& p_event
-	) const override;
-
-		
-	//!\brief Creates a behavior with the given function that implements the behavior.
-	//!\param p_function Function that implements the behavior.
-	//!\return A unique pointer to the created behavior.
-	static i_behavior_uptr
-	create_behavior
-	(
-		const t_behavior_function& p_function
-	);
+	// !\brief Creates a behavior with the given function that implements the behavior.
+	// !\param p_function Function that implements the behavior.
+	// !\return A unique pointer to the created behavior.
+	static i_behavior_uptr create_behavior( const t_behavior_function& p_function );
 
 
 private:
 	t_behavior_function m_function;
-
-
 };
 
 
