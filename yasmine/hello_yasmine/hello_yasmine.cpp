@@ -12,37 +12,29 @@
 #include <memory>
 #include <iostream>
 
-#include "t_state_machine.h"
-#include "t_cout_logger.h"
+#include "yasmine.h"
 #include "version.h"
 
-#include "t_event.h"
-#include "t_transition.h"
-#include "i_region.h"
-#include "i_composite_state.h"
-#include "i_simple_state.h"
-#include "i_initial_pseudostate.h"
+
+const sxy::event_id HELLO_EVENT = 1;
+using state_machine_uptr = std::unique_ptr< sxy::state_machine >;
 
 
-const sxy::t_event_id g_hello_event = 1;
-using t_state_machine_uptr = std::unique_ptr< sxy::t_state_machine >;
-
-
-t_state_machine_uptr setup_state_machine( const std::string& p_name )
+state_machine_uptr setup_state_machine( const std::string& _name )
 {
-	auto l_state_machine = std::make_unique< sxy::t_state_machine >( p_name );
+	auto l_state_machine = std::make_unique< sxy::state_machine >( _name );
 
 	auto& l_root_state = l_state_machine->get_root_state();
 	auto& l_main_region = l_root_state.add_region( "main region" );
-	auto l_waiting =	[ ] ( const sxy::i_event& p_event ) 
+	auto l_waiting =	[ ] ( const sxy::event& _event ) 
 										{ 
-											Y_UNUSED_PARAMETER( p_event ); 
+											Y_UNUSED_PARAMETER( _event ); 
 											std::cout << "waiting" << std::endl;  
 										};
 
-	auto l_replying = [ ] ( const sxy::i_event& p_event )
+	auto l_replying = [ ] ( const sxy::event& _event )
 										{
-											Y_UNUSED_PARAMETER( p_event );
+											Y_UNUSED_PARAMETER( _event );
 											std::cout << "Hello, yasmine!" << std::endl;
 										};
 	auto& l_initial_pseudostate = l_main_region.add_initial_pseudostate( "initial" );
@@ -51,7 +43,7 @@ t_state_machine_uptr setup_state_machine( const std::string& p_name )
 
 	l_state_machine->add_transition( "initial_transition", sxy::COMPLETION_EVENT, l_initial_pseudostate,
 		l_simple_state_waiting );
-	l_state_machine->add_transition( "waiting_to_replying_on_hello", g_hello_event, l_simple_state_waiting,
+	l_state_machine->add_transition( "waiting_to_replying_on_hello", HELLO_EVENT, l_simple_state_waiting,
 		l_simple_state_replying );
 	l_state_machine->add_transition( "replying_to_waiting_on_completion", sxy::COMPLETION_EVENT, l_simple_state_replying,
 		l_simple_state_waiting );
@@ -60,26 +52,26 @@ t_state_machine_uptr setup_state_machine( const std::string& p_name )
 }
 
 
-bool check_state_machine_for_defects( const sxy::t_state_machine& p_state_machine )
+bool check_state_machine_for_defects( const sxy::state_machine& _state_machine )
 {
-	sxy::t_state_machine_defects l_defects;
-	const auto l_state_machine_has_defects = p_state_machine.check( l_defects );
-	if( !l_state_machine_has_defects )
+	sxy::state_machine_defects defects;
+	const auto state_machine_has_defects = _state_machine.check( defects );
+	if( !state_machine_has_defects )
 	{
-		write_defects_to_log( l_defects );
+		write_defects_to_log( defects );
 	}
 
-	return( l_state_machine_has_defects );
+	return( state_machine_has_defects );
 }
 
 
 int main()
 {
-	auto l_error_code = 0;
+	auto error_code = 0;
 
-	sxy::t_log_manager& log_manager = sxy::t_log_manager::get_instance();
-	log_manager.set_log_level( sxy::t_log_level::LL_INFO );
-	log_manager.add_logger( std::make_unique< sxy::t_cout_logger >() );
+	sxy::log_manager& log_manager = sxy::log_manager::get_instance();
+	log_manager.set_log_level( sxy::log_level::LL_INFO );
+	log_manager.add_logger( std::make_unique< sxy::cout_logger >() );
 	log_manager.start();
 	yasmine::version::log_version();
 
@@ -89,28 +81,29 @@ int main()
 		l_state_machine->start_state_machine();
 		try
 		{
-			l_state_machine->fire_event( sxy::t_event::create_event( g_hello_event ) );
-			l_state_machine->fire_event( sxy::t_event::create_event( g_hello_event ) );
-			l_state_machine->fire_event( sxy::t_event::create_event( g_hello_event ) );
+			l_state_machine->fire_event( sxy::event_impl::create_event( HELLO_EVENT ) );
+			l_state_machine->fire_event( sxy::event_impl::create_event( HELLO_EVENT ) );
+			l_state_machine->fire_event( sxy::event_impl::create_event( HELLO_EVENT ) );
+			l_state_machine->stop_state_machine();
 		}
-		catch ( const std::exception& p_exception )
+		catch( const std::exception& exception )
 		{
-			Y_LOG( sxy::t_log_level::LL_FATAL, "Unhandled exception: '%'.", p_exception.what() );
-			l_error_code = 1;
+			Y_LOG( sxy::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );
+			error_code = 1;
 		}
-		catch ( ... )
+		catch( ... )
 		{
-			Y_LOG( sxy::t_log_level::LL_FATAL, "Unknown exception!" );
-			l_error_code = 2;
+			Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception!" );
+			error_code = 2;
 		}
 	}
 	else
 	{
-		l_error_code = 3;
+		error_code = 3;
 	}
 
 	log_manager.stop();
 	log_manager.join();
 
-	return( l_error_code );
+	return( error_code );
 }

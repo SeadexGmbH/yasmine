@@ -24,7 +24,7 @@ namespace version
 {
 
 
-constexpr std::uint16_t g_build_number( 229 );
+const std::uint16_t BUILD_NUMBER( 258 );
 
 
 }

@@ -17,7 +17,7 @@ namespace sxy
 {
 
 
-bool string_to_int(	const char* const p_int_as_string, int& p_result );
+bool string_to_int(	const char* const _int_as_string, int& _result );
 
 
 }

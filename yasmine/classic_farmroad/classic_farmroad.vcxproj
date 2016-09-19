@@ -232,34 +232,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="t_detector.h">
+    <ClInclude Include="detector.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="i_detector_callback.h">
+    <ClInclude Include="detector_callback.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="t_intersection.h">
+    <ClInclude Include="intersection.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="t_traffic_light.h">
+    <ClInclude Include="traffic_light.h">
       <SubType>
       </SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="t_detector.cpp">
+    <ClCompile Include="detector.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="t_intersection.cpp">
+    <ClCompile Include="intersection.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="t_traffic_light.cpp">
+    <ClCompile Include="traffic_light.cpp">
       <SubType>
       </SubType>
     </ClCompile>

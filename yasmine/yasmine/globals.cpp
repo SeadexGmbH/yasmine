@@ -16,8 +16,8 @@ namespace sxy
 {
 
 
-const int g_log_level_block_width = 7;
-extern const char g_uri_delimiter = '/';
+const int LOG_LEVEL_BLOCK_WIDTH = 7;
+extern const char URI_DELIMITER = '/';
 
 
 }

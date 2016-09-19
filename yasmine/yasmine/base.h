@@ -18,34 +18,33 @@
 #endif
 
 
-#define Y_ASSERT( p_condition, p_message ) \
+#define Y_ASSERT( _condition, _message ) \
 	do \
 	{ \
-		if( !( p_condition ) ) \
+		if( !( _condition ) ) \
 		{ \
-			Y_LOG( sxy::t_log_level::LL_ASSERT, p_message ); \
-			assert( ( p_condition ) && p_message ); \
+			Y_LOG( sxy::log_level::LL_ASSERT, "Assert failed! Message: '%', Condition '%'", _message, #_condition ); \
+			assert( ( _condition ) && _message ); \
 		} \
 	} \
 	while( 0 )
 
 
-#define Y_ASSERT_NO_LOG( p_condition, p_message ) \
+#define Y_ASSERT_NO_LOG( _condition, _message ) \
 	do \
 	{ \
-		if( !( p_condition ) ) \
+		if( !( _condition ) ) \
 		{ \
-			assert( ( p_condition ) && p_message ); \
+			assert( ( _condition ) && _message ); \
 		} \
 	} \
 	while( 0 )
 
 
-#define Y_ASSERTED( p_x ) static_cast< void >( p_x );
+#define Y_ASSERTED( _x ) static_cast< void >( _x );
 
 
-#define Y_UNUSED_PARAMETER( p_x ) [ &p_x ] {} \
-	( )
+#define Y_UNUSED_PARAMETER( _x ) [ &_x ] {} ()
 
 
 #include <cassert>

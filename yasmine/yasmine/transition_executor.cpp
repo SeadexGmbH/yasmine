@@ -1,0 +1,90 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                  //
+// This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
+// Copyright (C) 2016 Seadex GmbH                                                                   //
+//                                                                                                  //
+// Licensing information is available in the folder "license" which is part of this distribution.   //
+// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+//                                                                                                  //
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include "transition_executor.h"
+
+#include "log.h"
+
+#include "transition_executor_impl.h"
+#include "choice_fwd.h"
+#include "execution_step.h"
+#include "execution_step_fwd.h"
+#include "region_fwd.h"
+#include "compound_transition_impl.h"
+#include "event_processing_callback.h"
+#include "event.h"
+
+
+namespace sxy
+{
+
+
+transition_executor::transition_executor()
+	: transition_executor_impl_()
+{
+	// Nothing to do...
+}
+
+
+transition_executor::~transition_executor() = default;
+
+
+bool transition_executor::check_sort_and_execute_transitions( const compound_transitions& _compound_transitions,
+	raw_const_choices& _vertices, event_processing_callback* const _event_processing_callback, 
+	const event& _event, behavior_exceptions& _behavior_exceptions, async_event_handler* const _async_event_handler )
+{
+	auto terminate_pseudostate_has_been_reached = false;
+	Y_LOG( log_level::LL_TRACE, "Check for transitions conflicts." );
+	transition_executor_impl_->conflict_check( _compound_transitions );
+	Y_LOG( log_level::LL_TRACE, "Sorting compound transitions." );
+	const auto& sorted_compound_transitions = transition_executor_impl_->sort_compound_transitions(
+		_compound_transitions );
+	Y_LOG( log_level::LL_TRACE, "Compound transitions sorted." );
+	Y_LOG( log_level::LL_TRACE, "Start calculating execution step(s) for all compound transitions." );
+
+	for( auto & compound_transition : sorted_compound_transitions )
+	{
+		if( _event_processing_callback )
+		{
+			_event_processing_callback->before_compound_transition();
+		}
+
+		execution_steps execution_steps;
+		raw_const_region_set entered_regions = {};
+		Y_LOG( log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
+		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,
+			execution_steps, entered_regions,	_event );
+		Y_LOG( log_level::LL_TRACE, "Found % execution step(s).", execution_steps.size() );
+		Y_LOG( log_level::LL_INFO, "Start running execution step(s)." );
+		terminate_pseudostate_has_been_reached = transition_executor_impl_->run_execution_steps( execution_steps,
+			_event_processing_callback,	_event, _behavior_exceptions, _async_event_handler );
+		Y_LOG( log_level::LL_INFO, "Finished running execution step(s)." );
+		if( terminate_pseudostate_has_been_reached )
+		{
+			Y_LOG( log_level::LL_INFO, "Terminate pseudostate has been reached." );
+			break;
+		}
+
+		if( _event_processing_callback )
+		{
+			_event_processing_callback->after_compound_transition();
+		}
+	}
+
+	Y_LOG( log_level::LL_TRACE, "End calculating execution step(s) for all compound transitions." );
+	Y_LOG( log_level::LL_TRACE, "Search for choices." );
+	transition_executor_impl_->fill_vector_of_choices( _vertices, _compound_transitions );
+	Y_LOG( log_level::LL_INFO, "Found % choice(s).", _vertices.size() );
+	return( terminate_pseudostate_has_been_reached );
+}
+
+
+}

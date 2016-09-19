@@ -35,10 +35,10 @@ namespace utils
 
 
 // !\brief Sets the size of the console.
-// !\param	p_width Number of columns in Windows console.
-// !\param	p_height Number of lines in Windows console.
+// !\param	_width Number of columns in Windows console.
+// !\param	_height Number of lines in Windows console.
 // !\return void
-void set_window_size(	const SHORT p_width, const SHORT p_height );
+void set_window_size(	const SHORT _width, const SHORT _height );
 
 // !brief Maximize the Windows console.
 // !return void

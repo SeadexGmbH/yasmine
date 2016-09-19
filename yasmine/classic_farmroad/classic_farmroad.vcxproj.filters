@@ -15,30 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="t_intersection.h">
+    <ClInclude Include="detector_callback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="t_traffic_light.h">
+    <ClInclude Include="detector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="t_detector.h">
+    <ClInclude Include="intersection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="i_detector_callback.h">
+    <ClInclude Include="traffic_light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="t_intersection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="t_traffic_light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="t_detector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="detector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="intersection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="traffic_light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

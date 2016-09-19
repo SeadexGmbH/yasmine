@@ -20,13 +20,13 @@ namespace sxy
 
 
 bool string_to_int(
-	const char* const p_int_as_string,
-	int& p_result )
+	const char* const _int_as_string,
+	int& _result )
 {
 	auto success = false;
 	try
 	{
-		p_result = std::stoi( std::string( p_int_as_string ) );
+		_result = std::stoi( std::string( _int_as_string ) );
 		success = true;
 	}
 	catch ( const std::invalid_argument& )

@@ -1,0 +1,53 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                  //
+// This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
+// Copyright (C) 2016 Seadex GmbH                                                                   //
+//                                                                                                  //
+// Licensing information is available in the folder "license" which is part of this distribution.   //
+// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+//                                                                                                  //
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include "history_impl.h"
+
+#include "base.h"
+#include "composite_state.h"
+
+
+namespace sxy
+{
+
+
+history_impl::history_impl( const std::string& _name )
+	: state_pseudostate_impl( _name )
+{
+	// Nothing to do...
+}
+
+
+history_impl::~history_impl() = default;
+
+
+raw_transitions history_impl::get_default_transitions() const
+{
+	return( vertex_impl::get_outgoing_transitions() );
+}
+
+
+// cppcheck-suppress unusedFunction
+void history_impl::add_default_transition( transition& _default_transition )
+{
+	vertex_impl::add_outgoing_transition( _default_transition );
+}
+
+
+bool history_impl::check_if_state_was_active_before() const
+{
+	const auto& parent_state = get_parent_state();
+	const auto state_was_active = parent_state.was_active();
+	return( state_was_active );
+}
+
+
+}
