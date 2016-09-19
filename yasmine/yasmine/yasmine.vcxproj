@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug - Clang|Win32">
+      <Configuration>Debug - Clang</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug - Clang|x64">
+      <Configuration>Debug - Clang</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug - VS 2013|x64">
+      <Configuration>Debug - VS 2013</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release - Clang|Win32">
+      <Configuration>Release - Clang</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug - VS 2013|Win32">
+      <Configuration>Debug - VS 2013</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release - Clang|x64">
+      <Configuration>Release - Clang</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release - VS 2013|Win32">
+      <Configuration>Release - VS 2013</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release - VS 2013|x64">
+      <Configuration>Release - VS 2013</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base.h" />
+    <ClInclude Include="base_end.h" />
+    <ClInclude Include="build_number.h" />
+    <ClInclude Include="conversion.h" />
+    <ClInclude Include="i_entry_point_fwd.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="i_event_fwd.h" />
+    <ClInclude Include="i_state_machine_introspection.h" />
+    <ClInclude Include="t_event_creation_request.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="i_behavior.h" />
+    <ClInclude Include="i_behavior_fwd.h" />
+    <ClInclude Include="i_choice.h" />
+    <ClInclude Include="i_choice_fwd.h" />
+    <ClInclude Include="i_complex_state.h" />
+    <ClInclude Include="i_complex_state_visitor.h" />
+    <ClInclude Include="i_composite_state.h" />
+    <ClInclude Include="i_composite_state_fwd.h" />
+    <ClInclude Include="i_compound_transition.h" />
+    <ClInclude Include="i_compound_transition_consumer.h" />
+    <ClInclude Include="i_constraint.h" />
+    <ClInclude Include="i_constraint_fwd.h" />
+    <ClInclude Include="i_deep_history.h" />
+    <ClInclude Include="i_deep_history_fwd.h" />
+    <ClInclude Include="i_entry_point.h" />
+    <ClInclude Include="i_event.h" />
+    <ClInclude Include="i_event_processing_callback.h" />
+    <ClInclude Include="i_execution_step.h" />
+    <ClInclude Include="i_execution_step_fwd.h" />
+    <ClInclude Include="i_execution_step_visitor.h" />
+    <ClInclude Include="i_exit_point.h" />
+    <ClInclude Include="i_exit_point_fwd.h" />
+    <ClInclude Include="i_final_state.h" />
+    <ClInclude Include="i_fork.h" />
+    <ClInclude Include="i_fork_fwd.h" />
+    <ClInclude Include="i_history.h" />
+    <ClInclude Include="i_initial_pseudostate.h" />
+    <ClInclude Include="i_initial_pseudostate_fwd.h" />
+    <ClInclude Include="i_join.h" />
+    <ClInclude Include="i_join_fwd.h" />
+    <ClInclude Include="i_junction.h" />
+    <ClInclude Include="i_junction_fwd.h" />
+    <ClInclude Include="i_logger.h" />
+    <ClInclude Include="i_logger_fwd.h" />
+    <ClInclude Include="i_pseudostate.h" />
+    <ClInclude Include="i_pseudostate_fwd.h" />
+    <ClInclude Include="i_pseudostate_visitor.h" />
+    <ClInclude Include="i_region.h" />
+    <ClInclude Include="i_region_fwd.h" />
+    <ClInclude Include="i_region_pseudostate.h" />
+    <ClInclude Include="i_shallow_history.h" />
+    <ClInclude Include="i_shallow_history_fwd.h" />
+    <ClInclude Include="i_simple_state.h" />
+    <ClInclude Include="i_state.h" />
+    <ClInclude Include="i_state_fwd.h" />
+    <ClInclude Include="i_state_machine_element.h" />
+    <ClInclude Include="i_state_pseudostate.h" />
+    <ClInclude Include="i_state_visitor.h" />
+    <ClInclude Include="i_terminate_pseudostate.h" />
+    <ClInclude Include="i_terminate_pseudostate_fwd.h" />
+    <ClInclude Include="i_transition.h" />
+    <ClInclude Include="i_transition_fwd.h" />
+    <ClInclude Include="i_transition_step.h" />
+    <ClInclude Include="i_transition_step_fwd.h" />
+    <ClInclude Include="i_vertex.h" />
+    <ClInclude Include="i_vertex_fwd.h" />
+    <ClInclude Include="i_const_vertex_visitor.h" />
+    <ClInclude Include="i_vertex_visitor.h" />
+    <ClInclude Include="log.h" />
+    <ClInclude Include="t_event_with_parameters.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="t_execution_state_do_step.h" />
+    <ClInclude Include="t_log_and_throw.h" />
+    <ClInclude Include="t_states_nesting_comparer_ascending.h" />
+    <ClInclude Include="t_states_to_enter_visitor.h" />
+    <ClInclude Include="t_timed_event_creator.h" />
+    <ClInclude Include="t_event_creation_request_time_comparer.h" />
+    <ClInclude Include="t_transition_executor_impl.h" />
+    <ClInclude Include="version.h" />
+    <ClInclude Include="yprintf.h" />
+    <ClInclude Include="t_behavior.h" />
+    <ClInclude Include="t_build_transition_steps_visitor.h" />
+    <ClInclude Include="t_check_if_all_incoming_transitions_sources_are_active_visitor.h" />
+    <ClInclude Include="t_choice.h" />
+    <ClInclude Include="t_color.h" />
+    <ClInclude Include="t_color_mapping.h" />
+    <ClInclude Include="t_complex_state.h" />
+    <ClInclude Include="t_composite_state.h" />
+    <ClInclude Include="t_compound_transition.h" />
+    <ClInclude Include="t_compound_transition_builder.h" />
+    <ClInclude Include="t_compound_transition_fwd.h" />
+    <ClInclude Include="t_compound_transition_step.h" />
+    <ClInclude Include="t_constraint.h" />
+    <ClInclude Include="t_cout_logger.h" />
+    <ClInclude Include="t_deep_history.h" />
+    <ClInclude Include="t_entry_point.h" />
+    <ClInclude Include="t_event.h" />
+    <ClInclude Include="t_event_id.h" />
+    <ClInclude Include="t_async_state_machine.h" />
+    <ClInclude Include="t_exception.h" />
+    <ClInclude Include="t_exception_template.h" />
+    <ClInclude Include="t_execution_state_enter_step.h" />
+    <ClInclude Include="t_execution_state_exit_step.h" />
+    <ClInclude Include="t_execution_transition_step.h" />
+    <ClInclude Include="t_exit_point.h" />
+    <ClInclude Include="t_file_logger.h" />
+    <ClInclude Include="t_final_state.h" />
+    <ClInclude Include="t_fork.h" />
+    <ClInclude Include="t_format_settings.h" />
+    <ClInclude Include="t_history.h" />
+    <ClInclude Include="t_initial_pseudostate.h" />
+    <ClInclude Include="t_join.h" />
+    <ClInclude Include="t_junction.h" />
+    <ClInclude Include="t_log_level.h" />
+    <ClInclude Include="t_log_manager_template.h" />
+    <ClInclude Include="t_log_message.h" />
+    <ClInclude Include="t_pseudostate.h" />
+    <ClInclude Include="t_region.h" />
+    <ClInclude Include="t_region_pseudostate.h" />
+    <ClInclude Include="t_states_nesting_comparer.h" />
+    <ClInclude Include="t_shallow_history.h" />
+    <ClInclude Include="t_simple_state.h" />
+    <ClInclude Include="t_simple_transition_step.h" />
+    <ClInclude Include="t_state.h" />
+    <ClInclude Include="t_state_machine.h" />
+    <ClInclude Include="t_state_machine_defects.h" />
+    <ClInclude Include="t_state_machine_defects_fwd.h" />
+    <ClInclude Include="t_state_machine_element.h" />
+    <ClInclude Include="t_state_pseudostate.h" />
+    <ClInclude Include="t_std_timestamp_policy.h" />
+    <ClInclude Include="t_terminate_pseudostate.h" />
+    <ClInclude Include="t_transition.h" />
+    <ClInclude Include="t_transition_controller.h" />
+    <ClInclude Include="t_transition_executor.h" />
+    <ClInclude Include="t_transition_finder.h" />
+    <ClInclude Include="t_transition_kind.h" />
+    <ClInclude Include="t_transition_priority.h" />
+    <ClInclude Include="t_try_to_build_compound_transition_visitor.h" />
+    <ClInclude Include="t_uri.h" />
+    <ClInclude Include="t_vertex.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="file_system.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="conversion.cpp" />
+    <ClCompile Include="t_event_creation_request.cpp" />
+    <ClCompile Include="globals.cpp" />
+    <ClCompile Include="t_execution_state_do_step.cpp" />
+    <ClCompile Include="t_states_nesting_comparer_ascending.cpp" />
+    <ClCompile Include="t_states_to_enter_visitor.cpp" />
+    <ClCompile Include="t_timed_event_creator.cpp" />
+    <ClCompile Include="t_event_creation_request_time_comparer.cpp" />
+    <ClCompile Include="t_transition_executor_impl.cpp" />
+    <ClCompile Include="t_transition_kind.cpp" />
+    <ClCompile Include="version.cpp" />
+    <ClCompile Include="yprintf.cpp" />
+    <ClCompile Include="t_check_if_all_incoming_transitions_sources_are_active_visitor.cpp" />
+    <ClCompile Include="t_execution_state_enter_step.cpp" />
+    <ClCompile Include="t_execution_state_exit_step.cpp" />
+    <ClCompile Include="t_format_settings.cpp" />
+    <ClCompile Include="t_behavior.cpp" />
+    <ClCompile Include="t_build_transition_steps_visitor.cpp" />
+    <ClCompile Include="t_choice.cpp" />
+    <ClCompile Include="t_color_mapping.cpp" />
+    <ClCompile Include="t_complex_state.cpp" />
+    <ClCompile Include="t_composite_state.cpp" />
+    <ClCompile Include="t_compound_transition.cpp" />
+    <ClCompile Include="t_compound_transition_builder.cpp" />
+    <ClCompile Include="t_compound_transition_step.cpp" />
+    <ClCompile Include="t_constraint.cpp" />
+    <ClCompile Include="t_cout_logger.cpp" />
+    <ClCompile Include="t_deep_history.cpp" />
+    <ClCompile Include="t_entry_point.cpp" />
+    <ClCompile Include="t_event.cpp" />
+    <ClCompile Include="t_event_id.cpp" />
+    <ClCompile Include="t_async_state_machine.cpp" />
+    <ClCompile Include="t_execution_transition_step.cpp" />
+    <ClCompile Include="t_exit_point.cpp" />
+    <ClCompile Include="t_file_logger.cpp" />
+    <ClCompile Include="t_final_state.cpp" />
+    <ClCompile Include="t_fork.cpp" />
+    <ClCompile Include="t_history.cpp" />
+    <ClCompile Include="t_initial_pseudostate.cpp" />
+    <ClCompile Include="t_join.cpp" />
+    <ClCompile Include="t_junction.cpp" />
+    <ClCompile Include="t_log_level.cpp" />
+    <ClCompile Include="t_log_message.cpp" />
+    <ClCompile Include="t_pseudostate.cpp" />
+    <ClCompile Include="t_region.cpp" />
+    <ClCompile Include="t_region_pseudostate.cpp" />
+    <ClCompile Include="t_shallow_history.cpp" />
+    <ClCompile Include="t_simple_state.cpp" />
+    <ClCompile Include="t_simple_transition_step.cpp" />
+    <ClCompile Include="t_state.cpp" />
+    <ClCompile Include="t_states_nesting_comparer.cpp" />
+    <ClCompile Include="t_state_machine.cpp" />
+    <ClCompile Include="t_state_machine_defects.cpp" />
+    <ClCompile Include="t_state_machine_element.cpp" />
+    <ClCompile Include="t_state_pseudostate.cpp" />
+    <ClCompile Include="t_std_timestamp_policy.cpp" />
+    <ClCompile Include="t_terminate_pseudostate.cpp" />
+    <ClCompile Include="t_transition.cpp" />
+    <ClCompile Include="t_transition_controller.cpp" />
+    <ClCompile Include="t_transition_executor.cpp" />
+    <ClCompile Include="t_transition_finder.cpp" />
+    <ClCompile Include="t_transition_priority.cpp" />
+    <ClCompile Include="t_try_to_build_compound_transition_visitor.cpp" />
+    <ClCompile Include="t_uri.cpp" />
+    <ClCompile Include="t_vertex.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="file_system.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A728DDFB-BE51-49B5-8593-4E89E024A500}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>yasmine</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_Clang_3_7</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_Clang_3_7</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\debug_info.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\debug_info.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine_clang.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine_clang.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine_clang.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine_clang.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\debug_info.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\debug_info.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\build\yasmine.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(SolutionDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(SolutionDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTarget14">
+  </ImportGroup>
+</Project>

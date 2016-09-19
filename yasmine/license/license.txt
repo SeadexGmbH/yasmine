@@ -1,0 +1,8 @@
+Dieses Verzeichnis enthält die folgenden Lizenzdokumente:
+This directory contains the following license documents:
+- Kommerzielle Lizenz/commercial license
+  - Deutsch (German): Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20160429.pdf
+  - English: Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20160429_en.pdf
+- dt/private and academic license
+  - Deutsch (German): Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160429.pdf
+  - English: Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160429_en.pdf
