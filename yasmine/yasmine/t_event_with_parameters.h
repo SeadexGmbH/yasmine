@@ -22,71 +22,42 @@ namespace sxy
 {
 
 
-template<typename ... tt_args>
-class t_event_with_parameters : public t_event
+template< typename ... tt_args > 
+class t_event_with_parameters:
+	public t_event
 {
-
-
 public:
 	using t_parameters = std::tuple< tt_args ... >;
-		
-	t_event_with_parameters
-	(
-		const t_event_id p_event_id,
-		tt_args ... p_args
-	):
-		t_event(p_event_id),
-		m_parameters(std::forward<tt_args>(p_args) ...)
-	{
 
+
+	t_event_with_parameters( const t_event_id p_event_id, tt_args ... p_args )
+		: t_event( p_event_id ),
+			m_parameters( std::forward< tt_args >( p_args ) ... )
+	{
 	}
-	
-	
-	virtual
-	~t_event_with_parameters
-	(
-	) override
+
+	virtual ~t_event_with_parameters() override	
 	{
-	};
-	
-	
-	t_event_with_parameters
-	(
-		const t_event_with_parameters&
-	) = delete;
+		// Nothing to do...
+	}
 
-
-	t_event_with_parameters&
-	operator=
-	(
-		const t_event_with_parameters&
-	) = delete;
-
-
-	const t_parameters&
-	get_parameters
-	(
-	) const
+	t_event_with_parameters( const t_event_with_parameters& ) = delete;
+	t_event_with_parameters& operator=( const t_event_with_parameters& ) = delete;
+	const t_parameters& get_parameters() const
 	{
-		return ( m_parameters );
+		return( m_parameters );
 	}
 
 
-	static t_event_sptr
-	create_event
-	(
-		const t_event_id p_event_id,
-		tt_args ... p_args
-	)	
+	static t_event_sptr create_event(	const t_event_id p_event_id, tt_args ... p_args )
 	{
 		auto l_event = std::make_shared< sxy::t_event_with_parameters< tt_args ... > >( p_event_id, p_args ... );
 		return( l_event );
 	}
 
-	
+
 private:
 	t_parameters m_parameters;
-
 };
 
 

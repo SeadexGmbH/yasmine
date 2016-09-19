@@ -21,7 +21,6 @@ namespace sxy
 
 
 class i_initial_pseudostate;
-
 using i_initial_pseudostate_uptr = std::unique_ptr< i_initial_pseudostate >;
 
 

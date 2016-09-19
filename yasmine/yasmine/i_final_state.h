@@ -20,33 +20,14 @@ namespace sxy
 {
 
 
-class i_final_state: public virtual i_state
+class i_final_state:
+	public virtual i_state
 {
 public:
-	i_final_state
-	(
-	) = default;
-
-
-	virtual 
-	~i_final_state
-	(
-	) override = default;
-
-
-	i_final_state
-	(
-		const i_final_state&
-	) = delete;
-
-
-	i_final_state&
-	operator=
-	(
-		const i_final_state&
-	) = delete;
-
-
+	i_final_state() = default;
+	virtual ~i_final_state() override = default;
+	i_final_state( const i_final_state& ) = delete;
+	i_final_state& operator=( const i_final_state& ) = delete;
 };
 
 

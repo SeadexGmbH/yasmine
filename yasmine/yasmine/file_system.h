@@ -11,7 +11,7 @@
 
 #ifndef FILE_SYSTEM_E5395B2B_BD8A_46B9_831A_B9A24E8CEDC2
 #define FILE_SYSTEM_E5395B2B_BD8A_46B9_831A_B9A24E8CEDC2
-																												
+
 #include <fstream>
 #include <string>
 
@@ -20,25 +20,9 @@ namespace sxy
 {
 
 
-size_t
-get_file_size
-(
-	const std::string& p_file_name
-);
-	  
-
-bool 
-does_file_exist
-(
-	const std::string& p_file_name
-);
-
-
-std::string
-add_trailing_slash_to_directory_path
-(
-	const std::string& p_path
-);
+size_t get_file_size( const std::string& p_file_name );
+bool does_file_exist( const std::string& p_file_name );
+std::string add_trailing_slash_to_directory_path( const std::string& p_path );
 
 
 }

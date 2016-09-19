@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_entry_point;
-
 using i_entry_point_uptr = std::unique_ptr< i_entry_point >;
-
 using t_entry_points = std::vector< i_entry_point_uptr >;
 using t_raw_const_entry_points = std::vector< const i_entry_point* >;
 

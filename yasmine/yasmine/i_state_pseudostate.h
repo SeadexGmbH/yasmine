@@ -21,48 +21,16 @@ namespace sxy
 {
 
 
-class i_state_pseudostate : public virtual i_pseudostate
+class i_state_pseudostate:
+	public virtual i_pseudostate
 {
 public:
-	i_state_pseudostate
-	(
-	) = default;
-
-
-
-	virtual 
-	~i_state_pseudostate
-	(
-	) override = default;
-
-
-	i_state_pseudostate
-	(
-		const i_state_pseudostate&
-	) = delete;
-
-
-	i_state_pseudostate&
-	operator=
-	(
-		const i_state_pseudostate&
-	) = delete;
-
-											 
-	virtual i_composite_state&
-	get_parent_state
-	(
-	) const = 0;
-
-
-	virtual void
-	set_parent_state
-	(
-		i_composite_state* const p_parent_state
-	) = 0;
-	
-
-private:
+	i_state_pseudostate() = default;
+	virtual ~i_state_pseudostate() override = default;
+	i_state_pseudostate( const i_state_pseudostate& ) = delete;
+	i_state_pseudostate& operator=( const i_state_pseudostate& ) = delete;
+	virtual i_composite_state& get_parent_state() const = 0;
+	virtual void set_parent_state( i_composite_state* const p_parent_state ) = 0;
 };
 
 

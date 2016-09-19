@@ -20,46 +20,16 @@ namespace sxy
 {
 
 
-class i_region_pseudostate: public virtual i_pseudostate
+class i_region_pseudostate:
+	public virtual i_pseudostate
 {
 public:
-	i_region_pseudostate
-	(
-	) = default;
-
-
-	virtual 
-	~i_region_pseudostate
-	(
-	) override = default;
-	
-
-	i_region_pseudostate
-	(
-		const i_region_pseudostate&
-	) = delete;
-
-
-	i_region_pseudostate&
-	operator=
-	(
-		const i_region_pseudostate&
-	) = delete;
-										 
-	
-	virtual i_region*
-	get_parent_region
-	(
-	) const = 0;
-
-
-	virtual void
-	set_parent_region
-	(
-		i_region* const p_parent_region
-	) = 0;
-
-
+	i_region_pseudostate() = default;
+	virtual ~i_region_pseudostate() override = default;
+	i_region_pseudostate( const i_region_pseudostate& ) = delete;
+	i_region_pseudostate& operator=( const i_region_pseudostate& ) = delete;
+	virtual i_region* get_parent_region() const = 0;
+	virtual void set_parent_region( i_region* const p_parent_region ) = 0;
 };
 
 

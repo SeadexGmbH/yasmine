@@ -22,170 +22,45 @@
 
 namespace sxy
 {
-
-
-class t_intersection final : private i_detector_callback
+class t_intersection final:
+	private i_detector_callback
 {
-	
-
 public:
-	t_intersection
-	(
-	);
-	
-	
-	~t_intersection
-	(
-	);
-	
-	
-	t_intersection
-	(
-		const t_intersection&
-	) = delete;
+	t_intersection();
+	~t_intersection();
+	t_intersection( const t_intersection& ) = delete;
+	t_intersection& operator=( const t_intersection& ) = delete;
+	bool start();
+	void stop();
 
 
-	t_intersection&
-	operator=
-	(
-		const t_intersection&
-	) = delete;
-
-	
-	bool
-	start
-	(
-	);
-
-
-	void
-	stop
-	(
-	);
-
-	
 private:
-	virtual void
-	detector_on
-	(
-	) override;
-
-
-	virtual void
-	detector_off
-	(
-	) override;
-
-
-	int
-	fire_timed_event
-	(
-		const std::chrono::milliseconds p_milliseconds,
-		const t_event_id p_event_id
-	);
-
-
-	void
-	highway_open_entry
-	(
-	);
-
-
-	static void
-	highway_open_exit
-	(
-	);
-
-
-	void
-	switching_to_farmroad_phase_1
-	(
-	);
-
-
-	void
-	switching_to_farmroad_phase_2
-	(
-	);
-
-
-	void
-	farmroad_open_entry
-	(
-	);
-
-
-	static void
-	farmroad_open_exit
-	(
-	);
-
-
-	static void
-	minimum_time_not_elapsed
-	(
-	);
-
-
-	static void
-	minimum_time_elapsed
-	(
-	);
-
-
-	static void
-	minimum_time_not_elapsed_farmroad_waiting
-	(
-	);
-
-
-	void
-	switching_to_highway_phase_1
-	(
-	);
-
-
-	void
-	switching_to_highway_phase_2
-	(
-	);
-
-
-	void
-	build_intersection_state_machine
-	(
-	);
-
-
-	bool
-	check_detector_is_on
-	(
-	);
-
-
-	bool
-	check_detector_is_off
-	(
-	);
-
-
-	void
-	cancel_timer_event_on_detector_off
-	(
-		const sxy::i_event& p_event
-	);
+	virtual void detector_on() override;
+	virtual void detector_off() override;
+	int fire_timed_event(	const std::chrono::milliseconds p_milliseconds,	const t_event_id p_event_id );
+	void highway_open_entry();
+	static void highway_open_exit();
+	void switching_to_farmroad_phase_1();
+	void switching_to_farmroad_phase_2();
+	void farmroad_open_entry();
+	static void farmroad_open_exit();
+	static void minimum_time_not_elapsed();
+	static void minimum_time_elapsed();
+	static void minimum_time_not_elapsed_farmroad_waiting();
+	void switching_to_highway_phase_1();
+	void switching_to_highway_phase_2();
+	void build_intersection_state_machine();
+	bool check_detector_is_on();
+	bool check_detector_is_off();
+	void cancel_timer_event_on_detector_off( const sxy::i_event& p_event );
 
 
 	t_async_state_machine m_intersection_state_machine;
 	t_traffic_light m_highway_traffic_light;
-	t_traffic_light m_farmroad_traffic_light;	
-	
+	t_traffic_light m_farmroad_traffic_light;
 	t_timed_event_creator m_timed_event_creator;
 	t_detector m_detector;
-
 	unsigned int m_farmroad_maximum_time_event_handle;
-
-
 };
 
 

@@ -26,58 +26,14 @@ class t_execution_transition_step;
 class i_execution_step_visitor
 {
 public:
-	i_execution_step_visitor
-	(
-	) = default;
-
-
-	virtual
-	~i_execution_step_visitor
-	(
-	) = default;
-
-
-	i_execution_step_visitor
-	(
-		const i_execution_step_visitor&
-	) = delete;
-
-
-	i_execution_step_visitor&
-	operator=
-	(
-		const i_execution_step_visitor&
-	) = delete;
-
-
-	virtual void
-	visit
-	(
-		const t_execution_state_enter_step& p_execution_state_enter_step
-	) = 0;
-
-
-	virtual void
-	visit
-	(
-		const t_execution_state_do_step& p_execution_state_do_step
-	) = 0;
-
-
-	virtual void
-	visit
-	(
-		const t_execution_state_exit_step& p_execution_state_exit_step
-	) = 0;
-
-
-	virtual void
-	visit
-	(
-		const t_execution_transition_step& p_execution_transition_step
-	) = 0;
-
-
+	i_execution_step_visitor() = default;
+	virtual ~i_execution_step_visitor() = default;
+	i_execution_step_visitor( const i_execution_step_visitor& ) = delete;
+	i_execution_step_visitor& operator=( const i_execution_step_visitor& ) = delete;
+	virtual void visit( const t_execution_state_enter_step& p_execution_state_enter_step ) = 0;
+	virtual void visit( const t_execution_state_do_step& p_execution_state_do_step ) = 0;
+	virtual void visit( const t_execution_state_exit_step& p_execution_state_exit_step ) = 0;
+	virtual void visit( const t_execution_transition_step& p_execution_transition_step ) = 0;
 };
 
 

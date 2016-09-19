@@ -30,53 +30,39 @@ namespace
 
 constexpr std::uint16_t g_version_major( 0 );
 constexpr std::uint16_t g_version_minor( 1 );
-constexpr std::uint16_t g_version_patch( 0 );
+constexpr std::uint16_t g_version_patch( 1 );
 
 
 }
 
 
-void
 // cppcheck-suppress unusedFunction
-log_version
-(
-)
+void log_version()
 {
-	Y_LOG( sxy::t_log_level::LL_INFO, "yasmine library version %.%.%.%.", get_major_version(), get_minor_version(), get_patch_version(), get_build_number() );
+	Y_LOG( sxy::t_log_level::LL_INFO, "yasmine library version %.%.%.%.", get_major_version(),
+		get_minor_version(), get_patch_version(), get_build_number() );
 }
 
 
-std::uint16_t
-get_major_version
-(
-)
+std::uint16_t get_major_version()
 {
 	return( g_version_major );
 }
 
 
-std::uint16_t
-get_minor_version
-(
-)
+std::uint16_t get_minor_version()
 {
 	return( g_version_minor );
 }
 
 
-std::uint16_t
-get_patch_version
-(
-)
+std::uint16_t get_patch_version()
 {
 	return( g_version_patch );
 }
 
 
-std::uint16_t
-get_build_number
-(
-)
+std::uint16_t get_build_number()
 {
 	return( g_build_number );
 }

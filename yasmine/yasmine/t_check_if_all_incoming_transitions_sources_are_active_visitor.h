@@ -23,57 +23,23 @@ namespace sxy
 class i_event;
 
 
-class t_check_if_all_incoming_transitions_sources_are_active_visitor final: public i_complex_state_visitor
+class t_check_if_all_incoming_transitions_sources_are_active_visitor final:
+	public i_complex_state_visitor
 {
 public:
-	t_check_if_all_incoming_transitions_sources_are_active_visitor
-	(		  
-	);
+	t_check_if_all_incoming_transitions_sources_are_active_visitor();
+	virtual ~t_check_if_all_incoming_transitions_sources_are_active_visitor() override;
+	t_check_if_all_incoming_transitions_sources_are_active_visitor(
+		const t_check_if_all_incoming_transitions_sources_are_active_visitor& ) = delete;
+	t_check_if_all_incoming_transitions_sources_are_active_visitor& operator=(
+		const t_check_if_all_incoming_transitions_sources_are_active_visitor& ) = delete;
+	virtual void visit( const i_composite_state& p_composite_state ) override;
+	virtual void visit( const i_simple_state& p_simple_state ) override;
+	bool get_result() const;
 
 
-	virtual
-	~t_check_if_all_incoming_transitions_sources_are_active_visitor
-	(
-	) override;
-
-
-	t_check_if_all_incoming_transitions_sources_are_active_visitor
-	(
-		const t_check_if_all_incoming_transitions_sources_are_active_visitor&
-	) = delete;
-
-
-	t_check_if_all_incoming_transitions_sources_are_active_visitor&
-	operator=
-	(
-		const t_check_if_all_incoming_transitions_sources_are_active_visitor &
-	) = delete;
-
-
-	virtual void
-	visit
-	(
-	  const i_composite_state& p_composite_state
-	) override;
-
-
-	virtual void
-	visit
-	(
-	  const i_simple_state& p_simple_state
-	) override;
-
-
-	bool
-	get_result
-	(
-	) const;
-
-
-private:	
+private:
 	bool m_source_is_finished;
-
-
 };
 
 

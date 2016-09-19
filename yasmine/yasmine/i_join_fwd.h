@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_join;
-
 using i_join_uptr = std::unique_ptr< i_join >;
-
 using t_joins = std::vector< i_join_uptr >;
 using t_raw_const_joins = std::vector< const i_join* >;
 

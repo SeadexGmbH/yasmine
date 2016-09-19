@@ -21,69 +21,23 @@ namespace sxy
 {
 
 
-class t_state_pseudostate : public virtual i_state_pseudostate, public t_pseudostate
+class t_state_pseudostate:
+	public virtual i_state_pseudostate, public t_pseudostate
 {
 public:
-	explicit t_state_pseudostate				 		
-	(
-		const std::string& p_name
-	);
+	explicit t_state_pseudostate( const std::string& p_name );
+	virtual ~t_state_pseudostate() override;
+	t_state_pseudostate( const t_state_pseudostate& ) = delete;
+	t_state_pseudostate& operator=( const t_state_pseudostate& ) = delete;
+	virtual const i_state_machine_element * get_parent() const override;
+	virtual i_composite_state& get_parent_state() const override;
+	virtual void set_parent_state( i_composite_state* const p_parent_state ) override;
+	virtual t_raw_composite_states get_ancestors( i_composite_state* const p_final_ancestor ) const override;
+	virtual t_raw_regions get_ancestors_as_regions() const override;
 
 
-	virtual 
-	~t_state_pseudostate
-	(
-	) override;
-
-
-	t_state_pseudostate
-	(
-		const t_state_pseudostate&
-	) = delete;
-
-
-	t_state_pseudostate&
-	operator=
-	(
-		const t_state_pseudostate&
-	) = delete;							
-
-
-	virtual const i_state_machine_element*
-	get_parent
-	(
-	) const override;
-
-
-	virtual i_composite_state&
-	get_parent_state
-	(
-	) const override;
-
-
-	virtual void
-	set_parent_state
-	(
-		i_composite_state* const p_parent_state
-	) override;
-
-
-	virtual t_raw_composite_states
-	get_ancestors
-	(
-		i_composite_state* const p_final_ancestor
-	) const override;
-
-
-	virtual t_raw_regions
-	get_ancestors_as_regions
-	(
-	) const	override;
-	
-	
 private:
 	i_composite_state* m_parent;
-
 };
 
 

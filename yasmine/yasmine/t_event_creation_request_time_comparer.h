@@ -25,9 +25,8 @@ namespace sxy
 struct t_event_creation_request_time_comparer
 {
 public:
-bool operator() ( const std::unique_ptr<t_event_creation_request>& p_lhs, const std::unique_ptr<t_event_creation_request>& p_rhs ) const;
-
-
+	bool operator()( const std::unique_ptr< t_event_creation_request >& p_lhs, 
+		const std::unique_ptr< t_event_creation_request >& p_rhs ) const;
 };
 
 

@@ -19,44 +19,13 @@ namespace sxy
 
 class i_detector_callback
 {
-
-
 public:
-	i_detector_callback
-	(
-	) = default;
-	
-	
-	virtual ~i_detector_callback
-	(
-	) = default;
-	
-	
-	i_detector_callback
-	(
-		const i_detector_callback&
-	) = delete;
-
-
-	i_detector_callback&
-	operator=
-	(
-		const i_detector_callback&
-	) = delete;
-
-
-	virtual void
-	detector_on
-	(
-	) = 0;
-
-
-	virtual void
-	detector_off
-	(
-	) = 0;
-
-
+	i_detector_callback() = default;
+	virtual ~i_detector_callback() = default;
+	i_detector_callback( const i_detector_callback& ) = delete;
+	i_detector_callback& operator=( const i_detector_callback& ) = delete;
+	virtual void detector_on() = 0;
+	virtual void detector_off() = 0;
 };
 
 

@@ -24,61 +24,15 @@ namespace sxy
 class i_state_machine_element
 {
 public:
-	i_state_machine_element
-	(
-	) = default;
-
-
-	virtual ~i_state_machine_element
-	(
-	) = default;
-
-
-	i_state_machine_element
-	(
-		const i_state_machine_element&
-	) = delete;
-
-
-	i_state_machine_element&
-	operator=
-	(
-		const i_state_machine_element&
-	) = delete;
-	
-	
-	virtual const std::string&
-	get_name
-	(
-	) const = 0;
-
-
-	virtual t_uri
-	get_uri
-	(
-	) const = 0;
-
-
-	virtual void
-	add_ancestor_uri
-	(
-		t_uri& p_uri
-	) const = 0;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const = 0;
-
-
-	virtual const i_state_machine_element*
-	get_parent
-	(
-	) const = 0;
-
-
+	i_state_machine_element() = default;
+	virtual ~i_state_machine_element() = default;
+	i_state_machine_element( const i_state_machine_element& ) = delete;
+	i_state_machine_element& operator=( const i_state_machine_element& ) = delete;
+	virtual const std::string& get_name() const = 0;
+	virtual t_uri get_uri() const = 0;
+	virtual void add_ancestor_uri( t_uri& p_uri ) const = 0;
+	virtual bool check( t_state_machine_defects& p_defects ) const = 0;
+	virtual const i_state_machine_element * get_parent() const = 0;
 };
 
 

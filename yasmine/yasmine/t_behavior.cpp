@@ -17,26 +17,17 @@ namespace sxy
 {
 
 
-t_behavior::t_behavior
-(
-	const t_behavior_function& p_function
-): 
-	 m_function( p_function )
+t_behavior::t_behavior( const t_behavior_function& p_function )
+	: m_function( p_function )
 {
 	// Nothing to do
 }
 
 
-t_behavior::~t_behavior
-(
-) = default;
+t_behavior::~t_behavior() = default;
 
 
-void
-t_behavior::operator()
-(
-	const i_event& p_event
-) const
+void t_behavior::operator()( const i_event& p_event ) const
 {
 	if( m_function )
 	{
@@ -45,13 +36,9 @@ t_behavior::operator()
 }
 
 
-i_behavior_uptr
-t_behavior::create_behavior
-(
-	const t_behavior_function& p_function
-)
-{	
-	return( std::make_unique<sxy::t_behavior>( p_function ) );
+i_behavior_uptr t_behavior::create_behavior( const t_behavior_function& p_function )
+{
+	return( std::make_unique< sxy::t_behavior >( p_function ) );
 }
 
 

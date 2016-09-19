@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_fork;
-
 using i_fork_uptr = std::unique_ptr< i_fork >;
-
 using t_forks = std::vector< i_fork_uptr >;
 using t_raw_const_forks = std::vector< const i_fork* >;
 
@@ -33,4 +31,3 @@ using t_raw_const_forks = std::vector< const i_fork* >;
 
 
 #endif
-

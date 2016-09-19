@@ -22,49 +22,20 @@ namespace sxy
 {
 
 
-class t_state_machine_element : public virtual i_state_machine_element
+class t_state_machine_element:
+	public virtual i_state_machine_element
 {
 public:
-	explicit t_state_machine_element
-	(
-		const std::string& p_name
-	);
-
-
-	virtual 
-	~t_state_machine_element
-	(
-	) override;
-
-
-	t_state_machine_element
-	(
-		const t_state_machine_element&
-	) = delete;
-
-
-	t_state_machine_element& operator=
-	(
-		const t_state_machine_element&
-	) = delete;
-
-
-	virtual const std::string&
-	get_name
-	(
-	) const override;
-
-
-
-	virtual const i_state_machine_element*
-	get_parent
-	(
-	) const override;
+	explicit t_state_machine_element( const std::string& p_name );
+	virtual ~t_state_machine_element() override;
+	t_state_machine_element( const t_state_machine_element& ) = delete;
+	t_state_machine_element& operator=( const t_state_machine_element& ) = delete;
+	virtual const std::string& get_name() const override;
+	virtual const i_state_machine_element * get_parent() const override;
 
 
 private:
-	const std::string m_name;	
-
+	const std::string m_name;
 };
 
 

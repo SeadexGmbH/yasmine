@@ -21,68 +21,48 @@ namespace sxy
 {
 
 
-t_execution_state_do_step::t_execution_state_do_step
-(
-	const i_state& p_state
-):
-	i_execution_step(),
-	m_state( p_state )
+t_execution_state_do_step::t_execution_state_do_step( const i_state& p_state )
+	: i_execution_step(),
+		m_state( p_state )
 {
 	// Nothing to do...
 }
 
 
-t_execution_state_do_step::~t_execution_state_do_step
-(
-) = default;
+t_execution_state_do_step::~t_execution_state_do_step() = default;
 
 
-bool
-t_execution_state_do_step::execute_behavior
-(
-	i_event_processing_callback* const p_event_processing_callback,
-	const i_event& p_event
-) const
+bool t_execution_state_do_step::execute_behavior( i_event_processing_callback* const p_event_processing_callback,
+	const i_event& p_event ) const
 {
 	Y_LOG( sxy::t_log_level::LL_INFO, "Executing 'do behavior' of state '%'.", m_state.get_name() );
-
 	if( p_event_processing_callback )
-	{			
+	{
 		p_event_processing_callback->before_do( m_state );
 	}
 
 	m_state.execute_do_behavior( p_event );
-
 	if( p_event_processing_callback )
-	{			
+	{
 		p_event_processing_callback->after_do( m_state );
 	}
 
 	Y_LOG( sxy::t_log_level::LL_INFO, "'do behavior' of state '%' executed.", m_state.get_name() );
-
-
-	return ( false );
+	return( false );
 }
 
 
-void
 // cppcheck-suppress unusedFunction
-t_execution_state_do_step::accept
-(
-	i_execution_step_visitor& p_visitor
-) const
+void t_execution_state_do_step::accept( i_execution_step_visitor& p_visitor ) const
 {
 	p_visitor.visit( *this );
 }
 
 
-const i_state&
 // cppcheck-suppress unusedFunction
-t_execution_state_do_step::get_state
-(
-) const
+const i_state& t_execution_state_do_step::get_state() const
 {
-	return ( m_state );
+	return( m_state );
 }
 
 

@@ -26,12 +26,9 @@ namespace sxy
 
 
 class i_state;
-
 using i_state_uptr = std::unique_ptr< i_state >;
-
 using t_raw_const_states = std::vector< const i_state* >;
 using t_states = std::vector< i_state_uptr >;
-
 using t_raw_const_state_set = std::set< const i_state* >;
 using t_raw_const_states_by_nesting_level = std::set< const i_state*, t_states_nesting_comparer >;
 using t_raw_states_by_nesting_level = std::set< i_state*, t_states_nesting_comparer >;

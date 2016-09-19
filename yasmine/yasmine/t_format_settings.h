@@ -16,15 +16,13 @@
 #include <string>
 
 
-namespace	sxy
+namespace sxy
 {
 
 
 struct t_format_settings final
 {
-	t_format_settings
-	(
-	);
+	t_format_settings();
 
 
 	std::string m_format_string;
@@ -36,9 +34,7 @@ struct t_format_settings final
 	int m_places;
 	bool m_decimal_places_set;
 	int m_decimal_places;
-
 };
-
 
 }
 

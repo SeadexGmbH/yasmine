@@ -26,36 +26,11 @@ class i_event;
 class i_behavior
 {
 public:
-	i_behavior
-	(
-	) = default;
-
-
-	virtual ~i_behavior
-	(
-	) = default;
-
-
-	i_behavior
-	(
-		const i_behavior&
-	) = delete;
-
-
-	i_behavior&
-	operator=
-	(
-		const i_behavior&
-	) = delete;
-
-
-	virtual void
-	operator()
-	(
-		const i_event& 
-	) const = 0;
-
-
+	i_behavior() = default;
+	virtual ~i_behavior() = default;
+	i_behavior( const i_behavior& ) = delete;
+	i_behavior& operator=( const i_behavior& ) = delete;
+	virtual void operator()( const i_event& ) const = 0;
 };
 
 

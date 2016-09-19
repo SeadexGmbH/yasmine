@@ -21,93 +21,23 @@ namespace sxy
 {
 
 
-class t_final_state: public virtual i_final_state, public t_state
+class t_final_state final:
+	public virtual i_final_state, public t_state
 {
 public:
-	explicit t_final_state
-	(
-		const std::string& p_name
-	);
-
-
-	virtual
-	~t_final_state
-	(
-	) override;
-
-
-	t_final_state
-	(
-		const t_final_state&
-	) = delete;
-
-
-	t_final_state&
-	operator=
-	(
-		const t_final_state&
-	) = delete;
-
-
-	virtual i_behavior*
-	get_entry_behavior
-	(
-	) const override;
-
-
-	virtual i_behavior*
-	get_exit_behavior
-	(
-	) const override;
- 
-
-	virtual const t_regions&
-	get_regions
-	(
-	) const override;
-
-
-	virtual t_regions&
-	get_regions
-	(
-	) override;
-	
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_state_visitor
-	(
-		i_state_visitor& p_visitor
-	) const override;
-
-
-	virtual bool
-	is_event_deferred
-	(
-		const t_event_id& p_event_id
-	) const override;
-
-
+	explicit t_final_state( const std::string& p_name );
+	virtual ~t_final_state() override;
+	t_final_state( const t_final_state& ) = delete;
+	t_final_state& operator=( const t_final_state& ) = delete;
+	virtual i_behavior * get_entry_behavior() const override;
+	virtual i_behavior * get_exit_behavior() const override;
+	virtual const t_regions& get_regions() const override;
+	virtual t_regions& get_regions() override;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_state_visitor( i_state_visitor& p_visitor ) const override;
+	virtual bool is_event_deferred( const t_event_id& p_event_id ) const override;
 };
 
 

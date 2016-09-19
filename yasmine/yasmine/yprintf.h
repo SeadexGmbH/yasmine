@@ -38,60 +38,28 @@ const char CLOSING_SQUARE_BRACKET = ']';
 }
 
 
-template< typename tt_value >
-struct t_stream_writer
+template< typename tt_value > struct t_stream_writer
 {
-	static void
-	print
-	(
-		std::ostream& p_os,
-		const tt_value& p_value
-	)
+	static void print( std::ostream& p_os, const tt_value& p_value )
 	{
 		p_os << p_value;
 	}
-
-
 };
 
 
-template<>
-struct t_stream_writer< uint8_t >
+template< > struct t_stream_writer< uint8_t >
 {
-	static void
-	print
-	(
-		std::ostream& p_os,
-		const uint8_t& p_value
-	)
+	static void print( std::ostream& p_os, const uint8_t& p_value )
 	{
 		p_os << static_cast< unsigned int >( p_value );
 	}
-
-
 };
 
 
-std::ostream& operator<<
-(
-	std::ostream& p_os,
-	const sxy::t_format_settings& p_format
-);
+std::ostream& operator<<( std::ostream& p_os,	const sxy::t_format_settings& p_format );
+sxy::t_format_settings parse_format_string( const char** const p_format );
 
-								
-sxy::t_format_settings parse_format_string
-(
-	const char * * const p_format
-);
-
-
-template< typename tt_value >
-void
-print_superfluous_parameters
-(
-	std::ostream& p_os,
-	const tt_value& p_value
-)
+template< typename tt_value > void print_superfluous_parameters( std::ostream& p_os, const tt_value& p_value )
 {
 	p_os << SUPERFLUOUS_PARAMETER_START;
 	t_stream_writer< tt_value >::print( p_os, p_value );
@@ -99,38 +67,20 @@ print_superfluous_parameters
 }
 
 
-template< typename tt_value, typename ... tt_args >
-void
-print_superfluous_parameters
-(
-	std::ostream& p_os,
-	const tt_value& p_value,
-	tt_args ... p_args
-)
+template< typename tt_value, typename ... tt_args > void print_superfluous_parameters( std::ostream& p_os, 
+	const tt_value& p_value, tt_args ... p_args )
 {
 	p_os << SUPERFLUOUS_PARAMETER_START;
 	t_stream_writer< tt_value >::print( p_os, p_value );
 	p_os << SUPERFLUOUS_PARAMETER_END;
 	print_superfluous_parameters( p_os, p_args ... );
-}
+};
 
 
-void yprintf
-(
-	std::ostream& p_os,
-	const char* p_format
-);
+void yprintf(	std::ostream& p_os,	const char* p_format );
 
-
-template< typename tt_value, typename ... tt_args >
-void
-yprintf
-(
-	std::ostream& p_os,
-	const char* p_format,
-	const tt_value& p_value,
-	tt_args ... p_args
-)
+template< typename tt_value, typename ... tt_args > void yprintf(	std::ostream& p_os,	const char* p_format,
+	const tt_value& p_value, tt_args ... p_args )
 {
 	while( *p_format )
 	{
@@ -173,25 +123,20 @@ yprintf
 }
 
 
-//!\brief Creates a formatted message. The format string can contain placeholders ('%'s) that will be replaced with the parameters by this function. To emit
-//! a '%' use two percent signs ("%%").
-//!\param p_format The format string in which will the placeholders will be replaced (if there are any).
-//!\param p_args The arguments that will replace the placeholders in the format string.	The number of parameters in p_args has to be equal to the number of 
-//! placeholders in the format string.
-//! If you pass too few or too many arguments, the resulting string will contain diagnostics in the resulting string ([Missing parameter!] or [Superfluous parameter: x]).
-//!\return String containing the complete formatted message.
-template< typename ... tt_args >
-std::string
-yprintf
-(
-	const char* const p_format,
-	tt_args ... p_args
-)
+// !\brief Creates a formatted message. The format string can contain placeholders ('%'s) that will be replaced with
+// the parameters by this function. To emit a '%' use two percent signs ("%%").
+// !\param p_format The format string in which will the placeholders will be replaced (if there are any).
+// !\param p_args The arguments that will replace the placeholders in the format string.	The number of parameters in
+// p_args has to be equal to the number of placeholders in the format string. If you pass too few or too many 
+// arguments, the resulting string will contain diagnostics in the resulting string
+// ([Missing parameter!] or [Superfluous parameter: x]).
+// !\return String containing the complete formatted message.
+template< typename ... tt_args > std::string yprintf(	const char* const p_format,	tt_args ... p_args )
 {
 	std::stringstream target_string_stream;
 	yprintf( target_string_stream, p_format, p_args ... );
 	return( target_string_stream.str() );
-}
+};
 
 
 }

@@ -23,40 +23,15 @@ namespace sxy
 class i_complex_state_visitor;
 
 
-class i_complex_state: public virtual i_state
+class i_complex_state:
+	public virtual i_state
 {
 public:
-	i_complex_state
-	(
-	) = default;
-
-
-	virtual
-	~i_complex_state
-	(
-	) override = default;
-
-
-	i_complex_state
-	(
-		const i_complex_state&
-	) = delete;
-
-
-	i_complex_state&
-	operator=
-	(
-		const i_complex_state&
-	) = delete;
-
-
-	virtual void
-	accept_complex_state_visitor
-	(
-		i_complex_state_visitor& p_visitor
-	) const = 0;
-
-
+	i_complex_state() = default;
+	virtual ~i_complex_state() override = default;
+	i_complex_state( const i_complex_state& ) = delete;
+	i_complex_state& operator=( const i_complex_state& ) = delete;
+	virtual void accept_complex_state_visitor( i_complex_state_visitor& p_visitor ) const = 0;
 };
 
 

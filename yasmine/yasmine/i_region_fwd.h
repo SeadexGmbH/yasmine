@@ -23,9 +23,7 @@ namespace sxy
 
 
 class i_region;
-
 using i_region_uptr = std::unique_ptr< i_region >;
-
 using t_raw_regions = std::vector< i_region* >;
 using t_regions = std::vector< i_region_uptr >;
 using t_raw_const_region_set = std::set< const i_region* >;

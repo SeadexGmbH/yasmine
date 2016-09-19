@@ -26,42 +26,17 @@ namespace version
 {
 
 
-void
-log_version
-(
-);
-
-
-std::uint16_t
-get_major_version
-(
-);
-
-
-std::uint16_t
-get_minor_version
-(
-);
-
-
-std::uint16_t
-get_patch_version
-(
-);
-
-
-std::uint16_t
-get_build_number
-(
-);
-							 
-
-}
+void log_version();
+std::uint16_t get_major_version();
+std::uint16_t get_minor_version();
+std::uint16_t get_patch_version();
+std::uint16_t get_build_number();
 
 
 }
 
 
+}
 
 
 #endif

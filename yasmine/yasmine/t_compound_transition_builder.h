@@ -24,23 +24,9 @@ class i_transition;
 class i_event;
 
 
-bool
-try_to_build_compound_transition
-(
-	i_transition& p_enabled_transition,	
-	t_compound_transitions& p_enabled_compound_transitions,
-	const i_event& p_event
-);
-
-
-
-i_compound_transition_uptr
-build_compound_transition
-(
-	i_transition& p_first_transition,
-	const i_event& p_event
-);
-
+bool try_to_build_compound_transition( i_transition& p_enabled_transition,
+	t_compound_transitions& p_enabled_compound_transitions,	const i_event& p_event );
+i_compound_transition_uptr build_compound_transition( i_transition& p_first_transition, const i_event& p_event );
 }
 
 

@@ -22,18 +22,11 @@ namespace sxy
 
 enum struct t_transition_kind
 {
-	EXTERNAL = 0, 
-	INTERNAL = 1, 
-	LOCAL = 2
+	EXTERNAL = 0, INTERNAL = 1, LOCAL = 2
 };
 
+std::string to_string( const t_transition_kind p_kind );
 
-std::string
-to_string
-(
-	const t_transition_kind p_kind
-);
-											
 
 }
 

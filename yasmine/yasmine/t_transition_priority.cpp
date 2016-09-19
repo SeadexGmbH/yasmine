@@ -23,45 +23,30 @@ namespace sxy
 {
 
 
-t_transition_priority::t_transition_priority
-(
-	i_compound_transition& p_compound_transition
-):
-	m_compound_transition( &p_compound_transition ),
-	m_priority( p_compound_transition.get_LCA_region()->get_parent_state().get_nesting_level() )
+t_transition_priority::t_transition_priority( i_compound_transition& p_compound_transition )
+	: m_compound_transition( &p_compound_transition ),
+		m_priority( p_compound_transition.get_LCA_region()->get_parent_state().get_nesting_level() )
 {
-
+	// Nothing to do...
 }
 
 
-t_transition_priority::~t_transition_priority
-(
-) = default;
+t_transition_priority::~t_transition_priority() = default;
 
 
-std::size_t
-t_transition_priority::get_priority
-(
-) const
+std::size_t t_transition_priority::get_priority() const
 {
 	return( m_priority );
 }
 
 
-i_compound_transition&
-t_transition_priority::get_compound_transition
-(
-)	const
+i_compound_transition& t_transition_priority::get_compound_transition() const
 {
 	return( *m_compound_transition );
 }
 
 
-bool
-t_transition_priority::operator<
-(
-	const t_transition_priority& p_compare_member
-)  const
+bool t_transition_priority::operator<( const t_transition_priority& p_compare_member )  const
 {
 	return( m_priority > p_compare_member.get_priority() );
 }

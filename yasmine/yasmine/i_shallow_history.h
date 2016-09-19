@@ -20,33 +20,14 @@ namespace sxy
 {
 
 
-class i_shallow_history: public virtual i_history
+class i_shallow_history:
+	public virtual i_history
 {
 public:
-	i_shallow_history
-	(
-	) = default;
-
-
-	virtual 
-	~i_shallow_history
-	(
-	)	override = default;
-
-
-	i_shallow_history
-	(
-		const i_shallow_history&
-	) = delete;
-
-
-	i_shallow_history&
-	operator=
-	(
-		const i_shallow_history&
-	) = delete;
-
-
+	i_shallow_history() = default;
+	virtual ~i_shallow_history() override = default;
+	i_shallow_history( const i_shallow_history& ) = delete;
+	i_shallow_history& operator=( const i_shallow_history& ) = delete;
 };
 
 

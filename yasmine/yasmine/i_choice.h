@@ -17,36 +17,17 @@
 
 
 namespace sxy
-{						
+{
 
 
-class i_choice: public virtual i_region_pseudostate
+class i_choice:
+	public virtual i_region_pseudostate
 {
 public:
-	i_choice
-	(
-	) = default;
-
-
-	virtual 
-	~i_choice
-	(
-	) override = default;
-
-
-	i_choice
-	(
-		const i_choice&
-	) = delete;
-
-
-	i_choice&
-	operator=
-	(
-		const i_choice&
-	) = delete;
-
-
+	i_choice() = default;
+	virtual ~i_choice() override = default;
+	i_choice( const i_choice& ) = delete;
+	i_choice& operator=( const i_choice& ) = delete;
 };
 
 

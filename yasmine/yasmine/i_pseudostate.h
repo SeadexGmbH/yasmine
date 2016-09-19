@@ -24,47 +24,16 @@ namespace sxy
 class i_pseudostate_visitor;
 
 
-class i_pseudostate: public virtual i_vertex
+class i_pseudostate:
+	public virtual i_vertex
 {
 public:
-	i_pseudostate
-	(
-	) = default;
-
-
-	virtual 
-	~i_pseudostate
-	(
-	) override = default;
-
-
-	i_pseudostate
-	(
-		const i_pseudostate&
-	) = delete;
-
-
-	i_pseudostate&
-	operator=
-	(
-		const i_pseudostate&
-	) = delete;
-		
-
-	virtual void
-	accept_pseudostate_visitor
-	(
-		i_pseudostate_visitor& p_visitor
-	) const = 0;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override = 0;
-
-
+	i_pseudostate() = default;
+	virtual ~i_pseudostate() override = default;
+	i_pseudostate( const i_pseudostate& ) = delete;
+	i_pseudostate& operator=( const i_pseudostate& ) = delete;
+	virtual void accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const = 0;
+	virtual bool check( t_state_machine_defects& p_defects ) const override = 0;
 };
 
 

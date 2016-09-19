@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_composite_state;
-
 using i_composite_state_uptr = std::unique_ptr< i_composite_state >;
-
 using t_raw_composite_states = std::vector< i_composite_state* >;
 
 

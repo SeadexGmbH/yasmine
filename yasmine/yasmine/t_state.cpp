@@ -17,91 +17,64 @@
 #include "i_composite_state.h"
 #include "i_behavior.h"
 #include "t_log_and_throw.h"
- 
+
 
 namespace sxy
 {
 
 
-t_state::t_state
-(		
-	const std::string& p_name
-): t_vertex( p_name ),
-	 m_was_active( false ),
-	 m_parent()
-{		
+t_state::t_state( const std::string& p_name )
+	: t_vertex( p_name ),
+		m_was_active( false ),
+		m_parent()
+{
 	// Nothing to do...
 }
 
 
-t_state::~t_state
-(
-) = default;
+t_state::~t_state() = default;
 
 
-const i_state_machine_element*
-t_state::get_parent
-(
-) const
+const i_state_machine_element* t_state::get_parent() const
 {
 	return( get_parent_region() );
 }
 
 
-void
-t_state::set_parent_region
-(
-	i_region* const p_parent_region
-)
+void t_state::set_parent_region( i_region* const p_parent_region )
 {
 	m_parent = p_parent_region;
 }
 
 
-i_region*
-t_state::get_parent_region
-(
-) const
+i_region* t_state::get_parent_region() const
 {
 	return( m_parent );
 }
 
 
-size_t
-t_state::get_parent_region_index
-(
-) const
+size_t t_state::get_parent_region_index() const
 {
-		size_t l_index = 0;
-	
-		const auto l_parent_region = get_parent_region();
-	
-		if( l_parent_region )
-		{
-			const auto& l_parent_state = l_parent_region->get_parent_state();
-			l_index = l_parent_state.get_region_index( l_parent_region );
-		}	
-	
-		return ( l_index );
+	size_t l_index = 0;
+	const auto l_parent_region = get_parent_region();
+	if( l_parent_region )
+	{
+		const auto& l_parent_state = l_parent_region->get_parent_state();
+		l_index = l_parent_state.get_region_index( l_parent_region );
+	}
+
+	return( l_index );
 }
 
-					
-i_region*
-t_state::get_region
-(
-	const std::string& p_region_name
-) const 
+
+i_region* t_state::get_region( const std::string& p_region_name ) const
 {
 	Y_UNUSED_PARAMETER( p_region_name );
 	return( nullptr );
 }
 
 
-i_vertex*
-t_state::get_pseudostate
-(
-	const std::string& p_name_of_pseudostate
-) const
+i_vertex* t_state::get_pseudostate( const std::string& p_name_of_pseudostate ) const
 {
 	Y_UNUSED_PARAMETER( p_name_of_pseudostate );
 	return( nullptr );
@@ -109,14 +82,9 @@ t_state::get_pseudostate
 
 
 // Gets ancestors in ascending order (from child to parent) up to the given composite state.
-t_raw_composite_states
-t_state::get_ancestors
-(
-	i_composite_state* const p_final_ancestor
-) const
+t_raw_composite_states t_state::get_ancestors( i_composite_state* const p_final_ancestor ) const
 {
 	t_raw_composite_states l_ascending_path;
-
 	if( get_parent_region() != nullptr )
 	{
 		const i_state* l_current_vertex = this;
@@ -130,9 +98,9 @@ t_state::get_ancestors
 				l_current_vertex = &l_parent_state;
 			}
 			else
-			{					
+			{
 				Y_ASSERT( !p_final_ancestor, "The given composite state '%' was not reached in the child-parent chain!" );
-				break;				
+				break;
 			}
 		}
 	}
@@ -146,14 +114,10 @@ t_state::get_ancestors
 }
 
 
-t_raw_regions
-t_state::get_ancestors_as_regions
-(
-) const
+t_raw_regions t_state::get_ancestors_as_regions() const
 {
 	const i_state* source_state = this;
 	t_raw_regions l_regions;
-
 	while( true )
 	{
 		const auto& parent_region = source_state->get_parent_region();
@@ -169,71 +133,53 @@ t_state::get_ancestors_as_regions
 		}
 	}
 
-	return( l_regions ); 
+	return( l_regions );
 }
 
 
-std::size_t
-t_state::get_nesting_level
-(
-) const
-{		
-	const auto ancestors = get_ancestors( nullptr );	
+std::size_t t_state::get_nesting_level() const
+{
+	const auto ancestors = get_ancestors( nullptr );
+
 	// Add one for the state itself.
 	return( ancestors.size() + 1 );
 }
 
 
-void
-t_state::set_was_active
-(
-)
+void t_state::set_was_active()
 {
 	m_was_active = true;
 }
 
 
-bool
-t_state::was_active
-(
-) const
+bool t_state::was_active() const
 {
-	return ( m_was_active );
+	return( m_was_active );
 }
 
 
-void
-t_state::set_active
-(
-) 
+void t_state::set_active()
 {
-	auto parent_region = get_parent_region();		
+	auto parent_region = get_parent_region();
 	parent_region->set_active_state( this );
-	parent_region->set_state_was_active( this );	
+	parent_region->set_state_was_active( this );
 	Y_LOG( t_log_level::LL_DEBUG, "State '%' is now active.", get_name() );
 }
 
 
-void
-t_state::set_inactive
-(
-)
-{		
+void t_state::set_inactive()
+{
 	auto parent_region = get_parent_region();
-	parent_region->set_active_state( nullptr );	
+	parent_region->set_active_state( nullptr );
 	set_was_active();
 	Y_LOG( t_log_level::LL_DEBUG, "State '%' is now inactive.", get_name() );
 }
 
 
-bool
-t_state::is_active
-(
-) const
+bool t_state::is_active() const
 {
 	bool l_is_active = false;
 	const auto parent_region = get_parent_region();
-
 	if( parent_region )
 	{
 		l_is_active = parent_region->get_active_state() == this;
@@ -242,36 +188,25 @@ t_state::is_active
 	{
 		l_is_active = true;
 	}
-																 
+
 	return( l_is_active );
 }
- 
 
-bool
-t_state::is_complete
-(
-) const
+
+bool t_state::is_complete() const
 {
-	return ( true );
+	return( true );
 }
 
 
-void
-t_state::execute_do_behavior
-(
-	const i_event& p_event
-) const
+void t_state::execute_do_behavior( const i_event& p_event ) const
 {
 	Y_UNUSED_PARAMETER( p_event );
 }
 
 
-void
-t_state::execute_enter_behavior
-(
-	const i_event& p_event
-) const
-{		
+void t_state::execute_enter_behavior( const i_event& p_event ) const
+{
 	const auto behavior = get_entry_behavior();
 	if( behavior )
 	{
@@ -280,13 +215,9 @@ t_state::execute_enter_behavior
 	}
 }
 
-						 
-void
-t_state::execute_exit_behavior
-(
-	const i_event& p_event
-) const
-{	
+
+void t_state::execute_exit_behavior( const i_event& p_event ) const
+{
 	const auto behavior = get_exit_behavior();
 	if( behavior )
 	{
@@ -296,11 +227,7 @@ t_state::execute_exit_behavior
 }
 
 
-void
-t_state::enter_state
-(
-	const i_event& p_event
-)
+void t_state::enter_state( const i_event& p_event )
 {
 	execute_enter_behavior( p_event );
 	set_active();
@@ -308,14 +235,10 @@ t_state::enter_state
 }
 
 
-void
-t_state::exit_state
-(
-	const i_event& p_event
-)
+void t_state::exit_state( const i_event& p_event )
 {
-	execute_exit_behavior( p_event );	
-	set_inactive();	
+	execute_exit_behavior( p_event );
+	set_inactive();
 }
 
 

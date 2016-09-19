@@ -20,41 +20,15 @@ namespace sxy
 {
 
 
-class i_join: public virtual i_region_pseudostate
+class i_join:
+	public virtual i_region_pseudostate
 {
-
-
 public:
-	i_join
-	(
-	) = default;
-
-
-	virtual 
-	~i_join
-	(
-	) override = default;
-
-
-	i_join
-	(
-		const i_join&
-	) = delete;
-
-
-	i_join&
-	operator=
-	(
-		const i_join&
-	) = delete;
-
-
-	virtual bool
-	check_if_all_source_states_of_incoming_transitions_are_active
-	(			
-	) const = 0;
-
-
+	i_join() = default;
+	virtual ~i_join() override = default;
+	i_join( const i_join& ) = delete;
+	i_join& operator=( const i_join& ) = delete;
+	virtual bool check_if_all_source_states_of_incoming_transitions_are_active() const = 0;
 };
 
 

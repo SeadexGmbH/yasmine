@@ -23,9 +23,8 @@ namespace sxy
 
 class i_constraint;
 class i_event;
-
 using i_constraint_uptr = std::unique_ptr< i_constraint >;
-using t_constraint_function = std::function< bool( const i_event& ) >;
+using t_constraint_function = std::function< bool ( const i_event& ) >;
 
 
 }

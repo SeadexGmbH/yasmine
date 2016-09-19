@@ -24,52 +24,20 @@ namespace sxy
 {
 
 
-class t_event: public i_event
+class t_event:
+	public i_event
 {
 public:
-
-	explicit t_event
-	(
-		const t_event_id p_event_id		
-	);
-																	
-
-	virtual
-	~t_event
-	(
-	) override;
-
-
-	t_event
-	(
-		const t_event&
-	) = delete;
-
-
-	t_event&
-	operator=
-	(
-		const t_event&
-	) = delete;
-
-		
-	virtual t_event_id
-	get_id
-	(
-	) const override;
-
-
-	static t_event_sptr
-	create_event
-	(
-		const t_event_id p_event_id
-	);
+	explicit t_event( const t_event_id p_event_id );
+	virtual ~t_event() override;
+	t_event( const t_event& ) = delete;
+	t_event& operator=( const t_event& ) = delete;
+	virtual t_event_id get_id() const override;
+	static t_event_sptr create_event( const t_event_id p_event_id );
 
 
 private:
 	t_event_id m_event_id;
-
-
 };
 
 

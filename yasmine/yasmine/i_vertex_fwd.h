@@ -22,9 +22,7 @@ namespace sxy
 
 
 class i_vertex;
-
 using t_vertex_uptr = std::unique_ptr< i_vertex >;
-
 using t_raw_const_vertices = std::vector< const i_vertex* >;
 using t_vertices = std::vector< t_vertex_uptr >;
 

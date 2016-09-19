@@ -21,27 +21,19 @@ namespace sxy
 {
 
 
-t_exit_point::t_exit_point
-(
-	const std::string& p_name
-): t_state_pseudostate( p_name )
+t_exit_point::t_exit_point( const std::string& p_name )
+	: t_state_pseudostate( p_name )
 {
 	// Nothing to do...
 }
 
 
-t_exit_point::~t_exit_point
-(
-) = default;
+t_exit_point::~t_exit_point() = default;
 
 
-bool
-t_exit_point::check
-(
-	t_state_machine_defects& p_defects
-)	const 
-{	
-	auto l_check_ok = true;	
+bool t_exit_point::check( t_state_machine_defects& p_defects ) const
+{
+	auto l_check_ok = true;
 
 	// transitions exiting pseudostates cannot have a trigger
 	if( !t_pseudostate::check( p_defects ) )
@@ -52,32 +44,20 @@ t_exit_point::check
 	return( l_check_ok );
 }
 
-		 
-void
-t_exit_point::accept_vertex_visitor
-(
-	i_const_vertex_visitor& p_visitor
-)	const
+
+void t_exit_point::accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const
 {
 	p_visitor.visit( *this );
 }
 
 
-void
-t_exit_point::accept_vertex_visitor
-(
-	i_vertex_visitor& p_visitor
-)
+void t_exit_point::accept_vertex_visitor( i_vertex_visitor& p_visitor )
 {
 	p_visitor.visit( *this );
 }
 
-		 
-void
-t_exit_point::accept_pseudostate_visitor
-(
-	i_pseudostate_visitor& p_visitor
-) const
+
+void t_exit_point::accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const
 {
 	p_visitor.visit( *this );
 }

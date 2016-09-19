@@ -20,38 +20,15 @@ namespace sxy
 {
 
 
-class i_simple_state: public virtual i_complex_state
+class i_simple_state:
+	public virtual i_complex_state
 {
 public:
-	i_simple_state
-	(
-	) = default;
-
-
-	virtual
-	~i_simple_state
-	(
-	) override  = default;
-
-
-	i_simple_state
-	(
-		const i_simple_state&
-	) = delete;
-
-
-	i_simple_state&
-	operator=
-	(
-		const i_simple_state&
-	) = delete;
-
-
-	virtual const i_behavior*
-	get_do
-	(
-	) const = 0;
-
+	i_simple_state() = default;
+	virtual ~i_simple_state() override = default;
+	i_simple_state( const i_simple_state& ) = delete;
+	i_simple_state& operator=( const i_simple_state& ) = delete;
+	virtual const i_behavior * get_do() const = 0;
 };
 
 

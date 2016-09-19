@@ -20,31 +20,18 @@ namespace sxy
 {
 
 
-//!
-//!\brief Enum class for log levels.
-//!
+// !\brief Enum class for log levels.
 enum class t_log_level
 {
-	LL_ASSERT = 0,
-	LL_FATAL = 1,	
-	LL_ERROR = 2,	
-	LL_WARN = 3,
-	LL_INFO = 4,
-	LL_DEBUG = 5,
-	LL_TRACE = 6,
-	LL_SPAM = 7,
+	LL_ASSERT = 0, LL_FATAL = 1, LL_ERROR = 2, LL_WARN = 3, LL_INFO = 4, LL_DEBUG = 5, LL_TRACE = 6, LL_SPAM = 7,
 	LL_PROTOCOL = 8
 };
 
 
-//!\brief Convert the given log level to a string.
-//!\param p_log_level - The log level.
-//!\return The log level as string.
-std::string
-log_level_to_string
-(
-	const t_log_level p_log_level
-);
+// !\brief Convert the given log level to a string.
+// !\param p_log_level - The log level.
+// !\return The log level as string.
+std::string log_level_to_string( const t_log_level p_log_level );	
 
 
 }

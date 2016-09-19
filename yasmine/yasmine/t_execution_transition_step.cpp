@@ -22,32 +22,24 @@ namespace sxy
 {
 
 
-t_execution_transition_step::t_execution_transition_step
-(		
-	i_transition_step& p_transition_step
-): 
-	i_execution_step(),	 
-	m_transition_step( p_transition_step )
+t_execution_transition_step::t_execution_transition_step( i_transition_step& p_transition_step )
+	: i_execution_step(),
+		m_transition_step( p_transition_step )
 {
 	// Nothing to do...
 }
 
 
-t_execution_transition_step::~t_execution_transition_step
-(
-) = default;
+t_execution_transition_step::~t_execution_transition_step() = default;
 
 
-bool
-t_execution_transition_step::execute_behavior
-(
-	i_event_processing_callback* const p_event_processing_callback,
-	const i_event& p_event
-) const
+bool t_execution_transition_step::execute_behavior(	i_event_processing_callback* const p_event_processing_callback,
+	const i_event& p_event ) const
 {
 	auto l_reached_terminate_pseudostate = false;
 	const auto& transitions = m_transition_step.get_transitions();
-	for( const auto& transition : transitions )
+
+	for( const auto & transition : transitions )
 	{
 		if( p_event_processing_callback )
 		{
@@ -55,7 +47,6 @@ t_execution_transition_step::execute_behavior
 		}
 
 		transition->on_transition_behavior( p_event );
-
 		if( p_event_processing_callback )
 		{
 			p_event_processing_callback->after_transition( *transition );
@@ -68,26 +59,18 @@ t_execution_transition_step::execute_behavior
 		}
 	}
 
-	return ( l_reached_terminate_pseudostate );
+	return( l_reached_terminate_pseudostate );
 }
 
 
-
-void
-t_execution_transition_step::accept
-(
-	i_execution_step_visitor& p_visitor
-) const
+void t_execution_transition_step::accept( i_execution_step_visitor& p_visitor ) const
 {
 	p_visitor.visit( *this );
 }
 
 
-const i_transition_step&
 // cppcheck-suppress unusedFunction
-t_execution_transition_step::get_transition_step
-(
-) const
+const i_transition_step& t_execution_transition_step::get_transition_step() const
 {
 	return( m_transition_step );
 }

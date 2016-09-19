@@ -29,95 +29,24 @@ class i_behavior;
 class i_event;
 
 
-class i_transition: public virtual i_state_machine_element
+class i_transition:
+	public virtual i_state_machine_element
 {
 public:
-	i_transition
-	(
-	) = default;
-
-
-	virtual 
-	~i_transition
-	(
-	) override = default;
-
-
-	i_transition
-	(
-		const i_transition&
-	) = delete;
-
-
-	i_transition&
-	operator=
-	(
-		const i_transition&
-	) = delete;
-
-
-	virtual const i_vertex&
-	get_source
-	(
-	) const = 0;
-
-
-	virtual const i_vertex&
-	get_target
-	(
-	) const = 0;
-
-
-	virtual i_vertex&
-	get_target
-	(
-	) = 0;
-
-
-	virtual const i_constraint*
-	get_guard
-	(
-	) const = 0;
-
-
-	virtual const i_behavior*
-	get_behavior
-	(
-	) const = 0;
-
-
-	virtual sxy::t_transition_kind
-	get_kind
-	(
-	) const = 0;
-
-
-	virtual void
-	on_transition_behavior
-	(
-		const i_event& p_event
-	) const = 0;
-
-
-	virtual bool
-	check_guard
-	(
-		const i_event& p_event
-	) const = 0;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override = 0;
-																																		
-
-	virtual bool
-	can_accept_event
-	(
-		const t_event_id p_event
-	) const = 0;
+	i_transition() = default;
+	virtual ~i_transition() override = default;
+	i_transition( const i_transition& ) = delete;
+	i_transition& operator=( const i_transition& ) = delete;
+	virtual const i_vertex& get_source() const = 0;
+	virtual const i_vertex& get_target() const = 0;
+	virtual i_vertex& get_target() = 0;
+	virtual const i_constraint * get_guard() const = 0;
+	virtual const i_behavior * get_behavior() const = 0;
+	virtual sxy::t_transition_kind get_kind() const = 0;
+	virtual void on_transition_behavior( const i_event& p_event ) const = 0;
+	virtual bool check_guard( const i_event& p_event ) const = 0;
+	virtual bool check( t_state_machine_defects& p_defects ) const override = 0;
+	virtual bool can_accept_event( const t_event_id p_event ) const = 0;
 };
 
 

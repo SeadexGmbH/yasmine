@@ -22,12 +22,10 @@ namespace sxy
 
 
 class i_exit_point;
-
 using i_exit_point_uptr = std::unique_ptr< i_exit_point >;
-
 using t_exit_points = std::vector< i_exit_point_uptr >;
 using t_raw_const_exit_points = std::vector< const i_exit_point* >;
-		
+
 
 }
 

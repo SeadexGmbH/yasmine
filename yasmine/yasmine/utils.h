@@ -16,6 +16,7 @@
 #ifdef WIN32
 
 
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 
@@ -32,24 +33,16 @@ namespace utils
 
 #ifdef WIN32
 
-//!\brief Sets the size of the console.
-//!\param	p_width Number of columns in Windows console.
-//!\param	p_height Number of lines in Windows console.
-//!\return void
-void set_window_size
-(
-	const SHORT p_width,
-	const SHORT p_height
-);
 
+// !\brief Sets the size of the console.
+// !\param	p_width Number of columns in Windows console.
+// !\param	p_height Number of lines in Windows console.
+// !\return void
+void set_window_size(	const SHORT p_width, const SHORT p_height );
 
-//!brief Maximize the Windows console.
-//!
-//!return void
-void 
-maximize_window
-(
-);
+// !brief Maximize the Windows console.
+// !return void
+void maximize_window();
 
 
 #endif

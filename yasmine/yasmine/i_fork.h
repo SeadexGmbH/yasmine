@@ -20,33 +20,14 @@ namespace sxy
 {
 
 
-class i_fork : public virtual i_region_pseudostate
+class i_fork:
+	public virtual i_region_pseudostate
 {
 public:
-	i_fork
-	(
-	) = default;
-
-
-	virtual 
-	~i_fork
-	(
-	) override = default;
-
-
-	i_fork
-	(
-		const i_fork&
-	) = delete;
-
-
-	i_fork&
-	operator=
-	(
-		const i_fork&
-	) = delete;
-
-
+	i_fork() = default;
+	virtual ~i_fork() override = default;
+	i_fork( const i_fork& ) = delete;
+	i_fork& operator=( const i_fork& ) = delete;
 };
 
 

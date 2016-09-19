@@ -22,8 +22,6 @@ namespace sxy
 
 
 class i_event;
-
-
 using t_event_sptr = std::shared_ptr< i_event >;
 using t_events = std::vector< std::shared_ptr< i_event > >;
 

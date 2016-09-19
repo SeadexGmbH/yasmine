@@ -20,33 +20,24 @@
 
 
 #ifdef WIN32
-void
-wait_for_quit_input
-(
-)
-{		
+void wait_for_quit_input()
+{
 	const HANDLE input_handle = GetStdHandle( STD_INPUT_HANDLE );
-
 	bool continue_running = TRUE;
 	while( continue_running )
 	{
 		INPUT_RECORD input_record;
 		DWORD number_read;
-		ReadConsoleInput
-		( 
-				input_handle,
-				&input_record,
-				1,
-				&number_read
-		);
+		ReadConsoleInput(   input_handle, &input_record, 1, &number_read );
 
 		switch( input_record.EventType )
 		{
-		case KEY_EVENT:		
+		case KEY_EVENT:
 			if( input_record.Event.KeyEvent.uChar.AsciiChar == 'q' )
-			{								
+			{
 				continue_running = FALSE;
 			}
+
 			break;
 
 		default:
@@ -55,15 +46,12 @@ wait_for_quit_input
 	}
 }
 
+
 #else
-void
-wait_for_quit_input
-(
-)
+void wait_for_quit_input()
 {
 	while( true )
 	{
-
 		std::string a = "";
 		std::cin >> a;
 		if( a == "q" )
@@ -72,38 +60,31 @@ wait_for_quit_input
 		}
 	}
 }
+
+
 #endif
 
 
-int
-main
-(
-)
+int main()
 {
 	auto l_error_code = 0;
 
 	sxy::utils::set_window_size( 250, 9999 );
 	sxy::utils::maximize_window();
-	
+
 	sxy::t_log_manager& log_manager = sxy::t_log_manager::get_instance();
 	log_manager.set_log_level( sxy::t_log_level::LL_DEBUG );
 	log_manager.add_logger( std::make_unique< sxy::t_cout_logger >() );
-
 	log_manager.start();
-
 	yasmine::version::log_version();
-
 
 	try
 	{
 		sxy::t_intersection l_intersection;
-
 		if( l_intersection.start() )
 		{
 			std::cout << "To quit press 'q'." << std::endl;
-
 			wait_for_quit_input();
-
 			l_intersection.stop();
 		}
 		else
@@ -112,13 +93,13 @@ main
 			l_error_code = 1;
 		}
 	}
-	catch( const std::exception& p_exception )
-	{			
+	catch ( const std::exception& p_exception )
+	{
 		Y_LOG( sxy::t_log_level::LL_FATAL, "Unhandled exception: '%'.", p_exception.what() );
 		l_error_code = 2;
 	}
-	catch( ... )
-	{		
+	catch ( ... )
+	{
 		Y_LOG( sxy::t_log_level::LL_FATAL, "Unknown exception!" );
 		l_error_code = 3;
 	}

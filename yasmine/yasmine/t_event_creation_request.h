@@ -27,58 +27,20 @@ namespace sxy
 class t_event_creation_request final
 {
 public:
-
-	
-	t_event_creation_request
-	(
-		const std::chrono::time_point< std::chrono::system_clock >& p_time,
-		const t_event_sptr p_event,
-		const int p_handle
-	);
-																
-
-	~t_event_creation_request
-	(
-	);
-
-
-	t_event_creation_request
-	(
-		const t_event_creation_request&
-	) = delete;
-
-
-	t_event_creation_request&
-	operator=
-	(
-		const t_event_creation_request&
-	) = delete;
-
-
-	std::chrono::time_point< std::chrono::system_clock >
-	get_time
-	(
-	) const;
-
-
-	int
-	get_handle
-	(
-	) const;
-
-
-	t_event_sptr
-	get_event
-	(
-	) const;
+	t_event_creation_request(	const std::chrono::time_point< std::chrono::system_clock >& p_time,	
+		const t_event_sptr p_event,	const int p_handle );
+	~t_event_creation_request();
+	t_event_creation_request( const t_event_creation_request& ) = delete;
+	t_event_creation_request& operator=( const t_event_creation_request& ) = delete;
+	std::chrono::time_point< std::chrono::system_clock > get_time() const;
+	int get_handle() const;
+	t_event_sptr get_event() const;
 
 
 private:
 	std::chrono::time_point< std::chrono::system_clock > m_time;
 	const t_event_sptr m_event;
-	int m_handle;								
-
-
+	int m_handle;
 };
 
 

@@ -21,62 +21,18 @@ namespace sxy
 {
 
 
-class t_shallow_history: public virtual i_shallow_history, public t_history
+class t_shallow_history:
+	public virtual i_shallow_history, public t_history
 {
 public:
-	explicit t_shallow_history
-	(
-		const std::string& p_name
-	);
-
-
-	virtual
-	~t_shallow_history
-	(
-	) override;
-
-
-	t_shallow_history
-	(
-		const t_shallow_history&
-	) = delete;
-
-
-	t_shallow_history&
-	operator=
-	(
-		const t_shallow_history&
-	) = delete;
-
-
-	virtual bool
-	check
-	(
-		t_state_machine_defects& p_defects
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_const_vertex_visitor& p_visitor
-	) const override;
-
-
-	virtual void
-	accept_vertex_visitor
-	(
-		i_vertex_visitor& p_visitor
-	) override;
-
-
-	virtual void
-	accept_pseudostate_visitor
-	(
-		i_pseudostate_visitor& p_visitor
-	) const override;
-
-
+	explicit t_shallow_history( const std::string& p_name );
+	virtual ~t_shallow_history() override;
+	t_shallow_history( const t_shallow_history& ) = delete;
+	t_shallow_history& operator=( const t_shallow_history& ) = delete;
+	virtual bool check( t_state_machine_defects& p_defects ) const override;
+	virtual void accept_vertex_visitor( i_const_vertex_visitor& p_visitor ) const override;
+	virtual void accept_vertex_visitor( i_vertex_visitor& p_visitor ) override;
+	virtual void accept_pseudostate_visitor( i_pseudostate_visitor& p_visitor ) const override;
 };
 
 

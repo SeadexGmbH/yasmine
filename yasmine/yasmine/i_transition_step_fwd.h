@@ -22,10 +22,8 @@ namespace sxy
 
 
 class i_transition_step;
-
 using i_transition_step_uptr = std::unique_ptr< i_transition_step >;
-
-using t_transition_steps = std::vector < i_transition_step_uptr >;
+using t_transition_steps = std::vector< i_transition_step_uptr >;
 
 
 }

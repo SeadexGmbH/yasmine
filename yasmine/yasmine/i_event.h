@@ -23,36 +23,11 @@ namespace sxy
 class i_event
 {
 public:
-
-	i_event
-	(
-	) = default;
-
-
-	virtual ~i_event
-	(
-	) = default;
-
-
-	i_event
-	(
-		const i_event&
-	) = delete;
-
-
-	i_event&
-	operator=
-	(
-		const i_event&
-	) = delete;
-
-
-	virtual t_event_id
-	get_id
-	(
-	) const = 0;
-
-
+	i_event() = default;
+	virtual ~i_event() = default;
+	i_event( const i_event& ) = delete;
+	i_event& operator=( const i_event& ) = delete;
+	virtual t_event_id get_id() const = 0;
 };
 
 

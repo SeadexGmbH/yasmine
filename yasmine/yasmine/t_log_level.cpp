@@ -18,11 +18,7 @@ namespace sxy
 {
 
 
-std::string
-log_level_to_string
-(
-	const t_log_level p_log_level
-)
+std::string log_level_to_string( const t_log_level p_log_level )
 {
 	std::string log_level_string = "???";
 

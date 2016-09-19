@@ -18,51 +18,36 @@ namespace sxy
 {
 
 
-t_event_creation_request::t_event_creation_request
-(
-	const std::chrono::time_point< std::chrono::system_clock >& p_time,
-	const t_event_sptr p_event,
-	const int p_handle
-): m_time( p_time ),
-	 m_event( p_event ),
-	 m_handle( p_handle )
+t_event_creation_request::t_event_creation_request(
+	const std::chrono::time_point< std::chrono::system_clock >& p_time, const t_event_sptr p_event, const int p_handle )
+	: m_time( p_time ),
+		m_event( p_event ),
+		m_handle( p_handle )
 {
-	Y_LOG( t_log_level::LL_INFO, "Event creation request for event '%' @ %.", p_event->get_id(), p_time.time_since_epoch().count() );
+	Y_LOG( t_log_level::LL_INFO, "Event creation request for event '%' @ %.", p_event->get_id(),
+		p_time.time_since_epoch().count() );
 }
 
 
-t_event_creation_request::~t_event_creation_request
-(
-) = default;
+t_event_creation_request::~t_event_creation_request() = default;
 
 
-std::chrono::time_point< std::chrono::system_clock >
-t_event_creation_request::get_time
-(
-) const
+std::chrono::time_point< std::chrono::system_clock > t_event_creation_request::get_time() const
 {
 	return( m_time );
 }
 
 
-int
-t_event_creation_request::get_handle
-(
-) const
+int t_event_creation_request::get_handle() const
 {
 	return( m_handle );
 }
 
 
-
-t_event_sptr
-t_event_creation_request::get_event
-(
-) const
+t_event_sptr t_event_creation_request::get_event() const
 {
 	return( m_event );
 }
-
 
 
 }

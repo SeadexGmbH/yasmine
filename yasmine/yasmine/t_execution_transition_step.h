@@ -23,58 +23,22 @@ namespace sxy
 class i_transition_step;
 
 
-class t_execution_transition_step final: public i_execution_step
+class t_execution_transition_step final:
+	public i_execution_step
 {
 public:
-	explicit t_execution_transition_step
-	(			
-		i_transition_step& p_transition_step
-	);
+	explicit t_execution_transition_step( i_transition_step& p_transition_step );
+	virtual ~t_execution_transition_step() override;
+	t_execution_transition_step( const t_execution_transition_step& ) = delete;
+	t_execution_transition_step& operator=( const t_execution_transition_step& ) = delete;
+	virtual bool execute_behavior( i_event_processing_callback* const p_event_processing_callback, 
+		const i_event& p_event ) const override;
+	virtual void accept( i_execution_step_visitor& p_visitor ) const override;
+	const i_transition_step& get_transition_step() const;
 
 
-	virtual
-	~t_execution_transition_step
-	(
-	) override;
-
-
-	t_execution_transition_step
-	(
-		const t_execution_transition_step&
-	) = delete;
-
-
-	t_execution_transition_step&
-	operator=
-	(
-		const t_execution_transition_step&
-	) = delete;
-
-
-	virtual bool
-	execute_behavior
-	(
-		i_event_processing_callback* const p_event_processing_callback,
-		const i_event& p_event
-	) const override;
-
-
-	virtual void
-	accept
-	(
-		i_execution_step_visitor& p_visitor
-	) const override;
-
-
-	const i_transition_step&
-	get_transition_step
-	(
-	) const;
-
-
-private:	
+private:
 	i_transition_step& m_transition_step;
-	
 };
 
 
