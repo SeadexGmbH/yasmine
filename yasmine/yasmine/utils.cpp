@@ -35,19 +35,19 @@ const SHORT MAX_ROWS = 9999;
 #ifdef WIN32
 
 // cppcheck-suppress unusedFunction
-void set_window_size(	const SHORT p_width, const SHORT p_height )
+void set_window_size(	const SHORT _width, const SHORT _height )
 {
 	COORD coord;
-	coord.X = p_width;
+	coord.X = _width;
 	coord.Y = MAX_ROWS;
-	SMALL_RECT l_rect;
-	l_rect.Top = 0;
-	l_rect.Left = 0;
-	l_rect.Right = p_width - 1;
-	l_rect.Bottom = p_height - 1;
-	const HANDLE l_handle = GetStdHandle( STD_OUTPUT_HANDLE );
-	SetConsoleScreenBufferSize( l_handle, coord );
-	SetConsoleWindowInfo( l_handle, TRUE, &l_rect );
+	SMALL_RECT rect;
+	rect.Top = 0;
+	rect.Left = 0;
+	rect.Right = _width - 1;
+	rect.Bottom = _height - 1;
+	const HANDLE handle = GetStdHandle( STD_OUTPUT_HANDLE );
+	SetConsoleScreenBufferSize( handle, coord );
+	SetConsoleWindowInfo( handle, TRUE, &rect );
 }
 
 
@@ -56,12 +56,12 @@ void maximize_window()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &info );
-	SMALL_RECT l_rect;
-	l_rect.Left = 0;
-	l_rect.Top = 0;
-	l_rect.Right = min( info.dwMaximumWindowSize.X, info.dwSize.X ) - 1;
-	l_rect.Bottom = min( info.dwMaximumWindowSize.Y, info.dwSize.Y ) - 1;
-	SetConsoleWindowInfo( GetStdHandle( STD_OUTPUT_HANDLE ), true, &l_rect );
+	SMALL_RECT rect;
+	rect.Left = 0;
+	rect.Top = 0;
+	rect.Right = min( info.dwMaximumWindowSize.X, info.dwSize.X ) - 1;
+	rect.Bottom = min( info.dwMaximumWindowSize.Y, info.dwSize.Y ) - 1;
+	SetConsoleWindowInfo( GetStdHandle( STD_OUTPUT_HANDLE ), true, &rect );
 }
 
 

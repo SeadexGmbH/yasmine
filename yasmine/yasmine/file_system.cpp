@@ -16,30 +16,30 @@ namespace sxy
 {
 
 
-size_t get_file_size( const std::string& p_file_name )
+size_t get_file_size( const std::string& _file_name )
 {
-	std::ifstream in( p_file_name, std::ios::binary | std::ios::ate );
+	std::ifstream in( _file_name, std::ios::binary | std::ios::ate );
 	return( static_cast< size_t >( in.tellg() ) );
 }
 
 
-bool does_file_exist( const std::string& p_file_name )
+bool does_file_exist( const std::string& _file_name )
 {
-	auto l_file_exists = false;
-	std::ifstream in( p_file_name );
+	auto file_exists = false;
+	std::ifstream in( _file_name );
 	if( in )
 	{
-		l_file_exists = true;
+		file_exists = true;
 		in.close();
 	}
 
-	return( l_file_exists );
+	return( file_exists );
 }
 
 
-std::string add_trailing_slash_to_directory_path( const std::string& p_path )
+std::string add_trailing_slash_to_directory_path( const std::string& _path )
 {
-	auto log_file_directory_with_trailing_slash = p_path;
+	auto log_file_directory_with_trailing_slash = _path;
 	if( !log_file_directory_with_trailing_slash.empty() && ( *log_file_directory_with_trailing_slash.rbegin() != '/' ) &&
 			( *log_file_directory_with_trailing_slash.rbegin() != '\\' ) )
 	{

@@ -25,9 +25,9 @@ namespace
 {
 
 
-const std::string MISSING_PARAMETERS_MESSAGE = "[Missing parameter!]";
-const std::string MISSING_TERMINATOR = "[Missing output modifier terminator!]";
-const std::string ILLEGAL_MODIFIER = "[Illegal output modifier!]";
+const char MISSING_PARAMETERS_MESSAGE[] = "[Missing parameter!]";
+const char MISSING_TERMINATOR[] = "[Missing output modifier terminator!]";
+const char ILLEGAL_MODIFIER[] = "[Illegal output modifier!]";
 const char POINT = '.';
 const char ZERO = '0';
 const char X = 'x';
@@ -37,93 +37,93 @@ const char CAPS_X = 'X';
 }
 
 
-std::ostream& operator<<( std::ostream& p_os,	const sxy::t_format_settings& p_format )
+std::ostream& operator<<( std::ostream& _os,	const sxy::format_settings& _format )
 {
-	if( !p_format.m_correct )
+	if( !_format.correct_ )
 	{
-		p_os << ILLEGAL_MODIFIER;
+		_os << ILLEGAL_MODIFIER;
 	}
 	else
-	if( p_format.m_missing_closing_bracket )
+	if( _format.missing_closing_bracket_ )
 	{
-		p_os << MISSING_TERMINATOR;
+		_os << MISSING_TERMINATOR;
 	}
 	else
 	{
-		if( p_format.m_hex )
+		if( _format.hex_ )
 		{
-			p_os << std::hex;
-			p_os << std::showbase;
-			p_os.fill( '0' );
+			_os << std::hex;
+			_os << std::showbase;
+			_os.fill( '0' );
 		}
 		else
 		{
-			if( p_format.m_pad_zeros )
+			if( _format.pad_zeros_ )
 			{
-				p_os.fill( '0' );
+				_os.fill( '0' );
 			}
 
-			if( p_format.m_places_set )
+			if( _format.places_set_ )
 			{
-				p_os.width( p_format.m_places );
+				_os.width( _format.places_ );
 			}
 
-			if( p_format.m_decimal_places_set )
+			if( _format.decimal_places_set_ )
 			{
-				p_os.precision( p_format.m_decimal_places );
+				_os.precision( _format.decimal_places_ );
 			}
 		}
 	}
 
-	return( p_os );
+	return( _os );
 }
 
 
-bool is_allowed_char( const char p_char )
+bool is_allowed_char( const char _char )
 {
-	const bool success = ( std::isdigit( p_char ) || ( X == p_char ) || ( CAPS_X == p_char ) );
+	const bool success = ( std::isdigit( _char ) || ( X == _char ) || ( CAPS_X == _char ) );
 	return( success );
 }
 
 
-sxy::t_format_settings parse_format_string( const char** const p_format )
+sxy::format_settings parse_format_string( const char** const _format )
 {
-	sxy::t_format_settings format_settings;
-	format_settings.m_correct = true;
-	Y_ASSERT_NO_LOG( ( OPENING_SQUARE_BRACKET == **p_format ), "Format string to parse doesn't start with [." );
-	++*p_format;
-	format_settings.m_missing_closing_bracket = true;
+	sxy::format_settings format_settings;
+	format_settings.correct_ = true;
+	Y_ASSERT_NO_LOG( ( OPENING_SQUARE_BRACKET == **_format ), "Format string to parse doesn't start with [." );
+	++*_format;
+	format_settings.missing_closing_bracket_ = true;
 	auto point_found = false;
-	const char* text_before_point = *p_format;
+	const char* text_before_point = *_format;
 	size_t text_before_point_size = 0;
 	const char* text_after_point = nullptr;
 	size_t text_after_point_size = 0;
-	while( **p_format )
+	while( **_format )
 	{
-		if( CLOSING_SQUARE_BRACKET == **p_format )
+		if( CLOSING_SQUARE_BRACKET == **_format )
 		{
-			format_settings.m_missing_closing_bracket = false;
+			format_settings.missing_closing_bracket_ = false;
 			break;
 		}
 		else
-		if( POINT == **p_format )
+		if( POINT == **_format )
 		{
 			if( point_found )
 			{
-				format_settings.m_correct = false;
+				format_settings.correct_ = false;
 				break;
 			}
 			else
 			{
 				point_found = true;
-				text_after_point = ( *p_format ) + 1;
+				text_after_point = ( *_format ) + 1;
 				text_after_point_size = 0;
 			}
 		}
 		else
 		{
-			const char p_text_char = **p_format;
-			if( is_allowed_char( p_text_char ) )
+			const char _text_char = **_format;
+			if( is_allowed_char( _text_char ) )
 			{
 				if( point_found )
 				{
@@ -136,52 +136,52 @@ sxy::t_format_settings parse_format_string( const char** const p_format )
 			}
 			else
 			{
-				format_settings.m_correct = false;
+				format_settings.correct_ = false;
 				break;
 			}
 		}
 
-		++( *p_format );
+		++( *_format );
 	}
 
 	Y_ASSERT_NO_LOG( text_before_point, "Logic error parsing format string!" );
 	if( ( 0 == text_before_point_size ) && ( 0 == text_after_point_size ) )
 	{
-		format_settings.m_correct = false;
+		format_settings.correct_ = false;
 	}
 
-	if( ( !format_settings.m_missing_closing_bracket ) && format_settings.m_correct )
+	if( ( !format_settings.missing_closing_bracket_ ) && format_settings.correct_ )
 	{
 		if( ( 0 < text_before_point_size ) && ( ( X == text_before_point[ 0 ] ) || ( CAPS_X == text_before_point[ 0 ] ) ) )
 		{
-			format_settings.m_hex = true;
+			format_settings.hex_ = true;
 			++text_before_point;
 			--text_before_point_size;
 		}
 
 		if( ( 0 < text_before_point_size ) && ( ZERO == text_before_point[ 0 ] ) )
 		{
-			format_settings.m_pad_zeros = true;
+			format_settings.pad_zeros_ = true;
 			++text_before_point;
 			--text_before_point_size;
 		}
 
 		if( 0 < text_before_point_size )
 		{
-			format_settings.m_places_set = true;
-			if( !string_to_int( text_before_point, format_settings.m_places ) )
+			format_settings.places_set_ = true;
+			if( !string_to_int( text_before_point, format_settings.places_ ) )
 			{
-				format_settings.m_correct = false;
+				format_settings.correct_ = false;
 			}
 		}
 
 		if( 0 < text_after_point_size )
 		{
 			Y_ASSERT_NO_LOG( text_after_point, "Logic error parsing format string!" );
-			format_settings.m_decimal_places_set = true;
-			if( !string_to_int( text_after_point, format_settings.m_decimal_places ) )
+			format_settings.decimal_places_set_ = true;
+			if( !string_to_int( text_after_point, format_settings.decimal_places_ ) )
 			{
-				format_settings.m_correct = false;
+				format_settings.correct_ = false;
 			}
 		}
 	}
@@ -190,23 +190,23 @@ sxy::t_format_settings parse_format_string( const char** const p_format )
 }
 
 
-void yprintf(	std::ostream& p_os,	const char* p_format )
+void yprintf(	std::ostream& _os,	const char* _format )
 {
-	while( *p_format )
+	while( *_format )
 	{
-		if( PLACE_HOLDER == *p_format )
+		if( PLACE_HOLDER == *_format )
 		{
-			if( PLACE_HOLDER == *( p_format + 1 ) )
+			if( PLACE_HOLDER == *( _format + 1 ) )
 			{
-				++p_format;
+				++_format;
 			}
 			else
 			{
-				p_os << MISSING_PARAMETERS_MESSAGE;
+				_os << MISSING_PARAMETERS_MESSAGE;
 			}
 		}
 
-		p_os << *p_format++;
+		_os << *_format++;
 	}
 }
 

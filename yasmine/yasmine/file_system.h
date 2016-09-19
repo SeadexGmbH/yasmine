@@ -20,9 +20,9 @@ namespace sxy
 {
 
 
-size_t get_file_size( const std::string& p_file_name );
-bool does_file_exist( const std::string& p_file_name );
-std::string add_trailing_slash_to_directory_path( const std::string& p_path );
+size_t get_file_size( const std::string& _file_name );
+bool does_file_exist( const std::string& _file_name );
+std::string add_trailing_slash_to_directory_path( const std::string& _path );
 
 
 }

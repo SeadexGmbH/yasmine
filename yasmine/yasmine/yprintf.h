@@ -12,12 +12,11 @@
 #ifndef PRINTF_2B6FD3F2_C084_486B_805B_5F0E05B743E4
 #define PRINTF_2B6FD3F2_C084_486B_805B_5F0E05B743E4
 
-
 #include <string>
 #include <sstream>
 #include <cstdint>
 
-#include "t_format_settings.h"
+#include "format_settings.h"
 
 
 namespace sxy
@@ -29,8 +28,8 @@ namespace
 
 
 const char PLACE_HOLDER = '%';
-const std::string SUPERFLUOUS_PARAMETER_START = "[Superfluous parameter: ";
-const std::string SUPERFLUOUS_PARAMETER_END = "]";
+const auto SUPERFLUOUS_PARAMETER_START = "[Superfluous parameter: ";
+const auto SUPERFLUOUS_PARAMETER_END = "]";
 const char OPENING_SQUARE_BRACKET = '[';
 const char CLOSING_SQUARE_BRACKET = ']';
 
@@ -38,103 +37,109 @@ const char CLOSING_SQUARE_BRACKET = ']';
 }
 
 
-template< typename tt_value > struct t_stream_writer
+template< typename value > 
+struct stream_writer
 {
-	static void print( std::ostream& p_os, const tt_value& p_value )
+	static void print( std::ostream& _os, const value& _value )
 	{
-		p_os << p_value;
+		_os << _value;
 	}
 };
 
 
-template< > struct t_stream_writer< uint8_t >
+template< > 
+struct stream_writer< uint8_t >
 {
-	static void print( std::ostream& p_os, const uint8_t& p_value )
+	static void print( std::ostream& _os, const uint8_t& _value )
 	{
-		p_os << static_cast< unsigned int >( p_value );
+		_os << static_cast< unsigned int >( _value );
 	}
 };
 
 
-std::ostream& operator<<( std::ostream& p_os,	const sxy::t_format_settings& p_format );
-sxy::t_format_settings parse_format_string( const char** const p_format );
+std::ostream& operator<<( std::ostream& _os,	const sxy::format_settings& _format );
+sxy::format_settings parse_format_string( const char** const _format );
 
-template< typename tt_value > void print_superfluous_parameters( std::ostream& p_os, const tt_value& p_value )
+template< typename value > 
+void print_superfluous_parameters( std::ostream& _os, const value& _value )
 {
-	p_os << SUPERFLUOUS_PARAMETER_START;
-	t_stream_writer< tt_value >::print( p_os, p_value );
-	p_os << SUPERFLUOUS_PARAMETER_END;
+	_os << SUPERFLUOUS_PARAMETER_START;
+	stream_writer< value >::print( _os, _value );
+	_os << SUPERFLUOUS_PARAMETER_END;
 }
 
 
-template< typename tt_value, typename ... tt_args > void print_superfluous_parameters( std::ostream& p_os, 
-	const tt_value& p_value, tt_args ... p_args )
+template< typename value, typename ... args > 
+void print_superfluous_parameters( std::ostream& _os, 
+	const value& _value, args ... _args )
 {
-	p_os << SUPERFLUOUS_PARAMETER_START;
-	t_stream_writer< tt_value >::print( p_os, p_value );
-	p_os << SUPERFLUOUS_PARAMETER_END;
-	print_superfluous_parameters( p_os, p_args ... );
+	_os << SUPERFLUOUS_PARAMETER_START;
+	stream_writer< value >::print( _os, _value );
+	_os << SUPERFLUOUS_PARAMETER_END;
+	print_superfluous_parameters( _os, _args ... );
 };
 
 
-void yprintf(	std::ostream& p_os,	const char* p_format );
+void yprintf(	std::ostream& _os,	const char* _format );
 
-template< typename tt_value, typename ... tt_args > void yprintf(	std::ostream& p_os,	const char* p_format,
-	const tt_value& p_value, tt_args ... p_args )
+template< typename value, typename ... args > 
+void yprintf(	std::ostream& _os,	const char* _format,
+	const value& _value, args ... _args )
 {
-	while( *p_format )
+	while( *_format )
 	{
-		if( PLACE_HOLDER == *p_format )
+		if( PLACE_HOLDER == *_format )
 		{
-			if( PLACE_HOLDER == *( p_format + 1 ) )
+			if( PLACE_HOLDER == *( _format + 1 ) )
 			{
-				++p_format; // skip first place holder
-				p_os << *p_format++; // output of the second place holder
+				++_format; // skip first place holder
+				_os << *_format++; // output of the second place holder
 			}
 			else
 			{
-				if( OPENING_SQUARE_BRACKET == *( p_format + 1 ) )
+				if( OPENING_SQUARE_BRACKET == *( _format + 1 ) )
 				{
-					++p_format;
-					const auto format_settings = sxy::parse_format_string( &p_format );
-					const auto stream_flags = p_os.flags();
-					const auto stream_fill = p_os.fill();
-					p_os << format_settings;
-					t_stream_writer< tt_value >::print( p_os, p_value );
-					p_os.flags( stream_flags );
-					p_os.fill( stream_fill );
+					++_format;
+					const auto format_settings = sxy::parse_format_string( &_format );
+					const auto streaflags_ = _os.flags();
+					const auto streafill_ = _os.fill();
+					_os << format_settings;
+					stream_writer< value >::print( _os, _value );
+					_os.flags( streaflags_ );
+					_os.fill( streafill_ );
 				}
 				else
 				{
-					t_stream_writer< tt_value >::print( p_os, p_value );
+					stream_writer< value >::print( _os, _value );
 				}
 
-				yprintf( p_os, p_format + 1, p_args ... );
+				yprintf( _os, _format + 1, _args ... );
 				return;
 			}
 		}
 		else
 		{
-			p_os << *p_format++;
+			_os << *_format++;
 		}
 	}
 
-	print_superfluous_parameters( p_os, p_value, p_args ... );
+	print_superfluous_parameters( _os, _value, _args ... );
 }
 
 
 // !\brief Creates a formatted message. The format string can contain placeholders ('%'s) that will be replaced with
 // the parameters by this function. To emit a '%' use two percent signs ("%%").
-// !\param p_format The format string in which will the placeholders will be replaced (if there are any).
-// !\param p_args The arguments that will replace the placeholders in the format string.	The number of parameters in
-// p_args has to be equal to the number of placeholders in the format string. If you pass too few or too many 
+// !\param _format The format string in which will the placeholders will be replaced (if there are any).
+// !\param _args The arguments that will replace the placeholders in the format string.	The number of parameters in
+// _args has to be equal to the number of placeholders in the format string. If you pass too few or too many 
 // arguments, the resulting string will contain diagnostics in the resulting string
 // ([Missing parameter!] or [Superfluous parameter: x]).
 // !\return String containing the complete formatted message.
-template< typename ... tt_args > std::string yprintf(	const char* const p_format,	tt_args ... p_args )
+template< typename ... args > 
+std::string yprintf(	const char* const _format,	args ... _args )
 {
 	std::stringstream target_string_stream;
-	yprintf( target_string_stream, p_format, p_args ... );
+	yprintf( target_string_stream, _format, _args ... );
 	return( target_string_stream.str() );
 };
 
