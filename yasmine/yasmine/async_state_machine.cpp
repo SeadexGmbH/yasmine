@@ -8,12 +8,15 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "async_state_machine.h"
+#include "async_state_machine.hpp"
 
 #include <exception>
+#include <algorithm>
 
-#include "base.h"
-#include "event_impl.h"
+#include "make_unique.hpp"
+#include "base.hpp"
+#include "event_impl.hpp"
+#include "log_and_throw.hpp"
 
 
 namespace sxy
@@ -28,55 +31,67 @@ async_state_machine::async_state_machine( const std::string& _name,
 		run_and_event_condition_(),
 		worker_thread_(),
 		run_( false ),
-		event_queue_()
+		event_list_()
 {
+	Y_LOG( sxy::log_level::LL_TRACE, "Creating async state_machine '%'.", _name );
 	// Nothing to do...
+	Y_LOG( sxy::log_level::LL_TRACE, "Created async state_machine '%'.", _name );
 }
 
 
-async_state_machine::~async_state_machine()
+async_state_machine::~async_state_machine() noexcept
 {
+	Y_LOG( sxy::log_level::LL_TRACE, "Destroying async state_machine '%'.", get_name() );
+
 	Y_ASSERT( ( status::NEW == status_ ) || ( status::STOPPED == status_ ),
 		"Status is neither 'NEW' nor 'STOPPED' on destruction!" );
+
+	Y_LOG( sxy::log_level::LL_TRACE, "Destroyed async state_machine '%'.", get_name() );
 }
 
 
 bool async_state_machine::fire_event( const event_sptr& _event )
 {
-	return( enqueue( _event ) );
+	return( insert( _event ) );
 }
 
 
-bool async_state_machine::run()
+bool async_state_machine::start_state_machine()
 {
-	Y_LOG( log_level::LL_INFO, "Starting state machine." );
-	const auto l_start_state_machine = start_state_machine( this );
-	if( !l_start_state_machine )
+	Y_LOG( log_level::LL_INFO, "Starting async state machine '%'.", get_name() );
+
+	const auto state_machine_started = state_machine::start_state_machine( this );
+	if( state_machine_started )
 	{
 		start();
 	}
 	else
 	{
-		Y_LOG( log_level::LL_DEBUG, "Terminate pseudostate was reached." );
+		Y_LOG( log_level::LL_INFO, "Terminate pseudostate was reached in %.", get_name() );
 		status_ = status::STOPPED;
 	}
 
-	return( l_start_state_machine );
+	Y_LOG( log_level::LL_INFO, "Started async state machine '%'.", get_name() );
+
+	return( state_machine_started );
 }
 
 
-// cppcheck-suppress unusedFunction
-void async_state_machine::halt()
-{		
+void async_state_machine::stop_state_machine()
+{	
+	Y_LOG( log_level::LL_INFO, "Stopping async state machine '%'.", get_name() );
+
 	stop();	
 	join();	
 	state_machine::stop_state_machine();
+
+	Y_LOG( log_level::LL_INFO, "Stopped async state machine '%'.", get_name() );
 }
 
 
 void async_state_machine::on_event( const event_sptr _event )
 {
-	enqueue_front( _event );
+	insert( _event );
 }
 
 
@@ -85,14 +100,15 @@ void async_state_machine::start()
 	Y_ASSERT( ( status::NEW == status_ ) || ( status::STOPPED == status_ ),
 		"Status is neither 'NEW' nor 'STOPPED' on start!" );
 	run_ = true;
-	worker_thread_ = std::make_unique< std::thread >( &async_state_machine::work, this );
+	worker_thread_ = sxy::make_unique< std::thread >( &async_state_machine::work, this );
 	status_ = status::STARTED;
 }
 
 
 void async_state_machine::stop()
 {
-	Y_LOG( log_level::LL_DEBUG, "Stopping state machine from run." );
+	Y_LOG( log_level::LL_TRACE, "Stopping async state machine '%'.", get_name() );
+
 	Y_ASSERT( ( status::STARTED == status_ ) || ( status::STOP_REQUESTED == status_ ),
 		"Status is not 'STARTED' or 'STOP_REQUESTED' on stop!" );
 	{
@@ -101,55 +117,75 @@ void async_state_machine::stop()
 	}
 	run_and_event_condition_.notify_one();
 	status_ = status::STOP_REQUESTED;
-	Y_LOG( log_level::LL_DEBUG, "State machine stopped." );
+
+	Y_LOG( log_level::LL_TRACE, "Stopped state machine ''%'.", get_name() );
 }
 
 
 void async_state_machine::join()
 {
+	Y_LOG( log_level::LL_TRACE, "Joining state machine '%'.", get_name() );
+
 	Y_ASSERT( status::STOP_REQUESTED == status_, "Status is not 'STOP_REQUESTED' when joining!" );
 	worker_thread_->join();
 	worker_thread_.reset();
 	status_ = status::STOPPED;
+
+	Y_LOG( log_level::LL_TRACE, "Joined state machine '%'.", get_name() );
 }
 
 
-bool async_state_machine::enqueue( const event_sptr _event )
+bool async_state_machine::insert( const event_sptr _event )
 {
-	return( enqueue_impl( _event, [ this ] ( const event_sptr _event ) { event_queue_.push_back( _event ); } ) );
-}
+	Y_ASSERT( _event, "_event is nullptr!" );
 
-
-bool async_state_machine::enqueue_front( const event_sptr _event )
-{		
-	return( enqueue_impl( _event, [ this ] ( const event_sptr _event ) { event_queue_.push_front( _event ); } ) );
-}
-
-
-bool async_state_machine::enqueue_impl( const event_sptr _event, queue_inserter _queue_inserter )
-{
-	Y_ASSERT( _event, "Event is nullptr!" );
-	auto event_enqueued = false;
+	auto event_added = false;
 	{
 		std::lock_guard< std::mutex > lock( run_and_event_mutex_ );
 		if( run_ )
-		{
-			_queue_inserter( _event );
-			event_enqueued = true;
+		{				
+			insert_impl( _event );
+			event_added = true;
 		}
+		else
+		{
+			Y_LOG( log_level::LL_WARN, "Event '%' was not inserted in the queue of events! State machine is not running.", _event->get_name() );
+		}
+		
 	}
-	if( event_enqueued )
+	if( event_added )
 	{
 		run_and_event_condition_.notify_one();
 	}
 
-	return( event_enqueued );
+	return( event_added );
 }
 
 
+void async_state_machine::insert_impl( const event_sptr _event )
+{
+	if( event_list_.empty() )
+	{
+		event_list_.push_back( _event );	
+	}
+	else
+		if( event_list_.back()->get_priority() >= _event->get_priority() )
+		{
+			event_list_.push_back( _event );
+		}
+		else
+		{				
+			auto priority_is_lower = [ &_event ] ( event_sptr p_event ) { return ( _event->get_priority() > p_event->get_priority() ); };
+
+			auto position = std::find_if( event_list_.begin(), event_list_.end(), priority_is_lower );
+			Y_ASSERT( position != std::end( event_list_ ), "No element found before which to insert!" );
+		}
+}
+	 
+
 bool async_state_machine::wait_predicate() const
 {
-	return( !run_ || !event_queue_.empty() );
+	return( !run_ || !event_list_.empty() );
 }
 
 
@@ -167,14 +203,14 @@ void async_state_machine::work()
 						return( this->wait_predicate() );
 					}
 					);
-				if( !run_ && event_queue_.empty() )
+				if( !run_ && event_list_.empty() )
 				{
 					break;
 				}
 
-				Y_ASSERT( !event_queue_.empty(), "Event queue is empty!" );
-				event = event_queue_.front();
-				event_queue_.pop_front();
+				Y_ASSERT( !event_list_.empty(), "Event list is empty!" );
+				event = event_list_.front();
+				event_list_.pop_front();
 			}
 			if( process_event( event, this ) )
 			{
@@ -193,6 +229,5 @@ void async_state_machine::work()
 		run_ = false;
 	}
 }
-
 
 }

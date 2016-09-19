@@ -9,11 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "simple_transition_step.h"
+#include "simple_transition_step.hpp"
 
-#include "transition.h"
-#include "entry_point.h"
-#include "exit_point.h"
+#include "transition.hpp"
+#include "entry_point.hpp"
+#include "exit_point.hpp"
 
 
 namespace sxy
@@ -27,9 +27,6 @@ simple_transition_step::simple_transition_step( transition& _transition )
 {
 	transition_step_.push_back( &transition_ );
 }
-
-
-simple_transition_step::~simple_transition_step() = default;
 
 
 const raw_transitions& simple_transition_step::get_transitions() const

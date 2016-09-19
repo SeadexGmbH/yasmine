@@ -9,23 +9,24 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "composite_state_impl.h"
+#include "composite_state_impl.hpp"
 
 #include <algorithm>
 
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "state_visitor.h"
-#include "complex_state_visitor.h"
-#include "region_impl.h"
-#include "deep_history_impl.h"
-#include "shallow_history_impl.h"
-#include "exit_point_impl.h"
-#include "entry_point_impl.h"
-#include "behavior.h"
-#include "state_machine_defect.h"
-#include "uri.h"
-#include "log_and_throw.h"
+#include "make_unique.hpp"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "state_visitor.hpp"
+#include "complex_state_visitor.hpp"
+#include "region_impl.hpp"
+#include "deep_history_impl.hpp"
+#include "shallow_history_impl.hpp"
+#include "exit_point_impl.hpp"
+#include "entry_point_impl.hpp"
+#include "behavior.hpp"
+#include "state_machine_defect.hpp"
+#include "uri.hpp"
+#include "log_and_throw.hpp"
 
 
 namespace sxy
@@ -45,9 +46,6 @@ composite_state_impl::composite_state_impl( const std::string& _name, behavior_u
 }
 
 
-composite_state_impl::~composite_state_impl() = default;
-
-
 // cppcheck-suppress unusedFunction
 region& composite_state_impl::add_region( region_uptr _region )
 {
@@ -60,7 +58,7 @@ region& composite_state_impl::add_region( region_uptr _region )
 
 region& composite_state_impl::add_region( const std::string& _region_name )
 {
-	auto region = std::make_unique< sxy::region_impl >( _region_name );
+	auto region = sxy::make_unique< sxy::region_impl >( _region_name );
 	region->set_parent_state( this );
 	auto& new_region = *region;
 	regions_.push_back( std::move( region ) );
@@ -131,7 +129,7 @@ deep_history& composite_state_impl::add_deep_history( const std::string& _deep_h
 		LOG_AND_THROW( log_level::LL_FATAL, "There is already a deep history in the composite state '%'!", get_name() );
 	}
 
-	auto deep_history = std::make_unique< sxy::deep_history_impl >( _deep_history_name );
+	auto deep_history = sxy::make_unique< sxy::deep_history_impl >( _deep_history_name );
 	deep_history->set_parent_state( this );
 	deep_history_ = std::move( deep_history );
 	return( *deep_history_ );
@@ -166,7 +164,7 @@ shallow_history& composite_state_impl::add_shallow_history( const std::string& _
 			get_name() );
 	}
 
-	auto shallow_history = std::make_unique< sxy::shallow_history_impl >( _shallow_history_name );
+	auto shallow_history = sxy::make_unique< sxy::shallow_history_impl >( _shallow_history_name );
 	shallow_history->set_parent_state( this );
 	shallow_history_ = std::move( shallow_history );
 	return( *shallow_history_ );
@@ -197,7 +195,7 @@ entry_point& composite_state_impl::add_entry_point( entry_point_uptr _entry_poin
 
 entry_point& composite_state_impl::add_entry_point( const std::string& _entry_point_name )
 {
-	auto entry_point = std::make_unique< sxy::entry_point_impl >( _entry_point_name );
+	auto entry_point = sxy::make_unique< sxy::entry_point_impl >( _entry_point_name );
 	entry_point->set_parent_state( this );
 	entry_points_.push_back( std::move( entry_point ) );
 	return( *entry_points_.back() );
@@ -228,7 +226,7 @@ exit_point& composite_state_impl::add_exit_point( exit_point_uptr _exit_point )
 
 exit_point& composite_state_impl::add_exit_point( const std::string& _exit_point_name )
 {
-	auto exit_point = std::make_unique< sxy::exit_point_impl >( _exit_point_name );
+	auto exit_point = sxy::make_unique< sxy::exit_point_impl >( _exit_point_name );
 	exit_point->set_parent_state( this );
 	exit_points_.push_back( std::move( exit_point ) );
 	return( *exit_points_.back() );
@@ -310,7 +308,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 	// 15.3.11 State -> Constraint [5]: A composite state is a state with at least one region.
 	if( get_regions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Composite state '%' has no regions!",
+		_defects.push_back( state_machine_defect( *this, "Composite state '%' has no regions!",
 				get_name() ) );
 		check_ok = false;
 	}
@@ -362,7 +360,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 	// a state cannot defer an event that triggers a transition
 	if( complex_state_impl::check_if_one_of_the_deferred_events_triggers_a_transition() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 				"Simple state '%' defer event that triggers a outgoing transition!", get_name() ) );
 		check_ok = false;
 	}

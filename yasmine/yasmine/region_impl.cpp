@@ -9,24 +9,25 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "region_impl.h"
+#include "region_impl.hpp"
 
-#include "base.h"
-#include "state.h"
-#include "initial_pseudostate_impl.h"
-#include "choice_impl.h"
-#include "fork_impl.h"
-#include "join_impl.h"
-#include "junction_impl.h"
-#include "terminate_pseudostate_impl.h"
-#include "simple_state_impl.h"
-#include "composite_state_impl.h"
-#include "final_state_impl.h"
-#include "behavior_impl.h"
-#include "async_simple_state_impl.h"
+#include "make_unique.hpp"
+#include "base.hpp"
+#include "state.hpp"
+#include "initial_pseudostate_impl.hpp"
+#include "choice_impl.hpp"
+#include "fork_impl.hpp"
+#include "join_impl.hpp"
+#include "junction_impl.hpp"
+#include "terminate_pseudostate_impl.hpp"
+#include "simple_state_impl.hpp"
+#include "composite_state_impl.hpp"
+#include "final_state_impl.hpp"
+#include "behavior_impl.hpp"
+#include "async_simple_state_impl.hpp"
 
-#include "state_machine_defect.h"
-#include "uri.h"
+#include "state_machine_defect.hpp"
+#include "uri.hpp"
 
 
 
@@ -45,10 +46,7 @@ region_impl::region_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-region_impl::~region_impl() = default;
-
+		
 
 void region_impl::set_parent_state( composite_state* const _composite_state )
 {
@@ -189,14 +187,16 @@ state* region_impl::get_active_state()
 void region_impl::set_active_state( state* const _active_state )
 {
 	active_state_ = _active_state;
-	auto message = sxy::yprintf( "Set NO active state in region '%'.", get_name() ); 		
+
 	if( _active_state )
 	{
-		message = sxy::yprintf( "Set state '%' as 'active state' in region '%'.", _active_state->get_name(),
+		Y_LOG( log_level::LL_SPAM, "Set state '%' as 'active state' in region '%'.", _active_state->get_name(),
 			get_name() );
 	}
-
-	Y_LOG( log_level::LL_SPAM, message );
+	else
+	{
+		Y_LOG( log_level::LL_SPAM, "Set NO active state in region '%'.", get_name() );
+	}
 }
 
 
@@ -235,7 +235,7 @@ initial_pseudostate& region_impl::add_initial_pseudostate( initial_pseudostate_u
 initial_pseudostate& region_impl::add_initial_pseudostate( const std::string& _initial_state_name )
 {
 	Y_ASSERT( !initial_pseudostate_, "There is already a initial pseudostate in the region." );
-	auto initial_state = std::make_unique< sxy::initial_pseudostate_impl >( _initial_state_name );
+	auto initial_state = sxy::make_unique< sxy::initial_pseudostate_impl >( _initial_state_name );
 	initial_state->set_parent_region( this );
 	initial_pseudostate_ = initial_state.get();
 	pseudostates_.push_back( std::move( initial_state ) );
@@ -261,7 +261,7 @@ simple_state& region_impl::add_simple_state( const std::string& _name, const beh
 	auto behavior = behavior_impl::create_behavior( _behavior );
 	auto entry_behavior = behavior_impl::create_behavior( _entry_behavior );
 	auto exit_behavior = behavior_impl::create_behavior( _exit_behavior );
-	auto simple_state = std::make_unique< sxy::simple_state_impl >( _name, std::move( behavior ), 
+	auto simple_state = sxy::make_unique< sxy::simple_state_impl >( _name, std::move( behavior ),
 		std::move( entry_behavior ), std::move( exit_behavior ) );
 	simple_state->set_parent_region( this );
 	auto& state = *simple_state;
@@ -272,14 +272,14 @@ simple_state& region_impl::add_simple_state( const std::string& _name, const beh
 
 simple_state& region_impl::add_simple_state( const std::string& _name, const event_ids& _deferred_events,
 	const behavior_function& _behavior,	const behavior_function& _entry_behavior,
-	const behavior_function& _exit_behavior, behavior_exception_uptr _error_event )
+	const behavior_function& _exit_behavior, event_sptr _error_event )
 {
 	auto simple_state =
-		std::make_unique< sxy::simple_state_impl >( _name,
+		sxy::make_unique< sxy::simple_state_impl >( _name,
 			( _behavior == nullptr ? nullptr : ( behavior_impl::create_behavior( _behavior ) ) ),
 			( _entry_behavior == nullptr ? nullptr : ( behavior_impl::create_behavior( _entry_behavior ) ) ),
 			( _exit_behavior == nullptr ? nullptr : ( behavior_impl::create_behavior( _exit_behavior ) ) ), _deferred_events,
-			std::move(_error_event) );
+			_error_event );
 	simple_state->set_parent_region( this );
 	auto& state = *simple_state;
 	states_.push_back( std::move( simple_state ) );
@@ -290,12 +290,12 @@ simple_state& region_impl::add_simple_state( const std::string& _name, const eve
 // cppcheck-suppress unusedFunction
 simple_state& region_impl::add_async_simple_state( const std::string& _name, const event_ids& _deferred_events,
 	async_behavior_uptr _do_action,	const behavior_function& _entry_behavior,	const behavior_function& _exit_behavior,
-	behavior_exception_uptr _error_event )
+	event_sptr _error_event )
 {
-	auto simple_state =	std::make_unique< sxy::async_simple_state_impl >( _name, std::move( _do_action ),
+	auto simple_state =	sxy::make_unique< sxy::async_simple_state_impl >( _name, std::move( _do_action ),
 		( _entry_behavior == nullptr ? nullptr : ( behavior_impl::create_behavior( _entry_behavior ) ) ),
 		( _exit_behavior == nullptr ? nullptr : ( behavior_impl::create_behavior( _exit_behavior ) ) ), _deferred_events,
-		std::move( _error_event ) );
+		_error_event );
 	simple_state->set_parent_region( this );
 	auto& state = *simple_state;
 	states_.push_back( std::move( simple_state ) );
@@ -308,7 +308,7 @@ composite_state& region_impl::add_composite_state( const std::string& _name, con
 	const behavior_function& _exit_action )
 {
 	auto composite_state =
-		std::make_unique< sxy::composite_state_impl >( _name,
+		sxy::make_unique< sxy::composite_state_impl >( _name,
 			( _entry_action == nullptr ? nullptr : ( behavior_impl::create_behavior( _entry_action ) ) ),
 			( _exit_action == nullptr ? nullptr : ( behavior_impl::create_behavior( _exit_action ) ) ) );
 	composite_state->set_parent_region( this );
@@ -322,7 +322,7 @@ composite_state& region_impl::add_composite_state( const std::string& _name, con
 	const behavior_function& _entry_action,	const behavior_function& _exit_action )
 {
 	auto composite_state =
-		std::make_unique< sxy::composite_state_impl >( _name,
+		sxy::make_unique< sxy::composite_state_impl >( _name,
 			( _entry_action == nullptr ? nullptr : ( behavior_impl::create_behavior( _entry_action ) ) ),
 			( _exit_action == nullptr ? nullptr : ( behavior_impl::create_behavior( _exit_action ) ) ), _deferred_events );
 	composite_state->set_parent_region( this );
@@ -335,7 +335,7 @@ composite_state& region_impl::add_composite_state( const std::string& _name, con
 // cppcheck-suppress unusedFunction
 final_state& region_impl::add_final_state( const std::string& _name )
 {
-	auto final_state = std::make_unique< sxy::final_state_impl >( _name );
+	auto final_state = sxy::make_unique< sxy::final_state_impl >( _name );
 	final_state->set_parent_region( this );
 	auto& state = *final_state;
 	states_.push_back( std::move( final_state ) );
@@ -355,7 +355,7 @@ choice& region_impl::add_choice( choice_uptr _choice )
 
 choice& region_impl::add_choice( const std::string& _choice_name )
 {
-	auto choice = std::make_unique< sxy::choice_impl >( _choice_name );
+	auto choice = sxy::make_unique< sxy::choice_impl >( _choice_name );
 	choice->set_parent_region( this );
 	auto& new_choice = *choice.get();
 	pseudostates_.push_back( std::move( choice ) );
@@ -375,7 +375,7 @@ fork& region_impl::add_fork( fork_uptr _fork )
 
 fork& region_impl::add_fork( const std::string& _fork_name )
 {
-	auto fork = std::make_unique< sxy::fork_impl >( _fork_name );
+	auto fork = sxy::make_unique< sxy::fork_impl >( _fork_name );
 	fork->set_parent_region( this );
 	auto& new_fork = *fork.get();
 	pseudostates_.push_back( std::move( fork ) );
@@ -395,7 +395,7 @@ join& region_impl::add_join( join_uptr _join )
 
 join& region_impl::add_join( const std::string& _join_name )
 {
-	auto join = std::make_unique< sxy::join_impl >( _join_name );
+	auto join = sxy::make_unique< sxy::join_impl >( _join_name );
 	join->set_parent_region( this );
 	auto& new_join = *join.get();
 	pseudostates_.push_back( std::move( join ) );
@@ -415,7 +415,7 @@ junction& region_impl::add_junction( junction_uptr _junction )
 
 junction& region_impl::add_junction( const std::string& _junction_name )
 {
-	auto junction = std::make_unique< sxy::junction_impl >( _junction_name );
+	auto junction = sxy::make_unique< sxy::junction_impl >( _junction_name );
 	junction->set_parent_region( this );
 	auto& new_junction = *junction.get();
 	pseudostates_.push_back( std::move( junction ) );
@@ -434,7 +434,7 @@ terminate_pseudostate& region_impl::add_terminate_pseudostate( terminate_pseudos
 
 terminate_pseudostate& region_impl::add_terminate_pseudostate( const std::string& _terminate_pseudostate_name )
 {
-	auto terminate_pseudostate = std::make_unique< sxy::terminate_pseudostate_impl >( _terminate_pseudostate_name );
+	auto terminate_pseudostate = sxy::make_unique< sxy::terminate_pseudostate_impl >( _terminate_pseudostate_name );
 	terminate_pseudostate->set_parent_region( this );
 	auto& new_terminate_pseudostate = *terminate_pseudostate.get();
 	pseudostates_.push_back( std::move( terminate_pseudostate ) );
@@ -489,7 +489,7 @@ bool region_impl::check( state_machine_defects& _defects ) const
 	// region must not be empty
 	if( ( 0 == get_state_count() ) && ( 0 == get_pseudostate_count() ) )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Region '%' is empty!", get_name() ) );
+		_defects.push_back( state_machine_defect( *this, "Region '%' is empty!", get_name() ) );
 		check_ok = false;
 	}
 
@@ -510,6 +510,12 @@ bool region_impl::check( state_machine_defects& _defects ) const
 	}
 
 	return( check_ok );
+}
+
+
+const state_machine_element* region_impl::get_parent() const
+{
+	return( parent_state_ );
 }
 
 

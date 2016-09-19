@@ -12,56 +12,54 @@
 #include <memory>
 #include <iostream>
 
-#include "yasmine.h"
-#include "version.h"
+#include "yasmine.hpp"
+#include "version.hpp"
 
 
 const sxy::event_id HELLO_EVENT = 1;
 using state_machine_uptr = std::unique_ptr< sxy::state_machine >;
 
 
+void reply()
+{
+	std::cout << "Hello, yasmine!" << std::endl;
+}
+
+
+void wait()
+{
+	std::cout << "waiting" << std::endl;
+}
+
+
 state_machine_uptr setup_state_machine( const std::string& _name )
 {
-	auto l_state_machine = std::make_unique< sxy::state_machine >( _name );
+	auto state_machine = std::make_unique< sxy::state_machine >( _name );
 
-	auto& l_root_state = l_state_machine->get_root_state();
-	auto& l_main_region = l_root_state.add_region( "main region" );
-	auto l_waiting =	[ ] ( const sxy::event& _event ) 
-										{ 
-											Y_UNUSED_PARAMETER( _event ); 
-											std::cout << "waiting" << std::endl;  
-										};
+	auto& root_state = state_machine->get_root_state();
+	auto& main_region = root_state.add_region( "main region" );
+	auto& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
+	auto& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION_NO_EVENT( wait ) );
+	auto& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION_NO_EVENT( reply ) );
 
-	auto l_replying = [ ] ( const sxy::event& _event )
-										{
-											Y_UNUSED_PARAMETER( _event );
-											std::cout << "Hello, yasmine!" << std::endl;
-										};
-	auto& l_initial_pseudostate = l_main_region.add_initial_pseudostate( "initial" );
-	auto& l_simple_state_waiting = l_main_region.add_simple_state( "waiting", l_waiting );
-	auto& l_simple_state_replying = l_main_region.add_simple_state( "replying", l_replying );
+	state_machine->add_transition( sxy::COMPLETION_EVENT, initial_pseudostate, simple_state_waiting );
+	state_machine->add_transition( HELLO_EVENT, simple_state_waiting,	simple_state_replying );
+	state_machine->add_transition( sxy::COMPLETION_EVENT, simple_state_replying, simple_state_waiting );
 
-	l_state_machine->add_transition( "initial_transition", sxy::COMPLETION_EVENT, l_initial_pseudostate,
-		l_simple_state_waiting );
-	l_state_machine->add_transition( "waiting_to_replying_on_hello", HELLO_EVENT, l_simple_state_waiting,
-		l_simple_state_replying );
-	l_state_machine->add_transition( "replying_to_waiting_on_completion", sxy::COMPLETION_EVENT, l_simple_state_replying,
-		l_simple_state_waiting );
-
-	return( std::move( l_state_machine ) );
+	return( std::move( state_machine ) );
 }
 
 
 bool check_state_machine_for_defects( const sxy::state_machine& _state_machine )
 {
 	sxy::state_machine_defects defects;
-	const auto state_machine_has_defects = _state_machine.check( defects );
-	if( !state_machine_has_defects )
+	const auto state_machine_has_no_defects = _state_machine.check( defects );
+	if( !state_machine_has_no_defects )
 	{
-		write_defects_to_log( defects );
+		sxy::write_defects_to_log( defects );
 	}
 
-	return( state_machine_has_defects );
+	return( state_machine_has_no_defects );
 }
 
 
@@ -69,22 +67,22 @@ int main()
 {
 	auto error_code = 0;
 
-	sxy::log_manager& log_manager = sxy::log_manager::get_instance();
-	log_manager.set_log_level( sxy::log_level::LL_INFO );
+	auto& log_manager = sxy::log_manager::get_instance();
+	log_manager.set_log_level( sxy::log_level::LL_FATAL );
 	log_manager.add_logger( std::make_unique< sxy::cout_logger >() );
 	log_manager.start();
 	yasmine::version::log_version();
 
-	const auto l_state_machine = setup_state_machine( "hello yasmine state machine" );
-	if( check_state_machine_for_defects( *l_state_machine.get() ) )
+	const auto hello_yasmine_state_machine = setup_state_machine( "hello yasmine state machine" );
+	if( check_state_machine_for_defects( *hello_yasmine_state_machine ) )
 	{
-		l_state_machine->start_state_machine();
+		hello_yasmine_state_machine->start_state_machine();
 		try
 		{
-			l_state_machine->fire_event( sxy::event_impl::create_event( HELLO_EVENT ) );
-			l_state_machine->fire_event( sxy::event_impl::create_event( HELLO_EVENT ) );
-			l_state_machine->fire_event( sxy::event_impl::create_event( HELLO_EVENT ) );
-			l_state_machine->stop_state_machine();
+			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );
+			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );
+			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );
+			hello_yasmine_state_machine->stop_state_machine();
 		}
 		catch( const std::exception& exception )
 		{
@@ -104,6 +102,6 @@ int main()
 
 	log_manager.stop();
 	log_manager.join();
-
+	
 	return( error_code );
 }

@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "detector.h"
+#include "detector.hpp"
 
 #include <thread>
 #include <random>
 
-#include "base.h"
-#include "detector_callback.h"
+#include "base.hpp"
+#include "detector_callback.hpp"
 
 
 namespace

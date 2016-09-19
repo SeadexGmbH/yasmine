@@ -9,17 +9,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "join_impl.h"
+#include "join_impl.hpp"
 
-#include "base.h"
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
-#include "complex_state.h"
-#include "transition.h"
-#include "check_if_all_incoming_transitions_sources_are_active_visitor.h"
-#include "state_machine_defect.h"
-#include "composite_state.h"
+#include "base.hpp"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
+#include "complex_state.hpp"
+#include "transition.hpp"
+#include "check_if_all_incoming_transitions_sources_are_active_visitor.hpp"
+#include "state_machine_defect.hpp"
+#include "composite_state.hpp"
 
 
 namespace sxy
@@ -31,11 +31,6 @@ join_impl::join_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-join_impl::~join_impl() = default;
-
-
 
 
 bool join_impl::check_if_all_source_states_of_incoming_transitions_are_active() const
@@ -88,14 +83,14 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	// outgoing transition.
 	if( get_incoming_transitions().size() < 2 )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,	
+		_defects.push_back( state_machine_defect( *this,
 			"Join has too few incoming transitions!" ) );
 		check_ok = false;
 	}
 
 	if( get_outgoing_transitions().size() != 1 )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 			"Join does not have exactly 1 outgoing transition!" ) );
 		check_ok = false;
 	}
@@ -116,7 +111,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 			auto result = lca_composite_states.insert( lca );
 			if( !result.second )
 			{
-				_defects.push_back( std::make_unique< state_machine_defect >( *this,
+				_defects.push_back( state_machine_defect( *this,
 					"Join '%' has incoming transitions that originate in same region of a composite state!", get_name() ) );
 				check_ok = false;
 				break;
@@ -129,7 +124,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	{
 		if( transition->get_guard() )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this, "Join has guard!" ) );
+			_defects.push_back( state_machine_defect( *this, "Join has guard!" ) );
 			check_ok = false;
 		}
 	}
@@ -146,7 +141,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 		const auto source_vertex = dynamic_cast< const state* >( &transition->get_source() );
 		if( !source_vertex )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 				"Join segment does not originate from a state!" ) );
 			check_ok = false;
 		}

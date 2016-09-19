@@ -9,15 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "state_machine_defect.h"
-#include "state_machine_defect_fwd.h"
+#include "state_machine_defect.hpp"
 
 
 namespace sxy
 {
-
-
-state_machine_defect::~state_machine_defect() = default;
 
 
 // cppcheck-suppress unusedFunction
@@ -38,7 +34,7 @@ void write_defects_to_log( const state_machine_defects& _defects )
 {
 	for( const auto & defect : _defects )
 	{
-		Y_LOG( sxy::log_level::LL_ERROR, defect->get_message() );
+		Y_LOG( sxy::log_level::LL_ERROR, defect.get_message() );
 	}
 }
 

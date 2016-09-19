@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "intersection.h"
+#include "intersection.hpp"
 
 #include <iostream>
 
-#include "logging.h"
-#include "utils.h"
-#include "version.h"
+#include "logging.hpp"
+#include "utils.hpp"
+#include "version.hpp"
 
 
 #ifdef WIN32
@@ -71,40 +71,40 @@ int main()
 	sxy::utils::set_window_size( 250, 9999 );
 	sxy::utils::maximize_window();
 
-	sxy::log_manager& log_manager = sxy::log_manager::get_instance();
+	auto& log_manager = sxy::log_manager::get_instance();
 	log_manager.set_log_level( sxy::log_level::LL_DEBUG );
 	log_manager.add_logger( std::make_unique< sxy::cout_logger >() );
 	log_manager.start();
 	yasmine::version::log_version();
 
-	try
+try
+{
+	sxy::intersection intersection_of_rods;
+	if( intersection_of_rods.start() )
 	{
-		sxy::intersection l_intersection;
-		if( l_intersection.start() )
-		{
-			std::cout << "To quit press 'q'." << std::endl;
-			wait_for_quit_input();
-			l_intersection.stop();
-		}
-		else
-		{
-			Y_LOG( sxy::log_level::LL_FATAL, "The intersection could not be started." );
-			error_code = 1;
-		}
+		std::cout << "To quit press 'q'." << std::endl;
+		wait_for_quit_input();
+		intersection_of_rods.stop();
 	}
-	catch ( const std::exception& _exception )
+	else
 	{
-		Y_LOG( sxy::log_level::LL_FATAL, "Unhandled exception: '%'.", _exception.what() );
-		error_code = 2;
+		Y_LOG( sxy::log_level::LL_FATAL, "The intersection could not be started." );
+		error_code = 1;
 	}
-	catch ( ... )
-	{
-		Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception!" );
-		error_code = 3;
-	}
+}
+catch ( const std::exception& _exception )
+{
+	Y_LOG( sxy::log_level::LL_FATAL, "Unhandled exception: '%'.", _exception.what() );
+	error_code = 2;
+}
+catch ( ... )
+{
+	Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception!" );
+	error_code = 3;
+}
 
-	log_manager.stop();
-	log_manager.join();
+log_manager.stop();
+log_manager.join();
 
 	return( error_code );
 }

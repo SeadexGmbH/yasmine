@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "final_state_impl.h"
+#include "final_state_impl.hpp"
 
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "state_visitor.h"
-#include "region.h"
-#include "state_machine_defect.h"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "state_visitor.hpp"
+#include "region.hpp"
+#include "state_machine_defect.hpp"
 
 
 namespace sxy
@@ -27,10 +27,7 @@ final_state_impl::final_state_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-final_state_impl::~final_state_impl() = default;
-
+																				 
 
 behavior* final_state_impl::get_entry_behavior() const
 {
@@ -65,15 +62,15 @@ bool final_state_impl::check( state_machine_defects& _defects ) const
 	// 15.3.2 Final State -> Constraint [1]: A final state cannot have any outgoing transitions.
 	if( !get_outgoing_transitions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
-				"Final state '%' have '%' outgoing transitions!", get_name(), get_outgoing_transitions().size() ) );
+		_defects.push_back( state_machine_defect( *this,
+				"Final state '%' has '%' outgoing transitions!", get_name(), get_outgoing_transitions().size() ) );
 		check_ok = false;
 	}
 
 	// 15.3.2 Final State -> Constraint [2]: A final state cannot have regions.
 	if( !get_regions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Final state '%' have '%' region(s)!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has '%' region(s)!",
 				get_name(), get_regions().size() ) );
 		check_ok = false;
 	}
@@ -83,15 +80,15 @@ bool final_state_impl::check( state_machine_defects& _defects ) const
 	// 15.3.2 Final State -> Constraint [4]: A final state has no entry behavior.
 	if( get_entry_behavior() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Final state '%' has entry behavior!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has entry behavior!",
 				get_name() ) );
 		check_ok = false;
 	}
 
-	//  15.3.2 Final State -> Constraint [5]: A final state has no exit behavior.
+	// 15.3.2 Final State -> Constraint [5]: A final state has no exit behavior.
 	if( get_exit_behavior() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Final state '%' has exit behavior!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has exit behavior!",
 				get_name() ) );
 		check_ok = false;
 	}

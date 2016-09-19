@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "junction_impl.h"
+#include "junction_impl.hpp"
 
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
-#include "state_machine_defect.h"
-#include "transition.h"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
+#include "state_machine_defect.hpp"
+#include "transition.hpp"
 
 
 namespace sxy
@@ -29,37 +29,34 @@ junction_impl::junction_impl( const std::string& _name )
 }
 
 
-junction_impl::~junction_impl() = default;
-
-
 bool junction_impl::check( state_machine_defects& _defects ) const
 {
 	auto check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [7]: A junction vertex must have at least one incoming and one outgoing
 	// transition.
-	Y_LOG( log_level::LL_SPAM, "Checking if junction '%' have incoming transition(s).", get_name() );
+	Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has incoming transition(s).", get_name() );
 	if( get_incoming_transitions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 			"Junction has too few incoming transitions!" ) );
 		check_ok = false;
 	}
 
-	Y_LOG( log_level::LL_SPAM, "Junction '%' have % incoming transition(s).", get_name(),
+	Y_LOG( log_level::LL_SPAM, "Junction '%' has % incoming transition(s).", get_name(),
 		get_incoming_transitions().size() );
-	Y_LOG( log_level::LL_SPAM, "Checking if junction '%' have outgoing transition(s).", get_name() );
+	Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has outgoing transition(s).", get_name() );
 	if( get_outgoing_transitions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
-			"Junction '%' has too few outgoing transitions! It has no transition.", get_name() ) );
+		_defects.push_back( state_machine_defect( *this,
+			"Junction '%' has no outgoing transitions!", get_name() ) );
 		check_ok = false;
 	}
 	else
 	{
-		Y_LOG( log_level::LL_SPAM, "Junction '%' have % outgoing transition(s).", get_name(),
+		Y_LOG( log_level::LL_SPAM, "Junction '%' has % outgoing transition(s).", get_name(),
 			get_incoming_transitions().size() );
-		Y_LOG( log_level::LL_SPAM, "Checking if junction '%' have more then one outgoing transition with no guard.",
+		Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has more than one outgoing transition with no guard.",
 			get_name() );
 		auto number_of_transitions_with_no_guards = 0;
 
@@ -73,13 +70,13 @@ bool junction_impl::check( state_machine_defects& _defects ) const
 
 		if( number_of_transitions_with_no_guards > 1 )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
-				"Junction '%' has more then one outgoing transition with no guard! It has '%' transitions with no guards.",
+			_defects.push_back( state_machine_defect( *this,
+				"Junction '%' has more than one outgoing transition with no guard! It has '%' transitions with no guards.",
 				get_name(), number_of_transitions_with_no_guards ) );
 			check_ok = false;
 		}
 
-		Y_LOG( log_level::LL_SPAM, "Junction '%' have % outgoing transition(s) with no guard.",	get_name(), 
+		Y_LOG( log_level::LL_SPAM, "Junction '%' has % outgoing transition(s) with no guard.",	get_name(), 
 			number_of_transitions_with_no_guards );
 	}
 

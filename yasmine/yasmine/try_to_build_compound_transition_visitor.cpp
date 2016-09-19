@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "try_to_build_compound_transition_visitor.h"
+#include "try_to_build_compound_transition_visitor.hpp"
 
-#include "base.h"
+#include "base.hpp"
 
-#include "join.h"
-#include "compound_transition_impl.h"
-#include "compound_transition_builder.h"
-#include "event.h"
+#include "join.hpp"
+#include "compound_transition_impl.hpp"
+#include "compound_transition_builder.hpp"
+#include "event.hpp"
 
 
 namespace sxy
@@ -33,9 +33,6 @@ try_to_build_compound_transition_visitor::try_to_build_compound_transition_visit
 {
 	is_built_ = false;
 }
-
-
-try_to_build_compound_transition_visitor::~try_to_build_compound_transition_visitor() = default; 
 
 
 void try_to_build_compound_transition_visitor::visit( const composite_state& _composite_state )

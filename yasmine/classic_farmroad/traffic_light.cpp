@@ -9,11 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "traffic_light.h"
+#include "traffic_light.hpp"
 
 #include <iostream>
 
-#include "yasmine.h"
+#include "yasmine.hpp"
 
 
 namespace sxy
@@ -45,37 +45,37 @@ traffic_light::traffic_light( const std::string& _name, const std::string& _asci
 traffic_light::~traffic_light() = default;
 void traffic_light::start()
 {
-	traffic_light_state_machine_.run();
+	traffic_light_state_machine_.start_state_machine();
 }
 
 
 void traffic_light::stop()
 {
-	traffic_light_state_machine_.halt();
+	traffic_light_state_machine_.stop_state_machine();
 }
 
 
 void traffic_light::switch_to_red_yellow()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create_event( EVENT_SWITCH_TO_RED_YELLOW ) );
+	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_RED_YELLOW ) );
 }
 
 
 void traffic_light::switch_to_green()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create_event( EVENT_SWITCH_TO_GREEN ) );
+	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_GREEN ) );
 }
 
 
 void traffic_light::switch_to_yellow()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create_event( EVENT_SWITCH_TO_YELLOW ) );
+	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_YELLOW ) );
 }
 
 
 void traffic_light::switch_to_red()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create_event( EVENT_SWITCH_TO_RED ) );
+	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_RED ) );
 }
 
 
@@ -109,26 +109,19 @@ void traffic_light::build_traffic_light_state_machine()
 	auto& main_region = root.add_region( "main_region" );
 	auto& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 
-	// behaviors
-	auto on_red_yellow = [ & ] ( const sxy::event& _event ) { on_traffic_light_red_yellow(); };
-	auto on_green = [ & ] ( const sxy::event& _event ) { on_traffic_light_green(); };
-	auto on_yellow = [ & ] ( const sxy::event& _event ) { on_traffic_light_yellow(); };
-	auto on_red = [ & ] ( const sxy::event& _event ) { on_traffic_light_red(); };
-
 	// states
-	auto& red_state = main_region.add_simple_state( "Red", on_red, nullptr, nullptr );
-	auto& red_yellow_state = main_region.add_simple_state( "Red-Yellow", on_red_yellow, nullptr, nullptr );
-	auto& green_state = main_region.add_simple_state( "Green",  on_green, nullptr, nullptr );
-	auto& yellow_state = main_region.add_simple_state( "Yellow",  on_yellow, nullptr, nullptr );
+	auto& red_state = main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red ) );
+	auto& red_yellow_state = main_region.add_simple_state( "Red-Yellow", 
+		Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red_yellow ) );
+	auto& green_state = main_region.add_simple_state( "Green", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_green ) );
+	auto& yellow_state = main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_yellow ) );
 
 	// transitions
-	traffic_light_state_machine_.add_transition( "initial", COMPLETION_EVENT, initial_pseudostate, red_state );
-	traffic_light_state_machine_.add_transition( "switch_to_red_yellow", EVENT_SWITCH_TO_RED_YELLOW, red_state,
-		red_yellow_state );
-	traffic_light_state_machine_.add_transition( "switch_to_green", EVENT_SWITCH_TO_GREEN, red_yellow_state, 
-		green_state );
-	traffic_light_state_machine_.add_transition( "switch_to_yellow", EVENT_SWITCH_TO_YELLOW, green_state,	yellow_state );
-	traffic_light_state_machine_.add_transition( "switch_to_red", EVENT_SWITCH_TO_RED, yellow_state, red_state );
+	traffic_light_state_machine_.add_transition( COMPLETION_EVENT, initial_pseudostate, red_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED_YELLOW, red_state, red_yellow_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_GREEN, red_yellow_state, green_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_YELLOW, green_state,	yellow_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED, yellow_state, red_state );
 }
 
 

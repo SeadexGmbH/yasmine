@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "choice_impl.h"
+#include "choice_impl.hpp"
 
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
-#include "state_machine_defect.h"
-#include "region.h"
-#include "transition.h"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
+#include "state_machine_defect.hpp"
+#include "region.hpp"
+#include "transition.hpp"
 
 
 namespace sxy
@@ -30,36 +30,33 @@ choice_impl::choice_impl( const std::string& _name )
 }
 
 
-choice_impl::~choice_impl() = default;
-
-
 bool choice_impl::check( state_machine_defects& _defects ) const
 {
 	auto check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [8]: Choice must have at least 1 incoming and 1 outgoing transition.
-	Y_LOG( log_level::LL_SPAM, "Checking if choice '%' have incoming transition(s).", get_name() );
+	Y_LOG( log_level::LL_SPAM, "Checking if choice '%' has incoming transition(s).", get_name() );
 	if( get_incoming_transitions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Choice '%' has no incoming transitions!",
+		_defects.push_back( state_machine_defect( *this, "Choice '%' has no incoming transitions!",
 				get_name() ) );
 		check_ok = false;
 	}
 
-	Y_LOG( log_level::LL_SPAM, "Choice '%' have % incoming transition(s).", get_name(),
-		get_incoming_transitions().size() );
-	Y_LOG( log_level::LL_SPAM, "Checking if choice '%' have outgoing transition(s).", get_name() );
+	Y_LOG( log_level::LL_SPAM, "Choice '%' has % incoming transition(s).", get_name(),
+		get_incoming_transitions().size() );		
+	Y_LOG( log_level::LL_SPAM, "Checking if choice '%' has outgoing transition(s).", get_name() );
 	if( get_outgoing_transitions().empty() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this, "Choice '%' has no outgoing transitions!",
+		_defects.push_back( state_machine_defect( *this, "Choice '%' has no outgoing transitions!",
 				get_name() ) );
 		check_ok = false;
 	}
 	else
 	{
-		Y_LOG( log_level::LL_SPAM, "Choice '%' have % outgoing transition(s).", get_name(),
+		Y_LOG( log_level::LL_SPAM, "Choice '%' has % outgoing transition(s).", get_name(),
 			get_outgoing_transitions().size() );
-		Y_LOG( log_level::LL_SPAM, "Checking if choice '%' have more then one outgoing transition with no guard.",
+		Y_LOG( log_level::LL_SPAM, "Checking if choice '%' has more than one outgoing transition with no guard.",
 			get_name() );
 		auto number_of_transitions_with_no_guard = 0;
 
@@ -73,13 +70,13 @@ bool choice_impl::check( state_machine_defects& _defects ) const
 
 		if( number_of_transitions_with_no_guard > 1 )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
-					"Choice '%' has more then one outgoing transition with no guard! It has % transitions with no guard.",
+			_defects.push_back( state_machine_defect( *this,
+					"Choice '%' has more than one outgoing transition with no guard! It has % transitions with no guard.",
 					get_name(), number_of_transitions_with_no_guard ) );
 			check_ok = false;
 		}
 
-		Y_LOG( log_level::LL_SPAM, "Choice '%' have % outgoing transition(s) with no guard.",
+		Y_LOG( log_level::LL_SPAM, "Choice '%' has % outgoing transition(s) with no guard.",
 			get_name(), number_of_transitions_with_no_guard );
 	}
 

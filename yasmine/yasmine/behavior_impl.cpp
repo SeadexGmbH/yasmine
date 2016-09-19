@@ -9,8 +9,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "behavior_impl.h"
-#include "event_impl.h"
+#include "make_unique.hpp"
+#include "behavior_impl.hpp"
+#include "event_impl.hpp"
 
 
 namespace sxy
@@ -22,10 +23,7 @@ behavior_impl::behavior_impl( const behavior_function& _function )
 {
 	// Nothing to do
 }
-
-
-behavior_impl::~behavior_impl() = default;
-
+																				 
 
 void behavior_impl::operator()( const event& _event ) const
 {
@@ -38,7 +36,7 @@ void behavior_impl::operator()( const event& _event ) const
 
 behavior_uptr behavior_impl::create_behavior( const behavior_function& _function )
 {
-	return( std::make_unique< sxy::behavior_impl >( _function ) );
+	return( sxy::make_unique< sxy::behavior_impl >( _function ) );
 }
 
 

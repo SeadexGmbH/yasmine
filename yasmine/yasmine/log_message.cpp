@@ -9,20 +9,20 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "log_message.h"
+#include "log_message.hpp"
 
 
 namespace sxy
 {
 
 
-log_message::log_message( const log_level _log_level, const std::string& _log_time_stamp, 
-	const std::string&  _log_file,	const int _log_line,	const std::string& _log_message )
-	: log_level_message_( _log_level ),
-		log_time_stam_( _log_time_stamp ),
-		log_file_( _log_file ),
-		log_line_( _log_line ),
-		log_message_( _log_message )
+log_message::log_message( const log_level _log_level, const std::string& _time_stamp, 
+	const std::string&  _file, const int _line,	const std::string& _message )
+	: log_level_( _log_level ),
+		time_stamp_( _time_stamp ),
+		file_( _file ),
+		line_( _line ),
+		message_( _message )
 {
 	// Nothing to do...
 }

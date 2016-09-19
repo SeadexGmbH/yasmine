@@ -9,10 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "state_pseudostate_impl.h"
+#include "state_pseudostate_impl.hpp"
 
-#include "region.h"
-#include "exception.h"
+#include "region.hpp"
+#include "exception.hpp"
 
 
 namespace sxy
@@ -25,10 +25,7 @@ state_pseudostate_impl::state_pseudostate_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-state_pseudostate_impl::~state_pseudostate_impl() = default;
-
+																								
 
 const state_machine_element* state_pseudostate_impl::get_parent() const
 {

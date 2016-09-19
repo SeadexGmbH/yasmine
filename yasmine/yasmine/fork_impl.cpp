@@ -9,17 +9,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "fork_impl.h"
+#include "fork_impl.hpp"
 
-#include  <algorithm>
+#include <algorithm>
 
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
-#include "transition_impl.h"
-#include "state.h"
-#include "state_machine_defect.h"
-#include "region.h"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
+#include "transition_impl.hpp"
+#include "state.hpp"
+#include "state_machine_defect.hpp"
+#include "region.hpp"
 
 
 namespace sxy
@@ -33,9 +33,6 @@ fork_impl::fork_impl( const std::string& _name )
 }
 
 
-fork_impl::~fork_impl() = default;
-
-
 bool fork_impl::check( state_machine_defects& _defects ) const
 {
 	auto check_ok = true;
@@ -44,7 +41,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	// transition.
 	if( get_outgoing_transitions().size() < 2 )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 				"Fork '%' has too few outgoing transitions! It has % transition(s).", get_name(),
 				get_outgoing_transitions().size() ) );
 		check_ok = false;
@@ -52,7 +49,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 
 	if( get_incoming_transitions().size() != 1 )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 				"Fork '%' does not have exactly 1 incoming transition! It has % transition(s),", get_name(),
 				get_outgoing_transitions().size() ) );
 		check_ok = false;
@@ -66,7 +63,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	{
 		if( transition->get_guard() )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 					"Outgoing transition '%' of fork '%' has guard!", transition->get_name(), get_name() ) );
 			check_ok = false;
 		}
@@ -84,7 +81,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 		const auto target_vertex = dynamic_cast< const state* >( &transition->get_target() );
 		if( !target_vertex )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 					"Fork '%' has outgoing transition ('%') that hasn't a state as target! Target vertex is '%'.", get_name(),
 					transition->get_name(), target_vertex->get_name() ) );
 			check_ok = false;
@@ -107,8 +104,8 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 			auto result = target_regions.insert( l_region );
 			if( !result.second )
 			{
-				_defects.push_back( std::make_unique< state_machine_defect >( *this,
-						"Fork '%' has outgoing transition(s) that has the same target region '%'.", get_name(),
+				_defects.push_back( state_machine_defect( *this,
+						"Fork '%' has outgoing transition(s) that has(have) the same target region '%'.", get_name(),
 						l_region->get_name() ) );
 				check_ok = false;
 				break;
@@ -122,7 +119,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	{
 		if( transitions_kind != transition->get_kind() )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 					"Outgoing transitions of fork '%' have different kinds!", get_name() ) );
 			check_ok = false;
 			break;

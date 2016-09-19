@@ -9,17 +9,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "vertex_impl.h"
+#include "vertex_impl.hpp"
 
 #include <algorithm>
 #include <iostream>
 
-#include "composite_state.h"
-#include "region.h"
-#include "transition.h"
-#include "uri.h"
-#include "log.h"
-#include "event.h"
+#include "composite_state.hpp"
+#include "region.hpp"
+#include "transition.hpp"
+#include "uri.hpp"
+#include "log.hpp"
+#include "event.hpp"
 
 
 namespace sxy
@@ -33,10 +33,7 @@ vertex_impl::vertex_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-vertex_impl::~vertex_impl() = default;
-
+	 
 
 void vertex_impl::add_outgoing_transition( transition& _outgoing_transition )
 {
@@ -131,7 +128,7 @@ region* vertex_impl::LCA_region( const vertex& _rhs ) const
 	}
 
 	Y_ASSERT( lca, "No LCA_region has been found!" );
-	Y_LOG( log_level::LL_SPAM, "LCA_region found: '%'.", lca->get_name() );
+	Y_LOG( log_level::LL_SPAM, "LCA region found: '%'.", lca->get_name() );
 	return( lca );
 }
 
@@ -158,13 +155,14 @@ composite_state* vertex_impl::LCA_composite_state( const vertex& _rhs ) const
 		--l_idx;
 	}
 
-	auto message = yprintf( "No LCA_composite_state has been found. LCA is nullptr." );
 	if( lca )
 	{
-		message = yprintf( "LCA_composite_state found: '%'.", lca->get_name() );
+		Y_LOG( log_level::LL_SPAM, "LCA_composite_state found: '%'.", lca->get_name() );
 	}
-
-	Y_LOG( log_level::LL_SPAM, message );
+	else
+	{
+		Y_LOG( log_level::LL_SPAM, "No LCA_composite_state has been found. LCA is nullptr." );
+	}
 
 	return( lca );
 }

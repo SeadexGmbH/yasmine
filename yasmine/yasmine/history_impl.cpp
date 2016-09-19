@@ -9,10 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "history_impl.h"
+#include "history_impl.hpp"
 
-#include "base.h"
-#include "composite_state.h"
+#include "base.hpp"
+#include "composite_state.hpp"
 
 
 namespace sxy
@@ -24,9 +24,6 @@ history_impl::history_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-history_impl::~history_impl() = default;
 
 
 raw_transitions history_impl::get_default_transitions() const

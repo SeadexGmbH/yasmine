@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "state_machine_element_impl.h"
+#include "state_machine_element_impl.hpp"
 
 
 namespace sxy
@@ -23,18 +23,9 @@ state_machine_element_impl::state_machine_element_impl( const std::string& _name
 }
 
 
-state_machine_element_impl::~state_machine_element_impl() = default;
-
-
 const std::string& state_machine_element_impl::get_name() const
 {
 	return( name_ );
-}
-
-
-const state_machine_element* state_machine_element_impl::get_parent() const
-{
-	return( nullptr );
 }
 
 

@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "compound_transition_impl.h"
+#include "compound_transition_impl.hpp"
 
-#include "vertex.h"
-#include "transition.h"
-#include "transition_step.h"
-#include "build_transition_steps_visitor.h"
+#include "vertex.hpp"
+#include "transition.hpp"
+#include "transition_step.hpp"
+#include "build_transition_steps_visitor.hpp"
 
 
 namespace sxy
@@ -27,9 +27,6 @@ compound_transition_impl::compound_transition_impl()
 {
 	// Nothing to do...
 }
-
-
-compound_transition_impl::~compound_transition_impl() = default;
 
 
 transition_steps& compound_transition_impl::get_transition_steps()

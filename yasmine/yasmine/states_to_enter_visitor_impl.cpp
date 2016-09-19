@@ -9,15 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "states_to_enter_visitor_impl.h"
+#include "states_to_enter_visitor_impl.hpp"
 
-#include "base.h"
-#include "simple_state.h"
-#include "composite_state.h"
-#include "final_state.h"
-#include "region.h"
-#include "deep_history.h"
-#include "shallow_history.h"
+#include "base.hpp"
+#include "simple_state.hpp"
+#include "composite_state.hpp"
+#include "final_state.hpp"
+#include "region.hpp"
+#include "deep_history.hpp"
+#include "shallow_history.hpp"
 
 
 namespace sxy
@@ -32,9 +32,6 @@ states_to_enter_visitor_impl::states_to_enter_visitor_impl( raw_states_by_nestin
 {
 	// Nothing to do...
 }
-
-
-states_to_enter_visitor_impl::~states_to_enter_visitor_impl() = default;
 
 
 void states_to_enter_visitor_impl::visit( composite_state& _composite_state )

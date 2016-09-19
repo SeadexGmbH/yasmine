@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "color_mapping.h"
+#include "color_mapping.hpp"
 
 #include <algorithm>
 #include <locale>
@@ -22,7 +22,7 @@ namespace sxy
 color_mapping::color_mapping()
 	: color_ma_(
 	{
-		{ log_level::LL_FATAL, color::C_RED }, { log_level::LL_ERROR, color::C_DARK_RED  },
+		{ log_level::LL_FATAL, color::C_RED }, { log_level::LL_ERROR, color::C_DARK_RED },
 		{ log_level::LL_ASSERT, color::C_DARK_RED }, { log_level::LL_WARN, color::C_YELLOW },
 		{ log_level::LL_INFO,	color::C_DARK_YELLOW }, { log_level::LL_DEBUG, color::C_DARK_GREEN }, 
 		{ log_level::LL_TRACE,color::C_DARK_GREEN }, { log_level::LL_SPAM, color::C_GREEN }, 
