@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "terminate_pseudostate_impl.h"
+#include "terminate_pseudostate_impl.hpp"
 
-#include "base.h"
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
+#include "base.hpp"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
 
 
 namespace sxy
@@ -26,9 +26,6 @@ terminate_pseudostate_impl::terminate_pseudostate_impl( const std::string& _name
 {
 	// Nothing to do...
 }
-
-
-terminate_pseudostate_impl::~terminate_pseudostate_impl() = default;
 
 
 bool terminate_pseudostate_impl::check( state_machine_defects& _defects ) const

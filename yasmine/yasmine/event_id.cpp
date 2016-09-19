@@ -9,14 +9,16 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "event_id.h"
+#include "event_id.hpp"
+
+#include <limits>
 
 
 namespace sxy
 {
 
 
-const event_id COMPLETION_EVENT = 0;
+const event_id COMPLETION_EVENT = std::numeric_limits<event_id>::max();
 
 
 }

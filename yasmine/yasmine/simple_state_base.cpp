@@ -9,15 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "simple_state_base.h"
+#include "simple_state_base.hpp"
 
-#include "base.h"
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "state_visitor.h"
-#include "complex_state_visitor.h"
-#include "state_machine_defect.h"
-#include "region.h"
+#include "base.hpp"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "state_visitor.hpp"
+#include "complex_state_visitor.hpp"
+#include "state_machine_defect.hpp"
+#include "region.hpp"
 
 
 namespace sxy
@@ -25,17 +25,12 @@ namespace sxy
 
 
 simple_state_base::simple_state_base( const std::string& _name, behavior_uptr _entry_action,
-	behavior_uptr _exit_action, const event_ids& _deferred_events, behavior_exception_uptr _error_event)
+	behavior_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event)
 	: complex_state_impl( _name, std::move( _entry_action ), std::move( _exit_action ), _deferred_events ),
-	error_event_( std::move(_error_event) )
+	error_event_( _error_event )
 {
 	// Nothing to do...
 }
-	
-	
-simple_state_base::~simple_state_base
-(
-) = default;
 
 
 const regions& simple_state_base::get_regions() const
@@ -86,7 +81,7 @@ bool simple_state_base::check( state_machine_defects& _defects ) const
 	// a state cannot defer an event that triggers a transition
 	if( complex_state_impl::check_if_one_of_the_deferred_events_triggers_a_transition() )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 			"Simple state '%' defer event that triggers a outgoing transition!", get_name() ) );
 		check_ok = false;
 	}
@@ -102,9 +97,9 @@ bool simple_state_base::has_error_event() const
 }
 
 
-const behavior_exception* const simple_state_base::get_error_event() const
+event_sptr simple_state_base::get_error_event() const
 {
-	return( error_event_.get() );
+	return( error_event_);
 }
 
 

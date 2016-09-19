@@ -9,26 +9,26 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "build_transition_steps_visitor.h"
+#include "build_transition_steps_visitor.hpp"
 
-#include "base.h"
-#include "log_and_throw.h"
+#include "make_unique.hpp"
+#include "base.hpp"
+#include "log_and_throw.hpp"
 
+#include "composite_state.hpp"
 
-#include "composite_state.h"
+#include "join.hpp"
+#include "fork.hpp"
+#include "shallow_history.hpp"
+#include "deep_history.hpp"
+#include "junction.hpp"
+#include "entry_point.hpp"
+#include "exit_point.hpp"
 
-#include "join.h"
-#include "fork.h"
-#include "shallow_history.h"
-#include "deep_history.h"
-#include "junction.h"
-#include "entry_point.h"
-#include "exit_point.h"
+#include "transition.hpp"
 
-#include "transition.h"
-
-#include "simple_transition_step.h"
-#include "compound_transition_step.h"
+#include "simple_transition_step.hpp"
+#include "compound_transition_step.hpp"
 
 
 namespace sxy
@@ -46,9 +46,6 @@ build_transition_steps_visitor::build_transition_steps_visitor( transition& _cur
 {
 	// Nothing to do...
 }
-
-
-build_transition_steps_visitor::~build_transition_steps_visitor() = default;
 
 
 void build_transition_steps_visitor::visit( const composite_state& _composite_state )
@@ -131,7 +128,7 @@ void build_transition_steps_visitor::visit( const shallow_history& _shallow_hist
 void build_transition_steps_visitor::visit( const terminate_pseudostate& _terminate_pseudostate )
 {
 	Y_UNUSED_PARAMETER( _terminate_pseudostate );
-	auto simple_step = std::make_unique< simple_transition_step >( current_transition_ );
+	auto simple_step = sxy::make_unique< simple_transition_step >( current_transition_ );
 	transition_steps_.push_back( std::move( simple_step ) );
 }
 
@@ -194,14 +191,14 @@ raw_transitions build_transition_steps_visitor::get_default_transition_if_state_
 
 void build_transition_steps_visitor::handle_history_pseudostate( const history& _history )
 {
-	auto simple_step = std::make_unique< simple_transition_step >( current_transition_ );
+	auto simple_step = sxy::make_unique< simple_transition_step >( current_transition_ );
 	transition_steps_.push_back( std::move( simple_step ) );
 	const auto default_transitions = get_default_transition_if_state_was_not_active_before( _history );
 	if( !default_transitions.empty() )
 	{
 		for( const auto default_transition : default_transitions )
 		{
-			auto default_step = std::make_unique< simple_transition_step >( *default_transition );
+			auto default_step = sxy::make_unique< simple_transition_step >( *default_transition );
 			transition_steps_.push_back( std::move( default_step ) );
 		}
 	}
@@ -210,7 +207,7 @@ void build_transition_steps_visitor::handle_history_pseudostate( const history& 
 
 void build_transition_steps_visitor::handle_as_junction( const pseudostate& _pseudostate )
 {
-	auto simple_step = std::make_unique< simple_transition_step >( current_transition_ );
+	auto simple_step = sxy::make_unique< simple_transition_step >( current_transition_ );
 	transition_steps_.push_back( std::move( simple_step ) );
 	next_transition_ = find_next_transition( _pseudostate, event_ );
 	if( !next_transition_ )
@@ -223,7 +220,7 @@ void build_transition_steps_visitor::handle_as_junction( const pseudostate& _pse
 
 void build_transition_steps_visitor::handle_as_fork( const pseudostate& _pseudostate ) const
 {
-	auto simple_step = std::make_unique< simple_transition_step >( current_transition_ );
+	auto simple_step = sxy::make_unique< simple_transition_step >( current_transition_ );
 	transition_steps_.push_back( std::move( simple_step ) );
 	const auto& exiting_transitions = _pseudostate.get_outgoing_transitions();
 	raw_transitions transitions_of_fork;
@@ -233,7 +230,7 @@ void build_transition_steps_visitor::handle_as_fork( const pseudostate& _pseudos
 		transitions_of_fork.push_back( transition );
 	}
 
-	auto final_step = std::make_unique< compound_transition_step >( transitions_of_fork );
+	auto final_step = sxy::make_unique< compound_transition_step >( transitions_of_fork );
 	transition_steps_.push_back( std::move( final_step ) );
 }
 
@@ -241,7 +238,7 @@ void build_transition_steps_visitor::handle_as_fork( const pseudostate& _pseudos
 void build_transition_steps_visitor::handle_as_join( const pseudostate& _pseudostate )
 {
 	const auto& incoming_transitions = _pseudostate.get_incoming_transitions();
-	auto step = std::make_unique< compound_transition_step >( incoming_transitions );
+	auto step = sxy::make_unique< compound_transition_step >( incoming_transitions );
 	transition_steps_.push_back( std::move( step ) );
 	next_transition_ = find_next_transition( _pseudostate, event_ );
 }
@@ -279,7 +276,7 @@ void build_transition_steps_visitor::handle_exit_point( const exit_point& _exit_
 
 void build_transition_steps_visitor::create_simple_transition_step()
 {
-	auto simple_step = std::make_unique< simple_transition_step >( current_transition_ );
+	auto simple_step = sxy::make_unique< simple_transition_step >( current_transition_ );
 	transition_steps_.push_back( std::move( simple_step ) );
 }
 

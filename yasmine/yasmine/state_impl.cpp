@@ -9,15 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "state_impl.h"
+#include "state_impl.hpp"
 
-#include "base.h"
-#include "region.h"
-#include "exception.h"
-#include "composite_state.h"
-#include "behavior.h"
-#include "log_and_throw.h"
-#include "behavior_exception.h"
+#include "base.hpp"
+#include "region.hpp"
+#include "exception.hpp"
+#include "composite_state.hpp"
+#include "behavior.hpp"
+#include "log_and_throw.hpp"
+#include "behavior_exception.hpp"
 
 
 namespace sxy
@@ -31,9 +31,6 @@ state_impl::state_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-state_impl::~state_impl() = default;
 
 
 const state_machine_element* state_impl::get_parent() const
@@ -164,7 +161,7 @@ void state_impl::set_active()
 	auto parent_region = get_parent_region();
 	parent_region->set_active_state( this );
 	parent_region->set_state_was_active( this );
-	Y_LOG( log_level::LL_DEBUG, "State '%' is now active.", get_name() );
+	Y_LOG( log_level::LL_DEBUG, "State '%' is now active.", get_uri().to_string() );
 }
 
 
@@ -173,7 +170,7 @@ void state_impl::set_inactive()
 	auto parent_region = get_parent_region();
 	parent_region->set_active_state( nullptr );
 	set_was_active();
-	Y_LOG( log_level::LL_DEBUG, "State '%' is now inactive.", get_name() );
+	Y_LOG( log_level::LL_DEBUG, "State '%' is now inactive.", get_uri().to_string() );
 }
 
 
@@ -212,7 +209,7 @@ void state_impl::execute_enter_behavior( const event& _event ) const
 	const auto behavior = get_entry_behavior();
 	if( behavior )
 	{
-		Y_LOG( sxy::log_level::LL_INFO, "Executing state '%' enter behavior.", get_name() );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' enter behavior.", get_name() );
 		( *behavior )( _event );
 	}
 }
@@ -223,7 +220,7 @@ void state_impl::execute_exit_behavior( const event& _event ) const
 	const auto behavior = get_exit_behavior();
 	if( behavior )
 	{
-		Y_LOG( sxy::log_level::LL_INFO, "Executing state '%' exit behavior.", get_name().c_str() );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' exit behavior.", get_name().c_str() );
 		( *behavior )( _event );
 	}
 }
@@ -250,7 +247,7 @@ bool state_impl::has_error_event() const
 }
 
 
-const behavior_exception* const state_impl::get_error_event() const
+event_sptr state_impl::get_error_event() const
 {
 	return( nullptr );
 }

@@ -9,21 +9,21 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "transition_impl.h"
+#include "transition_impl.hpp"
 
 #include <algorithm>
 
-#include "base.h"
-#include "vertex.h"
-#include "behavior.h"
-#include "constraint.h"
-#include "event.h"
-#include "uri.h"
-#include "state_machine_defect.h"
-#include "region.h"
-#include "state.h"
-#include "pseudostate.h"
-#include "composite_state.h"
+#include "base.hpp"
+#include "vertex.hpp"
+#include "behavior.hpp"
+#include "constraint.hpp"
+#include "event.hpp"
+#include "uri.hpp"
+#include "state_machine_defect.hpp"
+#include "region.hpp"
+#include "state.hpp"
+#include "pseudostate.hpp"
+#include "composite_state.hpp"
 
 
 namespace sxy
@@ -31,19 +31,17 @@ namespace sxy
 
 
 transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind, const std::string& _name,	constraint_uptr _guard, 
-	behavior_uptr _behavior )
-	: transition_impl( event_ids { _event_id }, _source, _target, _kind, _name, std::move( _guard ), 
-										std::move( _behavior ) ) 
+	const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
+	: transition_impl( event_ids { _event_id }, _source, _target, _kind, std::move( _guard ), std::move( _behavior ) )
 {
 	// Nothing to do...
 }
 
 
 transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind, const std::string& _name,	constraint_uptr _guard, 
+	const sxy::transition_kind _kind,	constraint_uptr _guard, 
 	behavior_uptr _behavior )
-	: state_machine_element_impl( _name ),
+	: state_machine_element_impl( get_transition_name( _source, _target, _event_ids ) ),
 		events_( _event_ids ),
 		source_( _source ),
 		target_( _target ),
@@ -56,7 +54,7 @@ transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, v
 }
 
 
-transition_impl::~transition_impl()
+transition_impl::~transition_impl() noexcept
 {
 	source_.remove_outgoing_transition( *this );
 	target_.remove_incoming_transition( *this );
@@ -101,6 +99,12 @@ uri transition_impl::get_uri() const
 }
 
 
+const state_machine_element* transition_impl::get_parent() const 
+{
+	return( nullptr );
+}
+
+
 sxy::transition_kind transition_impl::get_kind() const
 {
 	return( kind_ );
@@ -117,16 +121,16 @@ void transition_impl::add_ancestor_uri( uri& _uri ) const
 
 void transition_impl::on_transition_behavior( const event& _event ) const
 {
-	Y_LOG( sxy::log_level::LL_INFO, "Executing transition '%' from '%' to '%'.", get_name().c_str(),
-		get_source().get_name(), get_target().get_name() );
+	Y_LOG( sxy::log_level::LL_TRACE, "Executing transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
+		get_target().get_name() );
 	auto behavior = get_behavior();
 	if( behavior != nullptr )
 	{
 		( *behavior )( _event );
 	}
 
-	Y_LOG( sxy::log_level::LL_INFO, "Executed transition '%' from '%' to '%'.", get_name().c_str(),
-		get_source().get_name(), get_target().get_name() );
+	Y_LOG( sxy::log_level::LL_TRACE, "Executed transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
+		get_target().get_name() );
 }
 
 
@@ -176,7 +180,7 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 		{
 			const std::string message =
 				"Transition '%' has source ('%') and target ('%') in different regions of the same composite state.";
-			_defects.push_back( std::make_unique< state_machine_defect >( *this, message, get_name(),
+			_defects.push_back( state_machine_defect( *this, message, get_name(),
 					source.get_name(), target.get_name() ) );
 			check_ok = false;
 		}
@@ -191,14 +195,14 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 			{
 				const std::string message =
 					"Transition '%' has '%' kind, but it has different states as source and target! (source= '%', target = '%').";
-				_defects.push_back( std::make_unique< state_machine_defect >( *this, message, get_name(),
+				_defects.push_back( state_machine_defect( *this, message, get_name(),
 						to_string( get_kind() ), source_.get_name(), target_.get_name() ) );
 				check_ok = false;
 			}
 		}
 		else
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 					"Source '%' of transition '%' (kind: '%') is not a state!", get_source().get_name(), get_name(),
 					to_string( get_kind() ) ) );
 			check_ok = false;
@@ -210,8 +214,8 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 	{
 		if( get_kind() != transition_kind::EXTERNAL )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
-					"Transition '%' enters pseudostate '%' but have '%' kind! It is not possible!", get_name(),
+			_defects.push_back( state_machine_defect( *this,
+					"Transition '%' enters pseudostate '%' but has '%' kind! It is not possible!", get_name(),
 					get_target().get_name(), to_string( get_kind() ) ) );
 			check_ok = false;
 		}
@@ -221,7 +225,7 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 	{
 		if( !check_if_source_and_target_are_in_ancestor_relationship( get_source(), get_target() ) )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 					"Transition's '%' source '%' and target '%' are not in a ancestor relationship!", get_name(),
 					get_source().get_name(), get_target().get_name() ) );
 			check_ok = false;
@@ -283,6 +287,29 @@ bool transition_impl::check_relationship( const vertex& _lhs, const composite_st
 	}
 
 	return( are_in_relationship );
+}
+
+
+
+const std::string transition_impl::get_transition_name( vertex& _source, vertex& _target, const event_ids _event_ids )
+{
+	auto transition_name = _source.get_name() + "->" + _target.get_name();
+	if( !_event_ids.empty() )
+	{
+		
+		std::stringstream ids_as_string;
+		for( size_t i = 0; i < _event_ids.size(); ++i )
+		{
+			if( i != 0 )
+			{
+				ids_as_string << ",";
+			}
+			ids_as_string << _event_ids[ i ];
+		}
+
+		transition_name += "(" + ids_as_string.str() + ")";
+	}
+	return( transition_name );
 }
 
 

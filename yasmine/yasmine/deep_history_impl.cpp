@@ -9,15 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "deep_history_impl.h"
+#include "deep_history_impl.hpp"
 
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
-#include "state_machine_defect.h"
-#include "composite_state.h"
-#include "transition.h"
-#include "region.h"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
+#include "state_machine_defect.hpp"
+#include "composite_state.hpp"
+#include "transition.hpp"
+#include "region.hpp"
 
 
 namespace sxy
@@ -29,9 +29,6 @@ deep_history_impl::deep_history_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
-
-
-deep_history_impl::~deep_history_impl() = default;
 
 
 bool deep_history_impl::check( state_machine_defects& _defects ) const
@@ -50,8 +47,8 @@ bool deep_history_impl::check( state_machine_defects& _defects ) const
 			auto result = target_regions.insert( l_region );
 			if( !result.second )
 			{
-				_defects.push_back( std::make_unique< state_machine_defect >( *this,
-						"Deep history '%' has default transition(s) that has the same target region '%'.", get_name(),
+				_defects.push_back( state_machine_defect( *this,
+						"Deep history '%' has default transition(s) that has(have) the same target region '%'.", get_name(),
 						l_region->get_name() ) );
 				check_ok = false;
 				break;

@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "pseudostate_impl.h"
+#include "pseudostate_impl.hpp"
 
-#include "base.h"
-#include "region.h"
-#include "transition.h"
-#include "state_machine_defect.h"
+#include "base.hpp"
+#include "region.hpp"
+#include "transition.hpp"
+#include "state_machine_defect.hpp"
 
 
 namespace sxy
@@ -27,10 +27,7 @@ pseudostate_impl::pseudostate_impl( const std::string& _name )
 	// Nothing to do...
 }
 
-
-pseudostate_impl::~pseudostate_impl() = default;
-
-
+																							
 bool pseudostate_impl::check( state_machine_defects& _defects ) const
 {
 	auto check_ok = true;
@@ -39,7 +36,7 @@ bool pseudostate_impl::check( state_machine_defects& _defects ) const
 	{
 		if( !outgoing_transition->can_accept_event( COMPLETION_EVENT ) )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,	
+			_defects.push_back( state_machine_defect( *this,
 				"'%' has outgoing transition with trigger!", get_name() ) );
 			check_ok = false;
 		}

@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "uri.h"
+#include "uri.hpp"
 
 #include <vector>
 #include <sstream>
 
-#include "base.h"
-#include "globals.h"
+#include "base.hpp"
+#include "globals.hpp"
 
 
 namespace sxy
@@ -27,9 +27,6 @@ uri::uri( const std::string& _uri )
 {
 	split_string_to_uri_segments( _uri );
 }
-
-
-uri::~uri() = default;
 
 
 // cppcheck-suppress unusedFunction

@@ -9,9 +9,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "states_nesting_comparer_ascending.h"
+#include "states_nesting_comparer_ascending.hpp"
 
-#include "state.h"
+#include "state.hpp"
 
 
 namespace sxy
@@ -21,37 +21,34 @@ namespace sxy
 states_nesting_comparer_ascending::states_nesting_comparer_ascending() = default;
 
 
-states_nesting_comparer_ascending::~states_nesting_comparer_ascending() = default;
-
-
 bool states_nesting_comparer_ascending::operator()(	const state& _lhs,	const state& _rhs ) const
 {
-	auto lhs_smaller_then_rhs = false;
+	auto lhs_smaller_than_rhs = false;
 	if( _lhs.get_nesting_level() > _rhs.get_nesting_level() )
 	{
-		lhs_smaller_then_rhs = true;
+		lhs_smaller_than_rhs = true;
 	}
 	else
 	if( _lhs.get_nesting_level() < _rhs.get_nesting_level() )
 	{
-		lhs_smaller_then_rhs = false;
+		lhs_smaller_than_rhs = false;
 	}
 	else
 	if( _lhs.get_parent_region_index() > _rhs.get_parent_region_index() )
 	{
-		lhs_smaller_then_rhs = true;
+		lhs_smaller_than_rhs = true;
 	}
 	else
 	if( _lhs.get_parent_region_index() < _rhs.get_parent_region_index() )
 	{
-		lhs_smaller_then_rhs = false;
+		lhs_smaller_than_rhs = false;
 	}
 	else
 	{
-		lhs_smaller_then_rhs = &_lhs < &_rhs;
+		lhs_smaller_than_rhs = &_lhs < &_rhs;
 	}
 
-	return( lhs_smaller_then_rhs );
+	return( lhs_smaller_than_rhs );
 }
 
 

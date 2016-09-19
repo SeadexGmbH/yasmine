@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "region_pseudostate_impl.h"
+#include "region_pseudostate_impl.hpp"
 
-#include "log.h"
-#include "region.h"
-#include "composite_state.h"
-#include "exception.h"
+#include "log.hpp"
+#include "region.hpp"
+#include "composite_state.hpp"
+#include "exception.hpp"
 
 
 namespace sxy
@@ -25,11 +25,9 @@ region_pseudostate_impl::region_pseudostate_impl( const std::string& _name )
 	: pseudostate_impl( _name ),
 		parent_()
 {
+	// Nothing to do...
 }
-
-
-region_pseudostate_impl::~region_pseudostate_impl() = default;
-
+			
 
 const state_machine_element* region_pseudostate_impl::get_parent() const
 {
@@ -62,7 +60,7 @@ raw_composite_states region_pseudostate_impl::get_ancestors( composite_state* co
 		Y_LOG( log_level::LL_SPAM, "Found parent state '%' for region '%'.",
 			parent_state.get_name(), parent_region->get_name() );
 		ancestors.push_back( &parent_state );
-		Y_LOG( log_level::LL_SPAM, "Search for ancestor(s) of '%'.", parent_state.get_name() );
+		Y_LOG( log_level::LL_SPAM, "Searching for ancestor(s) of '%'.", parent_state.get_name() );
 		const auto ancestors_of_parent_state = parent_state.get_ancestors( _final_ancestor );
 		Y_LOG( log_level::LL_SPAM, "Found % ancestor(s) of '%'.", ancestors_of_parent_state.size(),
 			parent_state.get_name() );

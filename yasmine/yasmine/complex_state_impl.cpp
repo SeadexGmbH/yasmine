@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "complex_state_impl.h"
+#include "complex_state_impl.hpp"
 
 #include <algorithm>
 
-#include "base.h"
-#include "transition.h"
+#include "base.hpp"
+#include "transition.hpp"
 
 
 namespace sxy
@@ -30,9 +30,6 @@ complex_state_impl::complex_state_impl( const std::string& _name, behavior_uptr 
 {
 	// Nothing to do...
 }
-
-
-complex_state_impl::~complex_state_impl() = default;
 
 
 behavior* complex_state_impl::get_entry_behavior() const

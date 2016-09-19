@@ -9,10 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "simple_state_impl.h"
+#include "simple_state_impl.hpp"
 
-#include "log.h"
-#include "behavior.h"
+#include "log.hpp"
+#include "behavior.hpp"
 
 
 namespace sxy
@@ -20,16 +20,13 @@ namespace sxy
 
 
 simple_state_impl::simple_state_impl( const std::string& _name, behavior_uptr _do_action, behavior_uptr _entry_action,
-	behavior_uptr _exit_action, const event_ids& _deferred_events, behavior_exception_uptr _error_event  )
+	behavior_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event )
 	: simple_state_base( _name, std::move( _entry_action ), std::move( _exit_action ), _deferred_events, 
-			std::move( _error_event ) ),
+			_error_event ),
 		do_( std::move( _do_action ) )		
 {
 	// Nothing to do...
 }
-
-
-simple_state_impl::~simple_state_impl() = default;
 
 
 void simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
@@ -38,7 +35,7 @@ void simple_state_impl::execute_do_behavior( const event& _event, async_event_ha
 	const auto behavior = get_do();
 	if( behavior )
 	{
-		Y_LOG( sxy::log_level::LL_DEBUG, "Executing state '%' behavior.", get_name() );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' do behavior.", get_name() );
 		( *behavior )( _event );		
 	}
 }

@@ -9,19 +9,18 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "timed_event_creator.h"
-
-#include <algorithm>
-
-#include "event_creation_request.h"
-#include "async_state_machine.h"
-#include "base.h"
-#include "event_impl.h"
-#include "log_and_throw.h"
-#include "event_with_parameters.h"
-
+#include "timed_event_creator.hpp"
 
 #include <random>
+#include <algorithm>
+
+#include "make_unique.hpp"
+#include "event_creation_request.hpp"
+#include "async_state_machine.hpp"
+#include "base.hpp"
+#include "event_impl.hpp"
+#include "log_and_throw.hpp"
+#include "event_with_parameters.hpp"
 
 
 namespace sxy
@@ -40,7 +39,7 @@ timed_event_creator::timed_event_creator( async_state_machine& _async_state_mach
 }
 
 
-timed_event_creator::~timed_event_creator()
+timed_event_creator::~timed_event_creator() noexcept
 {
 	Y_ASSERT( !run_, "Thread is still running! It was not stopped." );
 	Y_ASSERT( !worker_, "The thread still exists!" );
@@ -56,7 +55,7 @@ int timed_event_creator::create_event_creation_request(
 		if( run_ )
 		{
 			handle = generate_handle();
-			event_creation_requests_.insert( std::make_unique< event_creation_request >( _time, _event, handle ) );
+			event_creation_requests_.insert( sxy::make_unique< event_creation_request >( _time, _event, handle ) );
 		}
 		else
 		{
@@ -93,7 +92,7 @@ bool timed_event_creator::cancel( const int _handle )
 		}
 		else
 		{
-			Y_LOG( log_level::LL_ERROR, "Event with handle '%' was NOT found.", _handle );
+			Y_LOG( log_level::LL_WARN, "Event with handle '%' was NOT found.", _handle );
 		}
 	}
 	return( cancelled );
@@ -102,20 +101,20 @@ bool timed_event_creator::cancel( const int _handle )
 
 void timed_event_creator::start()
 {
-	Y_LOG( log_level::LL_DEBUG, "Event creator is starting." );
+	Y_LOG( log_level::LL_TRACE, "Event creator is starting." );
 	run_ = true;
-	worker_ = std::make_unique< std::thread >([ this ] ()
+	worker_ = sxy::make_unique< std::thread >([ this ] ()
 		{
 			generate_event();
 		}
 		);
-	Y_LOG( log_level::LL_DEBUG, "Event creator is started." );
+	Y_LOG( log_level::LL_TRACE, "Event creator started." );
 }
 
 
 void timed_event_creator::stop()
 {
-	Y_LOG( log_level::LL_DEBUG, "Event creator is stopping." );
+	Y_LOG( log_level::LL_TRACE, "Event creator is stopping." );
 	{
 		std::lock_guard< std::mutex > lock( mutex_ );
 		run_ = false;
@@ -124,7 +123,7 @@ void timed_event_creator::stop()
 	Y_ASSERT( worker_->joinable(), "Time event generator thread is not joinable!" );
 	worker_->join();
 	worker_.reset();
-	Y_LOG( log_level::LL_DEBUG, "Event creator is stopped." );
+	Y_LOG( log_level::LL_TRACE, "Event creator stopped." );
 }
 
 
@@ -187,7 +186,7 @@ void timed_event_creator::generate_event()
 						if( ( *event_iterator )->get_time() <= now )
 						{
 							const auto event = ( *event_iterator )->get_event();
-							Y_LOG( log_level::LL_DEBUG, "Try to fire event '%' with handle '%'.", event->get_id(),
+							Y_LOG( log_level::LL_TRACE, "Try to fire event '%' with handle '%'.", event->get_id(),
 								( *event_iterator )->get_handle() );
 							if( !state_machine_.fire_event( event ) )
 							{
@@ -213,11 +212,11 @@ void timed_event_creator::generate_event()
 	}
 	catch ( const std::exception& exception )
 	{
-		Y_LOG( log_level::LL_FATAL, exception.what() );
+		Y_LOG( log_level::LL_FATAL, "Unhandled std::exception when generating time based event: %", exception.what() );
 	}
 	catch ( ... )
 	{
-		Y_LOG( log_level::LL_FATAL, "An error occured when generating time based event!" );
+		Y_LOG( log_level::LL_FATAL, "Unknown exception when generating time based event!" );
 	}
 }
 

@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "cout_logger.h"
+#include "cout_logger.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -24,8 +24,8 @@
 
 #endif
 
-#include "globals.h"
-#include "color_mapping.h"
+#include "globals.hpp"
+#include "color_mapping.hpp"
 
 
 namespace sxy
@@ -41,11 +41,11 @@ cout_logger::cout_logger()
 void cout_logger::log( const log_message& _log_message )
 {
 	std::stringstream log_stream;
-	log_level_as_message( _log_message.log_level_message_ );
-	log_stream << " " << _log_message.log_time_stam_;
-	log_stream << " [" << _log_message.log_file_;
-	log_stream << "@" << std::to_string( _log_message.log_line_ );
-	log_stream << "]: " << _log_message.log_message_;
+	log_level_as_message( _log_message.log_level_ );
+	log_stream << " " << _log_message.time_stamp_;
+	log_stream << " [" << _log_message.file_;
+	log_stream << "@" << std::to_string( _log_message.line_ );
+	log_stream << "]: " << _log_message.message_;
 	std::cout << log_stream.str() << std::endl;
 }
 

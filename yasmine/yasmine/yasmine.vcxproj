@@ -51,182 +51,186 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="async_behavior_fwd.h" />
-    <ClInclude Include="async_behavior.h">
+    <ClInclude Include="assembly.hpp" />
+    <ClInclude Include="async_behavior_fwd.hpp" />
+    <ClInclude Include="async_behavior.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="async_event_handler.h">
+    <ClInclude Include="async_event_handler.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="async_simple_state_impl.h" />
-    <ClInclude Include="base.h" />
-    <ClInclude Include="base_end.h" />
-    <ClInclude Include="behavior_exception_fwd.h" />
-    <ClInclude Include="build_number.h" />
-    <ClInclude Include="conversion.h" />
-    <ClInclude Include="entry_point_fwd.h">
+    <ClInclude Include="async_simple_state_impl.hpp" />
+    <ClInclude Include="base.hpp" />
+    <ClInclude Include="base_end.hpp" />
+    <ClInclude Include="behavior_exception_fwd.hpp" />
+    <ClInclude Include="build_number.hpp" />
+    <ClInclude Include="conversion.hpp" />
+    <ClInclude Include="entry_point_fwd.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="behavior_exception.h" />
-    <ClInclude Include="event_fwd.h" />
-    <ClInclude Include="logging.h" />
-    <ClInclude Include="simple_state_base.h">
+    <ClInclude Include="behavior_exception.hpp" />
+    <ClInclude Include="event_fwd.hpp" />
+    <ClInclude Include="event_priority.hpp" />
+    <ClInclude Include="event_template.hpp" />
+    <ClInclude Include="logging.hpp" />
+    <ClInclude Include="make_unique.hpp" />
+    <ClInclude Include="simple_state_base.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="states.h">
+    <ClInclude Include="states.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="state_pseudostates.h">
+    <ClInclude Include="state_pseudostates.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="region_pseudostates.h">
+    <ClInclude Include="region_pseudostates.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="state_machine_introspection.h" />
-    <ClInclude Include="event_creation_request.h" />
-    <ClInclude Include="globals.h" />
-    <ClInclude Include="behavior.h" />
-    <ClInclude Include="behavior_fwd.h" />
-    <ClInclude Include="choice.h" />
-    <ClInclude Include="choice_fwd.h" />
-    <ClInclude Include="complex_state.h" />
-    <ClInclude Include="complex_state_visitor.h" />
-    <ClInclude Include="composite_state.h" />
-    <ClInclude Include="composite_state_fwd.h" />
-    <ClInclude Include="compound_transition.h" />
-    <ClInclude Include="compound_transition_consumer.h" />
-    <ClInclude Include="constraint.h" />
-    <ClInclude Include="constraint_fwd.h" />
-    <ClInclude Include="deep_history.h" />
-    <ClInclude Include="deep_history_fwd.h" />
-    <ClInclude Include="entry_point.h" />
-    <ClInclude Include="event.h" />
-    <ClInclude Include="event_processing_callback.h" />
-    <ClInclude Include="execution_step.h" />
-    <ClInclude Include="execution_step_fwd.h" />
-    <ClInclude Include="execution_step_visitor.h" />
-    <ClInclude Include="exit_point.h" />
-    <ClInclude Include="exit_point_fwd.h" />
-    <ClInclude Include="final_state.h" />
-    <ClInclude Include="fork.h" />
-    <ClInclude Include="fork_fwd.h" />
-    <ClInclude Include="history.h" />
-    <ClInclude Include="initial_pseudostate.h" />
-    <ClInclude Include="initial_pseudostate_fwd.h" />
-    <ClInclude Include="join.h" />
-    <ClInclude Include="join_fwd.h" />
-    <ClInclude Include="junction.h" />
-    <ClInclude Include="junction_fwd.h" />
-    <ClInclude Include="logger.h" />
-    <ClInclude Include="logger_fwd.h" />
-    <ClInclude Include="pseudostate.h" />
-    <ClInclude Include="pseudostate_fwd.h" />
-    <ClInclude Include="pseudostate_visitor.h" />
-    <ClInclude Include="region.h" />
-    <ClInclude Include="region_fwd.h" />
-    <ClInclude Include="region_pseudostate.h" />
-    <ClInclude Include="shallow_history.h" />
-    <ClInclude Include="shallow_history_fwd.h" />
-    <ClInclude Include="simple_state.h" />
-    <ClInclude Include="state.h" />
-    <ClInclude Include="state_fwd.h" />
-    <ClInclude Include="state_machine_element.h" />
-    <ClInclude Include="state_pseudostate.h" />
-    <ClInclude Include="state_visitor.h" />
-    <ClInclude Include="terminate_pseudostate.h" />
-    <ClInclude Include="terminate_pseudostate_fwd.h" />
-    <ClInclude Include="transition.h" />
-    <ClInclude Include="transition_fwd.h" />
-    <ClInclude Include="transition_step.h" />
-    <ClInclude Include="transition_step_fwd.h" />
-    <ClInclude Include="vertex.h" />
-    <ClInclude Include="vertex_fwd.h" />
-    <ClInclude Include="const_vertex_visitor.h" />
-    <ClInclude Include="vertex_visitor.h" />
-    <ClInclude Include="log.h" />
-    <ClInclude Include="event_with_parameters.h">
+    <ClInclude Include="state_machine_introspection.hpp" />
+    <ClInclude Include="event_creation_request.hpp" />
+    <ClInclude Include="globals.hpp" />
+    <ClInclude Include="behavior.hpp" />
+    <ClInclude Include="behavior_fwd.hpp" />
+    <ClInclude Include="choice.hpp" />
+    <ClInclude Include="choice_fwd.hpp" />
+    <ClInclude Include="complex_state.hpp" />
+    <ClInclude Include="complex_state_visitor.hpp" />
+    <ClInclude Include="composite_state.hpp" />
+    <ClInclude Include="composite_state_fwd.hpp" />
+    <ClInclude Include="compound_transition.hpp" />
+    <ClInclude Include="compound_transition_consumer.hpp" />
+    <ClInclude Include="constraint.hpp" />
+    <ClInclude Include="constraint_fwd.hpp" />
+    <ClInclude Include="deep_history.hpp" />
+    <ClInclude Include="deep_history_fwd.hpp" />
+    <ClInclude Include="entry_point.hpp" />
+    <ClInclude Include="event.hpp" />
+    <ClInclude Include="event_processing_callback.hpp" />
+    <ClInclude Include="execution_step.hpp" />
+    <ClInclude Include="execution_step_fwd.hpp" />
+    <ClInclude Include="execution_step_visitor.hpp" />
+    <ClInclude Include="exit_point.hpp" />
+    <ClInclude Include="exit_point_fwd.hpp" />
+    <ClInclude Include="final_state.hpp" />
+    <ClInclude Include="fork.hpp" />
+    <ClInclude Include="fork_fwd.hpp" />
+    <ClInclude Include="history.hpp" />
+    <ClInclude Include="initial_pseudostate.hpp" />
+    <ClInclude Include="initial_pseudostate_fwd.hpp" />
+    <ClInclude Include="join.hpp" />
+    <ClInclude Include="join_fwd.hpp" />
+    <ClInclude Include="junction.hpp" />
+    <ClInclude Include="junction_fwd.hpp" />
+    <ClInclude Include="logger.hpp" />
+    <ClInclude Include="logger_fwd.hpp" />
+    <ClInclude Include="pseudostate.hpp" />
+    <ClInclude Include="pseudostate_fwd.hpp" />
+    <ClInclude Include="pseudostate_visitor.hpp" />
+    <ClInclude Include="region.hpp" />
+    <ClInclude Include="region_fwd.hpp" />
+    <ClInclude Include="region_pseudostate.hpp" />
+    <ClInclude Include="shallow_history.hpp" />
+    <ClInclude Include="shallow_history_fwd.hpp" />
+    <ClInclude Include="simple_state.hpp" />
+    <ClInclude Include="state.hpp" />
+    <ClInclude Include="state_fwd.hpp" />
+    <ClInclude Include="state_machine_element.hpp" />
+    <ClInclude Include="state_pseudostate.hpp" />
+    <ClInclude Include="state_visitor.hpp" />
+    <ClInclude Include="terminate_pseudostate.hpp" />
+    <ClInclude Include="terminate_pseudostate_fwd.hpp" />
+    <ClInclude Include="transition.hpp" />
+    <ClInclude Include="transition_fwd.hpp" />
+    <ClInclude Include="transition_step.hpp" />
+    <ClInclude Include="transition_step_fwd.hpp" />
+    <ClInclude Include="vertex.hpp" />
+    <ClInclude Include="vertex_fwd.hpp" />
+    <ClInclude Include="const_vertex_visitor.hpp" />
+    <ClInclude Include="vertex_visitor.hpp" />
+    <ClInclude Include="log.hpp" />
+    <ClInclude Include="event_with_parameters.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="execution_state_do_step.h" />
-    <ClInclude Include="log_and_throw.h" />
-    <ClInclude Include="states_nesting_comparer_ascending.h" />
-    <ClInclude Include="states_to_enter_visitor_impl.h" />
-    <ClInclude Include="timed_event_creator.h" />
-    <ClInclude Include="event_creation_request_time_comparer.h" />
-    <ClInclude Include="transition_executor_impl.h" />
-    <ClInclude Include="version.h" />
-    <ClInclude Include="yasmine.h" />
-    <ClInclude Include="yprintf.h" />
-    <ClInclude Include="behavior_impl.h" />
-    <ClInclude Include="build_transition_steps_visitor.h" />
-    <ClInclude Include="check_if_all_incoming_transitions_sources_are_active_visitor.h" />
-    <ClInclude Include="choice_impl.h" />
-    <ClInclude Include="color.h" />
-    <ClInclude Include="color_mapping.h" />
-    <ClInclude Include="complex_state_impl.h" />
-    <ClInclude Include="composite_state_impl.h" />
-    <ClInclude Include="compound_transition_impl.h" />
-    <ClInclude Include="compound_transition_builder.h" />
-    <ClInclude Include="compound_transition_fwd.h" />
-    <ClInclude Include="compound_transition_step.h" />
-    <ClInclude Include="constraint_impl.h" />
-    <ClInclude Include="cout_logger.h" />
-    <ClInclude Include="deep_history_impl.h" />
-    <ClInclude Include="entry_point_impl.h" />
-    <ClInclude Include="event_impl.h" />
-    <ClInclude Include="event_id.h" />
-    <ClInclude Include="async_state_machine.h" />
-    <ClInclude Include="exception.h" />
-    <ClInclude Include="exception_template.h" />
-    <ClInclude Include="execution_state_enter_step.h" />
-    <ClInclude Include="execution_state_exit_step.h" />
-    <ClInclude Include="execution_transition_step.h" />
-    <ClInclude Include="exit_point_impl.h" />
-    <ClInclude Include="file_logger.h" />
-    <ClInclude Include="final_state_impl.h" />
-    <ClInclude Include="fork_impl.h" />
-    <ClInclude Include="format_settings.h" />
-    <ClInclude Include="history_impl.h" />
-    <ClInclude Include="initial_pseudostate_impl.h" />
-    <ClInclude Include="join_impl.h" />
-    <ClInclude Include="junction_impl.h" />
-    <ClInclude Include="log_level.h" />
-    <ClInclude Include="log_manager_template.h" />
-    <ClInclude Include="log_message.h" />
-    <ClInclude Include="pseudostate_impl.h" />
-    <ClInclude Include="region_impl.h" />
-    <ClInclude Include="region_pseudostate_impl.h" />
-    <ClInclude Include="states_nesting_comparer.h" />
-    <ClInclude Include="shallow_history_impl.h" />
-    <ClInclude Include="simple_state_impl.h" />
-    <ClInclude Include="simple_transition_step.h" />
-    <ClInclude Include="state_impl.h" />
-    <ClInclude Include="state_machine.h" />
-    <ClInclude Include="state_machine_defect.h" />
-    <ClInclude Include="state_machine_defect_fwd.h" />
-    <ClInclude Include="state_machine_element_impl.h" />
-    <ClInclude Include="state_pseudostate_impl.h" />
-    <ClInclude Include="std_timestamp_policy.h" />
-    <ClInclude Include="terminate_pseudostate_impl.h" />
-    <ClInclude Include="transition_impl.h" />
-    <ClInclude Include="transition_controller.h" />
-    <ClInclude Include="transition_executor.h" />
-    <ClInclude Include="transition_finder.h" />
-    <ClInclude Include="transition_kind.h" />
-    <ClInclude Include="transition_priority.h" />
-    <ClInclude Include="try_to_build_compound_transition_visitor.h" />
-    <ClInclude Include="uri.h" />
-    <ClInclude Include="vertex_impl.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="file_system.h" />
+    <ClInclude Include="execution_state_do_step.hpp" />
+    <ClInclude Include="log_and_throw.hpp" />
+    <ClInclude Include="states_nesting_comparer_ascending.hpp" />
+    <ClInclude Include="states_to_enter_visitor_impl.hpp" />
+    <ClInclude Include="timed_event_creator.hpp" />
+    <ClInclude Include="event_creation_request_time_comparer.hpp" />
+    <ClInclude Include="transition_executor_impl.hpp" />
+    <ClInclude Include="version.hpp" />
+    <ClInclude Include="yasmine.hpp" />
+    <ClInclude Include="yprintf.hpp" />
+    <ClInclude Include="behavior_impl.hpp" />
+    <ClInclude Include="build_transition_steps_visitor.hpp" />
+    <ClInclude Include="check_if_all_incoming_transitions_sources_are_active_visitor.hpp" />
+    <ClInclude Include="choice_impl.hpp" />
+    <ClInclude Include="color.hpp" />
+    <ClInclude Include="color_mapping.hpp" />
+    <ClInclude Include="complex_state_impl.hpp" />
+    <ClInclude Include="composite_state_impl.hpp" />
+    <ClInclude Include="compound_transition_impl.hpp" />
+    <ClInclude Include="compound_transition_builder.hpp" />
+    <ClInclude Include="compound_transition_fwd.hpp" />
+    <ClInclude Include="compound_transition_step.hpp" />
+    <ClInclude Include="constraint_impl.hpp" />
+    <ClInclude Include="cout_logger.hpp" />
+    <ClInclude Include="deep_history_impl.hpp" />
+    <ClInclude Include="entry_point_impl.hpp" />
+    <ClInclude Include="event_impl.hpp" />
+    <ClInclude Include="event_id.hpp" />
+    <ClInclude Include="async_state_machine.hpp" />
+    <ClInclude Include="exception.hpp" />
+    <ClInclude Include="exception_template.hpp" />
+    <ClInclude Include="execution_state_enter_step.hpp" />
+    <ClInclude Include="execution_state_exit_step.hpp" />
+    <ClInclude Include="execution_transition_step.hpp" />
+    <ClInclude Include="exit_point_impl.hpp" />
+    <ClInclude Include="file_logger.hpp" />
+    <ClInclude Include="final_state_impl.hpp" />
+    <ClInclude Include="fork_impl.hpp" />
+    <ClInclude Include="format_settings.hpp" />
+    <ClInclude Include="history_impl.hpp" />
+    <ClInclude Include="initial_pseudostate_impl.hpp" />
+    <ClInclude Include="join_impl.hpp" />
+    <ClInclude Include="junction_impl.hpp" />
+    <ClInclude Include="log_level.hpp" />
+    <ClInclude Include="log_manager_template.hpp" />
+    <ClInclude Include="log_message.hpp" />
+    <ClInclude Include="pseudostate_impl.hpp" />
+    <ClInclude Include="region_impl.hpp" />
+    <ClInclude Include="region_pseudostate_impl.hpp" />
+    <ClInclude Include="states_nesting_comparer.hpp" />
+    <ClInclude Include="shallow_history_impl.hpp" />
+    <ClInclude Include="simple_state_impl.hpp" />
+    <ClInclude Include="simple_transition_step.hpp" />
+    <ClInclude Include="state_impl.hpp" />
+    <ClInclude Include="state_machine.hpp" />
+    <ClInclude Include="state_machine_defect.hpp" />
+    <ClInclude Include="state_machine_defect_fwd.hpp" />
+    <ClInclude Include="state_machine_element_impl.hpp" />
+    <ClInclude Include="state_pseudostate_impl.hpp" />
+    <ClInclude Include="std_timestamp_policy.hpp" />
+    <ClInclude Include="terminate_pseudostate_impl.hpp" />
+    <ClInclude Include="transition_impl.hpp" />
+    <ClInclude Include="transition_controller.hpp" />
+    <ClInclude Include="transition_executor.hpp" />
+    <ClInclude Include="transition_finder.hpp" />
+    <ClInclude Include="transition_kind.hpp" />
+    <ClInclude Include="transition_priority.hpp" />
+    <ClInclude Include="try_to_build_compound_transition_visitor.hpp" />
+    <ClInclude Include="uri.hpp" />
+    <ClInclude Include="vertex_impl.hpp" />
+    <ClInclude Include="utils.hpp" />
+    <ClInclude Include="file_system.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="async_behavior.cpp">
@@ -241,6 +245,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="event_id.cpp" />
+    <ClCompile Include="event_priority.cpp" />
     <ClCompile Include="execution_state_do_step.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="simple_state_base.cpp">
@@ -309,6 +314,9 @@
     <ClCompile Include="vertex_impl.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="file_system.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="changelog.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A728DDFB-BE51-49B5-8593-4E89E024A500}</ProjectGuid>

@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "initial_pseudostate_impl.h"
+#include "initial_pseudostate_impl.hpp"
 
-#include "base.h"
-#include "const_vertex_visitor.h"
-#include "vertex_visitor.h"
-#include "pseudostate_visitor.h"
-#include "transition.h"
-#include "state_machine_defect.h"
+#include "base.hpp"
+#include "const_vertex_visitor.hpp"
+#include "vertex_visitor.hpp"
+#include "pseudostate_visitor.hpp"
+#include "transition.hpp"
+#include "state_machine_defect.hpp"
 
 
 namespace sxy
@@ -30,9 +30,6 @@ initial_pseudostate_impl::initial_pseudostate_impl( const std::string& _name )
 }
 
 
-initial_pseudostate_impl::~initial_pseudostate_impl() = default;
-
-
 bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 {
 	auto check_ok = true;
@@ -40,8 +37,8 @@ bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 	// 15.3.8 Pseudostate -> Constraint [1]: An initial vertex can have at most one outgoing transition.
 	if( get_outgoing_transitions().size() > 1 )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
-				"Initial pseudostate '%' has more then 1 outgoing transition! It has '%' transitions.", get_name(),
+		_defects.push_back( state_machine_defect( *this,
+				"Initial pseudostate '%' has more than 1 outgoing transition! It has '%' transitions.", get_name(),
 				get_outgoing_transitions().size() ) );
 		check_ok = false;
 	}
@@ -49,7 +46,7 @@ bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 	// check exactly 1 outgoing transition
 	if( get_outgoing_transitions().size() != 1 )
 	{
-		_defects.push_back( std::make_unique< state_machine_defect >( *this,
+		_defects.push_back( state_machine_defect( *this,
 				"Initial pseudostate '%' doesn't have exactly 1 outgoing transition! It has % transition(s).", get_name(),
 				get_outgoing_transitions().size() ) );
 		check_ok = false;
@@ -61,7 +58,7 @@ bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 	{
 		if( transition->get_guard() )
 		{
-			_defects.push_back( std::make_unique< state_machine_defect >( *this,
+			_defects.push_back( state_machine_defect( *this,
 					"Outgoing transition '%' of initial pseudostate '%' has a guard!", transition->get_name(), get_name() ) );
 			check_ok = false;
 		}

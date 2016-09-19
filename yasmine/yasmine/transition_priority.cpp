@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "transition_priority.h"
-#include "compound_transition.h"
-#include "composite_state_impl.h"
-#include "transition.h"
-#include "region.h"
-#include "deep_history.h"
-#include "shallow_history.h"
-#include "behavior.h"
+#include "transition_priority.hpp"
+#include "compound_transition.hpp"
+#include "composite_state_impl.hpp"
+#include "transition.hpp"
+#include "region.hpp"
+#include "deep_history.hpp"
+#include "shallow_history.hpp"
+#include "behavior.hpp"
 
 
 namespace sxy
@@ -31,9 +31,6 @@ transition_priority::transition_priority( compound_transition& _compound_transit
 }
 
 
-transition_priority::~transition_priority() = default;
-
-
 std::size_t transition_priority::get_priority() const
 {
 	return( priority_ );
@@ -46,7 +43,7 @@ compound_transition& transition_priority::get_compound_transition() const
 }
 
 
-bool transition_priority::operator<( const transition_priority& _compare_member )  const
+bool transition_priority::operator<( const transition_priority& _compare_member ) const
 {
 	return( priority_ > _compare_member.get_priority() );
 }

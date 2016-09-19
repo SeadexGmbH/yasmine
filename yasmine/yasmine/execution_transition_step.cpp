@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "execution_transition_step.h"
+#include "execution_transition_step.hpp"
 
-#include "terminate_pseudostate.h"
-#include "transition.h"
-#include "transition_step.h"
-#include "event_processing_callback.h"
-#include "execution_step_visitor.h"
-#include "base.h"
+#include "terminate_pseudostate.hpp"
+#include "transition.hpp"
+#include "transition_step.hpp"
+#include "event_processing_callback.hpp"
+#include "execution_step_visitor.hpp"
+#include "base.hpp"
 
 
 namespace sxy
@@ -31,14 +31,10 @@ execution_transition_step::execution_transition_step( transition_step& _transiti
 }
 
 
-execution_transition_step::~execution_transition_step() = default;
-
-
 bool execution_transition_step::execute_behavior(	event_processing_callback* const _event_processing_callback,
-	const event& _event, behavior_exceptions& _behavior_exceptions, 
-	async_event_handler* const _async_event_handler ) const
+	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const
 {		
-	Y_UNUSED_PARAMETER( _behavior_exceptions );
+	Y_UNUSED_PARAMETER( _exception_events );
 	Y_UNUSED_PARAMETER( _async_event_handler );
 	auto reached_terminate_pseudostate = false;
 	const auto& transitions = transition_step_.get_transitions();

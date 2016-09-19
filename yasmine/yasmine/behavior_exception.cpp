@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "behavior_exception.h"
+#include "behavior_exception.hpp"
 
 
 namespace sxy
@@ -24,9 +24,6 @@ behavior_exception::behavior_exception( const event_sptr _event )
 }
 
 	
-behavior_exception::~behavior_exception() = default;
-
-
 const event_sptr behavior_exception::get_error_event() const
 {
 	return( error_event_ );

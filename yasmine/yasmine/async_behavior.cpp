@@ -9,13 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "async_behavior.h"
+#include "async_behavior.hpp"
 
-#include "log.h"
-#include "event_impl.h"
-#include "behavior_exception.h"
-#include "simple_state_base.h"
-#include "async_event_handler.h"
+#include "make_unique.hpp"
+#include "log.hpp"
+#include "event_impl.hpp"
+#include "behavior_exception.hpp"
+#include "simple_state_base.hpp"
+#include "async_event_handler.hpp"
 
 
 namespace sxy
@@ -31,18 +32,18 @@ async_behavior::async_behavior()
 }
 
 
-async_behavior::~async_behavior()
+async_behavior::~async_behavior() noexcept
 {
 	Y_ASSERT( !run_, "Thread is still running! It was not stopped." );
 	Y_ASSERT( !worker_, "The thread still exists!" );
 }
 
 
-void async_behavior::start( const event& _event, const simple_state_base* const _simple_state, async_event_handler& _async_event_handler )
+void async_behavior::start( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
 {	
 	run_ = true;
 
-	worker_ = std::make_unique< std::thread >( [ this, &_event, &_simple_state, &_async_event_handler ] ()
+	worker_ = sxy::make_unique< std::thread >( [ this, &_event, &_simple_state, &_async_event_handler ] ()
 	{
 		run( _event, _simple_state, _async_event_handler );
 	}
@@ -76,7 +77,7 @@ void async_behavior::notify_should_stop()
 }
 
 
-void async_behavior::run( const event& _event, const simple_state_base* const _simple_state, async_event_handler& _async_event_handler )
+void async_behavior::run( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
 {		
 	try
 	{																					 				
@@ -84,23 +85,25 @@ void async_behavior::run( const event& _event, const simple_state_base* const _s
 	}
 	catch( const sxy::behavior_exception& exception )
 	{			
-		Y_LOG( log_level::LL_FATAL, exception.what() );
+		Y_LOG( log_level::LL_DEBUG, "behavior_exception while running async_behavior: %", exception.what() );
 		_async_event_handler.on_event( exception.get_error_event() );
 	}
 	catch( const std::exception& exception )
 	{
-		Y_LOG( log_level::LL_FATAL, exception.what() );
-		if( _simple_state )
+		Y_LOG( log_level::LL_DEBUG, "std::exception while running async_behavior: %", exception.what() );	
+		if( _simple_state.has_error_event() )
+		{						
+			_async_event_handler.on_event( _simple_state.get_error_event() );
+		}
+		else
 		{
-			if( _simple_state->has_error_event() )
-			{						
-				_async_event_handler.on_event( _simple_state->get_error_event()->get_error_event() );
-			}
-		}				
+			Y_LOG( log_level::LL_FATAL, "Unknown exception while running async_behavior!" );
+			throw;
+		}
 	}
 	catch( ... )
 	{
-		Y_LOG( log_level::LL_FATAL, "An error occured when execution the async behavior!" );
+		Y_LOG( log_level::LL_FATAL, "Unknown exception while running async_behavior!" );
 		throw;
 	}
 }

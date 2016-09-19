@@ -9,7 +9,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "constraint_impl.h"
+#include "make_unique.hpp"
+#include "constraint_impl.hpp"
 
 
 namespace sxy
@@ -24,19 +25,15 @@ constraint_impl::constraint_impl( const constraint_function& _function )
 }
 
 
-constraint_impl::~constraint_impl() = default;
-
-
 bool constraint_impl::operator()( const event& _event ) const
 {
 	return( function_( _event ) );
 }
 
 
-constraint_uptr constraint_impl::create_constraint( const constraint_function& _function )
-{
-	auto constraint = std::make_unique< sxy::constraint_impl >( _function );
-	return( std::move( constraint ) );
+constraint_uptr constraint_impl::create( const constraint_function& _function )
+{		
+	return( sxy::make_unique< sxy::constraint_impl >( _function ) );
 }
 
 

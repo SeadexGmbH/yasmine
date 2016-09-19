@@ -232,19 +232,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="detector.h">
+    <ClInclude Include="detector.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="detector_callback.h">
+    <ClInclude Include="detector_callback.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="intersection.h">
+    <ClInclude Include="intersection.hpp">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="traffic_light.h">
+    <ClInclude Include="traffic_light.hpp">
       <SubType>
       </SubType>
     </ClInclude>

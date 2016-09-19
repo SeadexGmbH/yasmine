@@ -9,10 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "check_if_all_incoming_transitions_sources_are_active_visitor.h"
+#include "check_if_all_incoming_transitions_sources_are_active_visitor.hpp"
 
-#include "composite_state.h"
-#include "simple_state.h"
+#include "composite_state.hpp"
+#include "simple_state.hpp"
 
 
 namespace sxy
@@ -24,9 +24,6 @@ check_if_all_incoming_transitions_sources_are_active_visitor::check_if_all_incom
 {
 	// Nothing to do...
 }
-
-
-check_if_all_incoming_transitions_sources_are_active_visitor::~check_if_all_incoming_transitions_sources_are_active_visitor() = default;
 
 
 void check_if_all_incoming_transitions_sources_are_active_visitor::visit( const composite_state& _composite_state )

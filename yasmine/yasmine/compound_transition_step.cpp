@@ -9,11 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "compound_transition_step.h"
+#include "compound_transition_step.hpp"
 
-#include "transition.h"
-#include "entry_point.h"
-#include "exit_point.h"
+#include "transition.hpp"
+#include "entry_point.hpp"
+#include "exit_point.hpp"
 
 
 namespace sxy
@@ -26,9 +26,6 @@ compound_transition_step::compound_transition_step( const raw_transitions& _tran
 {
 	// Nothing to do...
 }
-
-
-compound_transition_step::~compound_transition_step() = default;
 
 
 const raw_transitions& compound_transition_step::get_transitions() const

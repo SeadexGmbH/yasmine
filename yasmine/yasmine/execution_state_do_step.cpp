@@ -9,14 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "execution_state_do_step.h"
+#include "execution_state_do_step.hpp"
 
-#include "log.h"
-#include "state.h"
-#include "event_processing_callback.h"
-#include "execution_step_visitor.h"
-#include "behavior_exception.h"
-#include "behavior_exception_fwd.h"
+#include "make_unique.hpp"
+#include "log.hpp"
+#include "state.hpp"
+#include "event_processing_callback.hpp"
+#include "execution_step_visitor.hpp"
+#include "behavior_exception.hpp"
+
 
 
 namespace sxy
@@ -31,14 +32,11 @@ execution_state_do_step::execution_state_do_step( const state& _state )
 }
 
 
-execution_state_do_step::~execution_state_do_step() = default;
-
-
 bool execution_state_do_step::execute_behavior( event_processing_callback* const _event_processing_callback,
-	const event& _event, behavior_exceptions& _behavior_exceptions, 
+	const event& _event, events& _exception_events,
 	async_event_handler* const _async_event_handler ) const
 {
-	Y_LOG( sxy::log_level::LL_INFO, "Executing 'do behavior' of state '%'.", state_.get_name() );
+	Y_LOG( sxy::log_level::LL_TRACE, "Executing do behavior of state '%'.", state_.get_name() );
 	if( _event_processing_callback )
 	{
 		_event_processing_callback->before_do( state_ );
@@ -49,16 +47,15 @@ bool execution_state_do_step::execute_behavior( event_processing_callback* const
 		state_.execute_do_behavior( _event, _async_event_handler );
 	}
 	catch( const sxy::behavior_exception& exception )
-	{			
-		_behavior_exceptions.push_back( std::make_unique< behavior_exception >( exception.get_error_event() ) );
+	{	
+		_exception_events.push_back( exception.get_error_event() ) ;
 	}
 	catch( const std::exception& exception )
 	{
 		Y_UNUSED_PARAMETER( exception );
 		if( state_.has_error_event() )
 		{	
-			auto l_behavior_exception = std::make_unique< behavior_exception >( state_.get_error_event()->get_error_event() );
-			_behavior_exceptions.push_back( std::move( l_behavior_exception ) );
+			_exception_events.push_back( state_.get_error_event() );
 		}
 		else
 		{				
@@ -72,7 +69,7 @@ bool execution_state_do_step::execute_behavior( event_processing_callback* const
 		_event_processing_callback->after_do( state_ );
 	}
 
-	Y_LOG( sxy::log_level::LL_INFO, "'do behavior' of state '%' executed.", state_.get_name() );
+	Y_LOG( sxy::log_level::LL_TRACE, "'do behavior' of state '%' executed.", state_.get_name() );
 	return( false );
 }
 

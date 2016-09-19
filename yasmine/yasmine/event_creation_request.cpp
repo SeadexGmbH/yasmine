@@ -9,9 +9,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "event_creation_request.h"
+#include "event_creation_request.hpp"
 
-#include "event.h"
+#include "event.hpp"
 
 
 namespace sxy
@@ -24,12 +24,9 @@ event_creation_request::event_creation_request(
 		event_( _event ),
 		handle_( _handle )
 {
-	Y_LOG( log_level::LL_INFO, "Event creation request for event '%' @ %.", _event->get_id(),
+	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' @ %.", _event->get_id(),
 		_time.time_since_epoch().count() );
 }
-
-
-event_creation_request::~event_creation_request() = default;
 
 
 std::chrono::time_point< std::chrono::system_clock > event_creation_request::get_time() const

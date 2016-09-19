@@ -9,16 +9,16 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "transition_finder.h"
+#include "transition_finder.hpp"
 
-#include "log_and_throw.h"
-#include "composite_state.h"
-#include "region.h"
-#include "initial_pseudostate.h"
-#include "choice.h"
-#include "transition.h"
-#include "compound_transition_builder.h"
-#include "event_impl.h"
+#include "log_and_throw.hpp"
+#include "composite_state.hpp"
+#include "region.hpp"
+#include "initial_pseudostate.hpp"
+#include "choice.hpp"
+#include "transition.hpp"
+#include "compound_transition_builder.hpp"
+#include "event_impl.hpp"
 
 
 namespace sxy
@@ -26,9 +26,6 @@ namespace sxy
 
 
 transition_finder::transition_finder() = default;
-
-
-transition_finder::~transition_finder() = default;
 
 
 void transition_finder::search_for_enabled_transitions_in_all_regions( const state& _current_state, 
@@ -55,15 +52,20 @@ void transition_finder::search_initial_transitions(	const composite_state& _stat
 		const auto initial_pseudostate = region->get_initial_pseudostate();
 		if( initial_pseudostate )
 		{
-			Y_LOG( log_level::LL_TRACE, "Initial state '%' found in region '%'.",
+			Y_LOG( log_level::LL_TRACE, "Initial pseudostate '%' found in region '%'.",
 				initial_pseudostate->get_name(), region->get_name() );
 			const auto transition = initial_pseudostate->get_transition();
 			const auto complition_event = std::make_shared< event_impl >( COMPLETION_EVENT );
 			if( !try_to_build_compound_transition( *transition, _compound_transitions, *complition_event ) )
 			{
 				LOG_AND_THROW( log_level::LL_FATAL,
-					"A compound transition could not be built after an initial pseudostate!" );
+					"A compound transition could not be built for the initial transition emitting from the initial pseudostate '%'!",
+					initial_pseudostate->get_name() );
 			}
+		}
+		else
+		{
+			Y_LOG( log_level::LL_TRACE, "No initial pseudostate found in region '%'.", region->get_name() );
 		}
 	}
 }
@@ -75,15 +77,14 @@ void transition_finder::search_choice_transitions( const raw_const_choices& _cho
 	for( const auto choice : _choices )
 	{
 		Y_ASSERT( choice, "Choice pointer is null. This cannot be a nullptr." );
-		Y_LOG( log_level::LL_SPAM, "Checking outgoing transition(s) of choice '%'.", choice->get_name() );
-		Y_LOG( log_level::LL_SPAM, "Choice '%' has % outgoing transition(s).",
+		Y_LOG( log_level::LL_SPAM, "Checking outgoing transition(s) of choice '%'. It has % outgoing transitions.",
 			choice->get_name(), choice->get_outgoing_transitions().size() );
 		auto at_least_one_transition_is_enabled = false;
 
 		for( auto & transition : choice->get_outgoing_transitions() )
 		{
-			Y_ASSERT( transition->can_accept_event(
-					COMPLETION_EVENT ), "Transition leaving choice is not a completion transition!" );
+			Y_ASSERT( transition->can_accept_event(	COMPLETION_EVENT ), 
+				"Transition leaving choice is not a completion transition!" );
 			Y_LOG( log_level::LL_SPAM, "Checking outgoing transition '%' of choice '%' for guard.",
 				transition->get_name(), choice->get_name() );
 			const auto guard_evaluated_to_true = transition->check_guard( _event );
@@ -93,9 +94,8 @@ void transition_finder::search_choice_transitions( const raw_const_choices& _cho
 					transition->get_name(), choice->get_name() );
 				if( !try_to_build_compound_transition( *transition, _compound_transitions, _event ) )
 				{
-					LOG_AND_THROW( log_level::LL_FATAL,
-						"Transition following choice '%' could not be built in compound transition!",
-						choice->get_name() );
+					LOG_AND_THROW( log_level::LL_FATAL, 
+						"Transition following choice '%' could not be built in compound transition!",	choice->get_name() );
 				}
 				else
 				{
@@ -113,7 +113,7 @@ void transition_finder::search_choice_transitions( const raw_const_choices& _cho
 
 		if( !at_least_one_transition_is_enabled )
 		{
-			LOG_AND_THROW( log_level::LL_FATAL, "No transition was enabled for choice '%'!", choice->get_name() );
+			LOG_AND_THROW( log_level::LL_FATAL, "No transition is enabled for choice '%'!", choice->get_name() );
 		}
 	}
 }
@@ -136,28 +136,32 @@ transition* transition_finder::search_completion_transition( const state& _state
 bool transition_finder::search_for_transition( const state& _current_state, 
 	compound_transitions& _enabled_compound_transitions,	const event& _event,	bool& _event_is_deferred ) const
 {
-	Y_LOG( log_level::LL_INFO, "Search for transition in state '%'.", _current_state.get_name() );
+	Y_LOG( log_level::LL_SPAM, "Search for transition in state '%'.", _current_state.get_name() );
 	auto found = false;
 	const auto& regions = _current_state.get_regions();
 
 	for( const auto & region : regions )
 	{
-		Y_LOG( log_level::LL_TRACE, "Search for active state in region '%'.", region->get_name() );
+		Y_LOG( log_level::LL_SPAM, "Search for active state in region '%'.", region->get_name() );
 		const auto active_state = region->get_active_state();
 		if( active_state )
 		{
-			Y_LOG( log_level::LL_TRACE, "Found active state '%' in region '%'.", active_state->get_name(),
+			Y_LOG( log_level::LL_SPAM, "Found active state '%' in region '%'.", active_state->get_name(),
 				region->get_name() );
 			auto l_found = search_for_transition( *active_state, _enabled_compound_transitions, _event, _event_is_deferred );
 			if( l_found )
-			{
-				Y_LOG( log_level::LL_TRACE, "Transition found in the active state '%'.", active_state->get_name() );
+			{					
+				Y_LOG( log_level::LL_SPAM, "Transition found in active state '%'.", active_state->get_name() );
 				found = l_found;
 			}
 			else
 			{
-				Y_LOG( log_level::LL_TRACE, "Transition not found in the active state '%'.", active_state->get_name() );
+				Y_LOG( log_level::LL_SPAM, "No transition found in active state '%'.", active_state->get_name() );
 			}
+		}
+		else
+		{
+			Y_LOG( log_level::LL_SPAM, "No active state found in region '%'.", region->get_name() );
 		}
 	}
 
@@ -181,16 +185,18 @@ bool transition_finder::search_for_transition( const state& _current_state,
 			Y_LOG( log_level::LL_TRACE, "Transition '%' found in the current state '%'.",
 				transition->get_name(), _current_state.get_name() );
 			found = try_to_build_compound_transition( *transition, _enabled_compound_transitions, _event );
-			auto message = yprintf( "Transition '%' was not built in compound transition.", transition->get_name() );
 			if( found )
 			{
-				message = yprintf( "Transition '%' was built in compound transition.", transition->get_name() );
+				Y_LOG( log_level::LL_SPAM, "Compound transition was built for transition '%'.", transition->get_name() );
 			}
-			Y_LOG( log_level::LL_SPAM, message );			
+			else
+			{
+				Y_LOG( log_level::LL_SPAM, "Compound transition was not built for transition '%'.", transition->get_name() );
+			}
 		}
 		else
 		{
-			Y_LOG( log_level::LL_TRACE, "Transition not found in current state '%'.", _current_state.get_name() );
+			Y_LOG( log_level::LL_TRACE, "No transition found in current state '%'.", _current_state.get_name() );
 			if( _current_state.is_event_deferred( _event.get_id() ) )
 			{
 				_event_is_deferred = true;

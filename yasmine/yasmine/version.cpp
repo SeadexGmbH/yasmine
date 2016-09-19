@@ -11,9 +11,9 @@
 
 #include <iostream>
 
-#include "version.h"
-#include "build_number.h"
-#include "log.h"
+#include "version.hpp"
+#include "build_number.hpp"
+#include "log.hpp"
 
 
 namespace yasmine
@@ -29,7 +29,7 @@ namespace
 
 
 const std::uint16_t VERSION_MAJOR( 0 );
-const std::uint16_t VERSION_MINOR( 2 );
+const std::uint16_t VERSION_MINOR( 3 );
 const std::uint16_t VERSION_PATCH( 0 );
 
 

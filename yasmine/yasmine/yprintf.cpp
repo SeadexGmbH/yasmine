@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "yprintf.h"
+#include "yprintf.hpp"
 
 #include <cctype>
 
-#include "base.h"
-#include "conversion.h"
+#include "base.hpp"
+#include "conversion.hpp"
 
 
 namespace sxy

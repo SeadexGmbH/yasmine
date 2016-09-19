@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "file_logger.h"
+#include "file_logger.hpp"
 
 #include <iostream>
 #include <iomanip>
 #include <cstdio>
 
-#include "file_system.h"
-#include "globals.h"
+#include "file_system.hpp"
+#include "globals.hpp"
 
 
 namespace sxy
@@ -42,11 +42,11 @@ file_logger::file_logger( const size_t _max_file_size_in_bytes, const std::strin
 
 void file_logger::log( const log_message& _log_message )
 {
-	const auto log_level = log_level_to_string( _log_message.log_level_message_ );
+	const auto log_level = log_level_to_string( _log_message.log_level_ );
 	std::stringstream log_message_stream;
 	log_message_stream << std::setw( LOG_LEVEL_BLOCK_WIDTH ) << std::setfill( ' ' ) << std::left << log_level <<
-		" " << _log_message.log_time_stam_ << " [" << _log_message.log_file_ << "@" << _log_message.log_line_ <<
-		"]: " << _log_message.log_message_;
+		" " << _log_message.time_stamp_ << " [" << _log_message.file_ << "@" << _log_message.line_ <<
+		"]: " << _log_message.message_;
 	log_into_file( log_message_stream.str() );
 	rotate_if_necessary();
 }
