@@ -13,6 +13,7 @@
 #define TRANSITION_EXECUTOR_H_2521E4B8_B89E_4CCE_9751_F5B6BD515AD5
 
 
+#include "compatibility.hpp"
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "behavior_exception_fwd.hpp"

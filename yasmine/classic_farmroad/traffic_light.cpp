@@ -24,10 +24,10 @@ namespace
 {
 
 
-constexpr event_id EVENT_SWITCH_TO_RED_YELLOW = 1;
-constexpr event_id EVENT_SWITCH_TO_GREEN = 2;
-constexpr event_id EVENT_SWITCH_TO_YELLOW = 3;
-constexpr event_id EVENT_SWITCH_TO_RED = 4;
+Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED_YELLOW, 1 );
+Y_EVENT_WITH_ID( EVENT_SWITCH_TO_GREEN, 2 );
+Y_EVENT_WITH_ID( EVENT_SWITCH_TO_YELLOW, 3 );
+Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED, 4 );
 
 
 }
@@ -57,25 +57,25 @@ void traffic_light::stop()
 
 void traffic_light::switch_to_red_yellow()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_RED_YELLOW ) );
+	traffic_light_state_machine_.fire_event( EVENT_SWITCH_TO_RED_YELLOW::create() );
 }
 
 
 void traffic_light::switch_to_green()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_GREEN ) );
+	traffic_light_state_machine_.fire_event( EVENT_SWITCH_TO_GREEN::create() );
 }
 
 
 void traffic_light::switch_to_yellow()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_YELLOW ) );
+	traffic_light_state_machine_.fire_event( EVENT_SWITCH_TO_YELLOW::create() );
 }
 
 
 void traffic_light::switch_to_red()
 {
-	traffic_light_state_machine_.fire_event( event_impl::create( EVENT_SWITCH_TO_RED ) );
+	traffic_light_state_machine_.fire_event( EVENT_SWITCH_TO_RED::create() );
 }
 
 
@@ -118,10 +118,11 @@ void traffic_light::build_traffic_light_state_machine()
 
 	// transitions
 	traffic_light_state_machine_.add_transition( COMPLETION_EVENT, initial_pseudostate, red_state );
-	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED_YELLOW, red_state, red_yellow_state );
-	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_GREEN, red_yellow_state, green_state );
-	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_YELLOW, green_state,	yellow_state );
-	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED, yellow_state, red_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED_YELLOW::get_event_id(), red_state,
+		red_yellow_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_GREEN::get_event_id(), red_yellow_state, green_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_YELLOW::get_event_id(), green_state, yellow_state );
+	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED::get_event_id(), yellow_state, red_state );
 }
 
 

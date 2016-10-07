@@ -36,7 +36,6 @@ const char CAPS_X = 'X';
 
 }
 
-
 std::ostream& operator<<( std::ostream& _os,	const sxy::format_settings& _format )
 {
 	if( !_format.correct_ )

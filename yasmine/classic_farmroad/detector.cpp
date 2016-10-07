@@ -22,10 +22,10 @@ namespace
 {
 
 
-constexpr unsigned int DETECTOR_OFF_LOWER_EXTREMITY( 1500 );
-constexpr unsigned int DETECTOR_OFF_UPPER_EXTREMITY( 12000 );
-constexpr unsigned int DETECTOR_ON_UPPER_EXTREMITY( 3000 );
-constexpr unsigned int DETECTOR_ON_LOWER_RXTREMITY( 1500 );
+constexpr unsigned int DETECTOR_OFF_LOWER_EXTREMITY( 1 );
+constexpr unsigned int DETECTOR_OFF_UPPER_EXTREMITY( 12 );
+constexpr unsigned int DETECTOR_ON_UPPER_EXTREMITY( 3 );
+constexpr unsigned int DETECTOR_ON_LOWER_RXTREMITY( 1 );
 
 
 }
@@ -87,9 +87,9 @@ void detector::generate_detector_events()
 		std::default_random_engine e( r() );
 		is_on_ = false;
 		{
-			std::uniform_int_distribution< int > unifordist_( DETECTOR_OFF_LOWER_EXTREMITY, 
+			std::uniform_int_distribution< int > uniform_dist( DETECTOR_OFF_LOWER_EXTREMITY, 
 				DETECTOR_OFF_UPPER_EXTREMITY );
-			auto time_to_wait = std::chrono::milliseconds( unifordist_( e ) );
+			auto time_to_wait = std::chrono::milliseconds( uniform_dist( e ) );
 			condition_variable_.wait_for( lock, time_to_wait );
 			detector_callback_.detector_off();
 		}
@@ -97,9 +97,9 @@ void detector::generate_detector_events()
 		{
 			is_on_ = true;
 			{
-				std::uniform_int_distribution< int > unifordist_( DETECTOR_ON_UPPER_EXTREMITY,
+				std::uniform_int_distribution< int > uniform_dist( DETECTOR_ON_UPPER_EXTREMITY,
 					DETECTOR_ON_UPPER_EXTREMITY );
-				auto time_to_wait = std::chrono::milliseconds( unifordist_( e ) );
+				auto time_to_wait = std::chrono::milliseconds( uniform_dist( e ) );
 				condition_variable_.wait_for( lock, time_to_wait );
 				detector_callback_.detector_on();
 			}

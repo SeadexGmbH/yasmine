@@ -29,12 +29,14 @@ namespace
 
 
 const std::uint16_t VERSION_MAJOR( 0 );
-const std::uint16_t VERSION_MINOR( 3 );
+const std::uint16_t VERSION_MINOR( 4 );
 const std::uint16_t VERSION_PATCH( 0 );
 
 
 }
 
+
+#ifndef Y_NO_LOGGING
 
 // cppcheck-suppress unusedFunction
 void log_version()
@@ -43,6 +45,8 @@ void log_version()
 		get_minor_version(), get_patch_version(), get_build_number() );
 }
 
+
+#endif
 
 std::uint16_t get_major_version()
 {

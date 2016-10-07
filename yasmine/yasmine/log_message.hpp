@@ -7,6 +7,8 @@
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+												 
+#ifndef Y_NO_LOGGING
 
 
 #ifndef LOG_MESSAGE_2F81F136_9F98_4FE3_A47A_9DEBB9538995
@@ -39,5 +41,7 @@ struct log_message final
 
 }
 
+
+#endif
 
 #endif

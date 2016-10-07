@@ -7,7 +7,8 @@
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-
+				 
+#ifndef Y_NO_LOGGING
 
 #include "color_mapping.hpp"
 
@@ -40,3 +41,6 @@ color color_mapping::get_color( const sxy::log_level _log_level )
 
 
 }
+
+
+#endif

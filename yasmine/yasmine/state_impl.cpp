@@ -11,6 +11,8 @@
 
 #include "state_impl.hpp"
 
+#include <algorithm>
+
 #include "base.hpp"
 #include "region.hpp"
 #include "exception.hpp"
@@ -18,6 +20,10 @@
 #include "behavior.hpp"
 #include "log_and_throw.hpp"
 #include "behavior_exception.hpp"
+#include "algorithm_parameters.hpp"
+
+
+#include <iostream>
 
 
 namespace sxy
@@ -28,8 +34,15 @@ state_impl::state_impl( const std::string& _name )
 	: vertex_impl( _name ),
 		was_active_( false ),
 		parent_()
+#ifdef Y_OPTIMIZE_4_SPEED
+		, ancestors_(),
+			ancestors_as_regions_()
+#endif 												
 {
-	// Nothing to do...
+#ifdef Y_OPTIMIZE_4_SPEED
+	ancestors_as_regions_.reserve( ANCESTORS_VECTOR_SIZE );
+	ancestors_.reserve( ANCESTORS_VECTOR_SIZE );
+#endif	
 }
 
 
@@ -82,56 +95,52 @@ vertex* state_impl::get_pseudostate( const std::string& _name_of_pseudostate ) c
 // Gets ancestors in ascending order (from child to parent) up to the given composite state.
 raw_composite_states state_impl::get_ancestors( composite_state* const _final_ancestor ) const
 {
-	raw_composite_states ascending_path;
-	if( get_parent_region() != nullptr )
+#ifdef Y_OPTIMIZE_4_SPEED
+	if( ancestors_.empty() )
 	{
-		const state* current_vertex = this;
-		while( _final_ancestor != current_vertex )
+		collect_ancestors( ancestors_, nullptr );
+	}
+
+	if( _final_ancestor == nullptr )
+	{
+		return( ancestors_ );
+	}
+	else
+	{
+		const auto final_ancestor = std::find( ancestors_.begin(), ancestors_.end(), _final_ancestor );
+
+		if( final_ancestor != ancestors_.end() )
 		{
-			const auto& parent_region = current_vertex->get_parent_region();
-			if( parent_region != nullptr )
-			{
-				auto& parent_state = parent_region->get_parent_state();
-				ascending_path.push_back( &parent_state );
-				current_vertex = &parent_state;
-			}
-			else
-			{
-				Y_ASSERT( !_final_ancestor, "The given composite state '%' was not reached in the child-parent chain!" );
-				break;
-			}
+			raw_composite_states ancestors( ancestors_.begin(), final_ancestor + 1 );
+			return( ancestors );
+		}
+		else
+		{
+			raw_composite_states ancestors;
+			return( ancestors );
 		}
 	}
-
-	if( _final_ancestor )
-	{
-		ascending_path.push_back( _final_ancestor );
-	}
-
-	return( ascending_path );
+#else	
+	raw_composite_states ancestors;
+	collect_ancestors( ancestors, _final_ancestor );
+	return( ancestors );
+#endif
 }
 
 
 raw_regions state_impl::get_ancestors_as_regions() const
-{
-	const state* source_state = this;
-	raw_regions regions;
-	while( true )
+{																	 	
+#ifdef Y_OPTIMIZE_4_SPEED
+	if( ancestors_as_regions_.empty() )
 	{
-		const auto& parent_region = source_state->get_parent_region();
-		if( parent_region != nullptr )
-		{
-			regions.push_back( parent_region );
-			const auto& previous_state = parent_region->get_parent_state();
-			source_state = &previous_state;
-		}
-		else
-		{
-			break;
-		}
+		collect_ancestors_as_regions( ancestors_as_regions_ );
 	}
-
-	return( regions );
+	return ( ancestors_as_regions_ );
+#else
+	 raw_regions ancestors_as_regions;
+	 collect_ancestors_as_regions( ancestors_as_regions );
+	 return( ancestors_as_regions );
+#endif
 }
 
 
@@ -250,6 +259,50 @@ bool state_impl::has_error_event() const
 event_sptr state_impl::get_error_event() const
 {
 	return( nullptr );
+}
+
+
+void state_impl::collect_ancestors( raw_composite_states& _ancestors, composite_state* const _final_ancestor ) const
+{
+	if( get_parent_region() != nullptr )
+	{
+		const state* current_vertex = this;
+		while( _final_ancestor != current_vertex )
+		{
+			const auto& parent_region = current_vertex->get_parent_region();
+			if( parent_region != nullptr )
+			{
+				auto& parent_state = parent_region->get_parent_state();
+				_ancestors.push_back( &parent_state );
+				current_vertex = &parent_state;
+			}
+			else
+			{
+				Y_ASSERT( !_final_ancestor, "The given composite state '%' was not reached in the child-parent chain!" );
+				break;
+			}
+		}
+	}
+}
+
+
+void state_impl::collect_ancestors_as_regions( raw_regions& _ancestors_as_regions ) const
+{
+	const state* source_state = this;
+	while( true )
+	{
+		const auto& parent_region = source_state->get_parent_region();
+		if( parent_region != nullptr )
+		{
+			_ancestors_as_regions.push_back( parent_region );
+			const auto& previous_state = parent_region->get_parent_state();
+			source_state = &previous_state;
+		}
+		else
+		{
+			break;
+		}
+	}
 }
 
 

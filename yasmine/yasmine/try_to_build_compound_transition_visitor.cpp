@@ -23,9 +23,8 @@ namespace sxy
 {
 
 
-try_to_build_compound_transition_visitor::try_to_build_compound_transition_visitor(	
-	transition& _enabled_transition,	compound_transitions& _enabled_compound_transitions,	bool& _is_built,	
-	const event& _event )
+try_to_build_compound_transition_visitor::try_to_build_compound_transition_visitor( transition& _enabled_transition,
+	compound_transitions& _enabled_compound_transitions,	bool& _is_built, const event& _event )
 	: enabled_transition_( _enabled_transition ),
 		enabled_compound_transitions_( _enabled_compound_transitions ),
 		is_built_( _is_built ),

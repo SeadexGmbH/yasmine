@@ -52,6 +52,10 @@ public:
 	//!\return Reference to the root state of the state machine.
 	composite_state& get_root_state() const;
 
+#ifdef Y_PROFILER		
+	std::uint32_t get_number_of_processed_events() const;
+#endif
+
 	//!\brief Add a transition to the state machine. The state machine takes ownership of the transition.
 	//!\param _transition A transition.
 	//!\return transition Reference to the added transition.
@@ -169,6 +173,10 @@ private:
 	transitions transitions_;
 	events deferred_events_;
 	bool state_machine_is_running_;
+#ifdef Y_PROFILER	
+	std::uint32_t processed_events_;
+#endif
+
 };
 
 

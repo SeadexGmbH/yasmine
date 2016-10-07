@@ -16,6 +16,8 @@
 #include <deque>
 #include <string>
 
+#include "compatibility.hpp"
+
 
 namespace sxy
 {

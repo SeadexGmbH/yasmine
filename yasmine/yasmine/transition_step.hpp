@@ -13,6 +13,7 @@
 #define TRANSITION_STEP_6023D41F_1644_441E_8A49_E2BE433910AF
 
 
+#include "compatibility.hpp"
 #include "vertex_fwd.hpp"
 #include "transition_fwd.hpp"
 #include "transition_step_fwd.hpp"

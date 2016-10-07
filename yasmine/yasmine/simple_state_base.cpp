@@ -35,7 +35,7 @@ simple_state_base::simple_state_base( const std::string& _name, behavior_uptr _e
 
 const regions& simple_state_base::get_regions() const
 {
-	static const regions regions;
+	static const regions regions;	
 	return( regions );
 }
 

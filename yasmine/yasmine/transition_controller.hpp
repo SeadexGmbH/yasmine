@@ -13,6 +13,7 @@
 #define TRANSITION_CONTROLLER_FDB88C02_ECF6_4BB5_B99A_3F45813BF357
 
 
+#include "compatibility.hpp"
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "event_id.hpp"

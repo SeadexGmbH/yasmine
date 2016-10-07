@@ -90,6 +90,10 @@ void parameter_muncher( T, args ... _args )
 
 #endif
 
+#include "base.hpp"
+
+#ifndef Y_NO_LOGGING
+		
 
 #include "log_manager_template.hpp"
 #include "std_timestamp_policy.hpp"
@@ -105,6 +109,7 @@ using log_manager = sxy::log_manager_template< sxy::std_timestamp_policy >;
 
 }
 
+#endif
 
 
 #endif

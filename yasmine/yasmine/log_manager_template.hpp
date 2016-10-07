@@ -8,6 +8,8 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
+
 
 #ifndef LOG_MANAGER_TEMPLATE_F6D33798_A43A_4C29_86F1_0FC821B92F9B
 #define LOG_MANAGER_TEMPLATE_F6D33798_A43A_4C29_86F1_0FC821B92F9B
@@ -161,7 +163,7 @@ private:
 			stop_( true ),
 			loggers_(),
 			messages_(),
-			log_level_( log_level::LL_SPAM )
+			log_level_( log_level::LL_OFF )
 	{
 		Y_ASSERT_NO_LOG( !LOG_MANAGER_EXISTS, "Log manager already exists!" );
 		LOG_MANAGER_EXISTS = true;
@@ -225,7 +227,6 @@ private:
 }
 
 
-#include "base_end.hpp"
-
+#endif
 
 #endif

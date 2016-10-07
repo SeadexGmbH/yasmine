@@ -174,6 +174,7 @@ shallow_history& composite_state_impl::add_shallow_history( const std::string& _
 const raw_const_entry_points composite_state_impl::get_entry_points() const
 {
 	raw_const_entry_points entry_points = {};
+	entry_points.reserve( entry_points_.size() );
 
 	for( const auto & entry_point : entry_points_ )
 	{
@@ -205,6 +206,7 @@ entry_point& composite_state_impl::add_entry_point( const std::string& _entry_po
 const raw_const_exit_points composite_state_impl::get_exit_points() const
 {
 	raw_const_exit_points exit_points = {};
+	exit_points.reserve( exit_points_.size() );
 
 	for( const auto & exit_point : exit_points_ )
 	{
@@ -397,8 +399,8 @@ void composite_state_impl::accept_state_visitor( state_visitor& _visitor ) const
 bool composite_state_impl::is_orthogonal() const
 {
 	auto is_orthogonal = false;
-	const auto& regions = get_regions();
-	if( regions.size() > 1 )
+	
+	if( get_regions().size() > 1 )
 	{
 		is_orthogonal = true;
 	}
@@ -409,10 +411,9 @@ bool composite_state_impl::is_orthogonal() const
 
 bool composite_state_impl::check_if_regions_are_completed() const
 {
-	auto regions_are_completed = true;
-	const auto& regions = get_regions();
+	auto regions_are_completed = true;	
 
-	for( const auto & region : regions )
+	for( const auto& region : get_regions() )
 	{
 		if( !region->is_active_state_final() )
 		{

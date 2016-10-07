@@ -22,26 +22,42 @@ namespace sxy
 
 namespace
 {
+					
 
+constexpr event_id DETECTOR_ON = 1;
+Y_EVENT_WITH_ID( detector_on_event, DETECTOR_ON );
 
-const event_id DETECTOR_ON = 1;
 constexpr event_id DETECTOR_OFF = 2;
+Y_EVENT_WITH_ID( detector_off_event, DETECTOR_OFF );
+
 constexpr event_id TIMER_HIGHWAY_MINIMUM_TIME = 3;
+Y_EVENT_WITH_ID( timer_highway_minimum_time_event, TIMER_HIGHWAY_MINIMUM_TIME );
+
 constexpr event_id TIMER_PHASE_1 = 4;
+Y_EVENT_WITH_ID( timer_phase_1_event, TIMER_PHASE_1 );
+
 constexpr event_id TIMER_PHASE_2 = 5;
+Y_EVENT_WITH_ID( timer_phase_2_event, TIMER_PHASE_2 );
+
 constexpr event_id TIMER_FARMROAD_MAXIMUM_TIME = 6;
+Y_EVENT_WITH_ID( timer_farmroad_maximum_time_event, TIMER_FARMROAD_MAXIMUM_TIME );
+
 constexpr event_id EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED = 7;
-const event_ids EVENTS_EXIT_FARMROAD_OPEN = { DETECTOR_OFF, EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED };
+Y_EVENT_WITH_ID( event_farmroad_maximum_time_elapsed_event, EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED );
 
 
-const std::chrono::milliseconds TIMER_HIGHWAY_MINIMUM_TIME_DURATION( 5000 );
-const std::chrono::milliseconds TIMER_PHASE_1_DURATION( 1000 );
-const std::chrono::milliseconds TIMER_PHASE_2_DURATION( 1000 );
-const std::chrono::milliseconds TIMER_FARMROAD_MAXIMUM_TIME_DURATION( 3000 );
+const event_ids EVENTS_EXIT_FARMROAD_OPEN = { detector_on_event::get_event_id(), event_farmroad_maximum_time_elapsed_event::get_event_id() };
+
+
+const std::chrono::milliseconds TIMER_HIGHWAY_MINIMUM_TIME_DURATION( 5 );
+const std::chrono::milliseconds TIMER_PHASE_1_DURATION( 1 );
+const std::chrono::milliseconds TIMER_PHASE_2_DURATION( 1 );
+const std::chrono::milliseconds TIMER_FARMROAD_MAXIMUM_TIME_DURATION( 3 );
 
 
 const std::string FARMROAD_ASCII_ART = "--- ";
 const std::string HIGHWAY_ASCII_ART = "==== ";
+
 
 }
 
@@ -101,21 +117,21 @@ void intersection::stop()
 void intersection::detector_on()
 {
 	std::cout << "Detector is on." << std::endl;		
-	intersection_state_machine_.fire_event( event_impl::create( DETECTOR_ON ) );
+	intersection_state_machine_.fire_event( detector_on_event::create() );
 }
 
 
 void intersection::detector_off()
 {	
-	std::cout << "Detector is off." << std::endl;
-	intersection_state_machine_.fire_event( event_impl::create( DETECTOR_OFF ) );
+	std::cout << "Detector is off." << std::endl;	
+	intersection_state_machine_.fire_event( detector_off_event::create() );
 }
 
 
-int intersection::fire_timed_event(	const std::chrono::milliseconds _milliseconds,	const event_id _event_id )
+int intersection::fire_timed_event( const std::chrono::milliseconds _milliseconds, const event_sptr _event )
 {	
 	auto event_handle = timed_event_creator_.create_event_creation_request( 
-		std::chrono::milliseconds( _milliseconds ), event_impl::create( _event_id ) );
+		std::chrono::milliseconds( _milliseconds ), _event );
 	return( event_handle );
 }
 		
@@ -126,7 +142,7 @@ void intersection::highway_open_entry()
 
 	highway_traffic_light_.switch_to_green();
 
-	fire_timed_event( TIMER_HIGHWAY_MINIMUM_TIME_DURATION, TIMER_HIGHWAY_MINIMUM_TIME );
+	fire_timed_event( TIMER_HIGHWAY_MINIMUM_TIME_DURATION, timer_highway_minimum_time_event::create() );
 }
 
 
@@ -143,7 +159,7 @@ void intersection::switching_to_farmroad_phase_1()
 	highway_traffic_light_.switch_to_yellow();
 	farmroad_traffic_light_.switch_to_red_yellow();
 
-	fire_timed_event( TIMER_PHASE_1_DURATION, TIMER_PHASE_1 );
+	fire_timed_event( TIMER_PHASE_1_DURATION, timer_phase_1_event::create() );
 }
 
 
@@ -153,7 +169,7 @@ void intersection::switching_to_farmroad_phase_2()
 
 	highway_traffic_light_.switch_to_red();
 
-	fire_timed_event( TIMER_PHASE_2_DURATION, TIMER_PHASE_2 );
+	fire_timed_event( TIMER_PHASE_2_DURATION, timer_phase_2_event::create() );
 }
 
 
@@ -164,7 +180,7 @@ void intersection::farmroad_open_entry()
 	farmroad_traffic_light_.switch_to_green();
 
 	farmroad_maximum_time_event_handle_ = fire_timed_event( TIMER_FARMROAD_MAXIMUM_TIME_DURATION, 
-		TIMER_FARMROAD_MAXIMUM_TIME );
+		timer_farmroad_maximum_time_event::create() );
 }
 
 
@@ -199,7 +215,7 @@ void intersection::switching_to_highway_phase_1()
 	highway_traffic_light_.switch_to_red_yellow();
 	farmroad_traffic_light_.switch_to_yellow();
 
-	fire_timed_event( TIMER_PHASE_1_DURATION, TIMER_PHASE_1 );
+	fire_timed_event( TIMER_PHASE_1_DURATION, timer_phase_1_event::create() );
 }
 
 
@@ -209,7 +225,7 @@ void intersection::switching_to_highway_phase_2()
 
 	farmroad_traffic_light_.switch_to_red();
 
-	fire_timed_event( TIMER_PHASE_2_DURATION, TIMER_PHASE_2 );
+	fire_timed_event( TIMER_PHASE_2_DURATION, timer_phase_2_event::create() );
 }
 
 
@@ -227,7 +243,7 @@ bool intersection::check_detector_is_off()
 
 void intersection::cancel_timer_event_on_detector_off( const sxy::event& _event )
 {
-	if( _event.get_id() == DETECTOR_OFF )
+	if( _event.get_id() == detector_off_event::get_event_id() )
 	{
 		if( farmroad_maximum_time_event_handle_ > 0 )
 		{
@@ -238,8 +254,7 @@ void intersection::cancel_timer_event_on_detector_off( const sxy::event& _event 
 			}
 			else
 			{
-				Y_LOG( log_level::LL_INFO, "Event with handle % could not be canceled.", 
-							 farmroad_maximum_time_event_handle_ );
+				Y_LOG( log_level::LL_INFO, "Event with handle % could not be canceled.", farmroad_maximum_time_event_handle_ );
 			}
 			farmroad_maximum_time_event_handle_ = 0;
 		}
@@ -330,28 +345,29 @@ void intersection::build_intersection_state_machine()
 		Y_GUARD_METHOD_NO_EVENT( check_detector_is_on ) );
 	intersection_state_machine_.add_transition( COMPLETION_EVENT,	detector_junction, l_minimum_time_not_elapsed,
 		transition_kind::EXTERNAL, Y_GUARD_METHOD_NO_EVENT( check_detector_is_off ) );
-	intersection_state_machine_.add_transition( DETECTOR_ON, l_minimum_time_not_elapsed, 
+	intersection_state_machine_.add_transition( detector_on_event::get_event_id(), l_minimum_time_not_elapsed, 
 		l_minimum_time_not_elapsed_farmroad_waiting );
-	intersection_state_machine_.add_transition(	TIMER_HIGHWAY_MINIMUM_TIME, l_minimum_time_not_elapsed, 
-		l_minimum_time_elapsed );	
-	intersection_state_machine_.add_transition( TIMER_HIGHWAY_MINIMUM_TIME, l_minimum_time_not_elapsed_farmroad_waiting, 
-		highway_finished );	
-	intersection_state_machine_.add_transition( DETECTOR_ON, l_minimum_time_elapsed, highway_finished );	
+	intersection_state_machine_.add_transition(	timer_highway_minimum_time_event::get_event_id(), 
+		l_minimum_time_not_elapsed,	l_minimum_time_elapsed );	
+	intersection_state_machine_.add_transition( timer_highway_minimum_time_event::get_event_id(), 
+		l_minimum_time_not_elapsed_farmroad_waiting, highway_finished );	
+	intersection_state_machine_.add_transition( detector_on_event::get_event_id(), l_minimum_time_elapsed, 
+		highway_finished );
 
 	// inside switching highway to farmroad
 	intersection_state_machine_.add_transition( COMPLETION_EVENT, initial_switching_to_farmroad, 
 		l_switching_to_farmroad_phase_1 );
-	intersection_state_machine_.add_transition( TIMER_PHASE_1, l_switching_to_farmroad_phase_1, 
+	intersection_state_machine_.add_transition( timer_phase_1_event::get_event_id(), l_switching_to_farmroad_phase_1,
 		switching_to_farmroad_phase_2 );
-	intersection_state_machine_.add_transition( TIMER_PHASE_2, switching_to_farmroad_phase_2, 
+	intersection_state_machine_.add_transition( timer_phase_2_event::get_event_id(), switching_to_farmroad_phase_2,
 		switching_to_farmroad_finished );
 
 	// inside switching farmroad to highway
 	intersection_state_machine_.add_transition( COMPLETION_EVENT, initial_switching_to_highway, 
 		l_switching_to_highway_phase_1 );
-	intersection_state_machine_.add_transition( TIMER_PHASE_1, l_switching_to_highway_phase_1, 
+	intersection_state_machine_.add_transition( timer_phase_1_event::get_event_id(), l_switching_to_highway_phase_1,
 		l_switching_to_highway_phase_2 );
-	intersection_state_machine_.add_transition( TIMER_PHASE_2, l_switching_to_highway_phase_2, 
+	intersection_state_machine_.add_transition( timer_phase_2_event::get_event_id(), l_switching_to_highway_phase_2,
 		switching_to_highway_finished );
 }
 

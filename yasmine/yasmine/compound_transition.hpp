@@ -37,12 +37,7 @@ public:
 	virtual ~compound_transition() noexcept override = default;
 	compound_transition( const compound_transition& ) = delete;
 	compound_transition& operator=( const compound_transition& ) = delete;
-	virtual transition_steps& get_transition_steps() = 0;
-	virtual const vertex& get_last_target() const = 0;
-	virtual const compound_transitions& get_sub_compound_transitions() const = 0;
 	virtual void add_sub_compound_transition( compound_transition_uptr _sub_compound_transition ) = 0;
-	virtual region * get_LCA_region() = 0;
-	virtual composite_state * get_LCA_composite_state() = 0;
 	virtual bool check_if_starts_with( const transition& _incoming_transition ) = 0;
 	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event ) = 0;
 };

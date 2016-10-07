@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #ifndef LOGGER_FWD_9F0DC46E_91EC_44AB_ADE0_7F223D30DE83
 #define LOGGER_FWD_9F0DC46E_91EC_44AB_ADE0_7F223D30DE83
@@ -28,5 +29,7 @@ using loggers = std::vector< logger_uptr >;
 
 }
 
+
+#endif
 
 #endif

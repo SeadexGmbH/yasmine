@@ -15,6 +15,8 @@
 #include "yasmine.hpp"
 #include "version.hpp"
 
+#include "event_priority.hpp"
+
 
 const sxy::event_id HELLO_EVENT = 1;
 using state_machine_uptr = std::unique_ptr< sxy::state_machine >;

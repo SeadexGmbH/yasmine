@@ -13,6 +13,9 @@
 #define VERTEX_VISITOR_D71F9484_F3C5_4DEF_BC94_F273B6223268
 
 
+#include "compatibility.hpp"
+
+
 namespace sxy
 {
 

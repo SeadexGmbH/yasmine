@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #include "std_timestamp_policy.hpp"
 
@@ -51,3 +52,5 @@ std::string std_timestamp_policy::get_timestamp()
 
 
 }
+
+#endif

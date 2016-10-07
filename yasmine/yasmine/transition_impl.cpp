@@ -13,7 +13,6 @@
 
 #include <algorithm>
 
-#include "base.hpp"
 #include "vertex.hpp"
 #include "behavior.hpp"
 #include "constraint.hpp"
@@ -42,7 +41,7 @@ transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, v
 	const sxy::transition_kind _kind,	constraint_uptr _guard, 
 	behavior_uptr _behavior )
 	: state_machine_element_impl( get_transition_name( _source, _target, _event_ids ) ),
-		events_( _event_ids ),
+		event_ids_( _event_ids ),
 		source_( _source ),
 		target_( _target ),
 		guard_( std::move( _guard ) ),
@@ -239,7 +238,7 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 bool transition_impl::can_accept_event( const event_id _event ) const
 {
 	bool accept = false;
-	if( std::find( events_.begin(), events_.end(), _event ) != events_.end() )
+	if( std::find( event_ids_.begin(), event_ids_.end(), _event ) != event_ids_.end() )
 	{
 		accept = true;
 	}
@@ -291,7 +290,7 @@ bool transition_impl::check_relationship( const vertex& _lhs, const composite_st
 
 
 
-const std::string transition_impl::get_transition_name( vertex& _source, vertex& _target, const event_ids _event_ids )
+std::string transition_impl::get_transition_name( vertex& _source, vertex& _target, const event_ids _event_ids )
 {
 	auto transition_name = _source.get_name() + "->" + _target.get_name();
 	if( !_event_ids.empty() )

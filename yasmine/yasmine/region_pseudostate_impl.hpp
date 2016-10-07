@@ -15,6 +15,7 @@
 
 #include "region_pseudostate.hpp"
 #include "pseudostate_impl.hpp"
+#include "optimization.hpp"
 
 
 namespace sxy
@@ -35,7 +36,16 @@ public:
 
 
 private:
+	void collect_ancestors( raw_composite_states& _ancestors, composite_state* const _final_ancestor ) const;
+	void collect_ancestors_as_regions( raw_regions& _ancestor_regions ) const;	
+
+	
 	region* parent_;
+
+#ifdef Y_OPTIMIZE_4_SPEED		
+	mutable raw_composite_states ancestors_;
+	mutable	raw_regions ancestors_as_regions_;
+#endif
 };
 
 

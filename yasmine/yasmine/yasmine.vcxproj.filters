@@ -492,9 +492,6 @@
     <ClInclude Include="exception.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
     </ClInclude>
-    <ClInclude Include="log_and_throw.hpp">
-      <Filter>Headerdateien\core\state machine</Filter>
-    </ClInclude>
     <ClInclude Include="state_machine.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
     </ClInclude>
@@ -552,9 +549,6 @@
     <ClInclude Include="base.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="base_end.hpp">
-      <Filter>Headerdateien\infrastructure</Filter>
-    </ClInclude>
     <ClInclude Include="conversion.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
@@ -593,6 +587,21 @@
     </ClInclude>
     <ClInclude Include="assembly.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="specialized_event.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="compatibility.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="algorithm_parameters.hpp">
+      <Filter>Headerdateien\core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="optimization.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="log_and_throw.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -806,11 +815,11 @@
     <ClCompile Include="compound_transition_builder.cpp">
       <Filter>Quelldateien\core\algorithm\transition finder</Filter>
     </ClCompile>
-    <ClCompile Include="event_priority.cpp">
-      <Filter>Quelldateien\core\state machine\element</Filter>
-    </ClCompile>
     <ClCompile Include="behavior_exception.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="algorithm_parameters.cpp">
+      <Filter>Quelldateien\core\algorithm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

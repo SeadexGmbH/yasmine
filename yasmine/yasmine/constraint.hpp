@@ -13,6 +13,7 @@
 #define CONSTRAINT_DFC0FBD5_ACF7_4863_BB5F_129E8620FAB3
 
 
+#include "compatibility.hpp"
 #include "constraint_fwd.hpp"
 
 

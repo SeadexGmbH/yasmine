@@ -27,6 +27,7 @@
 #include "behavior.hpp"
 #include "event_impl.hpp"
 #include "event_with_parameters.hpp"
+#include "event_template.hpp"
 #include "constraint.hpp"
 
 #include "logging.hpp"

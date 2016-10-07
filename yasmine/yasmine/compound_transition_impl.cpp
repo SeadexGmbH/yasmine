@@ -15,6 +15,7 @@
 #include "transition.hpp"
 #include "transition_step.hpp"
 #include "build_transition_steps_visitor.hpp"
+#include "algorithm_parameters.hpp"
 
 
 namespace sxy
@@ -25,7 +26,8 @@ compound_transition_impl::compound_transition_impl()
 	: transition_steps_(),
 		sub_compound_transitions_()
 {
-	// Nothing to do...
+	transition_steps_.reserve( TRANSITION_STEPS_VECTOR_SIZE );
+	sub_compound_transitions_.reserve( COMPOUND_TRANSITIONS_VECTOR_SIZE );
 }
 
 

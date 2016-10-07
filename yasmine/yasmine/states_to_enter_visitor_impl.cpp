@@ -132,7 +132,7 @@ void states_to_enter_visitor_impl::visit( terminate_pseudostate& _terminate_pseu
 }
 
 
-void states_to_enter_visitor_impl::get_states_u_to_LCA( state& _state )
+void states_to_enter_visitor_impl::get_states_up_to_LCA( state& _state )
 {
 	auto ancestors = _state.get_ancestors( &LCA_of_compound_transition_ );
 
@@ -148,7 +148,7 @@ void states_to_enter_visitor_impl::get_states_u_to_LCA( state& _state )
 }
 
 
-void states_to_enter_visitor_impl::get_regions_u_to_LCA( const state& _state )
+void states_to_enter_visitor_impl::get_regions_up_to_LCA( const state& _state )
 {
 	auto ancestors_as_regions = _state.get_ancestors_as_regions();
 
@@ -178,8 +178,8 @@ void states_to_enter_visitor_impl::insert_states_to_enter( state& _state )
 {
 	states_to_enter_.insert( &_state );
 	regions_to_enter_.insert( _state.get_parent_region() );
-	get_states_u_to_LCA( _state );
-	get_regions_u_to_LCA( _state );
+	get_states_up_to_LCA( _state );
+	get_regions_up_to_LCA( _state );
 }
 
 

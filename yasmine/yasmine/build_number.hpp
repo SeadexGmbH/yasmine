@@ -24,7 +24,7 @@ namespace version
 {
 
 
-const std::uint16_t BUILD_NUMBER( 278 );
+const std::uint16_t BUILD_NUMBER( 298 );
 
 
 }

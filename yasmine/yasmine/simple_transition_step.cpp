@@ -65,9 +65,7 @@ const entry_point* simple_transition_step::get_entry_point() const
 
 const raw_const_vertices simple_transition_step::get_target_vertices()
 {
-	raw_const_vertices target_vertices;
-	const auto& target_vertex = transition_.get_target();
-	target_vertices.push_back( &target_vertex );
+	raw_const_vertices target_vertices = { &transition_.get_target() };
 	return( target_vertices );
 }
 

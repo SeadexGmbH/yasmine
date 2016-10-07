@@ -8,7 +8,8 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+#ifndef Y_NO_LOGGING
+									
 #include "log_message.hpp"
 
 
@@ -29,3 +30,5 @@ log_message::log_message( const log_level _log_level, const std::string& _time_s
 
 
 }
+
+#endif

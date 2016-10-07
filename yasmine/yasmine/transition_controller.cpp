@@ -21,6 +21,7 @@
 #include "log_and_throw.hpp"
 #include "behavior_exception.hpp"
 #include "conversion.hpp"
+#include "algorithm_parameters.hpp"
 
 
 namespace sxy
@@ -37,6 +38,7 @@ bool transition_controller::process_event( const event& _event, const composite_
 	Y_LOG( sxy::log_level::LL_TRACE, "Begin processing event '%'.", _event.get_id() );
 	auto reached_terminate_pseudostate = false;
 	compound_transitions enabled_compound_transitions;
+	enabled_compound_transitions.reserve( COMPOUND_TRANSITIONS_VECTOR_SIZE );
 	Y_LOG( log_level::LL_SPAM, "Search for enabled transition(s) for event '%'.", _event.get_id() );
 	transition_finder transition_finder;
 	transition_finder.search_for_enabled_transitions_in_all_regions( _main_composite_state, _event,
@@ -66,6 +68,7 @@ bool transition_controller::start_state_machine( const composite_state& _main_co
 {
 	auto terminate_pseudostate_has_been_reached = false;
 	compound_transitions enabled_compound_transitions;
+	enabled_compound_transitions.reserve( ENABLED_COMPOUND_TRANSITION_VECTOR_SIZE );
 	transition_finder transition_finder;
 	Y_LOG( log_level::LL_TRACE, "Searching for initial transitions on state machine start." );
 	transition_finder.search_initial_transitions( _main_composite_state, enabled_compound_transitions );
@@ -97,11 +100,13 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 {
 	auto terminate_pseudostate_has_been_reached = false;
 	transition_executor transition_executor;
-	events exception_events = {};
+	events exception_events;
+	exception_events.reserve( EXCEPTION_EVENTS_VECTOR_SIZE );
 
 	while( !compound_transitions.empty() )
 	{
 		raw_const_choices choices;
+		choices.reserve( CHOICES_VECTOR_SIZE );
 		if( _event_processing_callback )
 		{
 			_event_processing_callback->before_event_processings_stage();

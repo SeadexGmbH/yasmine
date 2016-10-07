@@ -11,6 +11,8 @@
 
 #include "event_creation_request.hpp"
 
+#include <utility>
+
 #include "event.hpp"
 
 
@@ -19,13 +21,34 @@ namespace sxy
 
 
 event_creation_request::event_creation_request(
-	const std::chrono::time_point< std::chrono::system_clock >& _time, const event_sptr _event, const int _handle )
+	const std::chrono::time_point< std::chrono::system_clock >& _time, const event_sptr _event, const handle_type _handle )
 	: time_( _time ),
 		event_( _event ),
 		handle_( _handle )
 {
-	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' @ %.", _event->get_id(),
+	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' (%) @ %.", _event->get_name(), _event->get_id(),
 		_time.time_since_epoch().count() );
+}
+
+
+event_creation_request::event_creation_request( event_creation_request&& _event_creation_request )
+	: time_(std::move( _event_creation_request.time_)),
+		event_(std::move(_event_creation_request.event_)),
+		handle_(std::move(_event_creation_request.handle_))
+{
+	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' (%) @ %.", event_->get_name(), event_->get_id(),
+		time_.time_since_epoch().count() );
+}
+
+
+event_creation_request& event_creation_request::operator=( event_creation_request&& _event_creation_request )
+{
+	time_ = std::move( _event_creation_request.time_ );	
+	event_ = std::move( _event_creation_request.event_ );
+	handle_ = std::move( _event_creation_request.handle_ );
+	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' (%) @ %.", event_->get_name(), event_->get_id(),
+		time_.time_since_epoch().count() );
+	return( *this );
 }
 
 
@@ -35,7 +58,7 @@ std::chrono::time_point< std::chrono::system_clock > event_creation_request::get
 }
 
 
-int event_creation_request::get_handle() const
+event_creation_request::handle_type event_creation_request::get_handle() const
 {
 	return( handle_ );
 }

@@ -22,8 +22,9 @@
 
 namespace sxy
 {
-class intersection final:
-	private detector_callback
+
+
+class intersection final:	private detector_callback
 {
 public:
 	intersection();
@@ -37,7 +38,7 @@ public:
 private:
 	virtual void detector_on() override;
 	virtual void detector_off() override;
-	int fire_timed_event(	const std::chrono::milliseconds _milliseconds,	const event_id _event_id );
+	int fire_timed_event(	const std::chrono::milliseconds _milliseconds, const event_sptr _event );
 	void highway_open_entry();
 	static void highway_open_exit();
 	void switching_to_farmroad_phase_1();

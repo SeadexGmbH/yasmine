@@ -108,8 +108,8 @@ bool join_impl::check( state_machine_defects& _defects ) const
 			const auto& source_1 = ( *iterator_1 )->get_source();
 			const auto& source_2 = ( *iterator_2 )->get_source();
 			const auto lca = source_1.LCA_composite_state( source_2 );
-			auto result = lca_composite_states.insert( lca );
-			if( !result.second )
+			const auto lca_region = source_1.LCA_region( source_2 );			
+			if( lca_region != lca->get_parent_region() )
 			{
 				_defects.push_back( state_machine_defect( *this,
 					"Join '%' has incoming transitions that originate in same region of a composite state!", get_name() ) );

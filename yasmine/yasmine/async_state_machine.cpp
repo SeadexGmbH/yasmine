@@ -179,6 +179,7 @@ void async_state_machine::insert_impl( const event_sptr _event )
 
 			auto position = std::find_if( event_list_.begin(), event_list_.end(), priority_is_lower );
 			Y_ASSERT( position != std::end( event_list_ ), "No element found before which to insert!" );
+			event_list_.insert( position, _event );
 		}
 }
 	 

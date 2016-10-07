@@ -13,11 +13,6 @@
 #define BASE_0C97CC9D_8A5B_4696_9964_49819CD9233A
 
 
-#if _MSC_VER && _MSC_VER <= 1800
-#define constexpr const
-#endif
-
-
 #define Y_ASSERT( _condition, _message ) \
 	do \
 	{ \

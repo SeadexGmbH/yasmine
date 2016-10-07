@@ -11,7 +11,6 @@
 
 #include "timed_event_creator.hpp"
 
-#include <random>
 #include <algorithm>
 
 #include "make_unique.hpp"
@@ -33,7 +32,8 @@ timed_event_creator::timed_event_creator( async_state_machine& _async_state_mach
 		worker_(),
 		mutex_(),
 		condition_variable_(),
-		run_( true )
+		run_( true ),
+		maximum_handle_ ( 0 )
 {
 	// Nothing to do...
 }
@@ -46,7 +46,7 @@ timed_event_creator::~timed_event_creator() noexcept
 }
 
 
-int timed_event_creator::create_event_creation_request(
+event_creation_request::handle_type timed_event_creator::create_event_creation_request(
 	const std::chrono::time_point< std::chrono::system_clock >& _time, const event_sptr _event )
 {
 	auto handle = 0;
@@ -54,8 +54,8 @@ int timed_event_creator::create_event_creation_request(
 		std::unique_lock< std::mutex > lock( mutex_ );
 		if( run_ )
 		{
-			handle = generate_handle();
-			event_creation_requests_.insert( sxy::make_unique< event_creation_request >( _time, _event, handle ) );
+			handle = generate_handle();			
+			event_creation_requests_.insert( event_creation_request( _time, _event, handle ) );
 		}
 		else
 		{
@@ -68,7 +68,7 @@ int timed_event_creator::create_event_creation_request(
 }
 
 
-int timed_event_creator::create_event_creation_request(
+event_creation_request::handle_type timed_event_creator::create_event_creation_request(
 	const std::chrono::milliseconds& _time_till_event_is_fired, const event_sptr& _event )
 {
 	const auto handle = create_event_creation_request(
@@ -78,7 +78,7 @@ int timed_event_creator::create_event_creation_request(
 
 
 // cppcheck-suppress unusedFunction
-bool timed_event_creator::cancel( const int _handle )
+bool timed_event_creator::cancel( const event_creation_request::handle_type _handle )
 {
 	auto cancelled = false;
 	{
@@ -127,16 +127,17 @@ void timed_event_creator::stop()
 }
 
 
-int timed_event_creator::generate_handle() const
+event_creation_request::handle_type timed_event_creator::generate_handle()
 {
-	int handle = 0;
+	event_creation_request::handle_type handle = 0;
 
 	do
 	{
-		std::random_device r;
-		std::default_random_engine e1( r() );
-		std::uniform_int_distribution< int > uniform_dist( 1, RAND_MAX );
-		handle = uniform_dist( e1 );
+		handle = maximum_handle_++;
+		if( maximum_handle_ == std::numeric_limits< event_creation_request::handle_type >::max() )
+		{
+			maximum_handle_ = 0;
+		}			
 	}
 	while( check_if_handle_exists( handle ) );
 
@@ -144,7 +145,7 @@ int timed_event_creator::generate_handle() const
 }
 
 
-bool timed_event_creator::check_if_handle_exists( const int _handle ) const
+bool timed_event_creator::check_if_handle_exists( const event_creation_request::handle_type _handle ) const
 {
 	auto found = false;
 	auto found_element_iterator = find_element_by_handle( _handle );
@@ -175,7 +176,7 @@ void timed_event_creator::generate_event()
 			else
 			{
 				const auto& event_creation_request = *event_creation_requests_.begin();
-				condition_variable_.wait_until( lock, event_creation_request->get_time() );
+				condition_variable_.wait_until( lock, event_creation_request.get_time() );
 				if( run_ )
 				{
 					auto event_iterator = event_creation_requests_.begin();
@@ -183,21 +184,21 @@ void timed_event_creator::generate_event()
 					{
 						const auto now = std::chrono::system_clock::now();
 						Y_LOG( log_level::LL_TRACE, "Checking for event @ %.", now.time_since_epoch().count() );
-						if( ( *event_iterator )->get_time() <= now )
+						if( ( *event_iterator ).get_time() <= now )
 						{
-							const auto event = ( *event_iterator )->get_event();
-							Y_LOG( log_level::LL_TRACE, "Try to fire event '%' with handle '%'.", event->get_id(),
-								( *event_iterator )->get_handle() );
+							const auto event = ( *event_iterator ).get_event();
+							Y_LOG( log_level::LL_TRACE, "Try to fire event '%' (%) with handle '%'.", event->get_name(), event->get_id(),
+								( *event_iterator ).get_handle() );
 							if( !state_machine_.fire_event( event ) )
 							{
-								Y_LOG( log_level::LL_ERROR, "Event with id '%' and handle was not fired!", event->get_id(),
-									( *event_iterator )->get_handle() );
+								Y_LOG( log_level::LL_ERROR, "Event '%' (%) and handle was not fired!", event->get_name(), event->get_id(),
+									( *event_iterator ).get_handle() );
 								run_ = false;
 								break;
 							}
 
-							Y_LOG( log_level::LL_DEBUG, "Event '%' with handle '%' was fired.", event->get_id(),
-								( *event_iterator )->get_handle() );
+							Y_LOG( log_level::LL_DEBUG, "Event '%' (%) with handle '%' was fired.", event->get_name(), event->get_id(),
+								( *event_iterator ).get_handle() );
 							event_creation_requests_.erase( event_iterator );
 							event_iterator = event_creation_requests_.begin();
 						}
@@ -221,12 +222,13 @@ void timed_event_creator::generate_event()
 }
 
 
-event_queue::const_iterator timed_event_creator::find_element_by_handle( const int _handle ) const
+event_queue::const_iterator timed_event_creator::find_element_by_handle( 
+	const event_creation_request::handle_type _handle ) const
 {
 	return( std::find_if( event_creation_requests_.begin(), event_creation_requests_.end(),
-						[ &_handle ] ( const std::unique_ptr< event_creation_request >& _event_creation_request )
+						[ &_handle ] ( const event_creation_request& _event_creation_request )
 						{ 
-							return ( _event_creation_request->get_handle() == _handle );
+							return ( _event_creation_request.get_handle() == _handle );
 						}	) );
 }
 

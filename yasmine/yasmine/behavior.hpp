@@ -13,6 +13,7 @@
 #define BEHAVIOR_86504172_8E66_4DF4_945F_A76FC04D3BEF
 
 
+#include "compatibility.hpp"
 #include "behavior_fwd.hpp"
 #include "event_fwd.hpp"
 

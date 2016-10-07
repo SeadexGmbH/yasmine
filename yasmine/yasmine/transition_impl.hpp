@@ -58,10 +58,10 @@ private:
 	static bool check_if_source_and_target_are_in_ancestor_relationship( const vertex& _source, 
 		const vertex& _target );
 	static bool check_relationship( const vertex& _lhs, const composite_state* _rhs );
-	const std::string transition_impl::get_transition_name( vertex& _source, vertex& _target, const event_ids _event_ids );
+	static std::string get_transition_name( vertex& _source, vertex& _target, const event_ids _event_ids );
 
 
-	event_ids events_;
+	event_ids event_ids_;
 	vertex& source_;
 	vertex& target_;
 	constraint_uptr guard_;

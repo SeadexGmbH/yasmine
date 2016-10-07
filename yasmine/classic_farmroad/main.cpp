@@ -79,12 +79,12 @@ int main()
 
 try
 {
-	sxy::intersection intersection_of_rods;
-	if( intersection_of_rods.start() )
+	sxy::intersection intersection_of_roads;
+	if( intersection_of_roads.start() )
 	{
 		std::cout << "To quit press 'q'." << std::endl;
 		wait_for_quit_input();
-		intersection_of_rods.stop();
+		intersection_of_roads.stop();
 	}
 	else
 	{

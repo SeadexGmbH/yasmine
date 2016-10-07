@@ -13,6 +13,9 @@
 #define STATES_NESTING_COMPARER_ASCENDING_D08136C5_FE07_48F1_8D77_5C460EC2EFF4
 
 
+#include "compatibility.hpp"
+
+
 namespace sxy
 {
 
