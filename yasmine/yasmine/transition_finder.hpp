@@ -13,6 +13,7 @@
 #define TRANSITION_FINDER_FDB88C02_ECF9_4BB5_B99C_3F45813BF357
 
 
+#include "compatibility.hpp"
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 

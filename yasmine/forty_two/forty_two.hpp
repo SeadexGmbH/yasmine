@@ -9,49 +9,46 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef DETECTOR_5EBE86D2_647F_4029_94D8_B5521F641349
-#define DETECTOR_5EBE86D2_647F_4029_94D8_B5521F641349
+#ifndef FORTY_TWO_7FADB8D9_22B1_4505_AF48_2E655055D7E3
+#define FORTY_TWO_7FADB8D9_22B1_4505_AF48_2E655055D7E3
 
 
 #include <memory>
-#include <mutex>
-#include <thread>
-#include <condition_variable>
+
+#include "yasmine.hpp"
 
 
 namespace sxy
 {
 
 
-class detector_callback;
-
-
-class detector final
-{
+class forty_two final
+{	
 public:
-	explicit detector( detector_callback& _detector_callback );
-	~detector();
-	detector( const detector& ) = delete;
-	detector& operator=( const detector& ) = delete;
-	void start();
-	void stop();
-	bool is_on();
-
-
+	using state_machine_uptr = std::unique_ptr<state_machine>;
+		
+	explicit forty_two( const std::uint32_t _max_iterations );
+	~forty_two() noexcept = default;
+	
 private:
-	void generate_detector_events();
+	state_machine_uptr build_state_machine();
+	bool check_state_machine() const;
+	void increment_iterations();
+	bool check_iterations_divided_by_2() const;
+	bool check_iterations_divided_by_3() const;
+	bool check_iterations_divided_by_5() const;
+	bool check_iterations_exceded() const;
+	void run();
 
 
-	detector_callback& detector_callback_;
-	bool is_on_;
-	std::unique_ptr< std::thread > generate_random_detector_events_;
-	bool run_;
-	std::mutex mutex_;
-	std::condition_variable condition_variable_;
+	state_machine_uptr state_machine_;
+	uint32_t iterations_;
+	uint32_t max_iterations_;
+	
+
 };
 
 
 }
-
 
 #endif

@@ -40,19 +40,26 @@ state_machine::state_machine( const std::string& _name,	event_processing_callbac
 		transitions_(),
 		deferred_events_(),
 		state_machine_is_running_( false )
+#ifdef Y_PROFILER
+		, processed_events_(0)
+#endif
+
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Creating state_machine '%'.", _name );
 	if( event_processing_callback_ )
 	{
 		event_processing_callback_->add_state_machine_introspection( *this );
 	}
-
 	Y_LOG( sxy::log_level::LL_TRACE, "Created state_machine '%'.", _name );
 }
 
 
 state_machine::~state_machine() noexcept
 {
+#ifdef Y_PROFILER
+	Y_LOG( sxy::log_level::LL_TRACE, "events fired by '%': %.", name_, processed_events_ );
+#endif
+	
 	Y_LOG( sxy::log_level::LL_TRACE, "Destroying state_machine '%'.", name_ );
 
 	Y_ASSERT( !state_machine_is_running_, "State machine is still running!" );
@@ -66,6 +73,15 @@ composite_state& state_machine::get_root_state() const
 	Y_ASSERT( root_state_, "No root state!" );
 	return( *root_state_ );
 }
+
+
+#ifdef Y_PROFILER	
+// cppcheck-suppress unusedFunction
+uint32_t state_machine::get_number_of_processed_events() const
+{
+	return( processed_events_ );
+}
+#endif
 
 
 // cppcheck-suppress unusedFunction
@@ -141,10 +157,11 @@ transition& state_machine::add_transition( const event_id _event_id, vertex& _so
 
 
 bool state_machine::fire_event( const event_sptr& _event )
-{
-	Y_LOG( log_level::LL_INFO, "Firing & processing event '%' with priority '%'.", _event->get_id(), static_cast<int>(_event->get_priority()) );
+{		
+	Y_LOG( log_level::LL_INFO, "Firing & processing event '%' (%) with priority '%'.", _event->get_name(), 
+		_event->get_id(), static_cast<int>(_event->get_priority()) );
 	const auto terminate_pseudostate_has_been_reached = process_event( _event, nullptr );
-	Y_LOG( log_level::LL_INFO, "Event '%' has been fired & processed.", _event->get_id() );
+	Y_LOG( log_level::LL_INFO, "Event '%' (%) has been fired & processed.", _event->get_name(), _event->get_id() );
 	return( !terminate_pseudostate_has_been_reached );
 }
 
@@ -243,11 +260,15 @@ bool state_machine::start_state_machine( async_event_handler* const _async_event
 
 bool state_machine::process_event( const event_sptr& _event, async_event_handler* const _async_event_handler )
 {
-	Y_LOG( log_level::LL_INFO, "'%' is processing event '%' with priority '%'.", get_name(), _event->get_id(), static_cast<int>(_event->get_priority()) );
+#ifdef Y_PROFILER
+	++processed_events_;
+#endif
+
+	Y_LOG( log_level::LL_INFO, "'%' is processing event '%' (%) with priority '%'.", get_name(), _event->get_name(), _event->get_id(), static_cast<int>(_event->get_priority()) );
 
 	Y_ASSERT( state_machine_is_running_, "State machine is not running!" );
 	auto terminate_pseudostate_has_been_reached = true;
-	Y_LOG( log_level::LL_TRACE, "Starting processing of event '%' with priority '%'.", _event->get_id(),
+	Y_LOG( log_level::LL_TRACE, "Starting processing of event '%' (%) with priority '%'.", _event->get_name(), _event->get_id(),
 		static_cast<int>(_event->get_priority()) );
 	try
 	{
@@ -260,7 +281,7 @@ bool state_machine::process_event( const event_sptr& _event, async_event_handler
 		auto event_is_deferred = false;
 		terminate_pseudostate_has_been_reached = transition_controller.process_event( *_event, *root_state_,
 			event_processing_callback_, event_is_deferred, _async_event_handler );
-		Y_LOG( log_level::LL_TRACE, "Event '%' has been processed.", _event->get_id() );
+		Y_LOG( log_level::LL_TRACE, "Event '%' (%) has been processed.", _event->get_name(), _event->get_id() );
 		if( event_processing_callback_ )
 		{
 			event_processing_callback_->after_event( _event->get_id() );
@@ -302,7 +323,7 @@ bool state_machine::process_event( const event_sptr& _event, async_event_handler
 		throw;
 	}
 
-	Y_LOG( log_level::LL_INFO, "'%' processed event '%'.", get_name() , _event->get_id());
+	Y_LOG( log_level::LL_INFO, "'%' processed event '%' (%).", get_name(), _event->get_name(), _event->get_id());
 
 	return( terminate_pseudostate_has_been_reached );
 }
@@ -318,7 +339,7 @@ const events& state_machine::get_deferred_events() const
 // cppcheck-suppress unusedFunction
 raw_const_states state_machine::get_active_state_configuration() const
 {
-	raw_const_states active_state_configuration = {};
+	raw_const_states active_state_configuration = {};	
 	const auto& root = get_root_state();
 	check_regions_for_active_states( active_state_configuration, root );
 	return( active_state_configuration );

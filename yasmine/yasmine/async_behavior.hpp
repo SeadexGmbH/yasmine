@@ -17,6 +17,7 @@
 #include <thread>
 #include <memory>
 
+#include "compatibility.hpp"
 #include "async_behavior_fwd.hpp"
 
 

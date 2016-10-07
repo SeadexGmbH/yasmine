@@ -18,29 +18,36 @@
 #include "event_id.hpp"
 #include "log.hpp"
 #include "event_fwd.hpp"
+#include "compatibility.hpp"
 
 
 namespace sxy
 {
-
+	
 
 class event_creation_request final
-{
-public:
+{	
+public:	
+	using handle_type = uint32_t;
+
+
 	event_creation_request(	const std::chrono::time_point< std::chrono::system_clock >& _time,	
-		const event_sptr _event,	const int _handle );
+		const event_sptr _event,	const handle_type _handle );
 	~event_creation_request() noexcept = default;
 	event_creation_request( const event_creation_request& ) = delete;
 	event_creation_request& operator=( const event_creation_request& ) = delete;
+	event_creation_request( event_creation_request&& );
+	event_creation_request& operator=( event_creation_request&& );
+
 	std::chrono::time_point< std::chrono::system_clock > get_time() const;
-	int get_handle() const;
+	handle_type get_handle() const;
 	event_sptr get_event() const;
 
 
 private:
 	std::chrono::time_point< std::chrono::system_clock > time_;
-	const event_sptr event_;
-	int handle_;
+	event_sptr event_;
+	handle_type handle_;
 };
 
 

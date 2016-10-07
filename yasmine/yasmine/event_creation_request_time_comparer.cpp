@@ -16,10 +16,10 @@ namespace sxy
 {
 
 
-bool event_creation_request_time_comparer::operator()( const std::unique_ptr< event_creation_request >& _lhs,
-	const std::unique_ptr< event_creation_request >& _rhs ) const
+bool event_creation_request_time_comparer::operator()( const event_creation_request& _lhs,
+	const event_creation_request& _rhs ) const
 {
-	return( _lhs->get_time() < _rhs->get_time() );
+	return( ( &_lhs )->get_time() < ( &_rhs )->get_time() );
 }
 
 

@@ -47,8 +47,8 @@ public:
 
 
 private:
-	void get_states_u_to_LCA( state& _state );
-	void get_regions_u_to_LCA( const state& _state );
+	void get_states_up_to_LCA( state& _state );
+	void get_regions_up_to_LCA( const state& _state );
 	void add_last_active_child_states_to_enter( const state& _state );
 	void insert_states_to_enter( state& _state );
 

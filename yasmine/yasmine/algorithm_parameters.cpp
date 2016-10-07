@@ -9,50 +9,31 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef TRAFFIC_LIGHT_3B22DEE5_C976_43FF_B528_127733D61CD8
-#define TRAFFIC_LIGHT_3B22DEE5_C976_43FF_B528_127733D61CD8
-
-
-#include <string>
-
-#include "async_state_machine.h"
+#include "algorithm_parameters.hpp"
 
 
 namespace sxy
 {
 
 
-class traffic_light final
-{
-public:
-	traffic_light( const std::string& _name,	const std::string& _ascii_prefix );
-	~traffic_light();
-	traffic_light( const traffic_light& ) = delete;
-	traffic_light& operator=( const traffic_light& ) = delete;
-	void start();
-	void stop();
-	void switch_to_red_yellow();
-	void switch_to_green();
-	void switch_to_yellow();
-	void switch_to_red();
-
-
-private:
-	void on_traffic_light_red() const;
-	void on_traffic_light_red_yellow() const;
-	void on_traffic_light_green() const;
-	void on_traffic_light_yellow() const;
-	void build_traffic_light_state_machine();
-	std::string display_road_name_with_ascii_prefix() const;
-
-
-	async_state_machine traffic_light_state_machine_;
-	const std::string name_;
-	const std::string ascii_prefix_;
-};
+const int TRANSITION_PRIORITIES_VECTOR_SIZE = 16;
+const int EXECUTION_STEPS_VECTOR_SIZE = 128;
+const int TRANSITION_STEPS_VECTOR_SIZE = 128;
+const int COMPOUND_TRANSITIONS_VECTOR_SIZE = 8;
+const int EXCEPTION_EVENTS_VECTOR_SIZE = 8;
+const int CHOICES_VECTOR_SIZE = 8;
+const int ENABLED_COMPOUND_TRANSITION_VECTOR_SIZE = 16;
+const int DEFERRED_EVENTS_VECTOR_SIZE = 16;
+const int DEFAULT_TRANSITIONS_OF_HISTORY_VECTORS_SIZE = 8;
+const int ENTRY_POINTS_VECTOR_SIZE = 8;
+const int EXIT_POINTS_VECTOR_SIZE = 8;
+const int PSEUDOSTETS_IN_REGION_VECTOR_SIZE = 16;
+const int ANCESTORS_VECTOR_SIZE = 64;
+const int ASCENDING_PATH_ANCESTORS_VECTOR_SIZE = 64;
+const int REGIONS_OF_FINAL_STATE = 0;
+const int REGIONS_OF_SIMPLE_STATE = 0;
+const int ANCESTORS_REGION_VECTOR_SIZE = 64;
+const int ACTIVE_STATE_CONFIGRATION_VECTOR_SIZE = 32;
 
 
 }
-
-
-#endif

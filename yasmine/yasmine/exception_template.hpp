@@ -16,6 +16,7 @@
 #include <exception>
 #include <string>
 
+#include "compatibility.hpp"
 #include "yprintf.hpp"
 
 

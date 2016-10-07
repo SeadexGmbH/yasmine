@@ -15,6 +15,8 @@
 
 #include <cstddef>
 
+#include "compatibility.hpp"
+
 
 namespace sxy
 {

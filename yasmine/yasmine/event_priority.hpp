@@ -16,6 +16,8 @@
 #include <cstdint>
 #include <vector>
 
+#include "compatibility.hpp"
+
 
 namespace sxy
 {
@@ -27,11 +29,26 @@ using event_priority = std::int8_t;
 //!\brief The type alias for yasmine's event priority list.
 using event_prioritys = std::vector< event_priority >;
 
-//!\brief yasmine's predefined event priority for the internal use.
-extern const event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY;
 
+#ifdef _MSC_VER
+	#if _MSC_VER <= 1800
+		#ifndef constexpr
+		#define constexpr const
+		#define STATE_MACHINE_INTERNAL_EVENT_PRIORITY 127u
+		#define DEFAULT_EVENT_PRIORITY 0u
+		#endif
+	#else
+//!\brief yasmine's predefined event priority for the internal use.
+		constexpr event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY = 127;
 //!\brief yasmine's predefined default event priority.
-extern const event_priority DEFAULT_EVENT_PRIORITY;
+		constexpr event_priority DEFAULT_EVENT_PRIORITY = 0;
+	#endif
+#else
+//!\brief yasmine's predefined event priority for the internal use.
+	constexpr event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY = 127;
+	//!\brief yasmine's predefined default event priority.
+	constexpr event_priority DEFAULT_EVENT_PRIORITY = 0;
+#endif
 
 
 }

@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #ifndef FILE_LOGGER_0EE18DBE_D91D_407D_BF95_0EBC8A84EBD4
 #define FILE_LOGGER_0EE18DBE_D91D_407D_BF95_0EBC8A84EBD4
@@ -76,5 +77,7 @@ private:
 
 }
 
+
+#endif
 
 #endif

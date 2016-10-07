@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #ifndef LOG_LEVEL_5059A1FA_DC2D_4C94_AA8B_49B750B30F07
 #define LOG_LEVEL_5059A1FA_DC2D_4C94_AA8B_49B750B30F07
@@ -23,7 +24,7 @@ namespace sxy
 //!\brief Enum class for log levels.
 enum class log_level
 {
-	LL_ASSERT = 0, LL_FATAL = 1, LL_ERROR = 2, LL_WARN = 3, LL_INFO = 4, LL_DEBUG = 5, LL_TRACE = 6, LL_SPAM = 7,
+	LL_OFF = -1, LL_ASSERT = 0, LL_FATAL = 1, LL_ERROR = 2, LL_WARN = 3, LL_INFO = 4, LL_DEBUG = 5, LL_TRACE = 6, LL_SPAM = 7,
 	LL_PROTOCOL = 8
 };
 
@@ -36,5 +37,7 @@ std::string log_level_to_string( const log_level _log_level );
 
 }
 
+
+#endif
 
 #endif

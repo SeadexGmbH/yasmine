@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #include "log_level.hpp"
 
@@ -88,3 +89,5 @@ std::string log_level_to_string( const log_level _log_level )
 
 
 }
+
+#endif

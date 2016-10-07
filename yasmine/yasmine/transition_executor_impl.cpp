@@ -37,6 +37,7 @@
 #include "states_to_enter_visitor_impl.hpp"
 
 #include "compound_transition_consumer.hpp"
+#include "algorithm_parameters.hpp"
 
 
 namespace sxy
@@ -95,7 +96,7 @@ void transition_executor_impl::get_active_states_from_regions( const state* cons
 
 void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not_explicitly_entered(
 	compound_transition_consumer& _compound_transition, raw_const_region_set& _entered_regions,
-	raw_states_by_nesting_level& _states_to_enter,	const event& _event )
+	raw_states_by_nesting_level& _states_to_enter, const event& _event )
 {
 	for( const auto state : _states_to_enter )
 	{
@@ -214,7 +215,7 @@ void transition_executor_impl::merge_transitions_steps_with_exit_state_steps( ex
 
 void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( execution_steps& _execution_steps,
 	compound_transition_consumer& _compound_transition, const raw_states_by_nesting_level& _states_to_enter,
-	transition_steps::const_iterator& _transition_start,	transition_steps::const_iterator& _transition_end )
+	transition_steps::const_iterator& _transition_start, transition_steps::const_iterator& _transition_end )
 {
 	if( !_states_to_enter.empty() )
 	{
@@ -292,9 +293,9 @@ void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( 
 }
 
 
-void transition_executor_impl::calculate_execution_steps(	compound_transition_consumer& _compound_transition,
+void transition_executor_impl::calculate_execution_steps( compound_transition_consumer& _compound_transition,
 	const raw_states_by_nesting_level_ascending& _states_to_exit, 
-	const raw_states_by_nesting_level& _states_to_enter,	execution_steps& _execution_steps,
+	const raw_states_by_nesting_level& _states_to_enter, execution_steps& _execution_steps,
 	raw_const_region_set& _entered_regions, const event& _event )
 {
 	Y_LOG( log_level::LL_SPAM, "Compound transition has % step(s).", 
@@ -321,8 +322,8 @@ void transition_executor_impl::calculate_execution_steps(	compound_transition_co
 }
 
 
-bool transition_executor_impl::run_execution_steps(	const execution_steps& _execution_steps,
-	event_processing_callback* const _event_processing_callback,	const event& _event,
+bool transition_executor_impl::run_execution_steps( const execution_steps& _execution_steps,
+	event_processing_callback* const _event_processing_callback, const event& _event,
 	events& _exception_events, async_event_handler* const _async_event_handler )
 {
 	Y_LOG( log_level::LL_TRACE, "Start executing % steps.", _execution_steps.size() );
@@ -346,7 +347,7 @@ void transition_executor_impl::conflict_check( const compound_transitions& _comp
 {
 	raw_const_state_set unique_exit_states;
 
-	for( const auto & compound_transition : _compound_transitions )
+	for( const auto& compound_transition : _compound_transitions )
 	{
 		const auto& transition_steps = compound_transition->get_transition_steps();
 		Y_LOG( log_level::LL_TRACE, "Found % transition step(s) for compound transition.", transition_steps.size() );
@@ -370,6 +371,7 @@ raw_compound_transitions transition_executor_impl::sort_compound_transitions(
 	const compound_transitions& _unsorted_compound_transitions )
 {
 	std::vector< transition_priority > transitions_priorities;
+	transitions_priorities.reserve( TRANSITION_PRIORITIES_VECTOR_SIZE );
 
 	for( const auto & compound_transition : _unsorted_compound_transitions )
 	{
@@ -379,6 +381,7 @@ raw_compound_transitions transition_executor_impl::sort_compound_transitions(
 
 	std::sort( transitions_priorities.begin(), transitions_priorities.end() );
 	raw_compound_transitions sorted_compound_transitions;
+	sorted_compound_transitions.reserve( transitions_priorities.size() );
 
 	for( const auto & transition_priority : transitions_priorities )
 	{
@@ -390,7 +393,7 @@ raw_compound_transitions transition_executor_impl::sort_compound_transitions(
 }
 
 
-void transition_executor_impl::find_all_states_to_exit(	compound_transition_consumer& _compound_transition,
+void transition_executor_impl::find_all_states_to_exit( compound_transition_consumer& _compound_transition,
 	raw_states_by_nesting_level_ascending& _states_to_exit )
 {
 	const auto compound_transition_kind = _compound_transition.get_transition_kind();
@@ -437,8 +440,7 @@ void transition_executor_impl::find_all_states_to_exit(	compound_transition_cons
 
 
 void transition_executor_impl::find_all_states_to_enter( compound_transition_consumer& _compound_transition,
-	raw_states_by_nesting_level& _states_to_enter,	raw_const_region_set& _regions_to_enter,	
-	const event& _event )
+	raw_states_by_nesting_level& _states_to_enter, raw_const_region_set& _regions_to_enter, const event& _event )
 {
 	const auto compound_transition_kind = _compound_transition.get_transition_kind();
 	if( transition_kind::INTERNAL != compound_transition_kind )
@@ -456,7 +458,7 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 				if( active_state_as_composite_state )
 				{
 					states_to_enter_visitor_impl visitor( _states_to_enter, _regions_to_enter,
-																							 *active_state_as_composite_state );
+						*active_state_as_composite_state );
 					vertex.accept_vertex_visitor( visitor );
 					_states_to_enter.erase( active_state_as_composite_state );
 				}
@@ -464,7 +466,7 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 			else
 			{
 				states_to_enter_visitor_impl visitor( _states_to_enter, _regions_to_enter,
-																						 _compound_transition.get_LCA_region()->get_parent_state() );
+					_compound_transition.get_LCA_region()->get_parent_state() );
 				vertex.accept_vertex_visitor( visitor );
 			}
 		}
@@ -479,16 +481,16 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 }
 
 
-void transition_executor_impl::add_remaining_states_to_enter(	
+void transition_executor_impl::add_remaining_states_to_enter(
 	const raw_states_by_nesting_level::const_iterator _state_start, 
-	const raw_states_by_nesting_level& _states_to_enter,	execution_steps& _execution_steps )
+	const raw_states_by_nesting_level& _states_to_enter, execution_steps& _execution_steps )
 {
 	raw_states_by_nesting_level::const_iterator state_start = _state_start;
 	while( state_start != _states_to_enter.end() )
 	{
 		auto state_from_list = *state_start;
 		Y_LOG( log_level::LL_SPAM, "State '%' added to execution steps as 'state to enter'.",
-					 state_from_list->get_name() );
+			state_from_list->get_name() );
 		_execution_steps.push_back( sxy::make_unique< execution_state_enter_step >( *state_from_list ) );
 		_execution_steps.push_back( sxy::make_unique< execution_state_do_step >( *state_from_list ) );
 		++state_start;
@@ -505,7 +507,7 @@ void transition_executor_impl::add_remaining_states_to_exit(
 	{
 		auto state_from_list = *state_start;
 		Y_LOG( log_level::LL_SPAM, "Add remaining state '%' to execution steps as 'state to exit'.",
-					 state_from_list->get_name() );
+			state_from_list->get_name() );
 		_execution_steps.push_back( sxy::make_unique< execution_state_exit_step >( *state_from_list ) );
 		++state_start;
 	}
@@ -513,7 +515,7 @@ void transition_executor_impl::add_remaining_states_to_exit(
 
 
 void transition_executor_impl::add_remained_transitions( transition_steps::const_iterator& _transition_start,
-	const transition_steps::const_iterator& _transition_end,	execution_steps& _execution_steps )
+	const transition_steps::const_iterator& _transition_end, execution_steps& _execution_steps )
 {
 	while( _transition_start != _transition_end )
 	{
@@ -576,11 +578,11 @@ void transition_executor_impl::find_states_to_enter_and_to_exit_and_calculate_ex
 }
 
 
-void transition_executor_impl::check_conflicts_from_source_state_to_LCA(	const state& _state,	
+void transition_executor_impl::check_conflicts_from_source_state_to_LCA( const state& _state,
 	raw_const_state_set& _unique_exit_states, const composite_state* _LCA ) const
 {
-	Y_LOG( log_level::LL_TRACE, "Checking conflicts from source '%' up to LCA '%'.",
-		_state.get_name(), _LCA->get_name() );
+	Y_LOG( log_level::LL_TRACE, "Checking conflicts from source '%' up to LCA '%'.", _state.get_name(), 
+		_LCA->get_name() );
 	const auto insert_result = _unique_exit_states.insert( &_state );
 	if( !insert_result.second )
 	{

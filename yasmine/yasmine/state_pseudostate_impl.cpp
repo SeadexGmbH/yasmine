@@ -13,6 +13,7 @@
 
 #include "region.hpp"
 #include "exception.hpp"
+#include "algorithm_parameters.hpp"
 
 
 namespace sxy
@@ -22,8 +23,15 @@ namespace sxy
 state_pseudostate_impl::state_pseudostate_impl( const std::string& _name )
 	: pseudostate_impl( _name ),
 		parent_()
+#ifdef Y_OPTIMIZE_4_SPEED
+		, ancestors_(),
+			ancestors_as_regions_()
+#endif
 {
-	// Nothing to do...
+#ifdef Y_OPTIMIZE_4_SPEED
+	ancestors_as_regions_.reserve( ANCESTORS_VECTOR_SIZE );
+	ancestors_.reserve( ANCESTORS_VECTOR_SIZE );
+#endif	
 }
 																								
 
@@ -47,16 +55,40 @@ void state_pseudostate_impl::set_parent_state( composite_state* const _parent_st
 
 raw_composite_states state_pseudostate_impl::get_ancestors( composite_state* const _final_ancestor ) const
 {
-	raw_composite_states ascending_path = { &get_parent_state() };
-	const auto ancestors_of_parent_state = get_parent_state().get_ancestors( _final_ancestor );
-	ascending_path.insert( ascending_path.end(), ancestors_of_parent_state.begin(), ancestors_of_parent_state.end() );
-	return( ascending_path );
+#ifdef Y_OPTIMIZE_4_SPEED
+	if( ancestors_.empty() )
+	{
+		collect_ancestors( ancestors_, _final_ancestor );
+	}
+	return( ancestors_ );	
+#else
+	raw_composite_states ancestors;
+	collect_ancestors( ancestors, _final_ancestor );
+	return( ancestors );
+#endif 
 }
 
 
 raw_regions state_pseudostate_impl::get_ancestors_as_regions() const
 {
-	return( get_parent_state().get_ancestors_as_regions() );
+#ifdef Y_OPTIMIZE_4_SPEED
+	if( ancestors_as_regions_.empty() )
+	{
+		ancestors_as_regions_ = get_parent_state().get_ancestors_as_regions();
+	}
+	return( ancestors_as_regions_ );
+#else
+	return( get_parent_state().get_ancestors_as_regions() );	
+#endif 	
+}
+
+
+void state_pseudostate_impl::collect_ancestors( raw_composite_states& _ancestors, 
+	composite_state* const _final_ancestor ) const
+{
+	_ancestors.push_back( &get_parent_state() );
+	const auto ancestors_of_parent_state = get_parent_state().get_ancestors( _final_ancestor );
+	_ancestors.insert( _ancestors.end(), ancestors_of_parent_state.begin(), ancestors_of_parent_state.end() );
 }
 
 

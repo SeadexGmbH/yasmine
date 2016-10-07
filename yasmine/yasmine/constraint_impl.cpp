@@ -21,8 +21,11 @@ constraint_impl::constraint_impl( const constraint_function& _function )
 	: constraint(),
 		function_( _function )
 {
-	// Nothing to do...
+	// Nothing to do.
 }
+
+
+constraint_impl::~constraint_impl() noexcept = default;
 
 
 bool constraint_impl::operator()( const event& _event ) const

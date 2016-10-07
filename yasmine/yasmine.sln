@@ -26,6 +26,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classic_farmroad", "classic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B7DF480E-DC38-410F-86E7-330696F7D5AB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forty_two", "forty_two\forty_two.vcxproj", "{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug - VS 2013|Win32 = Debug - VS 2013|Win32
@@ -86,6 +91,22 @@ Global
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release|Win32.Build.0 = Release|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release|x64.ActiveCfg = Release|x64
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release|x64.Build.0 = Release|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|Win32.ActiveCfg = Debug|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|Win32.Build.0 = Debug|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|x64.ActiveCfg = Debug|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|x64.Build.0 = Debug|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug|Win32.Build.0 = Debug|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug|x64.ActiveCfg = Debug|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug|x64.Build.0 = Debug|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|Win32.ActiveCfg = Release|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|Win32.Build.0 = Release|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|x64.Build.0 = Release - VS 2013|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release|Win32.ActiveCfg = Release|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release|Win32.Build.0 = Release|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release|x64.ActiveCfg = Release|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +114,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C231C585-F237-4F08-8BF5-8DC7106599D4} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 	EndGlobalSection
 EndGlobal

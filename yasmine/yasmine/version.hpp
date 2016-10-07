@@ -25,8 +25,13 @@ namespace yasmine
 namespace version
 {
 
+#ifndef Y_NO_LOGGING
 
 void log_version();
+
+#endif
+
+
 std::uint16_t get_major_version();
 std::uint16_t get_minor_version();
 std::uint16_t get_patch_version();

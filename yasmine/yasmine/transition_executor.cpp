@@ -20,6 +20,7 @@
 #include "compound_transition_impl.hpp"
 #include "event_processing_callback.hpp"
 #include "event.hpp"
+#include "algorithm_parameters.hpp"
 
 
 namespace sxy
@@ -54,6 +55,7 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 		}
 
 		execution_steps execution_steps;
+		execution_steps.reserve( EXECUTION_STEPS_VECTOR_SIZE );
 		raw_const_region_set entered_regions = {};
 		Y_LOG( log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
 		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,

@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #include "cout_logger.hpp"
 
@@ -73,3 +74,5 @@ void cout_logger::log_level_as_message( const sxy::log_level _log_level )
 
 
 }
+
+#endif

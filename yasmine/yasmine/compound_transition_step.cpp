@@ -68,6 +68,7 @@ const entry_point* compound_transition_step::get_entry_point() const
 const raw_const_vertices compound_transition_step::get_target_vertices()
 {
 	raw_const_vertices target_vertices;
+	target_vertices.reserve( transitions_.size() );
 
 	for( const auto & transition : transitions_ )
 	{

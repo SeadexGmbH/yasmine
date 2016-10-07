@@ -7,7 +7,8 @@
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-
+					
+#ifndef Y_NO_LOGGING
 
 #ifndef COLOR_63B5B1DB_D383_404D_93EF_AB2BC3A0D286
 #define COLOR_63B5B1DB_D383_404D_93EF_AB2BC3A0D286
@@ -26,5 +27,7 @@ enum class color
 
 }
 
+
+#endif
 
 #endif

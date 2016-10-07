@@ -13,6 +13,7 @@
 #define EXECUTION_STEP_H_94397D2C_C792_4163_B87A_1CB896808779
 
 
+#include "compatibility.hpp"
 #include "execution_step_fwd.hpp"
 #include "behavior_exception_fwd.hpp"
 #include "event_fwd.hpp"

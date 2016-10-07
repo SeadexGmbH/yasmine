@@ -9,27 +9,16 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef DETECTOR_CALLBACK_0AF0AB58_4818_48B8_A10D_3894B6652355
-#define DETECTOR_CALLBACK_0AF0AB58_4818_48B8_A10D_3894B6652355
+#ifndef COMPATIBILITY_63A35CFD_26BC_42BE_9F09_D559349FFE63
+#define COMPATIBILITY_63A35CFD_26BC_42BE_9F09_D559349FFE63
 
 
-namespace sxy
-{
-
-
-class detector_callback
-{
-public:
-	detector_callback() = default;
-	virtual ~detector_callback() = default;
-	detector_callback( const detector_callback& ) = delete;
-	detector_callback& operator=( const detector_callback& ) = delete;
-	virtual void detector_on() = 0;
-	virtual void detector_off() = 0;
-};
-
-
-}
+#ifdef _MSC_VER
+	#if _MSC_VER <= 1800
+		#define _ALLOW_KEYWORD_MACROS
+		#define noexcept 	
+	#endif
+#endif
 
 
 #endif

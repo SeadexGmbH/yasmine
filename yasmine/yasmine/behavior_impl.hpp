@@ -28,7 +28,7 @@ class behavior_impl final:
 {
 public:
 	explicit behavior_impl( const behavior_function& _function );
-	virtual ~behavior_impl() noexcept override = default;
+	virtual ~behavior_impl() noexcept override;
 	behavior_impl( const behavior_impl& ) = delete;
 	behavior_impl& operator=( const behavior_impl& ) = delete;
 	virtual void operator()( const event& _event ) const override;

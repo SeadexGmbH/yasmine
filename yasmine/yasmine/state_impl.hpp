@@ -17,6 +17,7 @@
 #include "vertex_impl.hpp"
 #include "behavior_fwd.hpp"
 #include "event_fwd.hpp"
+#include "optimization.hpp"
 
 
 namespace sxy
@@ -56,8 +57,16 @@ public:
 
 
 private:
+	void collect_ancestors( raw_composite_states& _ancestors, composite_state* const _final_ancestor ) const;
+	void collect_ancestors_as_regions( raw_regions& _ancestors_as_regions ) const;
+
 	bool was_active_;
 	region* parent_;
+
+#ifdef Y_OPTIMIZE_4_SPEED
+	mutable raw_composite_states ancestors_;
+	mutable raw_regions ancestors_as_regions_;
+#endif
 };
 
 

@@ -9,46 +9,48 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef T_TRAFFIC_LIGHT_3B22DEE5_C976_43FF_B528_127733D61CD8
-#define T_TRAFFIC_LIGHT_3B22DEE5_C976_43FF_B528_127733D61CD8
+#ifndef SPECIALIZED_EVENT_CA823D7C_65A6_4094_8641_FA9496F11C1F
+#define SPECIALIZED_EVENT_CA823D7C_65A6_4094_8641_FA9496F11C1F
 
 
-#include <string>
-
-#include "t_async_state_machine.h"
+#include "event_impl.hpp"
 
 
 namespace sxy
 {
 
 
-class t_traffic_light final
+template<typename _tag, sxy::event_id _event_id, sxy::event_priority _event_priority = sxy::DEFAULT_EVENT_PRIORITY>
+class specialized_event: public event_impl
 {
 public:
-	t_traffic_light( const std::string& p_name,	const std::string& p_ascii_prefix );
-	~t_traffic_light();
-	t_traffic_light( const t_traffic_light& ) = delete;
-	t_traffic_light& operator=( const t_traffic_light& ) = delete;
-	void start();
-	void stop();
-	void switch_to_red_yellow();
-	void switch_to_green();
-	void switch_to_yellow();
-	void switch_to_red();
+	explicit specialized_event(const std::string _name = std::string())
+		: event_impl( _event_id, _event_priority ),
+		  name_( _name )
+	{
+		// Nothing to do.
+	}
+
+
+	virtual ~specialized_event() noexcept override
+	{
+		// Nothing to do.
+	}
+
+
+	specialized_event( const specialized_event& ) = delete;
+	specialized_event& operator=( const specialized_event& ) = delete;
+
+
+	virtual std::string get_name() const
+	{
+		const std::string name = name_.empty() ? event_impl::get_name() : name_;
+		return(name);
+	}
 
 
 private:
-	void on_traffic_light_red() const;
-	void on_traffic_light_red_yellow() const;
-	void on_traffic_light_green() const;
-	void on_traffic_light_yellow() const;
-	void build_traffic_light_state_machine();
-	std::string display_road_name_with_ascii_prefix() const;
-
-
-	t_async_state_machine m_traffic_light_state_machine;
-	const std::string m_name;
-	const std::string m_ascii_prefix;
+	std::string name_;
 };
 
 

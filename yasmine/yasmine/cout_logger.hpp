@@ -7,7 +7,8 @@
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-
+				 
+#ifndef Y_NO_LOGGING		
 
 #ifndef COUT_LOGGER_170B8470_DB09_43CF_A547_D6C928D5121F
 #define COUT_LOGGER_170B8470_DB09_43CF_A547_D6C928D5121F
@@ -45,5 +46,7 @@ private:
 
 }
 
+
+#endif
 
 #endif

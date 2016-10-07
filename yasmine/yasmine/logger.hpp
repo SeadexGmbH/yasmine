@@ -8,11 +8,13 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #ifndef LOGGER_4207DA98_D8C1_41B4_B5B1_29E8C5A22DF3
 #define LOGGER_4207DA98_D8C1_41B4_B5B1_29E8C5A22DF3
 
 
+#include "compatibility.hpp"
 #include "logger_fwd.hpp"
 #include "log_message.hpp"
 
@@ -41,5 +43,7 @@ public:
 
 }
 
+
+#endif
 
 #endif

@@ -13,6 +13,9 @@
 #define STATES_NESTING_COMPARER_B8C0C256_3761_47DC_A60A_DB2BF706EEB0
 
 
+#include "compatibility.hpp"
+
+
 namespace sxy
 {
 

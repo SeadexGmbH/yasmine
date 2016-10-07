@@ -16,6 +16,7 @@
 #include "transition_step_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "transition_kind.hpp"
+#include "compatibility.hpp"
 
 
 namespace sxy

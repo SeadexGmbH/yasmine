@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING			 
 
 #ifndef COLOR_MAPPING_A8F877D1_966B_463B_AE26_BD54CB2FEC35
 #define COLOR_MAPPING_A8F877D1_966B_463B_AE26_BD54CB2FEC35
@@ -15,6 +16,7 @@
 
 #include <map>
 
+#include "compatibility.hpp"
 #include "color.hpp"
 #include "log_level.hpp"
 
@@ -40,5 +42,7 @@ private:
 
 }
 
+
+#endif
 
 #endif

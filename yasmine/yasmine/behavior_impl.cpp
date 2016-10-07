@@ -21,9 +21,12 @@ namespace sxy
 behavior_impl::behavior_impl( const behavior_function& _function )
 	: function_( _function )
 {
-	// Nothing to do
+	// Nothing to do.
 }
-																				 
+
+
+behavior_impl::~behavior_impl() noexcept = default;
+
 
 void behavior_impl::operator()( const event& _event ) const
 {

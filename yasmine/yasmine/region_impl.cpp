@@ -56,7 +56,8 @@ void region_impl::set_parent_state( composite_state* const _composite_state )
 
 raw_const_states region_impl::get_states() const
 {
-	raw_const_states states;
+	raw_const_states states;	
+	states.reserve( states_.size() );
 
 	for( const auto & state : states_ )
 	{
@@ -132,6 +133,7 @@ vertex* region_impl::get_pseudostate( const std::string& _name ) const
 raw_const_pseudostates region_impl::get_pseudostates() const
 {
 	raw_const_pseudostates pseudostates;
+	pseudostates.reserve( pseudostates_.size() );
 
 	for( const auto & pseudostate : pseudostates_ )
 	{

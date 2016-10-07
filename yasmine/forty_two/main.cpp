@@ -9,13 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BASE_END_E349250E_B2BD_42F6_9F03_8FAD2B35300D
-#define BASE_END_E349250E_B2BD_42F6_9F03_8FAD2B35300D
+#include "forty_two.hpp"
 
 
-#if _MSC_VER && _MSC_VER <= 1800
-#undef constexpr
-#endif
-
-
-#endif
+int main()
+{		
+	sxy::forty_two _42( 100000 );
+}

@@ -12,6 +12,7 @@
 #ifndef PRINTF_2B6FD3F2_C084_486B_805B_5F0E05B743E4
 #define PRINTF_2B6FD3F2_C084_486B_805B_5F0E05B743E4
 
+
 #include <string>
 #include <sstream>
 #include <cstdint>
@@ -145,6 +146,5 @@ std::string yprintf(	const char* const _format,	args ... _args )
 
 
 }
-
 
 #endif

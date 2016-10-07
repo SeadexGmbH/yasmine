@@ -13,6 +13,9 @@
 #define COMPLEX_STATE_VISITOR_A1E31C49_08E0_400B_A6A9_20A333A8FD42
 
 
+#include "compatibility.hpp"
+
+
 namespace sxy
 {
 

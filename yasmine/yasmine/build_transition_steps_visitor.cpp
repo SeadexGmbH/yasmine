@@ -14,6 +14,7 @@
 #include "make_unique.hpp"
 #include "base.hpp"
 #include "log_and_throw.hpp"
+#include "algorithm_parameters.hpp"
 
 #include "composite_state.hpp"
 
@@ -174,6 +175,7 @@ raw_transitions build_transition_steps_visitor::get_default_transition_if_state_
 	const history& _history )
 {
 	raw_transitions default_transitions = {};
+	default_transitions.reserve( DEFAULT_TRANSITIONS_OF_HISTORY_VECTORS_SIZE );
 	const auto& state_was_active_before = _history.check_if_state_was_active_before();
 	if( !state_was_active_before )
 	{
@@ -224,6 +226,7 @@ void build_transition_steps_visitor::handle_as_fork( const pseudostate& _pseudos
 	transition_steps_.push_back( std::move( simple_step ) );
 	const auto& exiting_transitions = _pseudostate.get_outgoing_transitions();
 	raw_transitions transitions_of_fork;
+	transitions_of_fork.reserve( exiting_transitions.size() );
 
 	for( const auto & transition : exiting_transitions )
 	{

@@ -51,6 +51,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithm_parameters.hpp" />
     <ClInclude Include="assembly.hpp" />
     <ClInclude Include="async_behavior_fwd.hpp" />
     <ClInclude Include="async_behavior.hpp">
@@ -63,9 +64,12 @@
     </ClInclude>
     <ClInclude Include="async_simple_state_impl.hpp" />
     <ClInclude Include="base.hpp" />
-    <ClInclude Include="base_end.hpp" />
     <ClInclude Include="behavior_exception_fwd.hpp" />
     <ClInclude Include="build_number.hpp" />
+    <ClInclude Include="compatibility.hpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="conversion.hpp" />
     <ClInclude Include="entry_point_fwd.hpp">
       <SubType>
@@ -77,10 +81,12 @@
     <ClInclude Include="event_template.hpp" />
     <ClInclude Include="logging.hpp" />
     <ClInclude Include="make_unique.hpp" />
+    <ClInclude Include="optimization.hpp" />
     <ClInclude Include="simple_state_base.hpp">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="specialized_event.hpp" />
     <ClInclude Include="states.hpp">
       <SubType>
       </SubType>
@@ -233,6 +239,7 @@
     <ClInclude Include="file_system.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="algorithm_parameters.cpp" />
     <ClCompile Include="async_behavior.cpp">
       <SubType>
       </SubType>
@@ -245,7 +252,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="event_id.cpp" />
-    <ClCompile Include="event_priority.cpp" />
     <ClCompile Include="execution_state_do_step.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="simple_state_base.cpp">
@@ -352,7 +358,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <PlatformToolset>v140_clang_c2</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|x64'" Label="Configuration">

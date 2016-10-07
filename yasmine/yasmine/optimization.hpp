@@ -9,14 +9,35 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "event_priority.hpp"
+#ifndef OPTIMIZATION_3A290AFB_D672_4E4A_98AD_94841A01D76D
+#define OPTIMIZATION_3A290AFB_D672_4E4A_98AD_94841A01D76D
 
 
-namespace sxy
-{
-
-const event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY = 127;
-const event_priority DEFAULT_EVENT_PRIORITY = 0;
+#ifdef Y_OPTIMIZE_4_SPEED
 
 
-}
+	#ifdef Y_OPTIMIZE_4_SIZE
+
+
+		#error "Y_OPTIMIZE_4_SPEED and Y_OPTIMIZE_4_SIZE are both defined!"
+
+
+	#endif
+
+
+#else
+
+
+	#ifndef Y_OPTIMIZE_4_SIZE
+
+
+		#define Y_OPTIMIZE_4_SIZE
+
+
+	#endif
+
+
+#endif
+
+
+#endif

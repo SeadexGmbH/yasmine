@@ -25,7 +25,7 @@ class constraint_impl final:
 {
 public:
 	explicit constraint_impl( const constraint_function& _function );
-	virtual ~constraint_impl() noexcept override = default;
+	virtual ~constraint_impl() noexcept override;
 	constraint_impl( const constraint_impl& ) = delete;
 	constraint_impl& operator=( const constraint_impl& ) = delete;
 	virtual bool operator()( const event& _event ) const override;

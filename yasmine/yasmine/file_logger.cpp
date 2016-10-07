@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef Y_NO_LOGGING
 
 #include "file_logger.hpp"
 
@@ -167,3 +168,5 @@ void file_logger::delete_file( const std::string& _file_name ) const
 
 
 }
+
+#endif

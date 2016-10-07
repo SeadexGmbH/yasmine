@@ -134,7 +134,7 @@ transition* transition_finder::search_completion_transition( const state& _state
 
 
 bool transition_finder::search_for_transition( const state& _current_state, 
-	compound_transitions& _enabled_compound_transitions,	const event& _event,	bool& _event_is_deferred ) const
+	compound_transitions& _enabled_compound_transitions, const event& _event, bool& _event_is_deferred ) const
 {
 	Y_LOG( log_level::LL_SPAM, "Search for transition in state '%'.", _current_state.get_name() );
 	auto found = false;

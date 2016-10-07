@@ -18,6 +18,7 @@
 
 #include "yprintf.hpp"
 #include "log.hpp"
+#include "compatibility.hpp"
 
 #include "state_machine_defect_fwd.hpp"
 
