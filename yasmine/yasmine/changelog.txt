@@ -1,6 +1,12 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+##[0.5.0] - 2016-11-07
+
+### Added
+• Y_EMPTY_BEHAVIOR for creating a behavior that does nothing
+• CMake files for generators under Windows (Visual Studio) and Linux (gcc, clang)
+
 
 ##[0.4.0] - 2016-10-07
 

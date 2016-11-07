@@ -14,7 +14,9 @@
 #include <iostream>
 
 #include "logging.hpp"
-#include "utils.hpp"
+#ifdef WIN32
+	#include "utils.hpp"
+#endif
 #include "version.hpp"
 
 
@@ -68,8 +70,10 @@ int main()
 {
 	auto error_code = 0;
 
+#ifdef WIN32
 	sxy::utils::set_window_size( 250, 9999 );
 	sxy::utils::maximize_window();
+#endif
 
 	auto& log_manager = sxy::log_manager::get_instance();
 	log_manager.set_log_level( sxy::log_level::LL_DEBUG );

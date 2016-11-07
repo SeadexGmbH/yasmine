@@ -38,8 +38,7 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 
 
 transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind,	constraint_uptr _guard, 
-	behavior_uptr _behavior )
+	const sxy::transition_kind _kind,	constraint_uptr _guard, behavior_uptr _behavior )
 	: state_machine_element_impl( get_transition_name( _source, _target, _event_ids ) ),
 		event_ids_( _event_ids ),
 		source_( _source ),
