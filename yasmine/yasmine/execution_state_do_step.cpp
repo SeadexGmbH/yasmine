@@ -33,8 +33,7 @@ execution_state_do_step::execution_state_do_step( const state& _state )
 
 
 bool execution_state_do_step::execute_behavior( event_processing_callback* const _event_processing_callback,
-	const event& _event, events& _exception_events,
-	async_event_handler* const _async_event_handler ) const
+	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Executing do behavior of state '%'.", state_.get_name() );
 	if( _event_processing_callback )
@@ -44,21 +43,21 @@ bool execution_state_do_step::execute_behavior( event_processing_callback* const
 
 	try
 	{
-		state_.execute_do_behavior( _event, _async_event_handler );
+		state_.execute_do_behavior(_event, _async_event_handler);
 	}
-	catch( const sxy::behavior_exception& exception )
-	{	
-		_exception_events.push_back( exception.get_error_event() ) ;
-	}
-	catch( const std::exception& exception )
+	catch (const sxy::behavior_exception& exception)
 	{
-		Y_UNUSED_PARAMETER( exception );
-		if( state_.has_error_event() )
-		{	
-			_exception_events.push_back( state_.get_error_event() );
+		_exception_events.push_back(exception.get_error_event());
+	}
+	catch (const std::exception& exception)
+	{
+		Y_UNUSED_PARAMETER(exception);
+		if (state_.has_error_event())
+		{
+			_exception_events.push_back(state_.get_error_event());
 		}
 		else
-		{				
+		{
 			throw;
 		}
 	}

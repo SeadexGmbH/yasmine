@@ -33,8 +33,7 @@ public:
 	execution_state_do_step( const execution_state_do_step& ) = delete;
 	execution_state_do_step& operator=( const execution_state_do_step& ) = delete;
 	virtual bool execute_behavior( event_processing_callback* const _event_processing_callback, 
-		const event& _event, events& _exception_events,
-		async_event_handler* const _async_event_handler ) const override;
+		const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const override;
 	virtual void accept( execution_step_visitor& _visitor ) const override;
 	const state& get_state() const;
 

@@ -24,8 +24,8 @@ class simple_state_impl final:
 	public simple_state_base
 {
 public:
-	explicit simple_state_impl( const std::string& _name,	behavior_uptr do_action = nullptr, 
-		behavior_uptr _entry_action = nullptr,	behavior_uptr _exit_action = nullptr,
+	explicit simple_state_impl( const std::string& _name,	behavior_uptr do_action = nullptr,
+		behavior_uptr _entry_action = nullptr, behavior_uptr _exit_action = nullptr,
 		const event_ids& _deferred_events = {}, event_sptr _error_event = nullptr );
 	virtual ~simple_state_impl() noexcept override = default;
 	simple_state_impl( const simple_state_impl& ) = delete;

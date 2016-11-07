@@ -23,7 +23,7 @@
 
 //!\brief Macro for using a class method as a behavior without an event.
 #define Y_BEHAVIOR_METHOD_NO_EVENT( _method_name ) \
-         sxy::behavior_function( [ this ]( const sxy::event& _event ){ this->_method_name(); } )
+         sxy::behavior_function( [ this ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); this->_method_name(); } )
 
 
 //!\brief Macro for using a free function as a behavior.
@@ -33,7 +33,7 @@
 
 //!\brief Macro for using a free function as a behavior without an event.
 #define Y_BEHAVIOR_FUNCTION_NO_EVENT( _function_name ) \
-         sxy::behavior_function( []( const sxy::event& _event ){ _function_name(); } )
+         sxy::behavior_function( []( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); _function_name(); } )
 
 
 //!\brief Macro for using a class method as a guard.
@@ -43,7 +43,7 @@
 
 //!\brief Macro for using a class method as a guard without an event.
 #define Y_GUARD_METHOD_NO_EVENT( _method_name ) \
-         sxy::constraint_function( [ this ]( const sxy::event& _event ){ return( this->_method_name() ); } )
+         sxy::constraint_function( [ this ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); return( this->_method_name() ); } )
 
 
 //!\brief Macro for using a free function as a guard.
@@ -52,8 +52,13 @@
 
 
 //!\brief Macro for using a free function as a guard without an event.
-#define Y_GUARD_FUNCTION_NO_EVENT _function_name ) \
-         sxy::constraint_function( []( const sxy::event& _event ){ return( _function_name() ); } )
+#define Y_GUARD_FUNCTION_NO_EVENT( _function_name ) \
+         sxy::constraint_function( []( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); return( _function_name() ); } )
+
+
+//!\brief Macro for an empty behavior.
+#define Y_EMPTY_BEHAVIOR \
+		sxy::behavior_function( [ ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); } )
 
 
 #endif

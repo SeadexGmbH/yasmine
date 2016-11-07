@@ -390,9 +390,7 @@ void forty_two::run()
 	}
 
 	const auto stop = std::chrono::steady_clock::now();
-
-	std::cout << "Run time(sec): " << std::chrono::duration_cast< std::chrono::seconds >( stop - start ).count();
-
+	
 #ifdef Y_PROFILER		
 	Y_LOG( log_level::LL_INFO, "% events were fired.", std::to_string( state_machine_->get_number_of_processed_events() ) );
 #endif
