@@ -23,17 +23,16 @@ namespace sxy
 class transition_step;
 
 
-class execution_transition_step final:
+class execution_transition_step Y_FINAL:
 	public execution_step
 {
 public:
 	explicit execution_transition_step( transition_step& _transition_step );
-	virtual ~execution_transition_step() noexcept override = default;
-	execution_transition_step( const execution_transition_step& ) = delete;
-	execution_transition_step& operator=( const execution_transition_step& ) = delete;
-	virtual bool execute_behavior( event_processing_callback* const _event_processing_callback, 
-		const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const override;
-	virtual void accept( execution_step_visitor& _visitor ) const override;
+	virtual ~execution_transition_step() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(execution_transition_step)
+	virtual bool execute_behaviour( event_processing_callback* const _event_processing_callback, 
+		const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
+	virtual void accept( execution_step_visitor& _visitor ) const Y_OVERRIDE;
 	const transition_step& get_transition_step() const;
 
 

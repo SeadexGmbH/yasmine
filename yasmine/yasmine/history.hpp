@@ -25,10 +25,19 @@ class history:
 	public virtual state_pseudostate
 {
 public:
-	history() = default;
-	virtual ~history() noexcept override = default;
-	history( const history& ) = delete;
-	history& operator=( const history& ) = delete;
+	history()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~history() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(history)
 	virtual raw_transitions get_default_transitions() const = 0;
 	virtual void add_default_transition( transition& _default_transition ) = 0;
 	virtual bool check_if_state_was_active_before() const = 0;

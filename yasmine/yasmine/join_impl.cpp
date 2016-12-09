@@ -33,15 +33,21 @@ join_impl::join_impl( const std::string& _name )
 }
 
 
+join_impl::~join_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool join_impl::check_if_all_source_states_of_incoming_transitions_are_active() const
 {
-	auto all_incoming_transitions_srouces_are_active = true;
-	const auto& incoming_transitions = get_incoming_transitions();
+	bool all_incoming_transitions_srouces_are_active = true;
+	const raw_transitions& incoming_transitions = get_incoming_transitions();
 
-	for( const auto & transition : incoming_transitions )
+	Y_FOR( const transition* const transition, incoming_transitions )
 	{
-		const auto& source = transition->get_source();
-		const auto l_complex_state = dynamic_cast< const complex_state* >( &source );
+		const vertex& source = transition->get_source();
+		const complex_state* const l_complex_state = dynamic_cast< const complex_state* >( &source );
 		Y_ASSERT( l_complex_state, "Incoming transitions into join must originate from complex_state!" );
 		check_if_all_incoming_transitions_sources_are_active_visitor check_if_all_incoming_transitions_sources_are_active_visitor;
 		l_complex_state->accept_complex_state_visitor( check_if_all_incoming_transitions_sources_are_active_visitor );
@@ -77,7 +83,7 @@ void join_impl::accept_pseudostate_visitor( pseudostate_visitor& _visitor ) cons
 
 bool join_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [3]: A join vertex must have at least two incoming transitions and exactly one
 	// outgoing transition.
@@ -98,17 +104,17 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	// 15.3.8 Pseudostate -> Constraint [4]: All transitions incoming a join vertex must originate in (math formula
 	// contains no "different") regions of an orthogonal state.
 	// 2 incoming transitions cannot leave the same region
-	std::set< const composite_state* > lca_composite_states = {};
-	auto transitions = get_incoming_transitions();
+	std::set< const composite_state* > lca_composite_states;
+	const raw_transitions& transitions = get_incoming_transitions();
 
-	for( auto iterator_1 = transitions.begin(); iterator_1 < transitions.end(); ++iterator_1 )
+	for(raw_transitions::const_iterator iterator_1 = transitions.begin(); iterator_1 < transitions.end(); ++iterator_1 )
 	{
-		for( auto iterator_2 = iterator_1 + 1; iterator_2 < transitions.end(); ++iterator_2 )
+		for(raw_transitions::const_iterator iterator_2 = iterator_1 + 1; iterator_2 < transitions.end(); ++iterator_2 )
 		{
-			const auto& source_1 = ( *iterator_1 )->get_source();
-			const auto& source_2 = ( *iterator_2 )->get_source();
-			const auto lca = source_1.LCA_composite_state( source_2 );
-			const auto lca_region = source_1.LCA_region( source_2 );			
+			const vertex& source_1 = ( *iterator_1 )->get_source();
+			const vertex& source_2 = ( *iterator_2 )->get_source();
+			const composite_state* const lca = source_1.LCA_composite_state( source_2 );
+			const region* const lca_region = source_1.LCA_region( source_2 );			
 			if( lca_region != lca->get_parent_region() )
 			{
 				_defects.push_back( state_machine_defect( *this,
@@ -120,7 +126,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	}
 
 	// 15.3.14 Transition -> Constraint [2]: A join segment must not have guards or triggers.
-	for( const auto & transition : get_incoming_transitions() )
+	Y_FOR( const transition* const transition, get_incoming_transitions() )
 	{
 		if( transition->get_guard() )
 		{
@@ -136,9 +142,9 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	}
 
 	// 15.3.14 Transition -> Contraint [4]: A join segment must always originate from a state.
-	for( const auto & transition : get_incoming_transitions() )
+	Y_FOR( const transition* const transition, get_incoming_transitions() )
 	{
-		const auto source_vertex = dynamic_cast< const state* >( &transition->get_source() );
+		const state* const source_vertex = dynamic_cast< const state* >( &transition->get_source() );
 		if( !source_vertex )
 		{
 			_defects.push_back( state_machine_defect( *this,

@@ -28,12 +28,21 @@ class pseudostate:
 	public virtual vertex
 {
 public:
-	pseudostate() = default;
-	virtual ~pseudostate() noexcept override = default;
-	pseudostate( const pseudostate& ) = delete;
-	pseudostate& operator=( const pseudostate& ) = delete;
+	pseudostate()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~pseudostate() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(pseudostate)
 	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const = 0;
-	virtual bool check( state_machine_defects& _defects ) const override = 0;
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
 };
 
 

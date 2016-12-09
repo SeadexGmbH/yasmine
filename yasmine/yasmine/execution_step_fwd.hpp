@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+														
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,8 +23,8 @@ namespace sxy
 
 
 class execution_step;
-using execution_step_uptr = std::unique_ptr< execution_step >;
-using execution_steps = std::vector< execution_step_uptr >;
+typedef sxy::Y_UNIQUE_PTR< execution_step > execution_step_uptr;
+typedef std::vector< execution_step_uptr > execution_steps;
 
 
 }

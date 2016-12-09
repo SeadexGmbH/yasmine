@@ -20,15 +20,14 @@ namespace sxy
 {
 
 
-class constraint_impl final:
+class constraint_impl Y_FINAL:
 	public virtual constraint
 {
 public:
 	explicit constraint_impl( const constraint_function& _function );
-	virtual ~constraint_impl() noexcept override;
-	constraint_impl( const constraint_impl& ) = delete;
-	constraint_impl& operator=( const constraint_impl& ) = delete;
-	virtual bool operator()( const event& _event ) const override;
+	virtual ~constraint_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(constraint_impl)
+	virtual bool operator()( const event& _event ) const Y_OVERRIDE;
 
 	//!\brief Creates a constraint with the given function that implements the constraint.
 	//!\param _function Function that implements the constraint.

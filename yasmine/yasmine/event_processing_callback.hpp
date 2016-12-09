@@ -17,6 +17,7 @@
 #include "event_priority.hpp"
 #include "state_fwd.hpp"
 #include "choice_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -35,10 +36,19 @@ class state_machine_introspection;
 class event_processing_callback
 {
 public:
-	event_processing_callback() = default;
-	virtual ~event_processing_callback() noexcept = default;
-	event_processing_callback( const event_processing_callback& ) = delete;
-	event_processing_callback& operator=( const event_processing_callback& ) = delete;
+	event_processing_callback()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~event_processing_callback() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(event_processing_callback)
 
 	//!\brief Adds a state machine introspection interface.
 	//!\param	_state_machine The state machine which will be monitored.
@@ -92,23 +102,23 @@ public:
 	//!\return void
 	virtual void after_enter( const state& _state ) = 0;
 
-	//!\brief Callback before execution of a state behavior ("do behavior").
-	//!\param _state State whose behavior will be executed.
+	//!\brief Callback before execution of a state behaviour ("do behaviour").
+	//!\param _state State whose behaviour will be executed.
 	//!\return void
 	virtual void before_do( const state& _state ) = 0;
 
-	//!\brief Callback after execution of a state behavior ("do behavior").
-	//!\param _state State whose behavior was executed.
+	//!\brief Callback after execution of a state behaviour ("do behaviour").
+	//!\param _state State whose behaviour was executed.
 	//!\return void
 	virtual void after_do( const state& _state ) = 0;
 
-	//!\brief Callback before execution of a transition behavior.
-	//!\param _transition Transition whose behavior will be executed.
+	//!\brief Callback before execution of a transition behaviour.
+	//!\param _transition Transition whose behaviour will be executed.
 	//!\return void
 	virtual void before_transition( const transition& _transition ) = 0;
 
-	//!\brief Callback after execution of a transition behavior.
-	//!\param _transition Transition whose behavior was executed.
+	//!\brief Callback after execution of a transition behaviour.
+	//!\param _transition Transition whose behaviour was executed.
 	//!\return void
 	virtual void after_transition( const transition& _transition ) = 0;
 };

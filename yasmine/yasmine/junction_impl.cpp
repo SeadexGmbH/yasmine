@@ -29,9 +29,15 @@ junction_impl::junction_impl( const std::string& _name )
 }
 
 
+junction_impl::~junction_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool junction_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [7]: A junction vertex must have at least one incoming and one outgoing
 	// transition.
@@ -58,9 +64,9 @@ bool junction_impl::check( state_machine_defects& _defects ) const
 			get_incoming_transitions().size() );
 		Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has more than one outgoing transition with no guard.",
 			get_name() );
-		auto number_of_transitions_with_no_guards = 0;
+		sxy::uint8_t number_of_transitions_with_no_guards = 0;
 
-		for( const auto transition : get_outgoing_transitions() )
+		Y_FOR( const transition* const transition, get_outgoing_transitions() )
 		{
 			if( !transition->get_guard() )
 			{

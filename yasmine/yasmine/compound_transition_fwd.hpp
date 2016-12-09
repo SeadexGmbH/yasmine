@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -27,17 +28,17 @@ class compound_transition_consumer;
 
 #ifdef _MSC_VER
 #if _MSC_VER >= 1900
-using compound_transition_uptr = std::unique_ptr< compound_transition >;
+typedef sxy::Y_UNIQUE_PTR< compound_transition > compound_transition_uptr;
 #elif _MSC_VER <= 1800
-using compound_transition_uptr = std::shared_ptr< compound_transition >;
+typedef sxy::shared_ptr< compound_transition > compound_transition_uptr;
 #endif
 #else
-using compound_transition_uptr = std::unique_ptr< compound_transition >;
+typedef Y_UNIQUE_PTR< compound_transition > compound_transition_uptr;
 #endif
 
 
-using raw_compound_transitions = std::vector< compound_transition* >;
-using compound_transitions = std::vector< compound_transition_uptr >;
+typedef std::vector< compound_transition* > raw_compound_transitions;
+typedef std::vector< compound_transition_uptr > compound_transitions;
 
 
 }

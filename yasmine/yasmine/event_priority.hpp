@@ -13,7 +13,6 @@
 #define EVENT_PRIORITY_A7F92EA4_6076_48E4_B56A_E5BDDC99A655
 
 
-#include <cstdint>
 #include <vector>
 
 #include "compatibility.hpp"
@@ -24,30 +23,32 @@ namespace sxy
 
 
 //!\brief The type alias for yasmine's event priorities.
-using event_priority = std::int8_t;
+typedef sxy::int8_t event_priority;
 
 //!\brief The type alias for yasmine's event priority list.
-using event_prioritys = std::vector< event_priority >;
+typedef std::vector< event_priority > event_prioritys;
 
 
 #ifdef _MSC_VER
-	#if _MSC_VER <= 1800
-		#ifndef constexpr
-		#define constexpr const
+	#if _MSC_VER <= 1800 || defined( Y_CPP03_BOOST )
 		#define STATE_MACHINE_INTERNAL_EVENT_PRIORITY 127u
 		#define DEFAULT_EVENT_PRIORITY 0u
-		#endif
 	#else
-//!\brief yasmine's predefined event priority for the internal use.
+		//!\brief yasmine's predefined event priority for the internal use.
 		constexpr event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY = 127;
-//!\brief yasmine's predefined default event priority.
+		//!\brief yasmine's predefined default event priority.
 		constexpr event_priority DEFAULT_EVENT_PRIORITY = 0;
 	#endif
 #else
-//!\brief yasmine's predefined event priority for the internal use.
-	constexpr event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY = 127;
-	//!\brief yasmine's predefined default event priority.
-	constexpr event_priority DEFAULT_EVENT_PRIORITY = 0;
+	#if defined( Y_CPP03_BOOST )
+		#define STATE_MACHINE_INTERNAL_EVENT_PRIORITY 127u
+		#define DEFAULT_EVENT_PRIORITY 0u
+	#else
+		//!\brief yasmine's predefined event priority for the internal use.
+		constexpr event_priority STATE_MACHINE_INTERNAL_EVENT_PRIORITY = 127;
+		//!\brief yasmine's predefined default event priority.
+		constexpr event_priority DEFAULT_EVENT_PRIORITY = 0;
+	#endif
 #endif
 
 

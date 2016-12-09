@@ -31,20 +31,26 @@ deep_history_impl::deep_history_impl( const std::string& _name )
 }
 
 
+deep_history_impl::~deep_history_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool deep_history_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// check if all default transitions having target in distinct regions
 	std::set< const region* > target_regions;
 
-	for( const auto default_transition : get_default_transitions() )
+	Y_FOR( const transition* const default_transition, get_default_transitions() )
 	{
-		auto target_region = default_transition->get_target().get_parent();
-		const auto l_region = dynamic_cast< const region* >( target_region );
+		const state_machine_element* const target_region = default_transition->get_target().get_parent();
+		const region* const l_region = dynamic_cast< const region* >( target_region );
 		if( l_region )
 		{
-			auto result = target_regions.insert( l_region );
+			std::pair<std::set< const region* >::const_iterator, bool > result = target_regions.insert(l_region);
 			if( !result.second )
 			{
 				_defects.push_back( state_machine_defect( *this,

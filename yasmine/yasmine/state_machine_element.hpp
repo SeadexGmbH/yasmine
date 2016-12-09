@@ -15,6 +15,7 @@
 
 #include "state_machine_defect_fwd.hpp"
 #include "uri.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -24,10 +25,19 @@ namespace sxy
 class state_machine_element
 {
 public:
-	state_machine_element() = default;
-	virtual ~state_machine_element() noexcept = default;
-	state_machine_element( const state_machine_element& ) = delete;
-	state_machine_element& operator=( const state_machine_element& ) = delete;
+	state_machine_element()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~state_machine_element() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(state_machine_element)
 	virtual const std::string& get_name() const = 0;
 	virtual uri get_uri() const = 0;
 	virtual void add_ancestor_uri( uri& _uri ) const = 0;

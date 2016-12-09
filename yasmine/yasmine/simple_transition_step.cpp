@@ -29,6 +29,12 @@ simple_transition_step::simple_transition_step( transition& _transition )
 }
 
 
+simple_transition_step::~simple_transition_step() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 const raw_transitions& simple_transition_step::get_transitions() const
 {
 	return( transition_step_ );
@@ -37,44 +43,45 @@ const raw_transitions& simple_transition_step::get_transitions() const
 
 const vertex& simple_transition_step::get_unique_source() const
 {
-	const auto& source_vertex = transition_.get_source();
+	const vertex& source_vertex = transition_.get_source();
 	return( source_vertex );
 }
 
 
 const vertex& simple_transition_step::get_unique_target() const
 {
-	const auto& target_vertex = transition_.get_target();
+	const vertex& target_vertex = transition_.get_target();
 	return( target_vertex );
 }
 
 
 const exit_point* simple_transition_step::get_exit_point() const
 {
-	const auto l_exit_point = dynamic_cast< const exit_point* >( &get_unique_target() );
+	const exit_point* const l_exit_point = dynamic_cast< const exit_point* >( &get_unique_target() );
 	return( l_exit_point );
 }
 
 
 const entry_point* simple_transition_step::get_entry_point() const
 {
-	const auto vertex = dynamic_cast< const entry_point* >( &get_transitions().front()->get_source() );
+	const entry_point* const vertex = dynamic_cast< const entry_point* >( &get_transitions().front()->get_source() );
 	return( vertex );
 }
 
 
 const raw_const_vertices simple_transition_step::get_target_vertices()
 {
-	raw_const_vertices target_vertices = { &transition_.get_target() };
+	raw_const_vertices target_vertices;
+	target_vertices.push_back( &transition_.get_target() );
 	return( target_vertices );
 }
 
 
-void simple_transition_step::execute_transition_behaviors( const event& _event ) const
+void simple_transition_step::execute_transition_behaviours( const event& _event ) const
 {
-	for( const auto & transition : transition_step_ )
+	Y_FOR( const transition* const transition, transition_step_ )
 	{
-		transition->on_transition_behavior( _event );
+		transition->on_transition_behaviour( _event );
 	}
 }
 

@@ -15,13 +15,15 @@
 
 #include <memory>
 
+#include "compatibility.hpp"
+
 
 namespace sxy
 {
 
 
 class deep_history;
-using deep_history_uptr = std::unique_ptr< deep_history >;
+typedef Y_UNIQUE_PTR< deep_history > deep_history_uptr;
 
 
 }

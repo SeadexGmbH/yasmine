@@ -17,9 +17,9 @@
 #include "region.hpp"
 #include "exception.hpp"
 #include "composite_state.hpp"
-#include "behavior.hpp"
+#include "behaviour.hpp"
 #include "log_and_throw.hpp"
-#include "behavior_exception.hpp"
+#include "behaviour_exception.hpp"
 #include "algorithm_parameters.hpp"
 
 
@@ -46,6 +46,12 @@ state_impl::state_impl( const std::string& _name )
 }
 
 
+state_impl::~state_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 const state_machine_element* state_impl::get_parent() const
 {
 	return( get_parent_region() );
@@ -67,10 +73,10 @@ region* state_impl::get_parent_region() const
 size_t state_impl::get_parent_region_index() const
 {
 	size_t index = 0;
-	const auto parent_region = get_parent_region();
+	const region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
-		const auto& parent_state = parent_region->get_parent_state();
+		const composite_state& parent_state = parent_region->get_parent_state();
 		index = parent_state.get_region_index( parent_region );
 	}
 
@@ -81,14 +87,14 @@ size_t state_impl::get_parent_region_index() const
 region* state_impl::get_region( const std::string& _region_name ) const
 {
 	Y_UNUSED_PARAMETER( _region_name );
-	return( nullptr );
+	return( Y_NULLPTR );
 }
 
 
 vertex* state_impl::get_pseudostate( const std::string& _name_of_pseudostate ) const
 {
 	Y_UNUSED_PARAMETER( _name_of_pseudostate );
-	return( nullptr );
+	return( Y_NULLPTR );
 }
 
 
@@ -98,16 +104,17 @@ raw_composite_states state_impl::get_ancestors( composite_state* const _final_an
 #ifdef Y_OPTIMIZE_4_SPEED
 	if( ancestors_.empty() )
 	{
-		collect_ancestors( ancestors_, nullptr );
+		collect_ancestors( ancestors_, Y_NULLPTR );
 	}
 
-	if( _final_ancestor == nullptr )
+	if( _final_ancestor == Y_NULLPTR )
 	{
 		return( ancestors_ );
 	}
 	else
 	{
-		const auto final_ancestor = std::find( ancestors_.begin(), ancestors_.end(), _final_ancestor );
+		const raw_composite_states::iterator final_ancestor = 
+			std::find( ancestors_.begin(), ancestors_.end(), _final_ancestor );
 
 		if( final_ancestor != ancestors_.end() )
 		{
@@ -146,7 +153,7 @@ raw_regions state_impl::get_ancestors_as_regions() const
 
 std::size_t state_impl::get_nesting_level() const
 {
-	const auto ancestors = get_ancestors( nullptr );
+	const raw_composite_states& ancestors = get_ancestors( Y_NULLPTR );
 
 	// Add one for the state itself.
 	return( ancestors.size() + 1 );
@@ -167,7 +174,7 @@ bool state_impl::was_active() const
 
 void state_impl::set_active()
 {
-	auto parent_region = get_parent_region();
+	region* const parent_region = get_parent_region();
 	parent_region->set_active_state( this );
 	parent_region->set_state_was_active( this );
 	Y_LOG( log_level::LL_DEBUG, "State '%' is now active.", get_uri().to_string() );
@@ -176,8 +183,8 @@ void state_impl::set_active()
 
 void state_impl::set_inactive()
 {
-	auto parent_region = get_parent_region();
-	parent_region->set_active_state( nullptr );
+	region* const parent_region = get_parent_region();
+	parent_region->set_active_state( Y_NULLPTR );
 	set_was_active();
 	Y_LOG( log_level::LL_DEBUG, "State '%' is now inactive.", get_uri().to_string() );
 }
@@ -186,7 +193,7 @@ void state_impl::set_inactive()
 bool state_impl::is_active() const
 {
 	bool is_active = false;
-	const auto parent_region = get_parent_region();
+	const region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
 		is_active = parent_region->get_active_state() == this;
@@ -206,38 +213,38 @@ bool state_impl::is_complete() const
 }
 
 
-void state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
+void state_impl::execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const
 {
 	Y_UNUSED_PARAMETER( _event );
 	Y_UNUSED_PARAMETER( _async_event_handler );
 }
 
 
-void state_impl::execute_enter_behavior( const event& _event ) const
+void state_impl::execute_enter_behaviour( const event& _event ) const
 {
-	const auto behavior = get_entry_behavior();
-	if( behavior )
+	const behaviour* const behaviour = get_entry_behaviour();
+	if( behaviour )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' enter behavior.", get_name() );
-		( *behavior )( _event );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' enter behaviour.", get_name() );
+		( *behaviour )( _event );
 	}
 }
 
 
-void state_impl::execute_exit_behavior( const event& _event ) const
+void state_impl::execute_exit_behaviour( const event& _event ) const
 {
-	const auto behavior = get_exit_behavior();
-	if( behavior )
+	const behaviour* const behaviour = get_exit_behaviour();
+	if( behaviour )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' exit behavior.", get_name().c_str() );
-		( *behavior )( _event );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' exit behaviour.", get_name().c_str() );
+		( *behaviour )( _event );
 	}
 }
 
 
 void state_impl::enter_state( const event& _event )
 {
-	execute_enter_behavior( _event );
+	execute_enter_behaviour( _event );
 	set_active();
 	set_was_active();
 }
@@ -245,7 +252,7 @@ void state_impl::enter_state( const event& _event )
 
 void state_impl::exit_state( const event& _event )
 {
-	execute_exit_behavior( _event );
+	execute_exit_behaviour( _event );
 	set_inactive();
 }
 
@@ -258,21 +265,21 @@ bool state_impl::has_error_event() const
 
 event_sptr state_impl::get_error_event() const
 {
-	return( nullptr );
+	return( event_sptr() );
 }
 
 
 void state_impl::collect_ancestors( raw_composite_states& _ancestors, composite_state* const _final_ancestor ) const
 {
-	if( get_parent_region() != nullptr )
+	if( get_parent_region() != Y_NULLPTR )
 	{
 		const state* current_vertex = this;
 		while( _final_ancestor != current_vertex )
 		{
-			const auto& parent_region = current_vertex->get_parent_region();
-			if( parent_region != nullptr )
+			region* const parent_region = current_vertex->get_parent_region();
+			if( parent_region != Y_NULLPTR )
 			{
-				auto& parent_state = parent_region->get_parent_state();
+				composite_state& parent_state = parent_region->get_parent_state();
 				_ancestors.push_back( &parent_state );
 				current_vertex = &parent_state;
 			}
@@ -291,11 +298,11 @@ void state_impl::collect_ancestors_as_regions( raw_regions& _ancestors_as_region
 	const state* source_state = this;
 	while( true )
 	{
-		const auto& parent_region = source_state->get_parent_region();
-		if( parent_region != nullptr )
+		region* const parent_region = source_state->get_parent_region();
+		if( parent_region != Y_NULLPTR )
 		{
 			_ancestors_as_regions.push_back( parent_region );
-			const auto& previous_state = parent_region->get_parent_state();
+			const composite_state& previous_state = parent_region->get_parent_state();
 			source_state = &previous_state;
 		}
 		else

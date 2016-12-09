@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 class fork;
-using fork_uptr = std::unique_ptr< fork >;
-using forks = std::vector< fork_uptr >;
-using raw_const_forks = std::vector< const fork* >;
+typedef Y_UNIQUE_PTR< fork > fork_uptr;
+typedef std::vector< fork_uptr > forks;
+typedef std::vector< const fork* > raw_const_forks;
 
 
 }

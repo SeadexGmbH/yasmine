@@ -14,7 +14,7 @@
 
 
 #include <vector>
-#include <memory>
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +22,9 @@ namespace sxy
 
 
 class junction;
-using junction_uptr = std::unique_ptr< junction >;
-using junctions = std::vector< junction_uptr >;
-using raw_const_junctions = std::vector< const junction* >;
+typedef Y_UNIQUE_PTR< junction > junction_uptr;
+typedef std::vector< junction_uptr > junctions;
+typedef std::vector< const junction* > raw_const_junctions;
 
 
 }

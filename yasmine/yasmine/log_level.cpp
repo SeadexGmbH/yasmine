@@ -23,7 +23,11 @@ std::string log_level_to_string( const log_level _log_level )
 {
 	std::string log_level_string = "???";
 
+#ifndef Y_CPP03_BOOST
 	switch( _log_level )
+#else
+	switch (_log_level.value_)
+#endif
 	{
 	case ( log_level::LL_FATAL ):
 	{
@@ -83,9 +87,41 @@ std::string log_level_to_string( const log_level _log_level )
 		Y_ASSERT_NO_LOG( false, "Unknown log level!" );
 		break;
 	}
+	 
 
 	return( log_level_string );
 }
+
+
+#ifdef Y_CPP03_BOOST
+
+
+
+bool operator==(const sxy::log_level& _lhs, const sxy::log_level::inner _rhs)
+{
+	return( _lhs.value_ == _rhs );
+}
+
+
+bool operator==(const sxy::log_level::inner _lhs, const sxy::log_level& _rhs)
+{
+	return( _lhs == _rhs.value_ );
+}
+
+
+bool operator<(const sxy::log_level _lhs, const sxy::log_level _rhs)
+{
+	return ( _lhs.value_ < _rhs.value_ );
+}
+
+
+bool operator<=( const sxy::log_level _lhs, const sxy::log_level _rhs )
+{
+	return ( _lhs.value_ <= _rhs.value_ );
+}
+
+
+#endif
 
 
 }

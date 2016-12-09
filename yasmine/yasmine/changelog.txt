@@ -1,10 +1,24 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+##[0.6.0] - 2016-12-09
+
+### Added
+• C++03 compatibility
+• macros for creating events classes for a easy usecase.
+• A new example: Events with parameters. It explains the use case of events with parameters macros.
+• a new example of using sub-machine and variables into a state machine: Sub state machine with variables
+• Macros for passing handlers as behaviour (states and transitions) and transition guards.
+
+### Changed
+• 'behavior' to 'behaviour' in code and documentation
+• Y_ASSERT instead of Y_LOG_AND_THROW when checking if the transition of an initial pseudostate was build in a compound transition
+
+
 ##[0.5.0] - 2016-11-07
 
 ### Added
-• Y_EMPTY_BEHAVIOR for creating a behavior that does nothing
+• Y_EMPTY_BEHAVIOR for creating a behaviour that does nothing
 • CMake files for generators under Windows (Visual Studio) and Linux (gcc, clang)
 
 
@@ -35,11 +49,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 • changelog.txt. It contains the changelog for the yasmine library
-• assembly.h. It contains macros used for different tasks like creating the lambda wrappers for behaviors and guards (constraints)
-• overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behavior
+• assembly.h. It contains macros used for different tasks like creating the lambda wrappers for behaviours and guards (constraints)
+• overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behaviour
 • priority for events and event priority processing in the state machine
 • yasmine's interpretation of the choice pseudostate. The choice allows only one default outgoing transition (a transition with no guard).
-• 'noexcept' for all destructors
+• 'Y_NOEXCEPT' for all destructors
 • log macro Y_LOG_HEX for logging hex editor style messages
 • get_name method for events. It returns the ID of the event as a string if not overloaded
 • event_template.hpp containing macros to created event_impl sub classes with fixed ID and priority (EVENT_WITH_ID, EVENT_WITH_ID_PRIORITY)
@@ -49,7 +63,7 @@ All notable changes to this project will be documented in this file.
 • Both the synchronous and asynchronous state machines use "start_state_machine" and "stop_state_machine" methods to start and stop the state machines.
 • "start_state_machine" will return now true if the state machine was started and is running and false if a terminate pseudostate was reached or the state machine encountered a problem and is shutting down. Before the opposite was true.
 • COMPLETION_EVENT will now have the maximum value of event_id (std::uint32_t -> 4.294.967.295 or 0xFFFFFFFF) instead of 0
-• simple state and asynchronous simple state store an error event instead of a behavior exception
+• simple state and asynchronous simple state store an error event instead of a behaviour exception
 • Defects of the state machine will not be stored in the free store anymore. A copy of the object is stored instead.
 • event's 'create_event' is now called 'create'
 • constraint's (guard's) 'create_constraint' is now called 'create'

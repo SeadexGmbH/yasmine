@@ -33,6 +33,12 @@ state_pseudostate_impl::state_pseudostate_impl( const std::string& _name )
 	ancestors_.reserve( ANCESTORS_VECTOR_SIZE );
 #endif	
 }
+
+
+state_pseudostate_impl::~state_pseudostate_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
 																								
 
 const state_machine_element* state_pseudostate_impl::get_parent() const
@@ -87,7 +93,7 @@ void state_pseudostate_impl::collect_ancestors( raw_composite_states& _ancestors
 	composite_state* const _final_ancestor ) const
 {
 	_ancestors.push_back( &get_parent_state() );
-	const auto ancestors_of_parent_state = get_parent_state().get_ancestors( _final_ancestor );
+	const raw_composite_states& ancestors_of_parent_state = get_parent_state().get_ancestors( _final_ancestor );
 	_ancestors.insert( _ancestors.end(), ancestors_of_parent_state.begin(), ancestors_of_parent_state.end() );
 }
 

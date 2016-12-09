@@ -13,7 +13,7 @@
 #define SHALLOW_HISTORY_FWD_42B01401_8D1E_4108_B4C2_7EED7CAE9DFB
 
 
-#include <memory>
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -21,7 +21,7 @@ namespace sxy
 
 
 class shallow_history;
-using shallow_history_uptr = std::unique_ptr< shallow_history >;
+typedef Y_UNIQUE_PTR< shallow_history > shallow_history_uptr;
 
 
 }

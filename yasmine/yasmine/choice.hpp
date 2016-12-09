@@ -25,10 +25,19 @@ class choice:
 	public virtual region_pseudostate
 {
 public:
-	choice() = default;
-	virtual ~choice() noexcept override = default;
-	choice( const choice& ) = delete;
-	choice& operator=( const choice& ) = delete;
+	choice()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~choice() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(choice)
 };
 
 

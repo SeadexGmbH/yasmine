@@ -33,10 +33,19 @@ class compound_transition:
 	public virtual compound_transition_consumer
 {
 public:
-	compound_transition() = default;
-	virtual ~compound_transition() noexcept override = default;
-	compound_transition( const compound_transition& ) = delete;
-	compound_transition& operator=( const compound_transition& ) = delete;
+	compound_transition()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~compound_transition() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(compound_transition)
 	virtual void add_sub_compound_transition( compound_transition_uptr _sub_compound_transition ) = 0;
 	virtual bool check_if_starts_with( const transition& _incoming_transition ) = 0;
 	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event ) = 0;

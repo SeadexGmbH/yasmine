@@ -12,36 +12,42 @@
 #include "simple_state_impl.hpp"
 
 #include "log.hpp"
-#include "behavior.hpp"
+#include "behaviour.hpp"
 
 
 namespace sxy
 {		 
 
 
-simple_state_impl::simple_state_impl( const std::string& _name, behavior_uptr _do_action, behavior_uptr _entry_action,
-	behavior_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event )
-	: simple_state_base( _name, std::move( _entry_action ), std::move( _exit_action ), _deferred_events, 
+simple_state_impl::simple_state_impl( const std::string& _name, behaviour_uptr _do_action, behaviour_uptr _entry_action,
+	behaviour_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event )
+	: simple_state_base( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events, 
 			_error_event ),
-		do_( std::move( _do_action ) )		
+		do_( sxy::move( _do_action ) )		
 {
 	// Nothing to do...
 }
 
 
-void simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
+simple_state_impl::~simple_state_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
+void simple_state_impl::execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const
 {
 	Y_UNUSED_PARAMETER( _async_event_handler );
-	const auto behavior = get_do();
-	if( behavior )
+	const behaviour* const behaviour = get_do();
+	if( behaviour )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' do behavior.", get_name() );
-		( *behavior )( _event );		
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' do behaviour.", get_name() );
+		( *behaviour )( _event );		
 	}
 }
 
 
-const behavior* simple_state_impl::get_do() const
+const behaviour* simple_state_impl::get_do() const
 {
 	return( do_.get() );
 }

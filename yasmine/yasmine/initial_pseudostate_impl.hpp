@@ -21,20 +21,19 @@ namespace sxy
 {
 
 
-class initial_pseudostate_impl final:
+class initial_pseudostate_impl Y_FINAL:
 	public virtual initial_pseudostate, public region_pseudostate_impl
 {
 public:
 	explicit initial_pseudostate_impl( const std::string& _name );
-	virtual ~initial_pseudostate_impl() noexcept override = default;
-	initial_pseudostate_impl( const initial_pseudostate_impl& ) = delete;
-	initial_pseudostate_impl& operator=( const initial_pseudostate_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
-	virtual transition * get_transition() const override;
-	virtual void add_incoming_transition( transition& _incoming_transition ) override;
+	virtual ~initial_pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(initial_pseudostate_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
+	virtual transition * get_transition() const Y_OVERRIDE;
+	virtual void add_incoming_transition( transition& _incoming_transition ) Y_OVERRIDE;
 };
 
 

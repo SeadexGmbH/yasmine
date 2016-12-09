@@ -18,12 +18,21 @@ namespace sxy
 {
 
 
-states_nesting_comparer::states_nesting_comparer() = default;
+states_nesting_comparer::states_nesting_comparer()
+{
+		// Nothing to do...
+}
+
+
+states_nesting_comparer::~states_nesting_comparer() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
 
 
 bool states_nesting_comparer::operator()(	const state& _lhs,	const state& _rhs ) const
 {
-	auto lhs_smaller_than_rhs = false;
+	bool lhs_smaller_than_rhs = false;
 	if( _lhs.get_nesting_level() < _rhs.get_nesting_level() )
 	{
 		lhs_smaller_than_rhs = true;

@@ -237,21 +237,6 @@
     <ClInclude Include="yasmine.hpp">
       <Filter>Headerdateien\core\state machine\collection header</Filter>
     </ClInclude>
-    <ClInclude Include="async_behavior.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="async_behavior_fwd.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="behavior.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="behavior_fwd.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="behavior_impl.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
     <ClInclude Include="constraint.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
@@ -271,9 +256,6 @@
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
     <ClInclude Include="event_priority.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="event_with_parameters.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
     <ClInclude Include="transition.hpp">
@@ -561,9 +543,6 @@
     <ClInclude Include="globals.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="make_unique.hpp">
-      <Filter>Headerdateien\infrastructure</Filter>
-    </ClInclude>
     <ClInclude Include="utils.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
@@ -577,12 +556,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="event_template.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="behavior_exception_fwd.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
-    <ClInclude Include="behavior_exception.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
     <ClInclude Include="assembly.hpp">
@@ -602,6 +575,54 @@
     </ClInclude>
     <ClInclude Include="log_and_throw.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="event_handle.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="non_copyable.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="thread.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="chrono.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="macro_helpers.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="completion_event.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="caller.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="log_helper.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="log_and_throw_helper.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="async_behaviour.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="async_behaviour_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviour.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviour_exception.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviour_exception_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviour_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviour_impl.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -667,9 +688,6 @@
     </ClCompile>
     <ClCompile Include="try_to_build_compound_transition_visitor.cpp">
       <Filter>Quelldateien\core\algorithm\transition finder</Filter>
-    </ClCompile>
-    <ClCompile Include="behavior_impl.cpp">
-      <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
     <ClCompile Include="constraint_impl.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
@@ -800,14 +818,8 @@
     <ClCompile Include="globals.cpp">
       <Filter>Quelldateien\infrastructure</Filter>
     </ClCompile>
-    <ClCompile Include="event_id.cpp">
-      <Filter>Quelldateien\core\state machine\element</Filter>
-    </ClCompile>
     <ClCompile Include="async_simple_state_impl.cpp">
       <Filter>Quelldateien\core\state machine\vertex\state</Filter>
-    </ClCompile>
-    <ClCompile Include="async_behavior.cpp">
-      <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
     <ClCompile Include="simple_state_base.cpp">
       <Filter>Quelldateien\core\state machine\vertex\state</Filter>
@@ -815,11 +827,26 @@
     <ClCompile Include="compound_transition_builder.cpp">
       <Filter>Quelldateien\core\algorithm\transition finder</Filter>
     </ClCompile>
-    <ClCompile Include="behavior_exception.cpp">
-      <Filter>Quelldateien\core\state machine\element</Filter>
-    </ClCompile>
     <ClCompile Include="algorithm_parameters.cpp">
       <Filter>Quelldateien\core\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="event_handle.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="log_helper.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="log_and_throw_helper.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="behaviour_exception.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="async_behaviour.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="behaviour_impl.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

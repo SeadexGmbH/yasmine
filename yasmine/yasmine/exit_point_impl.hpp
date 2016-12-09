@@ -21,18 +21,17 @@ namespace sxy
 {
 
 
-class exit_point_impl final:
+class exit_point_impl Y_FINAL:
 	public virtual exit_point, public state_pseudostate_impl
 {
 public:
 	explicit exit_point_impl( const std::string& _name );
-	virtual ~exit_point_impl() noexcept override = default;
-	exit_point_impl( const exit_point_impl& ) = delete;
-	exit_point_impl& operator=( const exit_point_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
+	virtual ~exit_point_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(exit_point_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
 };
 
 

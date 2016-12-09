@@ -24,10 +24,19 @@ class simple_state:
 	public virtual complex_state
 {
 public:
-	simple_state() = default;
-	virtual ~simple_state() noexcept override = default;
-	simple_state( const simple_state& ) = delete;
-	simple_state& operator=( const simple_state& ) = delete;	
+	simple_state()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~simple_state() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(simple_state)
 };
 
 

@@ -29,12 +29,12 @@ class event_impl:
 {
 public:
 	explicit event_impl( const event_id _event_id, const event_priority _event_priority = DEFAULT_EVENT_PRIORITY );
-	virtual ~event_impl() noexcept override = default;
-	event_impl( const event_impl& ) = delete;
-	event_impl& operator=( const event_impl& ) = delete;
-	virtual event_id get_id() const override;
-	virtual std::string get_name() const override;
-	virtual event_priority get_priority() const override;
+	virtual ~event_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(event_impl)
+	virtual event_id get_id() const Y_OVERRIDE;
+	virtual std::string get_name() const Y_OVERRIDE;
+	virtual event_priority get_priority() const Y_OVERRIDE;
+	virtual bool operator>(const event& _rhs) const Y_OVERRIDE;
 	static event_sptr create( const event_id _event_id, const event_priority _event_priority = DEFAULT_EVENT_PRIORITY );
 
 

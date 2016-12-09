@@ -30,9 +30,15 @@ initial_pseudostate_impl::initial_pseudostate_impl( const std::string& _name )
 }
 
 
+initial_pseudostate_impl::~initial_pseudostate_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [1]: An initial vertex can have at most one outgoing transition.
 	if( get_outgoing_transitions().size() > 1 )
@@ -52,9 +58,9 @@ bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 		check_ok = false;
 	}
 
-	// 15.3.8 Pseudostate -> Constraint [9]: Outgoing transition from an initial vertex may have a behavior, but not a
+	// 15.3.8 Pseudostate -> Constraint [9]: Outgoing transition from an initial vertex may have a behaviour, but not a
 	// trigger or guard.
-	for( const auto & transition : get_outgoing_transitions() )
+	Y_FOR( const transition* const transition, get_outgoing_transitions() )
 	{
 		if( transition->get_guard() )
 		{
@@ -94,7 +100,7 @@ void initial_pseudostate_impl::accept_pseudostate_visitor( pseudostate_visitor& 
 
 transition* initial_pseudostate_impl::get_transition() const
 {
-	const auto& transitions = get_outgoing_transitions();
+	const raw_transitions& transitions = get_outgoing_transitions();
 	Y_ASSERT( !transitions.empty(), "There are no transitions!" );
 	return( transitions.front() );
 }

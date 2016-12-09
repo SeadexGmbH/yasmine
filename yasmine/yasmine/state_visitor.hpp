@@ -25,10 +25,19 @@ class simple_state;
 class state_visitor
 {
 public:
-	state_visitor() = default;
-	virtual ~state_visitor() noexcept = default;
-	state_visitor( const state_visitor& ) = delete;
-	state_visitor& operator=( const state_visitor& ) = delete;
+	state_visitor()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~state_visitor() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(state_visitor)
 	virtual void visit( const composite_state& _composite_state ) = 0;
 	virtual void visit( const simple_state& _simple_state ) = 0;
 	virtual void visit( const final_state& _final_state ) = 0;

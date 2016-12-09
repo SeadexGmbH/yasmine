@@ -52,6 +52,10 @@ void parameter_muncher( T, args ... _args )
 
 
 #else
+
+
+#ifndef Y_CPP03_BOOST
+
 //!\brief Macro to create a log message.
 //!\param _level The log level of the message.
 //!\param ... Parameters that are inserted into the message.
@@ -59,7 +63,7 @@ void parameter_muncher( T, args ... _args )
 #define Y_LOG( _level, ... ) \
 	do \
 	{ \
-		auto& l_log_manager = sxy::log_manager::get_instance(); \
+		sxy::log_manager_template<sxy::std_timestamp_policy>& l_log_manager = sxy::log_manager::get_instance(); \
 		if( _level <= l_log_manager.get_log_level() ) \
 		{ \
 			l_log_manager.log( _level, sxy::log_manager::get_instance().get_timestamp(), __FILE__, __LINE__, __VA_ARGS__ ); \
@@ -77,7 +81,7 @@ void parameter_muncher( T, args ... _args )
 #define Y_LOG_HEX( _level, _heading, _data, ... ) \
 	do \
 	{ \
-		auto& l_log_manager = sxy::log_manager::get_instance(); \
+		sxy::log_manager_template<sxy::std_timestamp_policy>& l_log_manager = sxy::log_manager::get_instance(); \
 		if( _level <= l_log_manager.get_log_level() ) \
 		{ \
 			const std::string l_heading(_heading);\
@@ -88,12 +92,22 @@ void parameter_muncher( T, args ... _args )
 	} \
 	while( false )
 
+
+#else
+
+
+#define Y_LOG sxy::log_helper( __FILE__, __LINE__).log
+
+
+#endif
+
+
 #endif
 
 #include "base.hpp"
 
 #ifndef Y_NO_LOGGING
-		
+
 
 #include "log_manager_template.hpp"
 #include "std_timestamp_policy.hpp"
@@ -104,10 +118,16 @@ namespace sxy
 
 
 //!\brief An alias-declaration for the log manager template.
-using log_manager = sxy::log_manager_template< sxy::std_timestamp_policy >;
+typedef sxy::log_manager_template< sxy::std_timestamp_policy > log_manager;
 
 
 }
+
+
+#ifdef Y_CPP03_BOOST
+#include "log_helper.hpp"
+#endif
+
 
 #endif
 

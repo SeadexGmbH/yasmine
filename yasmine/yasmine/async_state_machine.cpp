@@ -13,7 +13,6 @@
 #include <exception>
 #include <algorithm>
 
-#include "make_unique.hpp"
 #include "base.hpp"
 #include "event_impl.hpp"
 #include "log_and_throw.hpp"
@@ -39,7 +38,7 @@ async_state_machine::async_state_machine( const std::string& _name,
 }
 
 
-async_state_machine::~async_state_machine() noexcept
+async_state_machine::~async_state_machine() Y_NOEXCEPT
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Destroying async state_machine '%'.", get_name() );
 
@@ -60,7 +59,7 @@ bool async_state_machine::start_state_machine()
 {
 	Y_LOG( log_level::LL_INFO, "Starting async state machine '%'.", get_name() );
 
-	const auto state_machine_started = state_machine::start_state_machine( this );
+	const bool state_machine_started = state_machine::start_state_machine( this );
 	if( state_machine_started )
 	{
 		start();
@@ -89,7 +88,7 @@ void async_state_machine::stop_state_machine()
 }
 
 
-void async_state_machine::on_event( const event_sptr _event )
+void async_state_machine::on_event( const event_sptr& _event )
 {
 	insert( _event );
 }
@@ -100,7 +99,7 @@ void async_state_machine::start()
 	Y_ASSERT( ( status::NEW == status_ ) || ( status::STOPPED == status_ ),
 		"Status is neither 'NEW' nor 'STOPPED' on start!" );
 	run_ = true;
-	worker_thread_ = sxy::make_unique< std::thread >( &async_state_machine::work, this );
+	worker_thread_ = Y_MAKE_UNIQUE< sxy::thread >( &async_state_machine::work, this );
 	status_ = status::STARTED;
 }
 
@@ -112,7 +111,7 @@ void async_state_machine::stop()
 	Y_ASSERT( ( status::STARTED == status_ ) || ( status::STOP_REQUESTED == status_ ),
 		"Status is not 'STARTED' or 'STOP_REQUESTED' on stop!" );
 	{
-		std::lock_guard< std::mutex > lock( run_and_event_mutex_ );
+		sxy::lock_guard< sxy::mutex > lock( run_and_event_mutex_ );
 		run_ = false;
 	}
 	run_and_event_condition_.notify_one();
@@ -135,13 +134,13 @@ void async_state_machine::join()
 }
 
 
-bool async_state_machine::insert( const event_sptr _event )
+bool async_state_machine::insert( const event_sptr& _event )
 {
 	Y_ASSERT( _event, "_event is nullptr!" );
 
-	auto event_added = false;
+	bool event_added = false;
 	{
-		std::lock_guard< std::mutex > lock( run_and_event_mutex_ );
+		sxy::lock_guard< sxy::mutex > lock( run_and_event_mutex_ );
 		if( run_ )
 		{				
 			insert_impl( _event );
@@ -162,7 +161,7 @@ bool async_state_machine::insert( const event_sptr _event )
 }
 
 
-void async_state_machine::insert_impl( const event_sptr _event )
+void async_state_machine::insert_impl( const event_sptr& _event )
 {
 	if( event_list_.empty() )
 	{
@@ -175,11 +174,26 @@ void async_state_machine::insert_impl( const event_sptr _event )
 		}
 		else
 		{				
-			auto priority_is_lower = [ &_event ] ( event_sptr p_event ) { return ( _event->get_priority() > p_event->get_priority() ); };
-
-			auto position = std::find_if( event_list_.begin(), event_list_.end(), priority_is_lower );
-			Y_ASSERT( position != std::end( event_list_ ), "No element found before which to insert!" );
+			std::list< event_sptr >::iterator position = event_list_.begin();
+#ifndef Y_CPP03_BOOST
+			while ( position != std::end( event_list_ ) )
+#else
+			while ( position != event_list_.end() )
+#endif
+			{					
+				if (_event->operator>(**position))
+				{
+						break;
+				}
+				++position;
+			}
+#ifndef Y_CPP03_BOOST
+			Y_ASSERT( position != std::end( event_list_ ), "No element found before which to insert!" );			
+#else
+			Y_ASSERT( position != event_list_.end(), "No element found before which to insert!" );
+#endif
 			event_list_.insert( position, _event );
+			
 		}
 }
 	 
@@ -198,12 +212,9 @@ void async_state_machine::work()
 		{
 			event_sptr event;
 			{
-				std::unique_lock< std::mutex > lock( run_and_event_mutex_ );
-				run_and_event_condition_.wait( lock, [ this ] ()
-					{
-						return( this->wait_predicate() );
-					}
-					);
+				sxy::unique_lock< sxy::mutex > lock( run_and_event_mutex_ );
+				run_and_event_condition_.wait( lock, sxy::bind( &async_state_machine::wait_predicate, this ) );
+					
 				if( !run_ && event_list_.empty() )
 				{
 					break;

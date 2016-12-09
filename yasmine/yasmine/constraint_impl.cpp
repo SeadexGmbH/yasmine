@@ -9,7 +9,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "make_unique.hpp"
 #include "constraint_impl.hpp"
 
 
@@ -25,7 +24,10 @@ constraint_impl::constraint_impl( const constraint_function& _function )
 }
 
 
-constraint_impl::~constraint_impl() noexcept = default;
+constraint_impl::~constraint_impl() Y_NOEXCEPT
+{
+	// Nothing to do.
+}
 
 
 bool constraint_impl::operator()( const event& _event ) const
@@ -36,7 +38,7 @@ bool constraint_impl::operator()( const event& _event ) const
 
 constraint_uptr constraint_impl::create( const constraint_function& _function )
 {		
-	return( sxy::make_unique< sxy::constraint_impl >( _function ) );
+	return( Y_MAKE_UNIQUE< sxy::constraint_impl >( _function ) );
 }
 
 

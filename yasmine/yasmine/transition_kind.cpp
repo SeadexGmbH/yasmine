@@ -20,7 +20,11 @@ std::string to_string( const transition_kind _kind )
 {
 	std::string kind = "";
 
+#ifndef Y_CPP03_BOOST
 	switch( _kind )
+#else
+	switch (_kind.value_)
+#endif
 	{
 	case sxy::transition_kind::EXTERNAL:
 		kind = "EXTERNAL";
@@ -40,6 +44,32 @@ std::string to_string( const transition_kind _kind )
 
 	return( kind );
 }
+
+
+
+#ifdef Y_CPP03_BOOST
+
+
+
+bool operator==(const sxy::transition_kind& _lhs, const sxy::transition_kind::inner _rhs)
+{
+	return( _lhs.value_ == _rhs );
+}
+
+
+bool operator==(const sxy::transition_kind::inner _lhs, const sxy::transition_kind& _rhs)
+{
+	return( _lhs == _rhs.value_ );
+}
+
+
+bool operator<(const sxy::transition_kind _lhs, const sxy::transition_kind _rhs)
+{
+	return ( _lhs.value_ < _rhs.value_ );
+}
+
+
+#endif
 
 
 }

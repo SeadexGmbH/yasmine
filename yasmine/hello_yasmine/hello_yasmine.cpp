@@ -9,17 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <memory>
 #include <iostream>
 
 #include "yasmine.hpp"
 #include "version.hpp"
 
-#include "event_priority.hpp"
-
 
 const sxy::event_id HELLO_EVENT = 1;
-using state_machine_uptr = std::unique_ptr< sxy::state_machine >;
+typedef sxy::Y_UNIQUE_PTR< sxy::state_machine > state_machine_uptr;
+
 
 
 void reply()
@@ -36,26 +34,31 @@ void wait()
 
 state_machine_uptr setup_state_machine( const std::string& _name )
 {
-	auto state_machine = std::make_unique< sxy::state_machine >( _name );
+	state_machine_uptr state_machine = Y_MAKE_UNIQUE< sxy::state_machine >(_name);
+	sxy::composite_state& root_state = state_machine->get_root_state();
+	sxy::region& main_region = root_state.add_region( "main region" );
+	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
+	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOUR_FUNCTION_NO_EVENT( wait ) );
+	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOUR_FUNCTION_NO_EVENT( reply ) );
+	
+	state_machine->add_transition( HELLO_EVENT, simple_state_waiting, simple_state_replying );
 
-	auto& root_state = state_machine->get_root_state();
-	auto& main_region = root_state.add_region( "main region" );
-	auto& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
-	auto& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION_NO_EVENT( wait ) );
-	auto& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION_NO_EVENT( reply ) );
-
-	state_machine->add_transition( sxy::COMPLETION_EVENT, initial_pseudostate, simple_state_waiting );
-	state_machine->add_transition( HELLO_EVENT, simple_state_waiting,	simple_state_replying );
-	state_machine->add_transition( sxy::COMPLETION_EVENT, simple_state_replying, simple_state_waiting );
-
-	return( std::move( state_machine ) );
+#ifdef Y_CPP03_BOOST
+	state_machine->add_transition( COMPLETION_EVENT_ID, initial_pseudostate, simple_state_waiting );
+	state_machine->add_transition( COMPLETION_EVENT_ID, simple_state_replying, simple_state_waiting );
+#else
+	state_machine->add_transition( sxy::COMPLETION_EVENT_ID, initial_pseudostate, simple_state_waiting );
+	state_machine->add_transition( sxy::COMPLETION_EVENT_ID, simple_state_replying, simple_state_waiting );
+#endif
+					
+	return( sxy::move( state_machine ) );
 }
 
 
 bool check_state_machine_for_defects( const sxy::state_machine& _state_machine )
 {
 	sxy::state_machine_defects defects;
-	const auto state_machine_has_no_defects = _state_machine.check( defects );
+	const bool state_machine_has_no_defects = _state_machine.check( defects );
 	if( !state_machine_has_no_defects )
 	{
 		sxy::write_defects_to_log( defects );
@@ -67,15 +70,15 @@ bool check_state_machine_for_defects( const sxy::state_machine& _state_machine )
 
 int main()
 {
-	auto error_code = 0;
+	int error_code = 0;
 
-	auto& log_manager = sxy::log_manager::get_instance();
+	sxy::log_manager_template<sxy::std_timestamp_policy>& log_manager = sxy::log_manager::get_instance();
 	log_manager.set_log_level( sxy::log_level::LL_FATAL );
-	log_manager.add_logger( std::make_unique< sxy::cout_logger >() );
+	log_manager.add_logger( Y_MAKE_UNIQUE< sxy::cout_logger >() );
 	log_manager.start();
 	yasmine::version::log_version();
 
-	const auto hello_yasmine_state_machine = setup_state_machine( "hello yasmine state machine" );
+	const state_machine_uptr hello_yasmine_state_machine = setup_state_machine( "hello yasmine state machine" );
 	if( check_state_machine_for_defects( *hello_yasmine_state_machine ) )
 	{
 		hello_yasmine_state_machine->start_state_machine();

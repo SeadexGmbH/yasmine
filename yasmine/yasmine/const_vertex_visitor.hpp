@@ -13,7 +13,7 @@
 #define CONST_VERTEX_VISITOR_7EEF8936_8C47_401E_BE7D_997A1A245728
 
 
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -38,10 +38,19 @@ class terminate_pseudostate;
 class const_vertex_visitor
 {
 public:
-	const_vertex_visitor() = default;
-	virtual ~const_vertex_visitor() noexcept = default;
-	const_vertex_visitor( const const_vertex_visitor& ) = delete;
-	const_vertex_visitor& operator=( const const_vertex_visitor& ) = delete;
+	const_vertex_visitor()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~const_vertex_visitor() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(const_vertex_visitor)
 	virtual void visit( const composite_state& _composite_state ) = 0;
 	virtual void visit( const simple_state& _simple_state ) = 0;
 	virtual void visit( const final_state& _final_state ) = 0;

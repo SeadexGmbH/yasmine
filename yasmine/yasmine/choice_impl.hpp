@@ -21,18 +21,17 @@ namespace sxy
 {
 
 
-class choice_impl final:
+class choice_impl Y_FINAL:
 	public virtual choice, public region_pseudostate_impl
 {
 public:
 	explicit choice_impl( const std::string& _name );
-	virtual ~choice_impl() noexcept override = default;
-	choice_impl( const choice_impl& ) = delete;
-	choice_impl& operator=( const choice_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
+	virtual ~choice_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(choice_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
 };
 
 

@@ -25,10 +25,19 @@ class fork:
 	public virtual region_pseudostate
 {
 public:
-	fork() = default;
-	virtual ~fork() noexcept override = default;
-	fork( const fork& ) = delete;
-	fork& operator=( const fork& ) = delete;
+	fork()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~fork() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(fork)
 };
 
 

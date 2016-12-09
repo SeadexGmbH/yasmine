@@ -24,13 +24,12 @@ namespace sxy
 {
 
 
-class intersection final:	private detector_callback
+class intersection Y_FINAL:	private detector_callback
 {
 public:
 	intersection();
-	~intersection();
-	intersection( const intersection& ) = delete;
-	intersection& operator=( const intersection& ) = delete;
+	~intersection() Y_NOEXCEPT;
+	Y_NO_COPY( intersection )
 	bool start();
 	void stop();
 
@@ -38,16 +37,16 @@ public:
 private:
 	virtual void detector_on() override;
 	virtual void detector_off() override;
-	int fire_timed_event(	const std::chrono::milliseconds _milliseconds, const event_sptr _event );
+	int fire_timed_event(	const sxy::milliseconds _milliseconds, const event_sptr _event );
 	void highway_open_entry();
-	static void highway_open_exit();
+	void highway_open_exit() const;
 	void switching_to_farmroad_phase_1();
 	void switching_to_farmroad_phase_2();
 	void farmroad_open_entry();
-	static void farmroad_open_exit();
-	static void minimum_time_not_elapsed();
-	static void minimum_time_elapsed();
-	static void minimum_time_not_elapsed_farmroad_waiting();
+	void farmroad_open_exit() const;
+	void minimum_time_not_elapsed() const;
+	void minimum_time_elapsed() const;
+	void minimum_time_not_elapsed_farmroad_waiting() const;
 	void switching_to_highway_phase_1();
 	void switching_to_highway_phase_2();
 	void build_intersection_state_machine();

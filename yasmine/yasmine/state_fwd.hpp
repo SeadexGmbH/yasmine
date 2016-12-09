@@ -15,7 +15,6 @@
 
 #include <vector>
 #include <set>
-#include <memory>
 
 #include "states_nesting_comparer.hpp"
 #include "states_nesting_comparer_ascending.hpp"
@@ -26,13 +25,13 @@ namespace sxy
 
 
 class state;
-using state_uptr = std::unique_ptr< state >;
-using raw_const_states = std::vector< const state* >;
-using states = std::vector< state_uptr >;
-using raw_const_state_set = std::set< const state* >;
-using raw_const_states_by_nesting_level = std::set< const state*, states_nesting_comparer >;
-using raw_states_by_nesting_level = std::set< state*, states_nesting_comparer >;
-using raw_states_by_nesting_level_ascending = std::set< state*, states_nesting_comparer_ascending >;
+typedef Y_UNIQUE_PTR< state > state_uptr;
+typedef std::vector< const state* > raw_const_states;
+typedef std::vector< state_uptr > states;
+typedef std::set< const state* > raw_const_state_set;
+typedef std::set< const state*, states_nesting_comparer > raw_const_states_by_nesting_level;
+typedef std::set< state*, states_nesting_comparer > raw_states_by_nesting_level;
+typedef std::set< state*, states_nesting_comparer_ascending > raw_states_by_nesting_level_ascending;
 
 
 }

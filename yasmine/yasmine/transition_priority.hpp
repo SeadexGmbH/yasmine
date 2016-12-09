@@ -25,11 +25,11 @@ namespace sxy
 class compound_transition;
 
 
-class transition_priority final
+class transition_priority Y_FINAL
 {
 public:
 	explicit transition_priority( compound_transition& _compound_transition );
-	~transition_priority() noexcept = default;
+	~transition_priority() Y_NOEXCEPT;
 	std::size_t get_priority() const;
 	compound_transition& get_compound_transition() const;
 	bool operator<( const transition_priority& _compare_member ) const;

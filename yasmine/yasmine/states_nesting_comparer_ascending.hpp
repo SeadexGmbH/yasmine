@@ -23,11 +23,11 @@ namespace sxy
 class state;
 
 
-struct states_nesting_comparer_ascending final
+struct states_nesting_comparer_ascending Y_FINAL
 {
 public:
 	states_nesting_comparer_ascending();
-	~states_nesting_comparer_ascending() noexcept = default;
+	~states_nesting_comparer_ascending() Y_NOEXCEPT;
 	bool operator()( const state& _lhs, const state& _rhs ) const;
 	bool operator()( const state* const _lhs, const state* const _rhs ) const;
 };

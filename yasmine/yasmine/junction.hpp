@@ -25,10 +25,19 @@ class junction:
 	public virtual region_pseudostate
 {
 public:
-	junction() = default;
-	virtual ~junction() noexcept override = default;
-	junction( const junction& ) = delete;
-	junction& operator=( const junction& ) = delete;
+	junction()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~junction() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(junction)
 };
 
 

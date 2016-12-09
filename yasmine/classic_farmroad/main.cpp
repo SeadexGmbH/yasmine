@@ -68,14 +68,13 @@ void wait_for_quit_input()
 
 int main()
 {
-	auto error_code = 0;
+	int error_code = 0;
 
 #ifdef WIN32
 	sxy::utils::set_window_size( 250, 9999 );
 	sxy::utils::maximize_window();
-#endif
-
-	auto& log_manager = sxy::log_manager::get_instance();
+#endif	
+	sxy::log_manager_template<sxy::std_timestamp_policy>& log_manager = sxy::log_manager::get_instance();
 	log_manager.set_log_level( sxy::log_level::LL_DEBUG );
 	log_manager.add_logger( std::make_unique< sxy::cout_logger >() );
 	log_manager.start();

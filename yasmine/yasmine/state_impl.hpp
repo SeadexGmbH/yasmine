@@ -15,7 +15,7 @@
 
 #include "state.hpp"
 #include "vertex_impl.hpp"
-#include "behavior_fwd.hpp"
+#include "behaviour_fwd.hpp"
 #include "event_fwd.hpp"
 #include "optimization.hpp"
 
@@ -29,31 +29,30 @@ class state_impl:
 {
 public:
 	explicit state_impl( const std::string& _name );
-	virtual ~state_impl() noexcept override = default;
-	state_impl( const state_impl& ) = delete;
-	state_impl& operator=( const state_impl& ) = delete;
-	virtual const state_machine_element * get_parent() const override;
-	virtual void set_parent_region( region* const _parent_region ) override;
-	virtual region * get_parent_region() const override;
-	virtual size_t get_parent_region_index() const override;
-	virtual region * get_region( const std::string& _region_name ) const override;
-	virtual vertex * get_pseudostate( const std::string& _name_of_pseudostate ) const override;
-	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor ) const override;
-	virtual raw_regions get_ancestors_as_regions() const override;
-	virtual std::size_t get_nesting_level() const override;
-	virtual void set_was_active() override;
-	virtual bool was_active() const override;
-	virtual void set_active() override;
-	virtual void set_inactive() override;
-	virtual bool is_active() const override;
-	virtual bool is_complete() const override;
-	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const override;
-	virtual void execute_enter_behavior( const event& _event ) const override;
-	virtual void execute_exit_behavior( const event& _event ) const override;
-	virtual void enter_state( const event& _event ) override;
-	virtual void exit_state( const event& _event ) override;
-	virtual bool has_error_event() const override;
-	virtual event_sptr get_error_event() const override;
+	virtual ~state_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(state_impl)
+	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
+	virtual void set_parent_region( region* const _parent_region ) Y_OVERRIDE;
+	virtual region * get_parent_region() const Y_OVERRIDE;
+	virtual size_t get_parent_region_index() const Y_OVERRIDE;
+	virtual region * get_region( const std::string& _region_name ) const Y_OVERRIDE;
+	virtual vertex * get_pseudostate( const std::string& _name_of_pseudostate ) const Y_OVERRIDE;
+	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor ) const Y_OVERRIDE;
+	virtual raw_regions get_ancestors_as_regions() const Y_OVERRIDE;
+	virtual std::size_t get_nesting_level() const Y_OVERRIDE;
+	virtual void set_was_active() Y_OVERRIDE;
+	virtual bool was_active() const Y_OVERRIDE;
+	virtual void set_active() Y_OVERRIDE;
+	virtual void set_inactive() Y_OVERRIDE;
+	virtual bool is_active() const Y_OVERRIDE;
+	virtual bool is_complete() const Y_OVERRIDE;
+	virtual void execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
+	virtual void execute_enter_behaviour( const event& _event ) const Y_OVERRIDE;
+	virtual void execute_exit_behaviour( const event& _event ) const Y_OVERRIDE;
+	virtual void enter_state( const event& _event ) Y_OVERRIDE;
+	virtual void exit_state( const event& _event ) Y_OVERRIDE;
+	virtual bool has_error_event() const Y_OVERRIDE;
+	virtual event_sptr get_error_event() const Y_OVERRIDE;
 
 
 private:

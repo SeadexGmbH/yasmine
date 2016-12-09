@@ -24,10 +24,20 @@ class final_state:
 	public virtual state
 {
 public:
-	final_state() = default;
-	virtual ~final_state() noexcept override = default;
-	final_state( const final_state& ) = delete;
-	final_state& operator=( const final_state& ) = delete;
+	final_state()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~final_state() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(final_state)
+	
 };
 
 

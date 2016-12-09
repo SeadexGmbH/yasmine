@@ -1,4 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
 // Copyright (C) 2016 Seadex GmbH                                                                   //
@@ -33,9 +34,15 @@ fork_impl::fork_impl( const std::string& _name )
 }
 
 
+fork_impl::~fork_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool fork_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [5]: Fork must have at least 2 outgoing transitions and exactly 1 incoming
 	// transition.
@@ -59,12 +66,12 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	// regions of an state.
 	// This check is not mandatory. The last LCA is the state machine itself. -> Jira[104] / Jira[103]
 	// 15.3.14 Transition -> Constraint [1]: A fork segment must not have guards or triggers.
-	for( const auto & transition : get_outgoing_transitions() )
+	Y_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
 		if( transition->get_guard() )
 		{
-			_defects.push_back( state_machine_defect( *this,
-					"Outgoing transition '%' of fork '%' has guard!", transition->get_name(), get_name() ) );
+			_defects.push_back( state_machine_defect( *this, "Outgoing transition '%' of fork '%' has guard!",
+					transition->get_name(), get_name() ) );
 			check_ok = false;
 		}
 	}
@@ -76,14 +83,14 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	}
 
 	// 15.3.14 Transition -> Constraint [3]: A fork segment must always target a state.
-	for( const auto & transition : get_outgoing_transitions() )
+	Y_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
-		const auto target_vertex = dynamic_cast< const state* >( &transition->get_target() );
+		const state* const target_vertex = dynamic_cast< const state* >( &transition->get_target() );
 		if( !target_vertex )
-		{
+		{				
 			_defects.push_back( state_machine_defect( *this,
 					"Fork '%' has outgoing transition ('%') that hasn't a state as target! Target vertex is '%'.", get_name(),
-					transition->get_name(), target_vertex->get_name() ) );
+					transition->get_name(), transition->get_target().get_name()) );
 			check_ok = false;
 		}
 		else
@@ -94,14 +101,13 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 
 	// 2 outgoing transitions cannot enter the same region
 	std::set< const region* > target_regions;
-
-	for( const auto transition : get_outgoing_transitions() )
+	Y_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
-		auto target_region = transition->get_target().get_parent();
-		const auto l_region = dynamic_cast< const region* >( target_region );
+		const state_machine_element* const target_region = transition->get_target().get_parent();
+		const region* const l_region = dynamic_cast< const region* >( target_region );
 		if( l_region )
 		{
-			auto result = target_regions.insert( l_region );
+			std::pair< std::set< const region* >::const_iterator, bool > result = target_regions.insert( l_region );
 			if( !result.second )
 			{
 				_defects.push_back( state_machine_defect( *this,
@@ -112,20 +118,17 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 			}
 		}
 	}
-
-	auto transitions_kind = get_outgoing_transitions().front()->get_kind();
-
-	for( const auto transition : get_outgoing_transitions() )
+	const transition_kind transitions_kind = get_outgoing_transitions().front()->get_kind();
+	Y_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
-		if( transitions_kind != transition->get_kind() )
+		if( !(transitions_kind == transition->get_kind()) )
 		{
-			_defects.push_back( state_machine_defect( *this,
-					"Outgoing transitions of fork '%' have different kinds!", get_name() ) );
+			_defects.push_back( state_machine_defect( *this, "Outgoing transitions of fork '%' have different kinds!",
+					get_name() ) );
 			check_ok = false;
 			break;
 		}
 	}
-
 	return( check_ok );
 }
 

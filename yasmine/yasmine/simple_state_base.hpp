@@ -27,21 +27,19 @@ class simple_state_base:
 
 
 public:
-	simple_state_base( const std::string& _name, behavior_uptr _entry_action,	behavior_uptr _exit_action, 
+	simple_state_base( const std::string& _name, behaviour_uptr _entry_action,	behaviour_uptr _exit_action, 
 		const event_ids& _deferred_events, event_sptr _error_event );
-	virtual ~simple_state_base() noexcept override = default;
-	simple_state_base( const simple_state_base& ) = delete;
-	simple_state_base& operator=(	const simple_state_base& ) = delete;
-
-	virtual const regions& get_regions() const override;
-	virtual regions& get_regions() override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_complex_state_visitor( complex_state_visitor& _visitor ) const override;
-	virtual void accept_state_visitor( state_visitor& _visitor ) const override;	
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual bool has_error_event() const override;
-	virtual event_sptr get_error_event() const override;
+	virtual ~simple_state_base() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(simple_state_base)
+	virtual const regions& get_regions() const Y_OVERRIDE;
+	virtual regions& get_regions() Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_complex_state_visitor( complex_state_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_state_visitor( state_visitor& _visitor ) const Y_OVERRIDE;	
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual bool has_error_event() const Y_OVERRIDE;
+	virtual event_sptr get_error_event() const Y_OVERRIDE;
 
 
 private:

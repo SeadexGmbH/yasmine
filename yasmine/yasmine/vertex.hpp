@@ -36,10 +36,19 @@ class vertex:
 	public virtual state_machine_element
 {
 public:
-	vertex() = default;
-	virtual ~vertex() noexcept override = default;
-	vertex( const vertex& ) = delete;
-	vertex& operator=( const vertex& ) = delete;
+	vertex()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~vertex() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(vertex)
 	virtual void add_outgoing_transition( transition& _outgoing_transition ) = 0;
 	virtual void add_incoming_transition( transition& _incoming_transition ) = 0;
 	virtual void remove_outgoing_transition( const transition& _outgoing_transition ) = 0;
@@ -53,7 +62,7 @@ public:
 	virtual composite_state * LCA_composite_state( const vertex& _rhs ) const = 0;
 	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const = 0;
 	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) = 0;
-	virtual bool check( state_machine_defects& _defects ) const override = 0;
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
 };
 
 

@@ -16,16 +16,17 @@
 
 #include "base.hpp"
 #include "detector_callback.hpp"
+#include "chrono.hpp"
 
 
 namespace
 {
 
 
-constexpr unsigned int DETECTOR_OFF_LOWER_EXTREMITY( 1 );
-constexpr unsigned int DETECTOR_OFF_UPPER_EXTREMITY( 12 );
-constexpr unsigned int DETECTOR_ON_UPPER_EXTREMITY( 3 );
-constexpr unsigned int DETECTOR_ON_LOWER_RXTREMITY( 1 );
+	const unsigned int DETECTOR_OFF_LOWER_EXTREMITY(1);
+	const unsigned int DETECTOR_OFF_UPPER_EXTREMITY(12);
+	const unsigned int DETECTOR_ON_UPPER_EXTREMITY(3);
+	const unsigned int DETECTOR_ON_LOWER_RXTREMITY(1);
 
 
 }
@@ -47,21 +48,24 @@ detector::detector( detector_callback& _detector_callback )
 }
 
 
-detector::~detector() = default;
+detector::~detector()
+{
+	// Nothing to do...
+}
 
 
 void detector::start()
 {
 	run_ = true;
 	generate_random_detector_events_ =
-		std::make_unique< std::thread >( [ this ] () { this->generate_detector_events(); } );
+		Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &detector::generate_detector_events, this ) );
 }
 
 
 void detector::stop()
 {
 	{
-		std::unique_lock< std::mutex > lock( mutex_ );
+		sxy::unique_lock< sxy::mutex > lock( mutex_ );
 		run_ = false;
 	}
 	condition_variable_.notify_all();
@@ -73,14 +77,14 @@ void detector::stop()
 
 bool detector::is_on()
 {
-	std::unique_lock< std::mutex > lock( mutex_ );
+	sxy::unique_lock< sxy::mutex > lock( mutex_ );
 	return( is_on_ );
 }
 
 
 void detector::generate_detector_events()
 {
-	std::unique_lock< std::mutex > lock( mutex_ );
+	sxy::unique_lock< sxy::mutex > lock( mutex_ );
 	while( run_ )
 	{
 		std::random_device r;
@@ -89,7 +93,7 @@ void detector::generate_detector_events()
 		{
 			std::uniform_int_distribution< int > uniform_dist( DETECTOR_OFF_LOWER_EXTREMITY, 
 				DETECTOR_OFF_UPPER_EXTREMITY );
-			auto time_to_wait = std::chrono::milliseconds( uniform_dist( e ) );
+			sxy::milliseconds time_to_wait = sxy::milliseconds( uniform_dist( e ) );
 			condition_variable_.wait_for( lock, time_to_wait );
 			detector_callback_.detector_off();
 		}
@@ -99,8 +103,9 @@ void detector::generate_detector_events()
 			{
 				std::uniform_int_distribution< int > uniform_dist( DETECTOR_ON_UPPER_EXTREMITY,
 					DETECTOR_ON_UPPER_EXTREMITY );
-				auto time_to_wait = std::chrono::milliseconds( uniform_dist( e ) );
+				sxy::milliseconds time_to_wait = sxy::milliseconds( uniform_dist( e ) );
 				condition_variable_.wait_for( lock, time_to_wait );
+
 				detector_callback_.detector_on();
 			}
 		}

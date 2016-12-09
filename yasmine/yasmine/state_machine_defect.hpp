@@ -30,34 +30,54 @@ namespace sxy
 class state_machine_element;
 
 
-class state_machine_defect final
-{
+class state_machine_defect Y_FINAL
+{	
+
 public:
-	template< typename ... args > 
-	state_machine_defect( const state_machine_element& _element, const std::string& _message,	args ... _args )
-		: element_( &_element ),
-			message_( yprintf( _message.c_str(), _args ... ) )
+
+
+#ifndef Y_CPP03_BOOST
+
+
+	template< typename ... args >
+	state_machine_defect( const state_machine_element &_element, const std::string & _message, args ... _args ):
+		element_( &_element ), message_( yprintf( _message.c_str(), _args ... ) )
 	{
 		// Nothing to do.
 	}
 
 
-	~state_machine_defect() noexcept = default;
-	//state_machine_defect( const state_machine_defect& ) = delete;
-	state_machine_defect& operator=( const state_machine_defect& ) = delete;
+#else
+
+	state_machine_defect( const state_machine_element&_element, const std::string & _message );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
+		const log_value &_value2 );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
+		const log_value &_value2, const log_value&_value3 );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
+		const log_value &_value2, const log_value &_value3, const log_value &_value4 );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
+		const log_value &_value2, const log_value &_value3, const log_value &_value4,
+		const log_value &_value5 );	
+
+#endif
+
+
+	~state_machine_defect() Y_NOEXCEPT;
+
+
 	const state_machine_element& get_element() const;
 	const std::string& get_message() const;
 
 
 private:
 	const state_machine_element* element_;
-	const std::string message_;
+	std::string message_;
 };
 
 
 void write_defects_to_log( const state_machine_defects& _defects );
-
-
 }
 
 

@@ -14,7 +14,7 @@
 
 
 #include <vector>
-#include <cstdint>
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,13 +22,10 @@ namespace sxy
 
 
 //!\brief The type alias for yasmine's event IDs.
-using event_id = std::uint32_t;
+typedef sxy::uint32_t event_id;
 
 //!\brief The type alias for yasmine's event ID list.
-using event_ids = std::vector< event_id >;
-
-//!\brief yasmine's predefined event ID for the completion event.
-extern const event_id COMPLETION_EVENT;
+typedef std::vector< event_id > event_ids;
 
 
 }

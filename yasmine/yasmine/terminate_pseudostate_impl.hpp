@@ -21,19 +21,18 @@ namespace sxy
 {
 
 
-class terminate_pseudostate_impl final:
+class terminate_pseudostate_impl Y_FINAL:
 	public virtual terminate_pseudostate, public region_pseudostate_impl
 {
 public:
 	explicit terminate_pseudostate_impl( const std::string& _name );
-	virtual ~terminate_pseudostate_impl() noexcept override = default;
-	terminate_pseudostate_impl( const terminate_pseudostate_impl& ) = delete;
-	terminate_pseudostate_impl& operator=( const terminate_pseudostate_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
-	virtual void add_outgoing_transition( transition& _outgoing_transition ) override;
+	virtual ~terminate_pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(terminate_pseudostate_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void add_outgoing_transition( transition& _outgoing_transition ) Y_OVERRIDE;
 };
 
 

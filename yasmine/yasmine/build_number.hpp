@@ -13,7 +13,7 @@
 #define BUILD_NUMBER_35F7322C_8D29_42B1_AC5E_A38094AF5EF6
 
 
-#include <cstdint>
+#include "compatibility.hpp"
 
 
 namespace yasmine
@@ -24,7 +24,7 @@ namespace version
 {
 
 
-const std::uint16_t BUILD_NUMBER( 309 );
+const sxy::uint16_t BUILD_NUMBER( 427 );
 
 
 }

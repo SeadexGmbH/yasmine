@@ -29,10 +29,19 @@ class initial_pseudostate:
 	public virtual region_pseudostate
 {
 public:
-	initial_pseudostate() = default;
-	virtual ~initial_pseudostate() noexcept override = default;
-	initial_pseudostate( const initial_pseudostate& ) = delete;
-	initial_pseudostate& operator=( const initial_pseudostate& ) = delete;
+	initial_pseudostate()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~initial_pseudostate() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(initial_pseudostate)
 	virtual transition * get_transition() const = 0;
 };
 

@@ -9,16 +9,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "event_id.hpp"
+#ifndef MACRO_HELPERS_D52C3077_E0EF_4C4E_B451_1472DEE602E8
+#define MACRO_HELPERS_D52C3077_E0EF_4C4E_B451_1472DEE602E8
 
-#include <limits>
+#define EXPAND( x ) x
 
+#define CAT( A, B ) A ## B
+#define SELECT( NAME, NUM ) CAT( NAME ## _, NUM )
 
-namespace sxy
-{
+#define GET_COUNT( _ONE, _TWO, _THREE, _FOUR, _FIVE, _SIX, COUNT, ... ) COUNT
+#define VA_SIZE( ... ) EXPAND( GET_COUNT( __VA_ARGS__, 6, 5, 4, 3, 2, 1 ) )
 
+#define VA_SELECT( NAME, ... ) EXPAND( SELECT( NAME, VA_SIZE(__VA_ARGS__) )(__VA_ARGS__) )
 
-const event_id COMPLETION_EVENT = std::numeric_limits<event_id>::max();
-
-
-}
+#endif

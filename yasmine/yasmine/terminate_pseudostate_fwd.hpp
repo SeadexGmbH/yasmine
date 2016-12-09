@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 class terminate_pseudostate;
-using terminate_pseudostate_uptr = std::unique_ptr< terminate_pseudostate >;
-using terminate_pseudostates = std::vector< terminate_pseudostate_uptr >;
-using raw_const_terminate_pseudostates = std::vector< const terminate_pseudostate* >;
+typedef Y_UNIQUE_PTR< terminate_pseudostate > terminate_pseudostate_uptr;
+typedef std::vector< terminate_pseudostate_uptr > terminate_pseudostates;
+typedef std::vector< const terminate_pseudostate* > raw_const_terminate_pseudostates;
 
 
 }

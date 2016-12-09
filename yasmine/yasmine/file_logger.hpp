@@ -15,7 +15,6 @@
 
 #include <string>
 #include <map>
-#include <regex>
 
 #include "logger.hpp"
 #include "exception_template.hpp"
@@ -28,6 +27,7 @@ namespace sxy
 //!\class	file_logger
 //!\brief Class for writing messages to a log file. It rotates the log file if a certain size limit is met. Naming and
 //!location of the log files can be customized. All the number of log files in rotation can be set.
+// cppcheck-suppress noConstructor
 class file_logger:
 	public logger
 {
@@ -45,14 +45,13 @@ public:
 	file_logger( const size_t _max_file_size_in_bytes,	const std::string& _log_files_directory,	
 		const std::string& _name_suffix,	const std::string& _name_extension, const unsigned _max_file_number,
 		const bool _throw_on_error = true );
-	virtual ~file_logger() noexcept override = default;
-	file_logger( const file_logger& ) = delete;
-	file_logger& operator=( const file_logger& ) = delete;
+	virtual ~file_logger() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(file_logger)
 
 	//!\brief Writes the message in the log file.
 	//!\param _log_message Log message that will be written.
 	//!\return void
-	virtual void log( const log_message& _log_message ) override;
+	virtual void log( const log_message& _log_message ) Y_OVERRIDE;
 
 
 private:

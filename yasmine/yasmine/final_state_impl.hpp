@@ -21,23 +21,22 @@ namespace sxy
 {
 
 
-class final_state_impl final:
+class final_state_impl Y_FINAL:
 	public virtual final_state, public state_impl
 {
 public:
 	explicit final_state_impl( const std::string& _name );
-	virtual ~final_state_impl() noexcept override = default;
-	final_state_impl( const final_state_impl& ) = delete;
-	final_state_impl& operator=( const final_state_impl& ) = delete;
-	virtual behavior * get_entry_behavior() const override;
-	virtual behavior * get_exit_behavior() const override;
-	virtual const regions& get_regions() const override;
-	virtual regions& get_regions() override;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_state_visitor( state_visitor& _visitor ) const override;
-	virtual bool is_event_deferred( const event_id& _event_id ) const override;
+	virtual ~final_state_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(final_state_impl)
+	virtual behaviour * get_entry_behaviour() const Y_OVERRIDE;
+	virtual behaviour * get_exit_behaviour() const Y_OVERRIDE;
+	virtual const regions& get_regions() const Y_OVERRIDE;
+	virtual regions& get_regions() Y_OVERRIDE;
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_state_visitor( state_visitor& _visitor ) const Y_OVERRIDE;
+	virtual bool is_event_deferred( const event_id& _event_id ) const Y_OVERRIDE;
 };
 
 

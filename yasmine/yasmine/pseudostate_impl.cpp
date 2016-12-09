@@ -15,6 +15,7 @@
 #include "region.hpp"
 #include "transition.hpp"
 #include "state_machine_defect.hpp"
+#include "completion_event.hpp"
 
 
 namespace sxy
@@ -27,14 +28,20 @@ pseudostate_impl::pseudostate_impl( const std::string& _name )
 	// Nothing to do...
 }
 
+
+pseudostate_impl::~pseudostate_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
 																							
 bool pseudostate_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
-	for( const auto outgoing_transition : get_outgoing_transitions() )
+	Y_FOR( const transition* const outgoing_transition, get_outgoing_transitions() )
 	{
-		if( !outgoing_transition->can_accept_event( COMPLETION_EVENT ) )
+		if( !outgoing_transition->can_accept_event( COMPLETION_EVENT_ID ) )
 		{
 			_defects.push_back( state_machine_defect( *this,
 				"'%' has outgoing transition with trigger!", get_name() ) );

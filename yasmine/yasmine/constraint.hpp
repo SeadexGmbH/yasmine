@@ -12,9 +12,9 @@
 #ifndef CONSTRAINT_DFC0FBD5_ACF7_4863_BB5F_129E8620FAB3
 #define CONSTRAINT_DFC0FBD5_ACF7_4863_BB5F_129E8620FAB3
 
-
-#include "compatibility.hpp"
+													 
 #include "constraint_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -27,10 +27,19 @@ class event;
 class constraint
 {
 public:
-	constraint() = default;
-	virtual ~constraint() noexcept = default;
-	constraint( const constraint& ) = delete;
-	constraint& operator=( const constraint& ) = delete;
+	constraint()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~constraint() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(constraint)	
 	virtual bool operator()( const event& _event ) const = 0;
 };
 

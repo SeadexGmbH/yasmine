@@ -9,20 +9,23 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef ASYNC_BEHAVIOR_FWD_58B37F86_A51C_435F_8182_354B2D8960F4
-#define ASYNC_BEHAVIOR_FWD_58B37F86_A51C_435F_8182_354B2D8960F4
+#ifndef BEHAVIOUR_FWD_56B32B7A_BC57_467C_84D8_A79626B0DD0D
+#define BEHAVIOUR_FWD_56B32B7A_BC57_467C_84D8_A79626B0DD0D
 
 
-#include <memory>
-#include <functional>
-																															 
+#include "compatibility.hpp"
+
+
 namespace sxy
 {
 
 
-class async_behavior;
+class behaviour;
 class event;
-using async_behavior_uptr = std::unique_ptr< async_behavior >;
+
+
+typedef Y_UNIQUE_PTR< behaviour > behaviour_uptr;
+typedef sxy::function< void ( const event& ) > behaviour_function;
 
 
 }

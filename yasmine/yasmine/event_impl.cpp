@@ -13,6 +13,8 @@
 
 #include <memory>
 
+#include "conversion.hpp"
+
 
 namespace sxy
 {
@@ -27,6 +29,12 @@ event_impl::event_impl( const event_id _event_id, const event_priority _event_pr
 }
 
 
+event_impl::~event_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 event_id event_impl::get_id() const
 {
 	return( event_id_ );
@@ -35,7 +43,7 @@ event_id event_impl::get_id() const
 
 std::string event_impl::get_name() const
 {
-	return ( std::to_string( event_id_ ) );
+	return ( sxy::to_string( event_id_ ) );
 }
 
 
@@ -45,9 +53,15 @@ event_priority event_impl::get_priority() const
 }
 
 
+bool event_impl::operator>(const event& _rhs) const
+{	
+	return( get_priority() > _rhs.get_priority() );
+}
+
+
 event_sptr event_impl::create( const event_id _event_id, const event_priority _event_priority )
 {
-	return( std::make_shared< sxy::event_impl >( _event_id, _event_priority ) );
+	return( Y_MAKE_SHARED< sxy::event_impl >( _event_id, _event_priority ) );
 }
 
 

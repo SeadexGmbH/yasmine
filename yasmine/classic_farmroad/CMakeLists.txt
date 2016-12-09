@@ -20,8 +20,12 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
 	endif()
-	
-	set(extra_flags "${extra_flags} -std=c++14 -Wall -g")
+		
+	if("${CPP_VERSION}" STREQUAL "03")
+		set(extra_flags "${extra_flags} -std=c++03 -Wall -g -Wno-unknown-pragmas -D \"Y_CPP03_BOOST\"")
+	else()
+		set(extra_flags "${extra_flags} -std=c++14 -Wall -g")
+	endif()
 	
 	# yasmine's preprocessor definitions
 	set(Y_OPTIMIZE "SPEED" CACHE STRING "Sets the optimize type. Supported values: SPEED and SIZE. Default value is SPEED.")
@@ -126,7 +130,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	option("Y_PROFILER" "If Y_PROFILER is defined, the state machine will count the number of events that were processed. The user can query the counter by calling the 'get_number_of_processed_events' method.")	
 	if( "${Y_PROFILER}" )
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"Y_PROFILER\"")	
-	endif()	
+	endif()
 		
 endif()
 
@@ -144,17 +148,24 @@ elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
 endif()
 
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
+if("${CPP_VERSION}" STREQUAL "11" OR "${CPP_VERSION}" STREQUAL "14")
+	add_executable(classic_farmroad ${classic_farmroad_SRC})
+endif()
 
-add_executable(classic_farmroad ${classic_farmroad_SRC})
 include_directories("./../yasmine")
 
+
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	target_link_libraries (classic_farmroad LINK_PUBLIC yasmine pthread)
+	if("${CPP_VERSION}" STREQUAL "11" OR "${CPP_VERSION}" STREQUAL "14")		
+		target_link_libraries (classic_farmroad LINK_PUBLIC yasmine pthread)
+	endif()
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	target_link_libraries (classic_farmroad LINK_PUBLIC yasmine)
 endif()
 
-install(TARGETS classic_farmroad DESTINATION bin)
+
+if("${CPP_VERSION}" STREQUAL "11" OR "${CPP_VERSION}" STREQUAL "14")
+	install(TARGETS classic_farmroad DESTINATION bin)
+endif()

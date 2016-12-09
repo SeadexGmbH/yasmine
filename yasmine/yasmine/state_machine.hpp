@@ -20,7 +20,7 @@
 #include "composite_state.hpp"
 #include "transition_kind.hpp"
 #include "constraint_fwd.hpp"
-#include "behavior_fwd.hpp"
+#include "behaviour_fwd.hpp"
 
 
 namespace sxy
@@ -43,17 +43,16 @@ public:
 	//!\param _event_processing_callback Event processing callback interface pointer. It can be a nullptr if no callback
 	//!interface should be used.
 	explicit state_machine( const std::string& _name,
-		event_processing_callback* const _event_processing_callback = nullptr );
-	virtual ~state_machine() noexcept override;
-	state_machine( const state_machine& ) = delete;
-	state_machine& operator=( const state_machine& ) = delete;
+		event_processing_callback* const _event_processing_callback = Y_NULLPTR );
+	virtual ~state_machine() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(state_machine)	
 
 	//!\brief Returns the root state of the state machine. Commonly used to add regions to the root state.
 	//!\return Reference to the root state of the state machine.
 	composite_state& get_root_state() const;
 
 #ifdef Y_PROFILER		
-	std::uint32_t get_number_of_processed_events() const;
+	sxy::uint32_t get_number_of_processed_events() const;
 #endif
 
 	//!\brief Add a transition to the state machine. The state machine takes ownership of the transition.
@@ -61,36 +60,36 @@ public:
 	//!\return transition Reference to the added transition.
 	virtual transition& add_transition( transition_uptr _transition );
 
-	//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
+	//!\brief Creates a transition with the given name, kind, event, guard and behaviour between the given source and
 	// target and adds it to the state machine given as parameter.
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\param _guard The guard of the transition. Default is an empty function.
-	//!\param _behavior The behavior of the transition. Default is an empty function.
+	//!\param _behaviour The behaviour of the transition. Default is an empty function.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition(	const event_id _event_id, vertex& _source,	vertex& _target,	
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL,
 		const constraint_function& _guard = constraint_function(),	
-		const behavior_function& _behavior = behavior_function() );
+		const behaviour_function& _behaviour = behaviour_function() );
 
-	//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
+	//!\brief Creates a transition with the given name, kind, event, guard and behaviour between the given source and
 	// target and adds it to the state machine given as parameter.	
 	//!\param event_ids List of IDs of the events for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\param _guard The guard of the transition. Default is an empty function.
-	//!\param _behavior The behavior of the transition. Default is an empty function.
+	//!\param _behaviour The behaviour of the transition. Default is an empty function.
 	//!\return a reference to the new created transition.
-	virtual transition& add_transition( const event_ids _event_ids,	vertex& _source, vertex& _target, 
+	virtual transition& add_transition( const event_ids& _event_ids,	vertex& _source, vertex& _target, 
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL,	
 		const constraint_function& _guard = constraint_function(),
-		const behavior_function& _behavior = behavior_function() );
+		const behaviour_function& _behaviour = behaviour_function() );
 
 	//!\brief Creates a transition with the given name, kind, event, guard between the given source and
-	// target and adds it to the state machine given as parameter. There is no behavior provided.	
+	// target and adds it to the state machine given as parameter. There is no behaviour provided.	
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
@@ -100,29 +99,29 @@ public:
 	virtual transition& add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
 		const constraint_function& _guard, const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
-	//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
+	//!\brief Creates a transition with the given name, kind, event, guard and behaviour between the given source and
 	// target and adds it to the state machine given as parameter.	
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.	
 	//!\param _guard The guard of the transition.
-	//!\param _behavior The behavior of the transition.
+	//!\param _behaviour The behaviour of the transition.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition( const event_id _event_id,	vertex& _source, vertex& _target, 
-		const constraint_function& _guard, const behavior_function& _behavior,	
+		const constraint_function& _guard, const behaviour_function& _behaviour,	
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
-	//!\brief Creates a transition with the given name, kind, event and behavior between the given source and
+	//!\brief Creates a transition with the given name, kind, event and behaviour between the given source and
 	// target and adds it to the state machine given as parameter. There is no guard provided.	
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
-	//!\param _behavior The behavior of the transition.
+	//!\param _behaviour The behaviour of the transition.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
-		const behavior_function& _behavior,	const sxy::transition_kind _kind = transition_kind::EXTERNAL );
+		const behaviour_function& _behaviour,	const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 	
 	//!\brief Fire the given event.
 	//!\param _event Event to be fired.	
@@ -140,7 +139,7 @@ public:
 	//!reached and the state machine is stopped.
 	virtual bool start_state_machine();
 
-	//!\brief Stops the state machine. It checks for active asynchronous simple states and stops their do behaviors.
+	//!\brief Stops the state machine. It checks for active asynchronous simple states and stops their do behaviours.
 	virtual void stop_state_machine();
 
 
@@ -150,7 +149,7 @@ protected:
 	//!\brief Starts the state machine.
 	//!\param _async_event_handler Pointer to an asynchronous event handler. For example, it's necessary for
 	//!the asynchronous state machine if it is needed to process the asynchronous errors that occurs in the 
-	//!asynchronous behavior of asynchronous simple states.
+	//!asynchronous behaviour of asynchronous simple states.
 	//!\return bool true if state machine can be started, else false what means that a terminate pseudostate has been
 	//!reached and the state machine is stopped.
 	bool start_state_machine( async_event_handler* const _async_event_handler );
@@ -159,8 +158,8 @@ protected:
 
 
 private:
-	virtual const events& get_deferred_events() const override;	
-	virtual raw_const_states get_active_state_configuration() const override;
+	virtual const events& get_deferred_events() const Y_OVERRIDE;	
+	virtual raw_const_states get_active_state_configuration() const Y_OVERRIDE;
 	void get_active_states_from_region(	raw_const_states& _active_state_configuration, const region& _region ) const;
 	void check_regions_for_active_states(	raw_const_states& _active_state_configuration, const state& _state ) const;
 	void add_deferred_event( const event_sptr& _event_id );	
@@ -174,7 +173,7 @@ private:
 	events deferred_events_;
 	bool state_machine_is_running_;
 #ifdef Y_PROFILER	
-	std::uint32_t processed_events_;
+	sxy::uint32_t processed_events_;
 #endif
 
 };

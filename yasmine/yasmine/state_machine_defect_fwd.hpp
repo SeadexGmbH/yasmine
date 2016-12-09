@@ -22,7 +22,7 @@ namespace sxy
 
 class state_machine_defect;
 
-using state_machine_defects = std::vector< state_machine_defect >;
+typedef std::vector< state_machine_defect > state_machine_defects;
 
 
 }

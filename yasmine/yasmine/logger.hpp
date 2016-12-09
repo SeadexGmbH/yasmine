@@ -14,9 +14,9 @@
 #define LOGGER_4207DA98_D8C1_41B4_B5B1_29E8C5A22DF3
 
 
-#include "compatibility.hpp"
 #include "logger_fwd.hpp"
 #include "log_message.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -29,10 +29,19 @@ class logger
 {
 public:
 	//!\brief logger constructor.
-	logger() = default;
-	virtual ~logger() noexcept = default;
-	logger( const logger& ) = delete;
-	logger& operator=( const logger& ) = delete;
+	logger()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~logger() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(logger)	
 
 	//!\brief Log the message to the target medium.
 	//!\param _log_message Message to be logged.

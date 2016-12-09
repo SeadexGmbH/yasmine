@@ -13,7 +13,6 @@
 
 #include <algorithm>
 
-#include "make_unique.hpp"
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "state_visitor.hpp"
@@ -23,7 +22,7 @@
 #include "shallow_history_impl.hpp"
 #include "exit_point_impl.hpp"
 #include "entry_point_impl.hpp"
-#include "behavior.hpp"
+#include "behaviour.hpp"
 #include "state_machine_defect.hpp"
 #include "uri.hpp"
 #include "log_and_throw.hpp"
@@ -33,12 +32,12 @@ namespace sxy
 {
 
 
-composite_state_impl::composite_state_impl( const std::string& _name, behavior_uptr _entry_action, 
-	behavior_uptr _exit_action, const event_ids& _deferred_events )
-	: complex_state_impl( _name, std::move( _entry_action ), std::move( _exit_action ), _deferred_events ),
+composite_state_impl::composite_state_impl( const std::string& _name, behaviour_uptr _entry_action, 
+	behaviour_uptr _exit_action, const event_ids& _deferred_events )
+	: complex_state_impl( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events ),
 		regions_(),
-		deep_history_( nullptr ),
-		shallow_history_( nullptr ),
+		deep_history_(deep_history_uptr()),
+		shallow_history_(shallow_history_uptr()),	
 		entry_points_(),
 		exit_points_()
 {
@@ -46,22 +45,28 @@ composite_state_impl::composite_state_impl( const std::string& _name, behavior_u
 }
 
 
-// cppcheck-suppress unusedFunction
+composite_state_impl::~composite_state_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 region& composite_state_impl::add_region( region_uptr _region )
 {
 	_region->set_parent_state( this );
-	auto& new_region = *_region;
-	regions_.push_back( std::move( _region ) );
+	region& new_region = *_region;
+	regions_.push_back( sxy::move( _region ) );
 	return( new_region );
 }
 
 
+// cppcheck-suppress unusedFunction
 region& composite_state_impl::add_region( const std::string& _region_name )
 {
-	auto region = sxy::make_unique< sxy::region_impl >( _region_name );
+	Y_UNIQUE_PTR< sxy::region_impl > region = Y_MAKE_UNIQUE< sxy::region_impl >( _region_name );
 	region->set_parent_state( this );
-	auto& new_region = *region;
-	regions_.push_back( std::move( region ) );
+	region_impl& new_region = *region;
+	regions_.push_back( sxy::move( region ) );
 	return( new_region );
 }
 
@@ -81,9 +86,9 @@ regions& composite_state_impl::get_regions()
 // cppcheck-suppress unusedFunction
 region* composite_state_impl::get_region( const std::string& _region_name ) const
 {
-	region* found_region = nullptr;
+	region* found_region = Y_NULLPTR;
 
-	for( const auto & region : get_regions() )
+	Y_FOR( const region_uptr& region, get_regions() )
 	{
 		if( region->get_name() == _region_name )
 		{
@@ -117,7 +122,7 @@ deep_history& composite_state_impl::add_deep_history( deep_history_uptr _deep_hi
 	}
 
 	_deep_history->set_parent_state( this );
-	deep_history_ = std::move( _deep_history );
+	deep_history_ = sxy::move( _deep_history );
 	return( *deep_history_ );
 }
 
@@ -129,9 +134,10 @@ deep_history& composite_state_impl::add_deep_history( const std::string& _deep_h
 		LOG_AND_THROW( log_level::LL_FATAL, "There is already a deep history in the composite state '%'!", get_name() );
 	}
 
-	auto deep_history = sxy::make_unique< sxy::deep_history_impl >( _deep_history_name );
+	Y_UNIQUE_PTR< sxy::deep_history_impl > deep_history =
+		Y_MAKE_UNIQUE< sxy::deep_history_impl >( _deep_history_name );
 	deep_history->set_parent_state( this );
-	deep_history_ = std::move( deep_history );
+	deep_history_ = sxy::move( deep_history );
 	return( *deep_history_ );
 }
 
@@ -151,7 +157,7 @@ shallow_history& composite_state_impl::add_shallow_history( shallow_history_uptr
 	}
 
 	_shallow_history->set_parent_state( this );
-	shallow_history_ = std::move( _shallow_history );
+	shallow_history_ = sxy::move( _shallow_history );
 	return( *shallow_history_ );
 }
 
@@ -164,19 +170,19 @@ shallow_history& composite_state_impl::add_shallow_history( const std::string& _
 			get_name() );
 	}
 
-	auto shallow_history = sxy::make_unique< sxy::shallow_history_impl >( _shallow_history_name );
+	Y_UNIQUE_PTR< sxy::shallow_history_impl > shallow_history = Y_MAKE_UNIQUE< sxy::shallow_history_impl >( _shallow_history_name );
 	shallow_history->set_parent_state( this );
-	shallow_history_ = std::move( shallow_history );
+	shallow_history_ = sxy::move( shallow_history );
 	return( *shallow_history_ );
 }
 
 
 const raw_const_entry_points composite_state_impl::get_entry_points() const
 {
-	raw_const_entry_points entry_points = {};
+	raw_const_entry_points entry_points;
 	entry_points.reserve( entry_points_.size() );
 
-	for( const auto & entry_point : entry_points_ )
+	Y_FOR( const entry_point_uptr& entry_point, entry_points_ )
 	{
 		entry_points.push_back( entry_point.get() );
 	}
@@ -189,26 +195,27 @@ const raw_const_entry_points composite_state_impl::get_entry_points() const
 entry_point& composite_state_impl::add_entry_point( entry_point_uptr _entry_point )
 {
 	_entry_point->set_parent_state( this );
-	entry_points_.push_back( std::move( _entry_point ) );
+	entry_points_.push_back( sxy::move( _entry_point ) );
 	return( *entry_points_.back() );
 }
 
 
 entry_point& composite_state_impl::add_entry_point( const std::string& _entry_point_name )
 {
-	auto entry_point = sxy::make_unique< sxy::entry_point_impl >( _entry_point_name );
+	Y_UNIQUE_PTR< sxy::entry_point_impl > entry_point =
+		Y_MAKE_UNIQUE< sxy::entry_point_impl >( _entry_point_name );
 	entry_point->set_parent_state( this );
-	entry_points_.push_back( std::move( entry_point ) );
+	entry_points_.push_back( sxy::move( entry_point ) );
 	return( *entry_points_.back() );
 }
 
 
 const raw_const_exit_points composite_state_impl::get_exit_points() const
 {
-	raw_const_exit_points exit_points = {};
+	raw_const_exit_points exit_points;
 	exit_points.reserve( exit_points_.size() );
 
-	for( const auto & exit_point : exit_points_ )
+	Y_FOR( const exit_point_uptr& exit_point, exit_points_ )
 	{
 		exit_points.push_back( exit_point.get() );
 	}
@@ -221,16 +228,16 @@ const raw_const_exit_points composite_state_impl::get_exit_points() const
 exit_point& composite_state_impl::add_exit_point( exit_point_uptr _exit_point )
 {
 	_exit_point->set_parent_state( this );
-	exit_points_.push_back( std::move( _exit_point ) );
+	exit_points_.push_back( sxy::move( _exit_point ) );
 	return( *exit_points_.back() );
 }
 
 
 exit_point& composite_state_impl::add_exit_point( const std::string& _exit_point_name )
 {
-	auto exit_point = sxy::make_unique< sxy::exit_point_impl >( _exit_point_name );
+	Y_UNIQUE_PTR< sxy::exit_point_impl > exit_point = Y_MAKE_UNIQUE< sxy::exit_point_impl >( _exit_point_name );
 	exit_point->set_parent_state( this );
-	exit_points_.push_back( std::move( exit_point ) );
+	exit_points_.push_back( sxy::move( exit_point ) );
 	return( *exit_points_.back() );
 }
 
@@ -238,7 +245,7 @@ exit_point& composite_state_impl::add_exit_point( const std::string& _exit_point
 // cppcheck-suppress unusedFunction
 vertex* composite_state_impl::get_pseudostate( const std::string& _name_of_pseudostate ) const
 {
-	vertex* found_vertex = nullptr;
+	vertex* found_vertex = Y_NULLPTR;
 	if( deep_history_ && ( deep_history_->get_name() == _name_of_pseudostate ) )
 	{
 		found_vertex = deep_history_.get();
@@ -250,7 +257,7 @@ vertex* composite_state_impl::get_pseudostate( const std::string& _name_of_pseud
 	}
 	else
 	{
-		for( auto & entry_point : entry_points_ )
+		Y_FOR( const entry_point_uptr& entry_point, entry_points_ )
 		{
 			if( entry_point->get_name() == _name_of_pseudostate )
 			{
@@ -261,7 +268,7 @@ vertex* composite_state_impl::get_pseudostate( const std::string& _name_of_pseud
 
 		if( !found_vertex )
 		{
-			for( auto & exit_point : exit_points_ )
+			Y_FOR( const exit_point_uptr& exit_point, exit_points_ )
 			{
 				if( exit_point->get_name() == _name_of_pseudostate )
 				{
@@ -278,13 +285,9 @@ vertex* composite_state_impl::get_pseudostate( const std::string& _name_of_pseud
 
 size_t composite_state_impl::get_region_index( const region* const _region ) const
 {
-	auto element =
-		std::find_if( regions_.begin(), regions_.end(), [ _region ] ( const region_uptr& _vector_element_region )
-		{
-			return( _region == _vector_element_region.get() );
-		}
-			);
-	const auto index = element - regions_.begin();
+	regions::const_iterator element =
+		std::find_if( regions_.begin(), regions_.end(), sxy::bind( &composite_state_impl::regions_are_equal, _region, sxy::_1 ) );
+	const size_t index = element - regions_.begin();
 	return( index );
 }
 
@@ -292,10 +295,10 @@ size_t composite_state_impl::get_region_index( const region* const _region ) con
 size_t composite_state_impl::get_parent_region_index() const
 {
 	size_t index = 0;
-	const auto parent_region = get_parent_region();
+	const region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
-		const auto& parent_state = parent_region->get_parent_state();
+		const composite_state& parent_state = parent_region->get_parent_state();
 		index = parent_state.get_region_index( parent_region );
 	}
 
@@ -305,7 +308,7 @@ size_t composite_state_impl::get_parent_region_index() const
 
 bool composite_state_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.11 State -> Constraint [5]: A composite state is a state with at least one region.
 	if( get_regions().empty() )
@@ -317,7 +320,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 
 	// 15.3.11 State -> Constraint [5]: An orthogonal state is a composite state with at least 2 regions.
 	// Not reason to check this. We don't care.
-	for( const auto & region : get_regions() )
+	Y_FOR( const region_uptr& region, get_regions() )
 	{
 		if( !region->check( _defects ) )
 		{
@@ -325,7 +328,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 		}
 	}
 
-	for( const auto entry_point : get_entry_points() )
+	Y_FOR( const entry_point* const entry_point, get_entry_points() )
 	{
 		if( !entry_point->check( _defects ) )
 		{
@@ -333,7 +336,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 		}
 	}
 
-	for( const auto exit_point : get_exit_points() )
+	Y_FOR( const exit_point* const exit_point, get_exit_points() )
 	{
 		if( !exit_point->check( _defects ) )
 		{
@@ -341,7 +344,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 		}
 	}
 
-	const auto deep_history = get_deep_history();
+	const deep_history* const deep_history = get_deep_history();
 	if( deep_history )
 	{
 		if( !deep_history->check( _defects ) )
@@ -350,7 +353,7 @@ bool composite_state_impl::check( state_machine_defects& _defects ) const
 		}
 	}
 
-	const auto shallow_history = get_shallow_history();
+	const shallow_history* const shallow_history = get_shallow_history();
 	if( shallow_history )
 	{
 		if( !shallow_history->check( _defects ) )
@@ -398,7 +401,7 @@ void composite_state_impl::accept_state_visitor( state_visitor& _visitor ) const
 
 bool composite_state_impl::is_orthogonal() const
 {
-	auto is_orthogonal = false;
+	bool is_orthogonal = false;
 	
 	if( get_regions().size() > 1 )
 	{
@@ -411,9 +414,9 @@ bool composite_state_impl::is_orthogonal() const
 
 bool composite_state_impl::check_if_regions_are_completed() const
 {
-	auto regions_are_completed = true;	
+	bool regions_are_completed = true;	
 
-	for( const auto& region : get_regions() )
+	Y_FOR( const region_uptr& region, get_regions() )
 	{
 		if( !region->is_active_state_final() )
 		{
@@ -426,6 +429,12 @@ bool composite_state_impl::check_if_regions_are_completed() const
 	}
 
 	return( regions_are_completed );
+}
+
+
+bool composite_state_impl::regions_are_equal(const region* const _region, const region_uptr& _vector_element_region)
+{
+	return( _region == _vector_element_region.get() );
 }
 
 
