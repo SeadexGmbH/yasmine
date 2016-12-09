@@ -9,35 +9,27 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BEHAVIOR_EXCEPTION_2D8556FD_222C_4ABD_B11B_1AC356D1A0BB
-#define BEHAVIOR_EXCEPTION_2D8556FD_222C_4ABD_B11B_1AC356D1A0BB
-		 
+#ifndef EVENT_HANDLE_57AE05A6_DA8B_4D0C_A50D_06AF8DFB46BF
+#define EVENT_HANDLE_57AE05A6_DA8B_4D0C_A50D_06AF8DFB46BF
 
-#include "event_fwd.hpp"
-#include "event_id.hpp"
-#include "exception.hpp"
-#include "behavior_exception_fwd.hpp"
+
+#include <algorithm>
+#include "compatibility.hpp"
 
 
 namespace sxy
 {
 
 
-class behavior_exception final:
-	public exception
-{
+	typedef sxy::uint32_t handle_type;
 
+#ifndef Y_CPP03_BOOST
+	extern const handle_type Y_INVALID_EVENT_CREATION_REQUEST_HANDLE;
+#else
+	#define Y_INVALID_EVENT_CREATION_REQUEST_HANDLE UINT_MAX
+#endif
 
-public:
-	explicit behavior_exception( const event_sptr _event );
-	virtual ~behavior_exception() noexcept override = default;
-	behavior_exception& operator=( const behavior_exception& ) = delete;
-	const event_sptr get_error_event() const;									
-
-
-private:
-	const event_sptr error_event_;
-};
+	extern const handle_type Y_DEFAULT_HANDLE;
 
 
 }

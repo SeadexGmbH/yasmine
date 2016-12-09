@@ -16,6 +16,7 @@
 #include "event_id.hpp"
 #include "event_priority.hpp"
 #include "event_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -25,13 +26,23 @@ namespace sxy
 class event
 {
 public:
-	event() = default;
-	virtual ~event() noexcept = default;
-	event( const event& ) = delete;
-	event& operator=( const event& ) = delete;
+	event()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~event() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(event)
 	virtual event_id get_id() const = 0;
 	virtual std::string get_name() const = 0;
 	virtual event_priority get_priority() const = 0;	
+	virtual bool operator>(const event& _rhs) const = 0;
 };
 
 

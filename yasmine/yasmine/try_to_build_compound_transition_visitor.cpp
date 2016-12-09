@@ -17,6 +17,19 @@
 #include "compound_transition_impl.hpp"
 #include "compound_transition_builder.hpp"
 #include "event.hpp"
+#include "composite_state.hpp"
+#include "simple_state.hpp"
+#include "final_state.hpp"
+#include "initial_pseudostate.hpp"
+#include "choice.hpp"
+#include "junction.hpp"
+#include "join.hpp"
+#include "fork.hpp"
+#include "entry_point.hpp"
+#include "exit_point.hpp"
+#include "deep_history.hpp"
+#include "shallow_history.hpp"
+#include "terminate_pseudostate.hpp"
 
 
 namespace sxy
@@ -31,6 +44,12 @@ try_to_build_compound_transition_visitor::try_to_build_compound_transition_visit
 		event_( _event )
 {
 	is_built_ = false;
+}
+
+
+try_to_build_compound_transition_visitor::~try_to_build_compound_transition_visitor() Y_NOEXCEPT
+{
+	// Nothing to do...
 }
 
 
@@ -126,10 +145,10 @@ void try_to_build_compound_transition_visitor::visit(	const terminate_pseudostat
 
 void try_to_build_compound_transition_visitor::build_compound_transition_and_insert_in_container()
 {
-	auto compound_transition = sxy::build_compound_transition( enabled_transition_, event_ );
+	compound_transition_uptr compound_transition = sxy::build_compound_transition( enabled_transition_, event_ );
 	if( compound_transition )
 	{
-		enabled_compound_transitions_.push_back( std::move( compound_transition ) );
+		enabled_compound_transitions_.push_back( sxy::move( compound_transition ) );
 		is_built_ = true;
 	}
 }
@@ -138,12 +157,12 @@ void try_to_build_compound_transition_visitor::build_compound_transition_and_ins
 void try_to_build_compound_transition_visitor::check_if_join_is_active_and_was_not_processed_yet( 
 	const join& _join )
 {
-	const auto& transition_was_already_used = 
+	const bool transition_was_already_used = 
 		check_if_transition_was_already_used( enabled_transition_, enabled_compound_transitions_ );
 
 	if( !transition_was_already_used )
 	{
-		const auto& all_incoming_transitions_enabled 
+		const bool all_incoming_transitions_enabled 
 			= _join.check_if_all_source_states_of_incoming_transitions_are_active();
 		if( all_incoming_transitions_enabled )
 		{
@@ -162,8 +181,8 @@ void try_to_build_compound_transition_visitor::check_if_join_is_active_and_was_n
 bool try_to_build_compound_transition_visitor::check_if_transition_was_already_used(	
 	const transition& _transition,	compound_transitions& _compound_transitions )
 {
-	auto already_used = false;
-	for( const auto& compound_transition : _compound_transitions )
+	bool already_used = false;
+	Y_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
 	{
 		already_used = compound_transition->check_if_starts_with( _transition );
 		if( already_used )

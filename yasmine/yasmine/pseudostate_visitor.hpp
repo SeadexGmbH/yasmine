@@ -32,10 +32,19 @@ class terminate_pseudostate;
 class pseudostate_visitor
 {
 public:
-	pseudostate_visitor() = default;
-	virtual ~pseudostate_visitor() noexcept = default;
-	pseudostate_visitor( const pseudostate_visitor& ) = delete;
-	pseudostate_visitor& operator=( const pseudostate_visitor& ) = delete;
+	pseudostate_visitor()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~pseudostate_visitor() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(pseudostate_visitor)
 	virtual void visit( const initial_pseudostate& _initial_pseudostate ) = 0;
 	virtual void visit( const choice& _choice ) = 0;
 	virtual void visit( const junction& _junction ) = 0;

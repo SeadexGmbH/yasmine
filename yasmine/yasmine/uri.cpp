@@ -29,6 +29,12 @@ uri::uri( const std::string& _uri )
 }
 
 
+uri::~uri() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 // cppcheck-suppress unusedFunction
 bool uri::is_empty() const
 {
@@ -94,7 +100,7 @@ const std::string uri::build_uri() const
 {
 	std::stringstream uri;
 
-	for( const auto & uri_element : uri_ )
+	Y_FOR( const std::string& uri_element, uri_ )
 	{
 		uri << URI_DELIMITER << uri_element;
 	}
@@ -117,13 +123,13 @@ void uri::split_string_to_uri_segments( const std::string& _uri )
 		std::string::size_type end = uri.find( URI_DELIMITER );
 		while( end != std::string::npos )
 		{
-			auto segment = uri.substr( start, end - start );
+			const std::string& segment = uri.substr( start, end - start );
 			uri_.push_back( segment );
 			start = ++end;
 			end = uri.find( URI_DELIMITER, end );
 		}
 
-		auto last_segment = uri.substr( start );
+		const std::string& last_segment = uri.substr( start );
 		if( last_segment[ 0 ] != URI_DELIMITER )
 		{
 			uri_.push_back( last_segment );

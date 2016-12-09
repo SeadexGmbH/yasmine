@@ -25,10 +25,19 @@ class join:
 	public virtual region_pseudostate
 {
 public:
-	join() = default;
-	virtual ~join() noexcept override = default;
-	join( const join& ) = delete;
-	join& operator=( const join& ) = delete;
+	join()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~join() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(join)
 	virtual bool check_if_all_source_states_of_incoming_transitions_are_active() const = 0;
 };
 

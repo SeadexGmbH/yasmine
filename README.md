@@ -10,4 +10,4 @@ In here you will find the core library project of yasmine:
 * the library itself
 * the source code
 * the licenses
-* three examples on how to use the yasmine library
+* five examples on how to use the yasmine library

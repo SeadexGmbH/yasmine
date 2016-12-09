@@ -23,18 +23,15 @@ namespace sxy
 class event;
 
 
-class check_if_all_incoming_transitions_sources_are_active_visitor final:
+class check_if_all_incoming_transitions_sources_are_active_visitor Y_FINAL:
 	public complex_state_visitor
 {
 public:
 	check_if_all_incoming_transitions_sources_are_active_visitor();
-	virtual ~check_if_all_incoming_transitions_sources_are_active_visitor() noexcept override = default;
-	check_if_all_incoming_transitions_sources_are_active_visitor(
-		const check_if_all_incoming_transitions_sources_are_active_visitor& ) = delete;
-	check_if_all_incoming_transitions_sources_are_active_visitor& operator=(
-		const check_if_all_incoming_transitions_sources_are_active_visitor& ) = delete;
-	virtual void visit( const composite_state& _composite_state ) override;
-	virtual void visit( const simple_state& _simple_state ) override;
+	virtual ~check_if_all_incoming_transitions_sources_are_active_visitor() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(check_if_all_incoming_transitions_sources_are_active_visitor)
+	virtual void visit( const composite_state& _composite_state ) Y_OVERRIDE;
+	virtual void visit( const simple_state& _simple_state ) Y_OVERRIDE;
 	bool get_result() const;
 
 

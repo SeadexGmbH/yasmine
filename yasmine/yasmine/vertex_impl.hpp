@@ -28,23 +28,22 @@ class vertex_impl:
 {
 public:
 	explicit vertex_impl( const std::string& _name );
-	virtual ~vertex_impl() noexcept override = default;
-	vertex_impl( const vertex_impl& ) = delete;
-	vertex_impl& operator=( const vertex_impl& ) = delete;
-	virtual void add_outgoing_transition( transition& _outgoing_transition ) override;
-	virtual void add_incoming_transition( transition& _incoming_transition ) override;
-	virtual void remove_outgoing_transition( const transition& _outgoing_transition ) override;
-	virtual void remove_incoming_transition( const transition& _incoming_transition ) override;
-	virtual const raw_transitions& get_outgoing_transitions() const override;
-	virtual const raw_transitions& get_incoming_transitions() const override;
-	virtual uri get_uri() const override;
-	transition * search_transition( const event& _event ) const override;
-	virtual region * LCA_region( const vertex& _target_vertex ) const override;
-	virtual composite_state * LCA_composite_state( const vertex& _rhs ) const override;
+	virtual ~vertex_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(vertex_impl)
+	virtual void add_outgoing_transition( transition& _outgoing_transition ) Y_OVERRIDE;
+	virtual void add_incoming_transition( transition& _incoming_transition ) Y_OVERRIDE;
+	virtual void remove_outgoing_transition( const transition& _outgoing_transition ) Y_OVERRIDE;
+	virtual void remove_incoming_transition( const transition& _incoming_transition ) Y_OVERRIDE;
+	virtual const raw_transitions& get_outgoing_transitions() const Y_OVERRIDE;
+	virtual const raw_transitions& get_incoming_transitions() const Y_OVERRIDE;
+	virtual uri get_uri() const Y_OVERRIDE;
+	transition * search_transition( const event& _event ) const Y_OVERRIDE;
+	virtual region * LCA_region( const vertex& _target_vertex ) const Y_OVERRIDE;
+	virtual composite_state * LCA_composite_state( const vertex& _rhs ) const Y_OVERRIDE;
 
 
 private:
-	void add_ancestor_uri( uri& _uri ) const override;
+	void add_ancestor_uri( uri& _uri ) const Y_OVERRIDE;
 
 
 	raw_transitions outgoing_transitions_;

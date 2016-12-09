@@ -13,14 +13,10 @@
 #define TIMED_EVENT_CREATOR_14DCF0FF_0E5B_41DE_B213_C7CC1610A406
 
 
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-#include <memory>
-
 #include <set>
 
 #include "compatibility.hpp"
+#include "thread.hpp"
 #include "event_creation_request_time_comparer.hpp"
 #include "event_creation_request.hpp"
 
@@ -32,29 +28,27 @@ namespace sxy
 class async_state_machine;
 class event_creation_request;
 
-using event_queue = std::set< event_creation_request, event_creation_request_time_comparer >;
-//using event_queue = std::set< event_creation_request, event_creation_request_time_comparer >;
+typedef std::set< event_creation_request, event_creation_request_time_comparer > event_queue;
 
 //!\class	timed_event_creator
 //!\brief Provides the possibility to create timed events. It uses the state machine passed into the constructor as
 //!target for the events.
-class timed_event_creator final
+class timed_event_creator Y_FINAL
 {
 public:
 	//!\brief Constructor of timed_event_creator.
 	//!\param _async_state_machine - state_machine the created events are sent to.
 	explicit timed_event_creator( async_state_machine& _async_state_machine );
-	~timed_event_creator() noexcept;
-	timed_event_creator( const timed_event_creator& ) = delete;
-	timed_event_creator& operator=( const timed_event_creator& ) = delete;
+	~timed_event_creator() Y_NOEXCEPT;
+	Y_NO_COPY(timed_event_creator)
 
 	//!\brief Creates an event creation request.
 	//!\param _time_till_event_is_fired The time point when the event should be fired.
 	//!\param _event The event that will be fired.
 	//!\return Handle of the new event creation request. The handle can be used for canceling the request.
 	//!\sa cancel()
-	event_creation_request::handle_type create_event_creation_request(
-		const std::chrono::time_point< std::chrono::system_clock >& _time_till_event_is_fired,	
+	handle_type create_event_creation_request( 
+		const sxy::time_point< sxy::system_clock >& _time_till_event_is_fired,	
 		const event_sptr _event );
 
 	//!\brief Creates an event creation request.
@@ -62,14 +56,14 @@ public:
 	//!\param _event The event that will be fired.
 	//!\return Handle of the new event creation request. The handle can be used for canceling the request.
 	//!\sa cancel()
-	event_creation_request::handle_type create_event_creation_request( const std::chrono::milliseconds& _time,	const event_sptr& _event );
+	handle_type create_event_creation_request( const sxy::milliseconds& _time,	const event_sptr& _event );
 
 	//!\brief Cancels the event creation request with the given handle if the event is still in the queue of the event
 	//!creator.
 	//!\param	_handle const handle_type Handle of the event creation request that should be canceled.
 	//!\return true if the event was canceled or false if the event could not be canceled.
 	//!\sa create()
-	bool cancel( const event_creation_request::handle_type _handle );
+	bool cancel( const handle_type _handle );
 
 	//!\brief Starts the event creator. This has to be called before creating timed events.
 	//!\return void
@@ -84,19 +78,24 @@ public:
 
 
 private:
-	event_creation_request::handle_type generate_handle();
-	bool check_if_handle_exists( const event_creation_request::handle_type _handle ) const;
+	// cppcheck-suppress unusedPrivateFunction
+	handle_type generate_handle();
+	bool check_if_handle_exists( const handle_type _handle ) const;
 	void generate_event();
-	event_queue::const_iterator find_element_by_handle( const event_creation_request::handle_type _handle ) const;
-
+	event_queue::const_iterator find_element_by_handle( const handle_type _handle ) const;
+	static bool compare_handles( const handle_type _handle, const event_creation_request& _event_creation_request );
+	bool check_wait_condition() const;
+	
 	async_state_machine& state_machine_;
 	event_queue event_creation_requests_;
-	std::unique_ptr< std::thread > worker_;
-	std::mutex mutex_;
-	std::condition_variable condition_variable_;
+	Y_UNIQUE_PTR< sxy::thread > worker_;
+	sxy::mutex mutex_;
+	sxy::condition_variable condition_variable_;
 	bool run_;
 
-	event_creation_request::handle_type maximum_handle_;
+	handle_type maximum_handle_;
+
+
 };
 
 

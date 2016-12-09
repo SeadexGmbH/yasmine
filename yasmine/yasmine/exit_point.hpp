@@ -26,10 +26,19 @@ class exit_point:
 	public virtual state_pseudostate
 {
 public:
-	exit_point() = default;
-	virtual ~exit_point() noexcept override = default;
-	exit_point( const exit_point& ) = delete;
-	exit_point& operator=( const exit_point& ) = delete;
+	exit_point()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~exit_point() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(exit_point)
 };
 
 

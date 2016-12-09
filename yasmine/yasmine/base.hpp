@@ -39,7 +39,9 @@
 #define Y_ASSERTED( _x ) static_cast< void >( _x );
 
 
-#define Y_UNUSED_PARAMETER( _x ) [ &_x ] {} ()
+//#define Y_UNUSED_PARAMETER( _x ) [ &_x ] {} ()
+#define Y_UNUSED_PARAMETER( _x ) static_cast<void>( _x )
+
 
 
 #include <cassert>

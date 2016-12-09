@@ -37,6 +37,12 @@ region_pseudostate_impl::region_pseudostate_impl( const std::string& _name )
 	ancestors_as_regions_.reserve( ANCESTORS_VECTOR_SIZE );	
 #endif	
 }
+
+
+region_pseudostate_impl::~region_pseudostate_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
 			
 
 const state_machine_element* region_pseudostate_impl::get_parent() const
@@ -63,7 +69,7 @@ raw_composite_states region_pseudostate_impl::get_ancestors( composite_state* co
 #ifdef Y_OPTIMIZE_4_SPEED
 	if( ancestors_.empty() )
 	{
-		collect_ancestors( ancestors_, nullptr );
+		collect_ancestors( ancestors_, Y_NULLPTR );
 	}
 
 	if( !_final_ancestor )
@@ -72,7 +78,7 @@ raw_composite_states region_pseudostate_impl::get_ancestors( composite_state* co
 	}
 	else
 	{
-		const auto final_ancestor = std::find( ancestors_.begin(), ancestors_.end(), _final_ancestor );
+		const raw_composite_states::iterator final_ancestor = std::find( ancestors_.begin(), ancestors_.end(), _final_ancestor );
 
 		if( final_ancestor != ancestors_.end() )
 		{
@@ -113,16 +119,16 @@ void region_pseudostate_impl::collect_ancestors( raw_composite_states& _ancestor
 	composite_state* const _final_ancestor ) const
 {
 	Y_LOG( log_level::LL_SPAM, "Getting parent region for '%'.", get_name() );
-	const auto parent_region = get_parent_region();
+	region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
 		Y_LOG( log_level::LL_SPAM, "Parent region '%' found for '%'.", parent_region->get_name(), get_name() );
-		auto& parent_state = parent_region->get_parent_state();
+		composite_state& parent_state = parent_region->get_parent_state();
 		Y_LOG( log_level::LL_SPAM, "Found parent state '%' for region '%'.",
 					 parent_state.get_name(), parent_region->get_name() );
 		_ancestors.push_back( &parent_state );
 		Y_LOG( log_level::LL_SPAM, "Searching for ancestor(s) of '%'.", parent_state.get_name() );
-		const auto ancestors_of_parent_state = parent_state.get_ancestors( _final_ancestor );
+		const raw_composite_states& ancestors_of_parent_state = parent_state.get_ancestors( _final_ancestor );
 		Y_LOG( log_level::LL_SPAM, "Found % ancestor(s) of '%'.", ancestors_of_parent_state.size(),
 					 parent_state.get_name() );
 		_ancestors.insert( _ancestors.end(), ancestors_of_parent_state.begin(), ancestors_of_parent_state.end() );
@@ -132,13 +138,13 @@ void region_pseudostate_impl::collect_ancestors( raw_composite_states& _ancestor
 
 void region_pseudostate_impl::collect_ancestors_as_regions( raw_regions& _ancestor_regions ) const
 {
-	const auto parent_region = get_parent_region();
+	region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
 		_ancestor_regions.push_back( parent_region );
-		const auto parent_regions_of_parent_region = parent_region->get_parent_state().get_ancestors_as_regions();
+		const raw_regions& parent_regions_of_parent_region = parent_region->get_parent_state().get_ancestors_as_regions();
 		_ancestor_regions.insert( _ancestor_regions.end(), parent_regions_of_parent_region.begin(),
-															parent_regions_of_parent_region.end() );
+			parent_regions_of_parent_region.end() );
 	}
 }
 

@@ -13,6 +13,9 @@
 #define EXECUTION_STEP_VISITOR_7AEFC8D8_8C36_4529_AC9E_F3A2B20622B4
 
 
+#include "non_copyable.hpp"
+
+
 namespace sxy
 {
 
@@ -26,10 +29,19 @@ class execution_transition_step;
 class execution_step_visitor
 {
 public:
-	execution_step_visitor() = default;
-	virtual ~execution_step_visitor() noexcept = default;
-	execution_step_visitor( const execution_step_visitor& ) = delete;
-	execution_step_visitor& operator=( const execution_step_visitor& ) = delete;
+	execution_step_visitor() 
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~execution_step_visitor() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(execution_step_visitor)	
 	virtual void visit( const execution_state_enter_step& _execution_state_enter_step ) = 0;
 	virtual void visit( const execution_state_do_step& _execution_state_do_step ) = 0;
 	virtual void visit( const execution_state_exit_step& _execution_state_exit_step ) = 0;

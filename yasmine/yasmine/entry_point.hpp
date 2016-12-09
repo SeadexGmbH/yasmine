@@ -26,10 +26,19 @@ class entry_point:
 	public virtual state_pseudostate
 {
 public:
-	entry_point() = default;	
-	virtual ~entry_point() noexcept override = default;
-	entry_point( const entry_point& ) = delete;
-	entry_point& operator=( const entry_point& ) = delete;
+	entry_point()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~entry_point() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(entry_point)
 };
 
 

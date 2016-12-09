@@ -22,13 +22,15 @@ namespace sxy
 {
 
 
-class forty_two final
+class forty_two Y_FINAL
 {	
 public:
-	using state_machine_uptr = std::unique_ptr<state_machine>;
+
+	typedef Y_UNIQUE_PTR<state_machine> state_machine_uptr;
+
 		
-	explicit forty_two( const std::uint32_t _max_iterations );
-	~forty_two() noexcept = default;
+	explicit forty_two( const sxy::uint32_t _max_iterations );
+	~forty_two() Y_NOEXCEPT;
 	
 private:
 	state_machine_uptr build_state_machine();

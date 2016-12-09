@@ -9,40 +9,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BEHAVIOR_IMPL_687393A8_48A8_4AB2_BC6B_99017F70AEAC
-#define BEHAVIOR_IMPL_687393A8_48A8_4AB2_BC6B_99017F70AEAC
-
-
-#include "behavior.hpp"
+#ifndef FUNCTION_DOWNCAST_F8097BC3_DB64_4220_B2F7_7113B069EB7D
+#define FUNCTION_DOWNCAST_F8097BC3_DB64_4220_B2F7_7113B069EB7D
 
 
 namespace sxy
 {
 
-
-class event;
-
-
-class behavior_impl final:
-	public virtual behavior
-{
-public:
-	explicit behavior_impl( const behavior_function& _function );
-	virtual ~behavior_impl() noexcept override;
-	behavior_impl( const behavior_impl& ) = delete;
-	behavior_impl& operator=( const behavior_impl& ) = delete;
-	virtual void operator()( const event& _event ) const override;
-
-	//!\brief Creates a behavior with the given function that implements the behavior.
-	//!\param _function Function that implements the behavior.
-	//!\return A unique pointer to the created behavior.
-	static behavior_uptr create_behavior( const behavior_function& _function );
-
-
-private:
-	behavior_function function_;
-};
-
+	void use_function_downcast();
 
 }
 

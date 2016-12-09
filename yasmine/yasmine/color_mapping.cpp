@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 				 
+
 #ifndef Y_NO_LOGGING
 
 #include "color_mapping.hpp"
@@ -19,9 +20,11 @@
 namespace sxy
 {
 
+#ifndef Y_CPP03_BOOST
+
 
 color_mapping::color_mapping()
-	: color_ma_(
+	: color_map_(
 	{
 		{ log_level::LL_FATAL, color::C_RED }, { log_level::LL_ERROR, color::C_DARK_RED },
 		{ log_level::LL_ASSERT, color::C_DARK_RED }, { log_level::LL_WARN, color::C_YELLOW },
@@ -34,10 +37,42 @@ color_mapping::color_mapping()
 }
 
 
-color color_mapping::get_color( const sxy::log_level _log_level )
+#else
+
+
+	color_mapping::color_mapping()		
+	{
+		color_map_[ log_level::LL_FATAL ] = color::C_RED; 
+		color_map_[ log_level::LL_ERROR ] = color::C_DARK_RED;
+		color_map_[ log_level::LL_ASSERT ] = color::C_DARK_RED;
+		color_map_[ log_level::LL_WARN ] = color::C_YELLOW;
+		color_map_[ log_level::LL_INFO ] = color::C_DARK_YELLOW;
+		color_map_[ log_level::LL_DEBUG ] = color::C_DARK_GREEN;
+		color_map_[ log_level::LL_TRACE ] = color::C_DARK_GREEN;
+		color_map_[ log_level::LL_SPAM ] = color::C_GREEN;
+		color_map_[ log_level::LL_PROTOCOL ] = color::C_BLUE;
+	}	
+
+
+#endif
+
+
+color_mapping::~color_mapping() Y_NOEXCEPT
 {
-	return( color_ma_[ _log_level ] );
+	// Nothing to do...
 }
+
+
+color color_mapping::get_color( const sxy::log_level _log_level ) const
+{
+	color color = color::C_WHITE;	
+	color_map::const_iterator search = color_map_.find( _log_level );
+	if (search != color_map_.end())
+	{
+		color = search->second;
+	}		
+	return( color );
+}	 
 
 
 }

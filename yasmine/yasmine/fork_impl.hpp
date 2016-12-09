@@ -21,19 +21,18 @@ namespace sxy
 {
 
 
-class fork_impl final:
+class fork_impl Y_FINAL:
 	public virtual fork, public region_pseudostate_impl
 {
 public:
 	explicit fork_impl( const std::string& _name );
-	virtual ~fork_impl() noexcept override = default;
-	fork_impl( const fork_impl& ) = delete;
-	fork_impl& operator=( const fork_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
-	virtual void add_incoming_transition( transition& _incoming_transition ) override;
+	virtual ~fork_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(fork_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void add_incoming_transition( transition& _incoming_transition ) Y_OVERRIDE;
 };
 
 

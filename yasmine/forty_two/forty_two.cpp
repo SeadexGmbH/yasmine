@@ -8,14 +8,19 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 #include "forty_two.hpp"
 
 #include <iostream>
 #include <iomanip>
 #include <ctime>
-#include <chrono>
-#include <thread>
 
+#ifdef Y_PROFILER
+	#include "conversion.hpp"
+#endif
+
+namespace sxy
+{
 
 Y_EVENT_WITH_ID( event_A, 1 );
 Y_EVENT_WITH_ID( event_B, 2 );
@@ -37,278 +42,254 @@ Y_EVENT_WITH_ID( event_Q, 17 );
 Y_EVENT_WITH_ID( event_R, 18 );
 Y_EVENT_WITH_ID( event_S, 19 );
 Y_EVENT_WITH_ID( event_T, 20 );
-					
-
-namespace sxy
-{
 
 
-forty_two::forty_two( const uint32_t _max_iterations )
-	: state_machine_( std::move( build_state_machine() ) ),
-		iterations_(0),
+forty_two::forty_two( const sxy::uint32_t _max_iterations )
+	: state_machine_( build_state_machine() ),
+		iterations_( 0 ),
 		max_iterations_( _max_iterations )
 {
 	Y_ASSERT( check_state_machine(), "State machine has defects!" );
 	run();
 }
-										 
+
+
+forty_two::~forty_two() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
 
 forty_two::state_machine_uptr forty_two::build_state_machine()
 {
-	auto l_state_machine = std::make_unique<state_machine>( "forty two state machine" );
-	auto& root_state = l_state_machine->get_root_state();
-	auto& main_region = root_state.add_region( "main region" );
-	auto& i1 = main_region.add_initial_pseudostate( "initial pseudostate 1" );
-
-	auto& s1 = main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( increment_iterations ) );
-	auto& s2 = main_region.add_simple_state( "s2" );
-	auto& s3 = main_region.add_composite_state( "s3" );
-	auto& r3_1 = s3.add_region( "s3_r1" );
-	auto& r3_2 = s3.add_region( "s3_r2" );
-	auto& r3_3 = s3.add_region( "s3_r3" );
-		
-	auto& i2 = r3_1.add_initial_pseudostate( "initial pseudostate 2" );
-	auto& s3_1_1 = r3_1.add_simple_state( "s3_r1_s1" );
-	auto& final1 = r3_1.add_final_state( "final state 1" );
-
-	auto& i3 = r3_2.add_initial_pseudostate( "initial pseudostate 3" );
-	auto& s3_2_1 = r3_2.add_composite_state( "s3_r2_s1" );
-	auto& r3_2_1_1 = s3_2_1.add_region( "s3_r2_s1_r1" );
-	auto& i4 = r3_2_1_1.add_initial_pseudostate( "initial pseudostate 4" );
-	auto& s3_2_1_1_1 = r3_2_1_1.add_composite_state( "s3_r2_s1_r1_s1" );
-	auto& r3_2_1_1_1_1 = s3_2_1_1_1.add_region( "s3_r2_s1_r1_s1_r1" );
-	auto& i5 = r3_2_1_1_1_1.add_initial_pseudostate( "initial pseudostate 5" );
-	auto& s3_2_1_1_1_1_1 = r3_2_1_1_1_1.add_simple_state( "s3_r2_s1_r1_s1_r1_s1" );	
-	auto& final2 = r3_2.add_final_state( "final state 2" );	
-	
-	auto& i6 = r3_3.add_initial_pseudostate( "initial pseudostate 6" );
-	auto& s3_3_1 = r3_3.add_simple_state( "s3_r3_s1" );
-	auto& final3 = r3_3.add_final_state( "final state 3" );
-
-	auto& s4 = main_region.add_simple_state( "s4" );
-
-	auto& s5 = main_region.add_composite_state( "s5" );	
-	auto& r5_1 = s5.add_region( "s5_r1" );
-	auto& s5_1_1 = r5_1.add_composite_state( "s5_r1_s1" );
-	auto& r5_1_1_1 = s5_1_1.add_region( "s5_r1_s1_r1" );
-	auto& s5_1_1_1_1 = r5_1_1_1.add_composite_state( "s5_r1_s1_r1_s1" );
-	auto& r5_1_1_1_1_1 = s5_1_1_1_1.add_region( "s5_r1_s1_r1_s1_r1" );
-	auto& s5_1_1_1_1_1_1 = r5_1_1_1_1_1.add_simple_state( "s5_r1_s1_r1_s1_r1_s1" );
-	auto& s5_1_1_1_1_1_2 = r5_1_1_1_1_1.add_simple_state( "s5_r1_s1_r1_s1_r1_s2" );
-	
-	auto& exit1 = s5_1_1_1_1.add_exit_point( "exit1" );
-	auto& exit2 = s5.add_exit_point( "exit2" );
-	
-	auto& s6 = main_region.add_simple_state( "s6" );
-
-	auto& s7 = main_region.add_composite_state( "s7" );
-	auto& r7_1 = s7.add_region( "s7_r1" );
-	auto& s7_1_1 = r7_1.add_composite_state( "s7_r1_s1" );
-	auto& r7_1_1_1 = s7_1_1.add_region( "s7_r1_s1_r1" );
-	auto& s7_1_1_1_1 = r7_1_1_1.add_composite_state( "s7_r1_s1_r1_s1" );
-	auto& r7_1_1_1_1_1 = s7_1_1_1_1.add_region( "s7_r1_s1_r1_s1_r1" );
-	auto& s7_1_1_1_1_1_1 = r7_1_1_1_1_1.add_composite_state( "s7_r1_s1_r1_s1_r1_s1" );
-	auto& r7_1_1_1_1_1_1_1 = s7_1_1_1_1_1_1.add_region( "s7_r1_s1_r1_s1_r1_s1_r1" );
-	auto& s7_1_1_1_1_1_1_1_1 = r7_1_1_1_1_1_1_1.add_simple_state( "s7_r1_s1_r1_s1_r1_s1_r1_s1" );
-
-	auto& entry1 = s7_1_1_1_1.add_entry_point( "entry1" );
-	auto& entry2 = s7.add_entry_point( "entry2" );
-	
-	auto& s8 = main_region.add_simple_state( "s8" );
-	auto& s9 = main_region.add_simple_state( "s9" );
-
-	auto& s10 = main_region.add_composite_state( "s10" );
-	auto& r10_1 = s10.add_region( "s10_r1" );
-	auto& i7 = r10_1.add_initial_pseudostate( "initial pseudostate 7" );
-	auto& s10_1_1 = r10_1.add_composite_state( "s10_r1_s1" );
-	auto& r10_1_1_1 = s10_1_1.add_region( "s10_r1_s1_r1" );
-	auto& i8 = r10_1_1_1.add_initial_pseudostate( "initial pseudostate 8" );
-	auto& s10_1_1_1_1 = r10_1_1_1.add_simple_state( "s10_r1_s1_r1_s1" );
-	auto& s10_1_1_1_2 = r10_1_1_1.add_composite_state( "s10_r1_s1_r1_s2" );
-	auto& r10_1_1_1_2_1 = s10_1_1_1_2.add_region( "s10_r1_s1_r1_s2_r1" );
-	auto& i9 = r10_1_1_1_2_1.add_initial_pseudostate( "initial pseudostate 9" );
-	auto& s10_1_1_1_2_1_1 = r10_1_1_1_2_1.add_simple_state( "r10_r1_s1_r1_s2_r1_s1" );	
-	auto& s10_1_2 = r10_1.add_simple_state( "s10_r1_s2" );
-	auto& s10_1_3 = r10_1.add_simple_state( "s10_r1_s3" );
-	auto& shallow_history1 = s10.add_shallow_history( "shallow history 1" );
-
-	auto& s11 = main_region.add_simple_state( "s11" );
-	auto& s12 = main_region.add_simple_state( "s12" );
-
-	auto& s13 = main_region.add_composite_state( "s13" );
-	auto& r13_1 = s13.add_region( "s13_r1" );
-	auto& i10 = r13_1.add_initial_pseudostate( "initial pseudostate 10" );
-	auto& s13_1_1 = r13_1.add_composite_state( "s13_r1_s1" );
-	auto& r13_1_1_1 = s13_1_1.add_region( "s13_r1_s1_r1" );
-	auto& i11 = r13_1_1_1.add_initial_pseudostate( "initial pseudostate 11" );
-	auto& s13_1_1_1_1 = r13_1_1_1.add_simple_state( "s13_r1_s1_r1_s1" );
-	auto& s13_1_1_1_2 = r13_1_1_1.add_composite_state( "s13_r1_s1_r1_s2" );
-	auto& r13_1_1_1_2_1 = s13_1_1_1_2.add_region( "s13_r1_s1_r1_s2_r1" );
-	auto& i12 = r13_1_1_1_2_1.add_initial_pseudostate( "initial pseudostate 12" );
-	auto& s13_1_1_1_2_1_1 = r13_1_1_1_2_1.add_simple_state( "r13_r1_s1_r1_s2_r1_s1" );
-	auto& s13_1_2 = r13_1.add_simple_state( "s13_r1_s2" );
-	auto& s13_1_3 = r13_1.add_simple_state( "s13_r1_s3" );
-	auto& deep_history1 = s13.add_shallow_history( "deep history 1" );
-
-	auto& s14 = main_region.add_simple_state( "s14" );
-	auto& s15 = main_region.add_simple_state( "s15" );
-
-	auto& fork1 = main_region.add_fork( "fork 1" );
-
-	auto& s16 = main_region.add_composite_state( "s16" );
-	auto& r16_1 = s16.add_region( "s16_r1" );
-	auto& r16_2 = s16.add_region( "s16_r2" );
-	auto& r16_3 = s16.add_region( "s16_r3" );
-	auto& r16_4 = s16.add_region( "s16_r4" );
-	auto& i13 = r16_1.add_initial_pseudostate( "initial pseudostate 13" );
-	auto& s16_1_1 = r16_1.add_simple_state( "s16_r1_s1" );
-	auto& s16_1_2 = r16_1.add_simple_state( "s16_r1_s2" );
-	auto& s16_1_3 = r16_1.add_simple_state( "s16_r1_s3" );
-	auto& s16_2_1 = r16_2.add_simple_state( "s16_r2_s1" );
-	auto& s16_2_2 = r16_2.add_simple_state( "s16_r2_s2" );
-	auto& s16_2_3 = r16_2.add_simple_state( "s16_r2_s3" );
-	auto& s16_3_1 = r16_3.add_simple_state( "s16_r3_s1" );
-	auto& s16_3_2 = r16_3.add_simple_state( "s16_r3_s2" );
-	auto& s16_4_1 = r16_4.add_simple_state( "s16_r4_s1" );
-	auto& s16_4_2 = r16_4.add_simple_state( "s16_r4_s2" );
-	auto& s16_4_3 = r16_4.add_simple_state( "s16_r4_s3" );
-
-	auto& s17 = main_region.add_simple_state( "s17" );
-
-	auto& join1 = main_region.add_join( "join 1" );
-
-	auto& s18 = main_region.add_simple_state( "s18" );
-
-	auto& choice1 = main_region.add_choice( "choice 1" );
-
-	auto& s19 = main_region.add_simple_state( "s19" );
-
-	auto& junction1 = main_region.add_junction( "junction 1" );
-
-	auto& s20 = main_region.add_simple_state( "s20" );
-	auto& s21 = main_region.add_simple_state( "s21" );
-	auto& s22 = main_region.add_simple_state( "s22" );
-		
-	sxy::event_ids deferred_events_ids = { event_S::get_event_id() };
-	auto& s23 = main_region.add_simple_state( "s23", deferred_events_ids );
-
-	auto& s24 = main_region.add_simple_state( "s24" );
-
-	auto& junction2 = main_region.add_junction( "junction 2" );
-	auto& terminate_pseudostate_1 = main_region.add_terminate_pseudostate( "terminate pseudostate 1" );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, i1, s1 );
+	Y_UNIQUE_PTR< state_machine > l_state_machine = Y_MAKE_UNIQUE< state_machine >( "forty two state machine" );
+	composite_state& root_state = l_state_machine->get_root_state();
+	region& main_region = root_state.add_region( "main region" );
+	initial_pseudostate& i1 = main_region.add_initial_pseudostate( "initial pseudostate 1" );
+#ifdef Y_CPP03_BOOST
+	simple_state& s1 = 
+		main_region.add_simple_state( "s1", Y_BEHAVIOUR_METHOD_NO_EVENT( forty_two, increment_iterations ) );
+#else
+	simple_state& s1 = main_region.add_simple_state( "s1", Y_BEHAVIOUR_METHOD_NO_EVENT( increment_iterations ) );
+#endif
+	simple_state& s2 = main_region.add_simple_state( "s2" );
+	composite_state& s3 = main_region.add_composite_state( "s3" );
+	region& r3_1 = s3.add_region( "s3_r1" );
+	region& r3_2 = s3.add_region( "s3_r2" );
+	region& r3_3 = s3.add_region( "s3_r3" );
+	initial_pseudostate& i2 = r3_1.add_initial_pseudostate( "initial pseudostate 2" );
+	simple_state& s3_1_1 = r3_1.add_simple_state( "s3_r1_s1" );
+	final_state& final1 = r3_1.add_final_state( "final state 1" );
+	initial_pseudostate& i3 = r3_2.add_initial_pseudostate( "initial pseudostate 3" );
+	composite_state& s3_2_1 = r3_2.add_composite_state( "s3_r2_s1" );
+	region& r3_2_1_1 = s3_2_1.add_region( "s3_r2_s1_r1" );
+	initial_pseudostate& i4 = r3_2_1_1.add_initial_pseudostate( "initial pseudostate 4" );
+	composite_state& s3_2_1_1_1 = r3_2_1_1.add_composite_state( "s3_r2_s1_r1_s1" );
+	region& r3_2_1_1_1_1 = s3_2_1_1_1.add_region( "s3_r2_s1_r1_s1_r1" );
+	initial_pseudostate& i5 = r3_2_1_1_1_1.add_initial_pseudostate( "initial pseudostate 5" );
+	simple_state& s3_2_1_1_1_1_1 = r3_2_1_1_1_1.add_simple_state( "s3_r2_s1_r1_s1_r1_s1" );
+	final_state& final2 = r3_2.add_final_state( "final state 2" );
+	initial_pseudostate& i6 = r3_3.add_initial_pseudostate( "initial pseudostate 6" );
+	simple_state& s3_3_1 = r3_3.add_simple_state( "s3_r3_s1" );
+	final_state& final3 = r3_3.add_final_state( "final state 3" );
+	simple_state& s4 = main_region.add_simple_state( "s4" );
+	composite_state& s5 = main_region.add_composite_state( "s5" );
+	region& r5_1 = s5.add_region( "s5_r1" );
+	composite_state& s5_1_1 = r5_1.add_composite_state( "s5_r1_s1" );
+	region& r5_1_1_1 = s5_1_1.add_region( "s5_r1_s1_r1" );
+	composite_state& s5_1_1_1_1 = r5_1_1_1.add_composite_state( "s5_r1_s1_r1_s1" );
+	region& r5_1_1_1_1_1 = s5_1_1_1_1.add_region( "s5_r1_s1_r1_s1_r1" );
+	simple_state& s5_1_1_1_1_1_1 = r5_1_1_1_1_1.add_simple_state( "s5_r1_s1_r1_s1_r1_s1" );
+	simple_state& s5_1_1_1_1_1_2 = r5_1_1_1_1_1.add_simple_state( "s5_r1_s1_r1_s1_r1_s2" );
+	exit_point& exit1 = s5_1_1_1_1.add_exit_point( "exit1" );
+	exit_point& exit2 = s5.add_exit_point( "exit2" );
+	simple_state& s6 = main_region.add_simple_state( "s6" );
+	composite_state& s7 = main_region.add_composite_state( "s7" );
+	region& r7_1 = s7.add_region( "s7_r1" );
+	composite_state& s7_1_1 = r7_1.add_composite_state( "s7_r1_s1" );
+	region& r7_1_1_1 = s7_1_1.add_region( "s7_r1_s1_r1" );
+	composite_state& s7_1_1_1_1 = r7_1_1_1.add_composite_state( "s7_r1_s1_r1_s1" );
+	region& r7_1_1_1_1_1 = s7_1_1_1_1.add_region( "s7_r1_s1_r1_s1_r1" );
+	composite_state& s7_1_1_1_1_1_1 = r7_1_1_1_1_1.add_composite_state( "s7_r1_s1_r1_s1_r1_s1" );
+	region& r7_1_1_1_1_1_1_1 = s7_1_1_1_1_1_1.add_region( "s7_r1_s1_r1_s1_r1_s1_r1" );
+	simple_state& s7_1_1_1_1_1_1_1_1 = r7_1_1_1_1_1_1_1.add_simple_state( "s7_r1_s1_r1_s1_r1_s1_r1_s1" );
+	entry_point& entry1 = s7_1_1_1_1.add_entry_point( "entry1" );
+	entry_point& entry2 = s7.add_entry_point( "entry2" );
+	simple_state& s8 = main_region.add_simple_state( "s8" );
+	simple_state& s9 = main_region.add_simple_state( "s9" );
+	composite_state& s10 = main_region.add_composite_state( "s10" );
+	region& r10_1 = s10.add_region( "s10_r1" );
+	initial_pseudostate& i7 = r10_1.add_initial_pseudostate( "initial pseudostate 7" );
+	composite_state& s10_1_1 = r10_1.add_composite_state( "s10_r1_s1" );
+	region& r10_1_1_1 = s10_1_1.add_region( "s10_r1_s1_r1" );
+	initial_pseudostate& i8 = r10_1_1_1.add_initial_pseudostate( "initial pseudostate 8" );
+	simple_state& s10_1_1_1_1 = r10_1_1_1.add_simple_state( "s10_r1_s1_r1_s1" );
+	composite_state& s10_1_1_1_2 = r10_1_1_1.add_composite_state( "s10_r1_s1_r1_s2" );
+	region& r10_1_1_1_2_1 = s10_1_1_1_2.add_region( "s10_r1_s1_r1_s2_r1" );
+	initial_pseudostate& i9 = r10_1_1_1_2_1.add_initial_pseudostate( "initial pseudostate 9" );
+	simple_state& s10_1_1_1_2_1_1 = r10_1_1_1_2_1.add_simple_state( "r10_r1_s1_r1_s2_r1_s1" );
+	simple_state& s10_1_2 = r10_1.add_simple_state( "s10_r1_s2" );
+	simple_state& s10_1_3 = r10_1.add_simple_state( "s10_r1_s3" );
+	shallow_history& shallow_history1 = s10.add_shallow_history( "shallow history 1" );
+	simple_state& s11 = main_region.add_simple_state( "s11" );
+	simple_state& s12 = main_region.add_simple_state( "s12" );
+	composite_state& s13 = main_region.add_composite_state( "s13" );
+	region& r13_1 = s13.add_region( "s13_r1" );
+	initial_pseudostate& i10 = r13_1.add_initial_pseudostate( "initial pseudostate 10" );
+	composite_state& s13_1_1 = r13_1.add_composite_state( "s13_r1_s1" );
+	region& r13_1_1_1 = s13_1_1.add_region( "s13_r1_s1_r1" );
+	initial_pseudostate& i11 = r13_1_1_1.add_initial_pseudostate( "initial pseudostate 11" );
+	simple_state& s13_1_1_1_1 = r13_1_1_1.add_simple_state( "s13_r1_s1_r1_s1" );
+	composite_state& s13_1_1_1_2 = r13_1_1_1.add_composite_state( "s13_r1_s1_r1_s2" );
+	region& r13_1_1_1_2_1 = s13_1_1_1_2.add_region( "s13_r1_s1_r1_s2_r1" );
+	initial_pseudostate& i12 = r13_1_1_1_2_1.add_initial_pseudostate( "initial pseudostate 12" );
+	simple_state& s13_1_1_1_2_1_1 = r13_1_1_1_2_1.add_simple_state( "r13_r1_s1_r1_s2_r1_s1" );
+	simple_state& s13_1_2 = r13_1.add_simple_state( "s13_r1_s2" );
+	simple_state& s13_1_3 = r13_1.add_simple_state( "s13_r1_s3" );
+	shallow_history& deep_history1 = s13.add_shallow_history( "deep history 1" );
+	simple_state& s14 = main_region.add_simple_state( "s14" );
+	simple_state& s15 = main_region.add_simple_state( "s15" );
+	fork& fork1 = main_region.add_fork( "fork 1" );
+	composite_state& s16 = main_region.add_composite_state( "s16" );
+	region& r16_1 = s16.add_region( "s16_r1" );
+	region& r16_2 = s16.add_region( "s16_r2" );
+	region& r16_3 = s16.add_region( "s16_r3" );
+	region& r16_4 = s16.add_region( "s16_r4" );
+	initial_pseudostate& i13 = r16_1.add_initial_pseudostate( "initial pseudostate 13" );
+	simple_state& s16_1_1 = r16_1.add_simple_state( "s16_r1_s1" );
+	simple_state& s16_1_2 = r16_1.add_simple_state( "s16_r1_s2" );
+	simple_state& s16_1_3 = r16_1.add_simple_state( "s16_r1_s3" );
+	simple_state& s16_2_1 = r16_2.add_simple_state( "s16_r2_s1" );
+	simple_state& s16_2_2 = r16_2.add_simple_state( "s16_r2_s2" );
+	simple_state& s16_2_3 = r16_2.add_simple_state( "s16_r2_s3" );
+	simple_state& s16_3_1 = r16_3.add_simple_state( "s16_r3_s1" );
+	simple_state& s16_3_2 = r16_3.add_simple_state( "s16_r3_s2" );
+	simple_state& s16_4_1 = r16_4.add_simple_state( "s16_r4_s1" );
+	simple_state& s16_4_2 = r16_4.add_simple_state( "s16_r4_s2" );
+	simple_state& s16_4_3 = r16_4.add_simple_state( "s16_r4_s3" );
+	simple_state& s17 = main_region.add_simple_state( "s17" );
+	join& join1 = main_region.add_join( "join 1" );
+	simple_state& s18 = main_region.add_simple_state( "s18" );
+	choice& choice1 = main_region.add_choice( "choice 1" );
+	simple_state& s19 = main_region.add_simple_state( "s19" );
+	junction& junction1 = main_region.add_junction( "junction 1" );
+	simple_state& s20 = main_region.add_simple_state( "s20" );
+	simple_state& s21 = main_region.add_simple_state( "s21" );
+	simple_state& s22 = main_region.add_simple_state( "s22" );
+	sxy::event_ids deferred_events_ids;
+	deferred_events_ids.push_back( event_S::get_event_id() );
+	simple_state& s23 = main_region.add_simple_state( "s23", deferred_events_ids );
+	simple_state& s24 = main_region.add_simple_state( "s24" );
+	junction& junction2 = main_region.add_junction( "junction 2" );
+	terminate_pseudostate& terminate_pseudostate_1 = main_region.add_terminate_pseudostate( "terminate pseudostate 1" );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i1, s1 );
 	l_state_machine->add_transition( event_B::get_event_id(), s1, s2 );
 	l_state_machine->add_transition( event_A::get_event_id(), s1, s3 );
-	
 	l_state_machine->add_transition( event_C::get_event_id(), s3, s2 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i2, s3_1_1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s3_1_1, final1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i3, s3_2_1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i4, s3_2_1_1_1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i5, s3_2_1_1_1_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i2, s3_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s3_1_1, final1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i3, s3_2_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i4, s3_2_1_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i5, s3_2_1_1_1_1_1 );
 	l_state_machine->add_transition( event_D::get_event_id(), s3_2_1_1_1_1_1, final2 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i6, s3_3_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i6, s3_3_1 );
 	l_state_machine->add_transition( event_C::get_event_id(), s3_3_1, final3 );
-
 	l_state_machine->add_transition( event_A::get_event_id(), s3, s4 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, s3, s5_1_1_1_1_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s3, s5_1_1_1_1_1_1 );
 	l_state_machine->add_transition( event_A::get_event_id(), s5_1_1_1_1_1_1, s5_1_1_1_1_1_2 );
 	l_state_machine->add_transition( event_E::get_event_id(), s5_1_1_1_1_1_1, exit1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, exit1, exit2 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, exit1, exit2 );
 	l_state_machine->add_transition( event_E::get_event_id(), s5, s6 );
-	l_state_machine->add_transition( COMPLETION_EVENT, exit2, entry2 );
-	l_state_machine->add_transition( COMPLETION_EVENT, entry2, entry1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, entry1, s7_1_1_1_1_1_1_1_1 );
-
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, exit2, entry2 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, entry2, entry1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, entry1, s7_1_1_1_1_1_1_1_1 );
 	l_state_machine->add_transition( event_F::get_event_id(), s7, s8 );
 	l_state_machine->add_transition( event_A::get_event_id(), s7, s9 );
-
 	l_state_machine->add_transition( event_F::get_event_id(), s7_1_1_1_1_1_1_1_1, s10 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, i7, s10_1_2 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i7, s10_1_2 );
 	l_state_machine->add_transition( event_A::get_event_id(), s10_1_2, s10_1_3 );
 	l_state_machine->add_transition( event_G::get_event_id(), s10_1_2, s10_1_1 );
 	l_state_machine->add_transition( event_A::get_event_id(), s10_1_1, s10_1_3 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, i8, s10_1_1_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i8, s10_1_1_1_1 );
 	l_state_machine->add_transition( event_H::get_event_id(), s10_1_1_1_1, s10_1_1_1_2 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i9, s10_1_1_1_2_1_1 );
-
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i9, s10_1_1_1_2_1_1 );
 	l_state_machine->add_transition( event_I::get_event_id(), s10_1_1, s11 );
 	l_state_machine->add_transition( event_A::get_event_id(), s11, s12 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s11, shallow_history1 );
-
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s11, shallow_history1 );
 	l_state_machine->add_transition( event_K::get_event_id(), s10, s13 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, i10, s13_1_2 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i10, s13_1_2 );
 	l_state_machine->add_transition( event_A::get_event_id(), s13_1_2, s13_1_3 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s13_1_2, s13_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s13_1_2, s13_1_1 );
 	l_state_machine->add_transition( event_A::get_event_id(), s13_1_1, s13_1_3 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, i11, s13_1_1_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i11, s13_1_1_1_1 );
 	l_state_machine->add_transition( event_L::get_event_id(), s13_1_1_1_1, s13_1_1_1_2 );
-	l_state_machine->add_transition( COMPLETION_EVENT, i12, s13_1_1_1_2_1_1 );
-
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i12, s13_1_1_1_2_1_1 );
 	l_state_machine->add_transition( event_M::get_event_id(), s13_1_1, s14 );
 	l_state_machine->add_transition( event_A::get_event_id(), s14, s15 );
 	l_state_machine->add_transition( event_N::get_event_id(), s14, deep_history1 );
-
 	l_state_machine->add_transition( event_O::get_event_id(), s13, fork1 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, fork1, s16_2_1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, fork1, s16_3_1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, fork1, s16_4_1 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, i13, s16_1_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, fork1, s16_2_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, fork1, s16_3_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, fork1, s16_4_1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, i13, s16_1_1 );
 	l_state_machine->add_transition( event_A::get_event_id(), s16_1_1, s16_1_2 );
 	l_state_machine->add_transition( event_Q::get_event_id(), s16_1_1, s16_1_3 );
-
 	l_state_machine->add_transition( event_A::get_event_id(), s16_2_1, s16_2_2 );
 	l_state_machine->add_transition( event_Q::get_event_id(), s16_2_1, s16_2_3 );
-
 	l_state_machine->add_transition( event_Q::get_event_id(), s16_3_1, s16_3_2 );
-
 	l_state_machine->add_transition( event_A::get_event_id(), s16_4_1, s16_4_2 );
 	l_state_machine->add_transition( event_Q::get_event_id(), s16_4_1, s16_4_3 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, s16_1_3, join1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s16_2_3, join1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s16_3_2, join1 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s16_4_3, join1 );
-
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s16_1_3, join1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s16_2_3, join1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s16_3_2, join1 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s16_4_3, join1 );
 	l_state_machine->add_transition( event_B::get_event_id(), s16, s17 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, join1, s18 );
-
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, join1, s18 );
 	l_state_machine->add_transition( event_R::get_event_id(), s18, choice1 );
 
-	l_state_machine->add_transition( COMPLETION_EVENT, choice1, s19, Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_2 ) );
-	l_state_machine->add_transition( COMPLETION_EVENT, choice1, junction1 );
+#ifdef Y_CPP03_BOOST
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, choice1, s19,
+		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_2 ) );
+#else
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, choice1, s19,
+		Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_2 ) );
+#endif
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, choice1, junction1 );
 
-	l_state_machine->add_transition( COMPLETION_EVENT, junction1, s20, Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_3 ) );
-	l_state_machine->add_transition( COMPLETION_EVENT, junction1, s21, Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_5 ) );
-	l_state_machine->add_transition( COMPLETION_EVENT, junction1, s22 );
-
-	l_state_machine->add_transition( COMPLETION_EVENT, s19, s23 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s20, s23 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s21, s23 );
-	l_state_machine->add_transition( COMPLETION_EVENT, s22, s23 );
-
+#ifdef Y_CPP03_BOOST
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction1, s20,
+		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_3 ) );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction1, s21,
+		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_5 ) );
+#else
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction1, s20,
+		Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_3 ) );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction1, s21,
+		Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_5 ) );
+#endif
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction1, s22 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s19, s23 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s20, s23 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s21, s23 );
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, s22, s23 );
 	l_state_machine->add_transition( event_T::get_event_id(), s23, s24 );
 	l_state_machine->add_transition( event_S::get_event_id(), s24, junction2 );
 
-	l_state_machine->add_transition( COMPLETION_EVENT, junction2, terminate_pseudostate_1, Y_GUARD_METHOD_NO_EVENT( check_iterations_exceded ) );
-	l_state_machine->add_transition( COMPLETION_EVENT, junction2, s1 );
-
-	return( std::move( l_state_machine ) );
+#ifdef Y_CPP03_BOOST
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction2, terminate_pseudostate_1,
+		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_exceded ) );
+#else
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction2, terminate_pseudostate_1,
+		Y_GUARD_METHOD_NO_EVENT( check_iterations_exceded ) );
+#endif
+	l_state_machine->add_transition( COMPLETION_EVENT_ID, junction2, s1 );
+	return( sxy::move( l_state_machine ) );
 }
 
 
 bool forty_two::check_state_machine() const
 {
-	auto state_machine_is_ok = true;
+	bool state_machine_is_ok = true;
 	sxy::state_machine_defects defects;
 	state_machine_->check( defects );
 	if( !defects.empty() )
@@ -329,44 +310,45 @@ void forty_two::increment_iterations()
 
 bool forty_two::check_iterations_divided_by_2() const
 {
-	return ( iterations_ % 2 == 0 );
+	return( iterations_ % 2 == 0 );
 }
 
 
-bool forty_two::check_iterations_divided_by_3()	const
+bool forty_two::check_iterations_divided_by_3() const
 {
-	return ( iterations_ % 3 == 0);
+	return( iterations_ % 3 == 0 );
 }
 
 
-bool forty_two::check_iterations_divided_by_5()	const
+bool forty_two::check_iterations_divided_by_5() const
 {
-	return ( iterations_ % 5 == 0);
+	return( iterations_ % 5 == 0 );
 }
 
 
 bool forty_two::check_iterations_exceded() const
 {
-	return ( iterations_ > max_iterations_ );
+	return( iterations_ > max_iterations_ );
 }
 
 
 void forty_two::run()
-{		
+{
 #ifndef Y_NO_LOGGING
-	auto& log_manager = sxy::log_manager::get_instance();
+	sxy::log_manager_template<sxy::std_timestamp_policy>& log_manager = sxy::log_manager::get_instance();
 	log_manager.set_log_level( sxy::log_level::LL_DEBUG );
-	log_manager.add_logger( std::make_unique< sxy::cout_logger >() );	
+	log_manager.add_logger( Y_MAKE_UNIQUE< sxy::cout_logger >() );
 	log_manager.start();
 #endif
 
-	const auto start = std::chrono::steady_clock::now();	
+	const sxy::time_point<sxy::steady_clock> start = sxy::steady_clock::now();
+	
 
-	auto starting_success = state_machine_->start_state_machine();	
+	bool starting_success = state_machine_->start_state_machine();
 	Y_ASSERT( starting_success, "State machine was not started!" );
 
 	for( uint32_t iteration = 0; iteration < max_iterations_; ++iteration )
-	{	 
+	{
 		state_machine_->fire_event( event_A::create() );
 		state_machine_->fire_event( event_B::create() );
 		state_machine_->fire_event( event_C::create() );
@@ -389,23 +371,25 @@ void forty_two::run()
 		state_machine_->fire_event( event_T::create() );
 	}
 
-	const auto stop = std::chrono::steady_clock::now();
-	
-#ifdef Y_PROFILER		
-	Y_LOG( log_level::LL_INFO, "% events were fired.", std::to_string( state_machine_->get_number_of_processed_events() ) );
+	const sxy::time_point<sxy::steady_clock> stop = sxy::steady_clock::now();
+
+#ifdef Y_PROFILER
+	Y_LOG( log_level::LL_INFO, "% events were fired.",
+		sxy::to_string( state_machine_->get_number_of_processed_events() ) );
 #endif
-	
+
 	state_machine_->stop_state_machine();
 
-	Y_LOG( log_level::LL_INFO, "Run time: % seconds", std::chrono::duration_cast< std::chrono::seconds >( stop - start ).count() );
+	Y_LOG( log_level::LL_INFO, "Run time: % seconds", 
+		sxy::duration_cast< sxy::seconds >(	stop - start ).count() );
 
 #ifndef Y_NO_LOGGING
 	log_manager.stop();
 	log_manager.join();
 #endif
-	
+
 	std::cin.get();
-}	 
+}
 
 
 }

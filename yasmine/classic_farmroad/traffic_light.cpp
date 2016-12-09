@@ -33,7 +33,7 @@ Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED, 4 );
 }
 
 
-traffic_light::traffic_light( const std::string& _name, const std::string& _ascii_prefix )
+traffic_light::traffic_light(	const std::string& _name,	const std::string& _ascii_prefix )
 	: traffic_light_state_machine_( _name ),
 		name_( _name ),
 		ascii_prefix_( _ascii_prefix )
@@ -42,7 +42,12 @@ traffic_light::traffic_light( const std::string& _name, const std::string& _asci
 }
 
 
-traffic_light::~traffic_light() = default;
+traffic_light::~traffic_light() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 void traffic_light::start()
 {
 	traffic_light_state_machine_.start_state_machine();
@@ -105,19 +110,33 @@ void traffic_light::on_traffic_light_yellow() const
 
 void traffic_light::build_traffic_light_state_machine()
 {
-	auto& root = traffic_light_state_machine_.get_root_state();
-	auto& main_region = root.add_region( "main_region" );
-	auto& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
+	composite_state& root = traffic_light_state_machine_.get_root_state();
+	region& main_region = root.add_region( "main_region" );
+	initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 
 	// states
-	auto& red_state = main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red ) );
-	auto& red_yellow_state = main_region.add_simple_state( "Red-Yellow", 
-		Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red_yellow ) );
-	auto& green_state = main_region.add_simple_state( "Green", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_green ) );
-	auto& yellow_state = main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_yellow ) );
+#ifdef Y_CPP03_BOOST
+	simple_state& red_state =
+		main_region.add_simple_state( "Red", Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red ) );
+	simple_state& red_yellow_state =
+		main_region.add_simple_state( "Red-Yellow",
+			Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red_yellow ) );
+	simple_state& green_state =
+		main_region.add_simple_state( "Green", Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_green ) );
+	simple_state& yellow_state =
+		main_region.add_simple_state( "Yellow", Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_yellow ) );
+#else
+	simple_state& red_state = main_region.add_simple_state( "Red", Y_BEHAVIOUR_METHOD_NO_EVENT( on_traffic_light_red ) );
+	simple_state& red_yellow_state =
+		main_region.add_simple_state( "Red-Yellow", Y_BEHAVIOUR_METHOD_NO_EVENT( on_traffic_light_red_yellow ) );
+	simple_state& green_state = main_region.add_simple_state( "Green", 
+		Y_BEHAVIOUR_METHOD_NO_EVENT(	on_traffic_light_green ) );
+	simple_state& yellow_state =
+		main_region.add_simple_state( "Yellow", Y_BEHAVIOUR_METHOD_NO_EVENT( on_traffic_light_yellow ) );
+#endif
 
 	// transitions
-	traffic_light_state_machine_.add_transition( COMPLETION_EVENT, initial_pseudostate, red_state );
+	traffic_light_state_machine_.add_transition( COMPLETION_EVENT_ID, initial_pseudostate, red_state );
 	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_RED_YELLOW::get_event_id(), red_state,
 		red_yellow_state );
 	traffic_light_state_machine_.add_transition( EVENT_SWITCH_TO_GREEN::get_event_id(), red_yellow_state, green_state );

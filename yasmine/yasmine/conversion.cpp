@@ -11,23 +11,39 @@
 
 #include "conversion.hpp"
 
-#include <string>
 #include <stdexcept>
+
+#ifndef Y_CPP03_BOOST
+	#include <string>
+#else
+	#include <sstream>
+#endif
 
 
 namespace sxy
 {
 
 
-bool string_to_int(
-	const char* const _int_as_string,
-	int& _result )
+bool string_to_int( const char* const _int_as_string, int& _result )
 {
-	auto success = false;
+	bool success = false;
 	try
 	{
+#ifndef Y_CPP03_BOOST
 		_result = std::stoi( std::string( _int_as_string ) );
 		success = true;
+#else
+		std::istringstream is( _int_as_string );
+		if (is >> _result)
+		{
+			success = true;
+		}
+		else
+		{
+			success = false;
+		}
+#endif
+		
 	}
 	catch ( const std::invalid_argument& )
 	{
@@ -38,6 +54,30 @@ bool string_to_int(
 		success = false;
 	}
 	return( success );
+}
+
+
+std::string to_string( sxy::uint32_t _value )
+{
+#ifndef Y_CPP03_BOOST
+	return( std::to_string( _value ) );
+#else
+	std::ostringstream ostr;
+	ostr << _value;
+	return( ostr.str() );
+#endif
+}
+
+
+std::string to_string( int _value )
+{
+#ifndef Y_CPP03_BOOST
+	return( std::to_string( _value ) );
+#else
+	std::ostringstream ostr;
+	ostr << _value;
+	return( ostr.str() );
+#endif
 }
 
 

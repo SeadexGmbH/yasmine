@@ -9,38 +9,52 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "make_unique.hpp"
-#include "behavior_impl.hpp"
-#include "event_impl.hpp"
+#ifndef CHRONO_2625645C_6611_46F7_AA2F_6F3B256839F3
+#define CHRONO_2625645C_6611_46F7_AA2F_6F3B256839F3
+
+
+#ifdef Y_CPP03_BOOST
+
+#include <boost/chrono.hpp>
+
+#else
+
+#include <chrono>
+
+#endif
 
 
 namespace sxy
 {
 
 
-behavior_impl::behavior_impl( const behavior_function& _function )
-	: function_( _function )
-{
-	// Nothing to do.
+#ifdef Y_CPP03_BOOST // c++03 compatibility
+
+	using boost::chrono::time_point;
+	using boost::chrono::system_clock;
+	using boost::chrono::steady_clock;
+	using boost::chrono::seconds;
+	using boost::chrono::milliseconds;
+	using boost::chrono::duration_cast;
+	using boost::chrono::time_point;
+
+
+#else // c++11 compatibility
+
+
+	using std::chrono::time_point;
+	using std::chrono::system_clock;
+	using std::chrono::steady_clock;
+	using std::chrono::milliseconds;
+	using std::chrono::seconds;
+	using std::chrono::duration_cast;
+	using std::chrono::time_point;
+
+
+#endif
+
+
 }
 
 
-behavior_impl::~behavior_impl() noexcept = default;
-
-
-void behavior_impl::operator()( const event& _event ) const
-{
-	if( function_ )
-	{
-		function_( _event );
-	}
-}
-
-
-behavior_uptr behavior_impl::create_behavior( const behavior_function& _function )
-{
-	return( sxy::make_unique< sxy::behavior_impl >( _function ) );
-}
-
-
-}
+#endif

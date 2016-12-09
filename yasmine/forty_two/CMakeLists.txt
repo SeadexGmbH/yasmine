@@ -20,8 +20,12 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
 	endif()
-	
-	set(extra_flags "${extra_flags} -std=c++14 -Wall -g")
+		
+	if("${CPP_VERSION}" STREQUAL "03")
+		set(extra_flags "${extra_flags} -std=c++03 -Wall -g -Wno-unknown-pragmas -D \"Y_CPP03_BOOST\"")
+	else()
+		set(extra_flags "${extra_flags} -std=c++14 -Wall -g")
+	endif()
 	
 	# yasmine's preprocessor definitions
 	set(Y_OPTIMIZE "SPEED" CACHE STRING "Sets the optimize type. Supported values: SPEED and SIZE. Default value is SPEED.")
@@ -146,14 +150,36 @@ endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
-
 add_executable(forty_two ${forty_two_SRC})
 include_directories("./../yasmine")
 
+#using boost
+if("${CPP_VERSION}" STREQUAL "03")
+	if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")		
+		link_directories("${Y_BOOST_LIB_PATH}")
+	endif()
+endif()
+
+
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	target_link_libraries (forty_two LINK_PUBLIC yasmine pthread)
+	if("${CPP_VERSION}" STREQUAL "03")
+		target_link_libraries (forty_two LINK_PUBLIC yasmine pthread boost_system boost_thread boost_chrono)
+	else()
+		target_link_libraries (forty_two LINK_PUBLIC yasmine pthread)
+	endif()
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	target_link_libraries (forty_two LINK_PUBLIC yasmine)
+endif()
+
+
+if("${CPP_VERSION}" STREQUAL "03")
+	if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+		SET(Boost_USE_STATIC_LIBS ON)		
+		SET(BOOST_ROOT "${Y_BOOST_LIB_INCLUDE}")		
+		SET(Boost_INCLUDE_DIRS "${Y_BOOST_LIB_INCLUDE}")
+		include_directories(${Boost_INCLUDE_DIRS})		
+		target_link_libraries(forty_two LINK_PUBLIC ${Boost_LIBRARIES})
+	endif()
 endif()
 
 install(TARGETS forty_two DESTINATION bin)

@@ -26,6 +26,12 @@ check_if_all_incoming_transitions_sources_are_active_visitor::check_if_all_incom
 }
 
 
+check_if_all_incoming_transitions_sources_are_active_visitor::~check_if_all_incoming_transitions_sources_are_active_visitor() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 void check_if_all_incoming_transitions_sources_are_active_visitor::visit( const composite_state& _composite_state )
 {
 	source_is_finished_ = _composite_state.is_active();

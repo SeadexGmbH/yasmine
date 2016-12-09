@@ -8,6 +8,7 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 #ifndef Y_NO_LOGGING
 
 #include "file_logger.hpp"
@@ -18,6 +19,7 @@
 
 #include "file_system.hpp"
 #include "globals.hpp"
+#include "conversion.hpp"
 
 
 namespace sxy
@@ -41,9 +43,15 @@ file_logger::file_logger( const size_t _max_file_size_in_bytes, const std::strin
 }
 
 
+file_logger::~file_logger() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 void file_logger::log( const log_message& _log_message )
 {
-	const auto log_level = log_level_to_string( _log_message.log_level_ );
+	const std::string log_level = log_level_to_string( _log_message.log_level_ );
 	std::stringstream log_message_stream;
 	log_message_stream << std::setw( LOG_LEVEL_BLOCK_WIDTH ) << std::setfill( ' ' ) << std::left << log_level <<
 		" " << _log_message.time_stamp_ << " [" << _log_message.file_ << "@" << _log_message.line_ <<
@@ -66,10 +74,14 @@ void file_logger::log_into_file( const std::string& _message ) const
 		open_mode_flag = std::ios::trunc;
 	}
 
+#ifndef Y_CPP03_BOOST
 	std::ofstream file( working_file_, open_mode_flag );
+#else
+	std::ofstream file( working_file_.c_str(), open_mode_flag );
+#endif
 	if( !file )
 	{
-		auto error_message = yprintf( "Failed to open file '%'.", working_file_ );
+		const std::string error_message = yprintf( "Failed to open file '%'.", working_file_ );
 		if( throw_on_error_ )
 		{
 			throw exception( error_message );
@@ -88,7 +100,7 @@ void file_logger::log_into_file( const std::string& _message ) const
 std::string file_logger::get_log_file_name_with_index( const unsigned _index ) const
 {
 	std::stringstream file_name_stream;
-	file_name_stream << log_files_directory_ << name_sufix_ << std::to_string( _index ) << "." << name_extension_;
+	file_name_stream << log_files_directory_ << name_sufix_ << sxy::to_string( _index ) << "." << name_extension_;
 	return( file_name_stream.str() );
 }
 
@@ -101,7 +113,7 @@ std::string file_logger::get_working_log_file_name() const
 
 void file_logger::rotate_if_necessary() const
 {
-	const auto file_size = get_file_size( working_file_ );
+	const size_t file_size = get_file_size( working_file_ );
 	if( file_size > max_file_size_in_bytes_ )
 	{
 		rename_files();
@@ -113,8 +125,8 @@ void file_logger::rename_files() const
 {
 	for( unsigned i = max_file_number_ - 1; i > 0; --i )
 	{
-		const auto old_name = get_log_file_name_with_index( i - 1 );
-		const auto new_name = get_log_file_name_with_index( i );
+		const std::string old_name = get_log_file_name_with_index( i - 1 );
+		const std::string new_name = get_log_file_name_with_index( i );
 		rename_file_if_exists( old_name, new_name );
 	}
 
@@ -132,10 +144,10 @@ void file_logger::rename_file_if_exists( const std::string& _old_name, const std
 			delete_file( _new_name );
 		}
 
-		const auto renamed = std::rename( _old_name.c_str(), _new_name.c_str() );
+		const int renamed = std::rename( _old_name.c_str(), _new_name.c_str() );
 		if( renamed )
 		{
-			const auto error_message = yprintf( "File '%' could not be renamed!", _old_name );
+			const std::string error_message = yprintf( "File '%' could not be renamed!", _old_name );
 			if( throw_on_error_ )
 			{
 				throw exception( error_message );
@@ -151,10 +163,10 @@ void file_logger::rename_file_if_exists( const std::string& _old_name, const std
 
 void file_logger::delete_file( const std::string& _file_name ) const
 {
-	const auto removed = std::remove( _file_name.c_str() );
+	const int removed = std::remove( _file_name.c_str() );
 	if( removed > 0 )
 	{
-		const auto error_message = yprintf( "File '%' could not be deleted!\n", _file_name );
+		const std::string error_message = yprintf( "File '%' could not be deleted!\n", _file_name );
 		if( throw_on_error_ )
 		{
 			throw exception( error_message );

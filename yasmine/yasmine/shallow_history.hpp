@@ -25,10 +25,19 @@ class shallow_history:
 	public virtual history
 {
 public:
-	shallow_history() = default;
-	virtual ~shallow_history() noexcept override = default;
-	shallow_history( const shallow_history& ) = delete;
-	shallow_history& operator=( const shallow_history& ) = delete;
+	shallow_history()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~shallow_history() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(shallow_history)
 };
 
 

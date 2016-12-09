@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,8 +23,8 @@ namespace sxy
 
 
 class composite_state;
-using composite_state_uptr = std::unique_ptr< composite_state >;
-using raw_composite_states = std::vector< composite_state* >;
+typedef Y_UNIQUE_PTR< composite_state > composite_state_uptr;
+typedef std::vector< composite_state* > raw_composite_states;
 
 
 }

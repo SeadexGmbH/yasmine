@@ -16,7 +16,7 @@
 #include "transition_step_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "transition_kind.hpp"
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -31,10 +31,19 @@ class composite_state;
 class compound_transition_consumer
 {
 public:
-	compound_transition_consumer() = default;
-	virtual ~compound_transition_consumer() noexcept = default;
-	compound_transition_consumer( const compound_transition_consumer& ) = delete;
-	compound_transition_consumer& operator=( const compound_transition_consumer& ) = delete;
+	compound_transition_consumer()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~compound_transition_consumer() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(compound_transition_consumer)
 	virtual transition_steps& get_transition_steps() = 0;
 	virtual const vertex& get_last_target() const = 0;
 	virtual const compound_transitions& get_sub_compound_transitions() const = 0;

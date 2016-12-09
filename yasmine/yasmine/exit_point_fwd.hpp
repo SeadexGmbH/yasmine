@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 class exit_point;
-using exit_point_uptr = std::unique_ptr< exit_point >;
-using exit_points = std::vector< exit_point_uptr >;
-using raw_const_exit_points = std::vector< const exit_point* >;
+typedef Y_UNIQUE_PTR< exit_point > exit_point_uptr;
+typedef std::vector< exit_point_uptr > exit_points;
+typedef std::vector< const exit_point* > raw_const_exit_points;
 
 
 }

@@ -20,7 +20,7 @@ namespace sxy
 {
 
 
-template<typename _tag, sxy::event_id _event_id, sxy::event_priority _event_priority = sxy::DEFAULT_EVENT_PRIORITY>
+template<typename _tag, sxy::event_id _event_id, sxy::event_priority _event_priority = DEFAULT_EVENT_PRIORITY>
 class specialized_event: public event_impl
 {
 public:
@@ -32,14 +32,13 @@ public:
 	}
 
 
-	virtual ~specialized_event() noexcept override
+	virtual ~specialized_event() Y_NOEXCEPT Y_OVERRIDE
 	{
 		// Nothing to do.
 	}
 
 
-	specialized_event( const specialized_event& ) = delete;
-	specialized_event& operator=( const specialized_event& ) = delete;
+	Y_NO_COPY(specialized_event)
 
 
 	virtual std::string get_name() const

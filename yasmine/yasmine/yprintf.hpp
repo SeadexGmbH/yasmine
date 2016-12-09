@@ -15,8 +15,14 @@
 
 #include <string>
 #include <sstream>
-#include <cstdint>
 
+
+#ifdef Y_CPP03_BOOST
+	#include <vector>
+	#include <boost/variant.hpp>
+#endif
+
+#include "compatibility.hpp"
 #include "format_settings.hpp"
 
 
@@ -24,13 +30,20 @@ namespace sxy
 {
 
 
+#ifdef Y_CPP03_BOOST
+	typedef boost::variant< bool, int, unsigned int, sxy::int8_t, sxy::uint8_t, sxy::uint16_t, sxy::uint32_t,
+		std::string, size_t, const char*, int_least64_t, double > log_value;
+	typedef std::vector< log_value > log_values;
+#endif
+
+
 namespace
 {
 
 
 const char PLACE_HOLDER = '%';
-const auto SUPERFLUOUS_PARAMETER_START = "[Superfluous parameter: ";
-const auto SUPERFLUOUS_PARAMETER_END = "]";
+const char* const SUPERFLUOUS_PARAMETER_START = "[Superfluous parameter: ";
+const char SUPERFLUOUS_PARAMETER_END = ']';
 const char OPENING_SQUARE_BRACKET = '[';
 const char CLOSING_SQUARE_BRACKET = ']';
 
@@ -48,12 +61,12 @@ struct stream_writer
 };
 
 
-template< > 
-struct stream_writer< uint8_t >
+template< >
+struct stream_writer< sxy::uint8_t >
 {
-	static void print( std::ostream& _os, const uint8_t& _value )
+	static void print(std::ostream& _os, const sxy::uint8_t& _value)
 	{
-		_os << static_cast< unsigned int >( _value );
+		_os << static_cast<unsigned int>( _value );
 	}
 };
 
@@ -61,13 +74,29 @@ struct stream_writer< uint8_t >
 std::ostream& operator<<( std::ostream& _os,	const sxy::format_settings& _format );
 sxy::format_settings parse_format_string( const char** const _format );
 
+
+#ifdef Y_CPP03_BOOST
+
+void print_log_value( std::ostream& _os, const log_value& _value );
+
+
+#endif
+
+
 template< typename value > 
 void print_superfluous_parameters( std::ostream& _os, const value& _value )
 {
 	_os << SUPERFLUOUS_PARAMETER_START;
+#ifndef Y_CPP03_BOOST
 	stream_writer< value >::print( _os, _value );
+#else	
+	print_log_value( _os, _value );
+#endif
 	_os << SUPERFLUOUS_PARAMETER_END;
 }
+
+
+#ifndef Y_CPP03_BOOST
 
 
 template< typename value, typename ... args > 
@@ -81,11 +110,16 @@ void print_superfluous_parameters( std::ostream& _os,
 }
 
 
+#else
+
+
+#endif
+
 void yprintf(	std::ostream& _os,	const char* _format );
 
-template< typename value, typename ... args > 
-void yprintf(	std::ostream& _os,	const char* _format,
-	const value& _value, args ... _args )
+#ifndef Y_CPP03_BOOST
+template< typename value, typename ... args >
+void yprintf(	std::ostream& _os,	const char* _format, const value& _value, args ... _args )
 {
 	while( *_format )
 	{
@@ -101,12 +135,12 @@ void yprintf(	std::ostream& _os,	const char* _format,
 				if( OPENING_SQUARE_BRACKET == *( _format + 1 ) )
 				{
 					++_format;
-					const auto format_settings = sxy::parse_format_string( &_format );
-					const auto streaflags_ = _os.flags();
-					const auto streafill_ = _os.fill();
+					const sxy::format_settings format_settings = sxy::parse_format_string( &_format );
+					const std::ios_base::fmtflags stream_flags = _os.flags();
+					const char streafill_ = _os.fill();
 					_os << format_settings;
-					stream_writer< value >::print( _os, _value );
-					_os.flags( streaflags_ );
+					stream_writer< value >::print( _os, _value );					
+					_os.flags( stream_flags );
 					_os.fill( streafill_ );
 				}
 				else
@@ -136,14 +170,66 @@ void yprintf(	std::ostream& _os,	const char* _format,
 //!arguments, the resulting string will contain diagnostics in the resulting string
 //!([Missing parameter!] or [Superfluous parameter: x]).
 //!\return String containing the complete formatted message.
-template< typename ... args > 
-std::string yprintf(	const char* const _format,	args ... _args )
+template< typename ... args >
+std::string yprintf(const char* const _format, args ... _args)
 {
 	std::stringstream target_string_stream;
-	yprintf( target_string_stream, _format, _args ... );
+	yprintf(target_string_stream, _format, _args ...);
 	return( target_string_stream.str() );
 }
 
+#else
+
+std::string yprintf(const char* const _format);
+std::string yprintf(const char* const _format, const log_value& _value1);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4, const log_value& _value5);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4, const log_value& _value5, const log_value& _value6);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7, const log_value& _value8);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7, const log_value& _value8,
+	const log_value& _value9);
+std::string yprintf(const char* const _format, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+	const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7, const log_value& _value8,
+	const log_value& _value9, const log_value& _value10);
+
+
+void yprintf(std::ostream& _os, const char* const _format);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2, 
+	const log_value& _value3);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2, 
+	const log_value& _value3, const log_value& _value4);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2,
+	const log_value& _value3, const log_value& _value4, const log_value& _value5);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2,
+	const log_value& _value3, const log_value& _value4, const log_value& _value5, const log_value& _value6);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2,
+	const log_value& _value3, const log_value& _value4, const log_value& _value5, const log_value& _value6,
+	const log_value& _value7);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2,
+	const log_value& _value3, const log_value& _value4, const log_value& _value5, const log_value& _value6,
+	const log_value& _value7, const log_value& _value8);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2,
+	const log_value& _value3, const log_value& _value4, const log_value& _value5, const log_value& _value6,
+	const log_value& _value7, const log_value& _value8, const log_value& _value9);
+void yprintf(std::ostream& _os, const char* const _format, const log_value& _value1, const log_value& _value2,
+	const log_value& _value3, const log_value& _value4, const log_value& _value5, const log_value& _value6,
+	const log_value& _value7, const log_value& _value8, const log_value& _value9, const log_value& _value10);
+
+	void yprintf(std::ostream& _os, const char* const _format, const log_values& _values);
+
+#endif
+		 
 
 }
 

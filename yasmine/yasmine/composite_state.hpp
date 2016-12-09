@@ -29,10 +29,19 @@ class composite_state:
 	public virtual complex_state
 {
 public:
-	composite_state() = default;
-	virtual ~composite_state() noexcept override = default;
-	composite_state( const composite_state& ) = delete;
-	composite_state& operator=( const composite_state& ) = delete;
+	composite_state()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~composite_state() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(composite_state)
 	virtual region& add_region( region_uptr _region ) = 0;
 	virtual region& add_region( const std::string& _region_name ) = 0;
 	virtual const deep_history * get_deep_history() const = 0;

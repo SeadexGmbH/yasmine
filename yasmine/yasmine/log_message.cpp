@@ -17,6 +17,17 @@ namespace sxy
 {
 
 
+log_message::log_message()
+	: log_level_(),
+		time_stamp_(),
+		file_(),
+		line_(),
+		message_()
+{
+	// Nothing to do...
+}
+
+
 log_message::log_message( const log_level _log_level, const std::string& _time_stamp, 
 	const std::string&  _file, const int _line,	const std::string& _message )
 	: log_level_( _log_level ),

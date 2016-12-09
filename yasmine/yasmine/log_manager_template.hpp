@@ -17,10 +17,9 @@
 
 #include <string>
 #include <queue>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
 
+
+#include "thread.hpp"
 #include "base.hpp"
 #include "logger.hpp"
 #include "log_message.hpp"
@@ -45,7 +44,7 @@ bool LOG_MANAGER_EXISTS = false;
 //!\brief The log manager (a singleton) controls the different loggers, manages the current log level, and takes care
 //!of dispatching log messages.
 template< typename time_stamp_policy > 
-class log_manager_template final
+class log_manager_template Y_FINAL
 {
 public:
 	//!\brief Get a reference to the single instance of the log manager template.
@@ -56,8 +55,7 @@ public:
 	}
 
 
-	log_manager_template( const log_manager_template& ) = delete;
-	log_manager_template& operator=( const log_manager_template& ) = delete;
+	Y_NO_COPY(log_manager_template)	
 
 	//!\brief Gets the currently set log level.
 	//!\return Current log level.
@@ -76,6 +74,9 @@ public:
 	}
 
 
+#ifndef Y_CPP03_BOOST
+
+
 	//!\brief Add a message to the queue of messages that will be processed.
 	//!\param	_log_level Log level of the message.
 	//!\param	_time_stamp Date and time when the log message was created.
@@ -89,13 +90,161 @@ public:
 	void log( const log_level _log_level, const std::string& _time_stamp,	const std::string& _file,	const int _line,
 		const std::string& _message, args ... _args )
 	{
-		{
-			log_message message( _log_level, _time_stamp, _file, _line, sxy::yprintf( _message.c_str(), _args ... ) );
-			std::lock_guard< std::mutex > lock( mutex_ );
+		{							
+			log_message message( _log_level, _time_stamp, _file, _line, sxy::yprintf( _message.c_str(), _args ... ) );			
+			sxy::lock_guard< sxy::mutex > lock( mutex_ );
 			messages_.push( message );
 		}
 		condition_.notify_one();
 	}
+
+
+#else
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str()));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2, 
+				_value3));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3, 
+		const log_value& _value4)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2, 
+				_value3, _value4));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+		const log_value& _value4, const log_value& _value5)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2,
+				_value3, _value4, _value5));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+		const log_value& _value4, const log_value& _value5, const log_value& _value6)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+		const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6, _value7));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+		const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7, 
+		const log_value& _value8)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6, _value7, _value8));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+		const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7,
+		const log_value& _value8, const log_value& _value9)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6, _value7, _value8, _value9));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+
+	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+		const std::string& _message, const log_value& _value1, const log_value& _value2, const log_value& _value3,
+		const log_value& _value4, const log_value& _value5, const log_value& _value6, const log_value& _value7,
+		const log_value& _value8, const log_value& _value9, const log_value&  _value10)
+	{
+		{
+			log_message message(_log_level, _time_stamp, _file, _line, sxy::yprintf(_message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6, _value7, _value8, _value9, _value10));
+			sxy::lock_guard< sxy::mutex > lock(mutex_);
+			messages_.push(message);
+		}
+		condition_.notify_one();
+	}
+
+
+
+#endif
 
 
 	//!\brief Adds a logger to which the log will be written.
@@ -104,8 +253,8 @@ public:
 	void add_logger( logger_uptr _logger )
 	{
 		Y_ASSERT_NO_LOG( stop_, "Logger cannot be added while running!" );
-		std::lock_guard< std::mutex > lock( mutex_ );
-		loggers_.push_back( std::move( _logger ) );
+		sxy::lock_guard< sxy::mutex > lock( mutex_ );
+		loggers_.push_back( sxy::move( _logger ) );
 	}
 
 
@@ -116,11 +265,7 @@ public:
 	void start()
 	{
 		stop_ = false;
-		thread_ = std::thread( [ this ] ()
-			{
-				this->work();
-			}
-			);
+		thread_ = sxy::thread( sxy::bind( &log_manager_template::work, this ) );
 	}
 
 
@@ -131,7 +276,7 @@ public:
 	void stop()
 	{
 		{
-			std::lock_guard< std::mutex > lock( mutex_ );
+			sxy::lock_guard< sxy::mutex > lock( mutex_ );
 			stop_ = true;
 		}
 		condition_.notify_one();
@@ -170,7 +315,10 @@ private:
 	}
 
 
-	~log_manager_template() = default;
+	~log_manager_template()
+	{
+		// Nothing to do...
+	}
 
 
 	bool should_be_running() const
@@ -191,12 +339,9 @@ private:
 		{
 			log_message message;
 			{
-				std::unique_lock< std::mutex > lock( mutex_ );
-				condition_.wait( lock, [ this ] ()
-					{
-						return( this->should_be_running() );
-					}
-					);
+				sxy::unique_lock< sxy::mutex > lock( mutex_ );
+				condition_.wait( lock, sxy::bind( &log_manager_template::should_be_running, this ) );
+
 				if( finished() )
 				{
 					break;
@@ -206,7 +351,7 @@ private:
 				messages_.pop();
 			}
 
-			for( auto & logger : loggers_ )
+			Y_FOR(const logger_uptr& logger, loggers_)
 			{
 				logger->log( message );
 			}
@@ -214,9 +359,9 @@ private:
 	}
 
 
-	std::thread thread_;
-	std::mutex mutex_;
-	std::condition_variable condition_;
+	sxy::thread thread_;
+	sxy::mutex mutex_;
+	sxy::condition_variable condition_;
 	bool stop_;
 	loggers loggers_;
 	std::queue< log_message > messages_;

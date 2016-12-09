@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 class choice;
-using choice_uptr = std::unique_ptr< choice >;
-using choices = std::vector< choice_uptr >;
-using raw_const_choices = std::vector< const choice* >;
+typedef Y_UNIQUE_PTR< choice > choice_uptr;
+typedef std::vector< choice_uptr > choices;
+typedef std::vector< const choice* > raw_const_choices;
 
 
 }

@@ -14,7 +14,7 @@
 
 
 #include <vector>
-#include <memory>
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +22,9 @@ namespace sxy
 
 
 class pseudostate;
-using pseudostate_uptr = std::unique_ptr< pseudostate >;
-using pseudostates = std::vector< pseudostate_uptr >;
-using raw_const_pseudostates = std::vector< const pseudostate* >;
+typedef Y_UNIQUE_PTR< pseudostate > pseudostate_uptr;
+typedef std::vector< pseudostate_uptr > pseudostates;
+typedef std::vector< const pseudostate* > raw_const_pseudostates;
 
 
 }

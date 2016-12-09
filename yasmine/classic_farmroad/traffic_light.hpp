@@ -26,9 +26,8 @@ class traffic_light final
 {
 public:
 	traffic_light( const std::string& _name,	const std::string& _ascii_prefix );
-	~traffic_light();
-	traffic_light( const traffic_light& ) = delete;
-	traffic_light& operator=( const traffic_light& ) = delete;
+	~traffic_light() Y_NOEXCEPT;
+	Y_NO_COPY( traffic_light )
 	void start();
 	void stop();
 	void switch_to_red_yellow();

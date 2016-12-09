@@ -25,10 +25,19 @@ class deep_history:
 	public virtual history
 {
 public:
-	deep_history() = default;
-	virtual ~deep_history() noexcept override = default;
-	deep_history( const deep_history& ) = delete;
-	deep_history& operator=( const deep_history& ) = delete;	
+	deep_history()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~deep_history() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(deep_history)
 };
 
 

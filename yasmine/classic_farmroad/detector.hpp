@@ -13,10 +13,9 @@
 #define DETECTOR_5EBE86D2_647F_4029_94D8_B5521F641349
 
 
-#include <memory>
-#include <mutex>
-#include <thread>
-#include <condition_variable>
+#include "compatibility.hpp"
+#include "thread.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -26,13 +25,12 @@ namespace sxy
 class detector_callback;
 
 
-class detector final
+class detector Y_FINAL
 {
 public:
 	explicit detector( detector_callback& _detector_callback );
 	~detector();
-	detector( const detector& ) = delete;
-	detector& operator=( const detector& ) = delete;
+	Y_NO_COPY( detector )
 	void start();
 	void stop();
 	bool is_on();
@@ -44,10 +42,10 @@ private:
 
 	detector_callback& detector_callback_;
 	bool is_on_;
-	std::unique_ptr< std::thread > generate_random_detector_events_;
+	Y_UNIQUE_PTR< sxy::thread > generate_random_detector_events_;
 	bool run_;
-	std::mutex mutex_;
-	std::condition_variable condition_variable_;
+	sxy::mutex mutex_;
+	sxy::condition_variable condition_variable_;
 };
 
 

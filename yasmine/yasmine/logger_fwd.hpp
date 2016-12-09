@@ -14,8 +14,9 @@
 #define LOGGER_FWD_9F0DC46E_91EC_44AB_ADE0_7F223D30DE83
 
 
-#include <vector>
-#include <memory>
+#include <vector>			
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -23,8 +24,8 @@ namespace sxy
 
 
 class logger;
-using logger_uptr = std::unique_ptr< logger >;
-using loggers = std::vector< logger_uptr >;
+typedef Y_UNIQUE_PTR< logger > logger_uptr;
+typedef std::vector< logger_uptr > loggers;
 
 
 }

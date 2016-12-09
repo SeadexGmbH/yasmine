@@ -19,8 +19,9 @@
 #include "compound_transition_fwd.hpp"
 #include "transition_step_fwd.hpp"
 #include "execution_step_fwd.hpp"
-#include "behavior_exception_fwd.hpp"
+#include "behaviour_exception_fwd.hpp"
 #include "event_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -40,9 +41,8 @@ class transition_executor_impl
 {
 public:
 	transition_executor_impl();
-	virtual ~transition_executor_impl() noexcept = default;
-	transition_executor_impl( const transition_executor_impl& ) = delete;
-	transition_executor_impl& operator=( const transition_executor_impl& ) = delete;
+	virtual ~transition_executor_impl() Y_NOEXCEPT;
+	Y_NO_COPY(transition_executor_impl)
 	void get_active_states_from_region( region& _region, raw_states_by_nesting_level_ascending& _states );
 	void get_active_states_from_regions( const state* const _state, 
 		raw_states_by_nesting_level_ascending& _states );

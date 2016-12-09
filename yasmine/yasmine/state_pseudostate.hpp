@@ -25,10 +25,19 @@ class state_pseudostate:
 	public virtual pseudostate
 {
 public:
-	state_pseudostate() = default;
-	virtual ~state_pseudostate() noexcept override = default;
-	state_pseudostate( const state_pseudostate& ) = delete;
-	state_pseudostate& operator=( const state_pseudostate& ) = delete;
+	state_pseudostate()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~state_pseudostate() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(state_pseudostate)
 	virtual composite_state& get_parent_state() const = 0;
 	virtual void set_parent_state( composite_state* const _parent_state ) = 0;
 };

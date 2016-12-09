@@ -16,18 +16,17 @@
 
 #include <string>
 
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
 {
 
 
-class std_timestamp_policy final
+class std_timestamp_policy Y_FINAL
 {
 public:
-	std_timestamp_policy() = delete;
-	~std_timestamp_policy() noexcept = delete;
+	Y_NO_COPY(std_timestamp_policy)	
 	static std::string get_timestamp();
 };
 

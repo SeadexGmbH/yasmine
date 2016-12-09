@@ -23,6 +23,12 @@ state_machine_element_impl::state_machine_element_impl( const std::string& _name
 }
 
 
+state_machine_element_impl::~state_machine_element_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 const std::string& state_machine_element_impl::get_name() const
 {
 	return( name_ );

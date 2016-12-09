@@ -15,7 +15,8 @@
 
 #include <vector>
 #include <set>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -23,10 +24,10 @@ namespace sxy
 
 
 class region;
-using region_uptr = std::unique_ptr< region >;
-using regions = std::vector< region_uptr >;
-using raw_regions = std::vector< region* >;
-using raw_const_region_set = std::set< const region* >;
+typedef Y_UNIQUE_PTR< region > region_uptr;
+typedef std::vector< region_uptr > regions;
+typedef std::vector< region* > raw_regions;
+typedef std::set< const region* > raw_const_region_set;
 
 
 }

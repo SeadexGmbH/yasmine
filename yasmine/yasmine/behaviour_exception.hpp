@@ -9,27 +9,35 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BEHAVIOR_86504172_8E66_4DF4_945F_A76FC04D3BEF
-#define BEHAVIOR_86504172_8E66_4DF4_945F_A76FC04D3BEF
+#ifndef BEHAVIOUR_EXCEPTION_2D8556FD_222C_4ABD_B11B_1AC356D1A0BB
+#define BEHAVIOUR_EXCEPTION_2D8556FD_222C_4ABD_B11B_1AC356D1A0BB
+		 
 
-
-#include "compatibility.hpp"
-#include "behavior_fwd.hpp"
 #include "event_fwd.hpp"
+#include "event_id.hpp"
+#include "exception.hpp"
+#include "behaviour_exception_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
 {
 
 
-class behavior
+class behaviour_exception Y_FINAL:
+	public exception
 {
+
+
 public:
-	behavior() = default;
-	virtual ~behavior() noexcept = default;
-	behavior( const behavior& ) = delete;
-	behavior& operator=( const behavior& ) = delete;
-	virtual void operator()( const event& ) const = 0;
+	explicit behaviour_exception( const event_sptr& _event );
+	virtual ~behaviour_exception() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY_OPERATOR_EQUAL(behaviour_exception)
+	const event_sptr get_error_event() const;									
+
+
+private:
+	const event_sptr error_event_;
 };
 
 

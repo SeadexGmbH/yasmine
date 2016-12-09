@@ -33,6 +33,12 @@ vertex_impl::vertex_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
+
+
+vertex_impl::~vertex_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
 	 
 
 void vertex_impl::add_outgoing_transition( transition& _outgoing_transition )
@@ -49,7 +55,7 @@ void vertex_impl::add_incoming_transition( transition& _incoming_transition )
 
 void vertex_impl::remove_outgoing_transition( const transition& _outgoing_transition )
 {
-	auto outgoing_transition = std::find( outgoing_transitions_.begin(),
+	const raw_transitions::iterator outgoing_transition = std::find( outgoing_transitions_.begin(),
 		outgoing_transitions_.end(), &_outgoing_transition );
 	outgoing_transitions_.erase( outgoing_transition );
 }
@@ -57,7 +63,7 @@ void vertex_impl::remove_outgoing_transition( const transition& _outgoing_transi
 
 void vertex_impl::remove_incoming_transition( const transition& _incoming_transition )
 {
-	auto incoming_transition = std::find( incoming_transitions_.begin(),
+	const raw_transitions::iterator incoming_transition = std::find( incoming_transitions_.begin(),
 		incoming_transitions_.end(), &_incoming_transition );
 	incoming_transitions_.erase( incoming_transition );
 }
@@ -85,14 +91,14 @@ uri vertex_impl::get_uri() const
 
 transition* vertex_impl::search_transition( const event& _event ) const
 {
-	const auto& transitions = get_outgoing_transitions();
-	transition* found_transition = nullptr;
+	const raw_transitions& transitions = get_outgoing_transitions();
+	transition* found_transition = Y_NULLPTR;
 
-	for( const auto & transition : transitions )
+	Y_FOR( transition* const transition, transitions )
 	{
 		if( transition->can_accept_event( _event.get_id() ) )
 		{
-			const auto is_checked = transition->check_guard( _event );
+			const bool is_checked = transition->check_guard( _event );
 			if( is_checked )
 			{
 				found_transition = transition;
@@ -108,13 +114,13 @@ transition* vertex_impl::search_transition( const event& _event ) const
 region* vertex_impl::LCA_region( const vertex& _rhs ) const
 {
 	Y_LOG( log_level::LL_SPAM, "Start calculating LCA_region for '%' and '%'.", get_name(), _rhs.get_name() );
-	region* lca = nullptr;
-	const auto ancestors_of_lhs = get_ancestors_as_regions();
-	const auto ancestors_of_rhs = _rhs.get_ancestors_as_regions();
+	region* lca = Y_NULLPTR;
+	const raw_regions& ancestors_of_lhs = get_ancestors_as_regions();
+	const raw_regions& ancestors_of_rhs = _rhs.get_ancestors_as_regions();
 	Y_ASSERT( ancestors_of_lhs.size() >= 1 && ancestors_of_rhs.size() >= 1,
 		"One of the ancestor region lists is empty!" );
-	auto r_idx = ancestors_of_rhs.size() - 1;
-	auto l_idx = ancestors_of_lhs.size() - 1;
+	size_t r_idx = ancestors_of_rhs.size() - 1;
+	size_t l_idx = ancestors_of_lhs.size() - 1;
 	while( ancestors_of_rhs[ r_idx ] == ancestors_of_lhs[ l_idx ] )
 	{
 		lca = ancestors_of_lhs[ l_idx ];
@@ -136,13 +142,13 @@ region* vertex_impl::LCA_region( const vertex& _rhs ) const
 composite_state* vertex_impl::LCA_composite_state( const vertex& _rhs ) const
 {
 	Y_LOG( log_level::LL_SPAM, "Start calculating LCA_composite_state for '%' and '%'.", get_name(), _rhs.get_name() );
-	composite_state* lca = nullptr;
-	const auto ancestors_of_lhs = get_ancestors( nullptr );
-	const auto ancestors_of_rhs = _rhs.get_ancestors( nullptr );
+	composite_state* lca = Y_NULLPTR;
+	const raw_composite_states& ancestors_of_lhs = get_ancestors( Y_NULLPTR );
+	const raw_composite_states& ancestors_of_rhs = _rhs.get_ancestors( Y_NULLPTR );
 	Y_ASSERT( ancestors_of_lhs.size() >= 1 && ancestors_of_rhs.size() >= 1,
 		"One of the ancestor region lists is empty!" );
-	auto r_idx = ancestors_of_rhs.size() - 1;
-	auto l_idx = ancestors_of_lhs.size() - 1;
+	size_t r_idx = ancestors_of_rhs.size() - 1;
+	size_t l_idx = ancestors_of_lhs.size() - 1;
 	while( ancestors_of_rhs[ r_idx ] == ancestors_of_lhs[ l_idx ] )
 	{
 		lca = ancestors_of_lhs[ l_idx ];
@@ -170,7 +176,7 @@ composite_state* vertex_impl::LCA_composite_state( const vertex& _rhs ) const
 
 void vertex_impl::add_ancestor_uri( uri& _uri ) const
 {
-	auto parent = get_parent();
+	const state_machine_element* parent = get_parent();
 	while( parent )
 	{
 		_uri.push_front( parent->get_name() );

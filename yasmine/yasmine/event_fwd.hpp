@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,8 +23,8 @@ namespace sxy
 
 
 class event;
-using event_sptr = std::shared_ptr< event >;
-using events = std::vector< event_sptr >;
+typedef sxy::shared_ptr< event > event_sptr;
+typedef std::vector< event_sptr > events;
 
 
 }

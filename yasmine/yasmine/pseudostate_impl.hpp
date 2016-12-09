@@ -26,10 +26,9 @@ class pseudostate_impl:
 {
 public:
 	explicit pseudostate_impl( const std::string& _name );
-	virtual ~pseudostate_impl() noexcept override = default;
-	pseudostate_impl( const pseudostate_impl& ) = delete;
-	pseudostate_impl& operator=( const pseudostate_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
+	virtual ~pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(pseudostate_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
 };
 
 

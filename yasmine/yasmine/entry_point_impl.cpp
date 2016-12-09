@@ -28,9 +28,15 @@ entry_point_impl::entry_point_impl( const std::string& _name )
 }
 
 
+entry_point_impl::~entry_point_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool entry_point_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// transitions exiting pseudostates cannot have a trigger
 	if( !pseudostate_impl::check( _defects ) )

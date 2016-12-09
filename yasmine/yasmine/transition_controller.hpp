@@ -13,11 +13,11 @@
 #define TRANSITION_CONTROLLER_FDB88C02_ECF6_4BB5_B99A_3F45813BF357
 
 
-#include "compatibility.hpp"
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "event_id.hpp"
-#include "behavior_exception_fwd.hpp"
+#include "behaviour_exception_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -30,13 +30,12 @@ class event_processing_callback;
 class async_event_handler;
 
 
-class transition_controller final
+class transition_controller Y_FINAL
 {
 public:
 	transition_controller();
-	~transition_controller() noexcept = default;
-	transition_controller( const transition_controller& ) = delete;
-	transition_controller& operator=( const transition_controller& ) = delete;
+	~transition_controller() Y_NOEXCEPT;
+	Y_NO_COPY(transition_controller)
 	static bool process_event( const event& _event, const composite_state& _main_composite_state,
 		event_processing_callback* const _event_processing_callback, bool& _event_is_deferred, 
 		async_event_handler* const _async_event_handler );

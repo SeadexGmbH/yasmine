@@ -13,13 +13,11 @@
 
 #include <algorithm>
 
-#include "make_unique.hpp"
 #include "event_creation_request.hpp"
 #include "async_state_machine.hpp"
 #include "base.hpp"
 #include "event_impl.hpp"
 #include "log_and_throw.hpp"
-#include "event_with_parameters.hpp"
 
 
 namespace sxy
@@ -39,19 +37,19 @@ timed_event_creator::timed_event_creator( async_state_machine& _async_state_mach
 }
 
 
-timed_event_creator::~timed_event_creator() noexcept
+timed_event_creator::~timed_event_creator() Y_NOEXCEPT
 {
 	Y_ASSERT( !run_, "Thread is still running! It was not stopped." );
 	Y_ASSERT( !worker_, "The thread still exists!" );
 }
 
 
-event_creation_request::handle_type timed_event_creator::create_event_creation_request(
-	const std::chrono::time_point< std::chrono::system_clock >& _time, const event_sptr _event )
+handle_type timed_event_creator::create_event_creation_request(
+	const sxy::time_point< sxy::system_clock >& _time, const event_sptr _event )
 {
-	auto handle = 0;
+	handle_type handle = Y_DEFAULT_HANDLE;
 	{
-		std::unique_lock< std::mutex > lock( mutex_ );
+		sxy::unique_lock< sxy::mutex > lock( mutex_ );
 		if( run_ )
 		{
 			handle = generate_handle();			
@@ -68,22 +66,22 @@ event_creation_request::handle_type timed_event_creator::create_event_creation_r
 }
 
 
-event_creation_request::handle_type timed_event_creator::create_event_creation_request(
-	const std::chrono::milliseconds& _time_till_event_is_fired, const event_sptr& _event )
+handle_type timed_event_creator::create_event_creation_request(
+	const sxy::milliseconds& _time_till_event_is_fired, const event_sptr& _event )
 {
-	const auto handle = create_event_creation_request(
-		std::chrono::system_clock::now() + _time_till_event_is_fired, _event );
+	const handle_type handle = create_event_creation_request(
+		sxy::system_clock::now() + _time_till_event_is_fired, _event );
 	return( handle );
 }
 
 
 // cppcheck-suppress unusedFunction
-bool timed_event_creator::cancel( const event_creation_request::handle_type _handle )
+bool timed_event_creator::cancel( const handle_type _handle )
 {
-	auto cancelled = false;
+	bool cancelled = false;
 	{
-		std::unique_lock< std::mutex > lock( mutex_ );
-		const auto found_element_iterator = find_element_by_handle( _handle );
+		sxy::unique_lock< sxy::mutex > lock( mutex_ );
+		const event_queue::iterator found_element_iterator = find_element_by_handle( _handle );
 		if( found_element_iterator != event_creation_requests_.end() )
 		{
 			event_creation_requests_.erase( found_element_iterator );
@@ -103,11 +101,7 @@ void timed_event_creator::start()
 {
 	Y_LOG( log_level::LL_TRACE, "Event creator is starting." );
 	run_ = true;
-	worker_ = sxy::make_unique< std::thread >([ this ] ()
-		{
-			generate_event();
-		}
-		);
+	worker_ = Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &timed_event_creator::generate_event, this ) );
 	Y_LOG( log_level::LL_TRACE, "Event creator started." );
 }
 
@@ -116,7 +110,7 @@ void timed_event_creator::stop()
 {
 	Y_LOG( log_level::LL_TRACE, "Event creator is stopping." );
 	{
-		std::lock_guard< std::mutex > lock( mutex_ );
+		sxy::lock_guard< sxy::mutex > lock( mutex_ );
 		run_ = false;
 	}
 	condition_variable_.notify_all();
@@ -127,14 +121,14 @@ void timed_event_creator::stop()
 }
 
 
-event_creation_request::handle_type timed_event_creator::generate_handle()
+handle_type timed_event_creator::generate_handle()
 {
-	event_creation_request::handle_type handle = 0;
+	handle_type handle = Y_DEFAULT_HANDLE;
 
 	do
 	{
 		handle = maximum_handle_++;
-		if( maximum_handle_ == std::numeric_limits< event_creation_request::handle_type >::max() )
+		if( maximum_handle_ == Y_INVALID_EVENT_CREATION_REQUEST_HANDLE )
 		{
 			maximum_handle_ = 0;
 		}			
@@ -145,10 +139,10 @@ event_creation_request::handle_type timed_event_creator::generate_handle()
 }
 
 
-bool timed_event_creator::check_if_handle_exists( const event_creation_request::handle_type _handle ) const
+bool timed_event_creator::check_if_handle_exists( const handle_type _handle ) const
 {
-	auto found = false;
-	auto found_element_iterator = find_element_by_handle( _handle );
+	bool found = false;
+	const event_queue::const_iterator found_element_iterator = find_element_by_handle( _handle );
 	if( found_element_iterator != event_creation_requests_.end() )
 	{
 		found = true;
@@ -162,31 +156,27 @@ void timed_event_creator::generate_event()
 {
 	try
 	{
-		std::unique_lock< std::mutex > lock( mutex_ );
+		sxy::unique_lock< sxy::mutex > lock( mutex_ );
 		while( run_ )
 		{
 			if( event_creation_requests_.empty() )
 			{
-				condition_variable_.wait( lock, [ this ] ()
-					{
-						return( !( run_ && event_creation_requests_.empty() ) );
-					}
-					);
+				condition_variable_.wait( lock, sxy::bind( &timed_event_creator::check_wait_condition, this ) );
 			}
 			else
 			{
-				const auto& event_creation_request = *event_creation_requests_.begin();
-				condition_variable_.wait_until( lock, event_creation_request.get_time() );
+				const event_creation_request& event_creation_request = *event_creation_requests_.begin();								
+				condition_variable_.wait_until( lock, event_creation_request.get_time() );								
 				if( run_ )
 				{
-					auto event_iterator = event_creation_requests_.begin();
+					event_queue::const_iterator event_iterator = event_creation_requests_.begin();
 					while( event_iterator != event_creation_requests_.end() )
 					{
-						const auto now = std::chrono::system_clock::now();
+						const sxy::time_point< sxy::system_clock > now = sxy::system_clock::now();						
 						Y_LOG( log_level::LL_TRACE, "Checking for event @ %.", now.time_since_epoch().count() );
 						if( ( *event_iterator ).get_time() <= now )
 						{
-							const auto event = ( *event_iterator ).get_event();
+							const event_sptr event = ( *event_iterator ).get_event();
 							Y_LOG( log_level::LL_TRACE, "Try to fire event '%' (%) with handle '%'.", event->get_name(), event->get_id(),
 								( *event_iterator ).get_handle() );
 							if( !state_machine_.fire_event( event ) )
@@ -222,14 +212,23 @@ void timed_event_creator::generate_event()
 }
 
 
-event_queue::const_iterator timed_event_creator::find_element_by_handle( 
-	const event_creation_request::handle_type _handle ) const
+event_queue::const_iterator timed_event_creator::find_element_by_handle( const handle_type _handle ) const
 {
-	return( std::find_if( event_creation_requests_.begin(), event_creation_requests_.end(),
-						[ &_handle ] ( const event_creation_request& _event_creation_request )
-						{ 
-							return ( _event_creation_request.get_handle() == _handle );
-						}	) );
+	return( std::find_if(event_creation_requests_.begin(), event_creation_requests_.end(),
+		sxy::bind( &timed_event_creator::compare_handles, _handle, sxy::_1 ) ) );
+}
+
+
+bool timed_event_creator::check_wait_condition() const
+{
+	return( !( run_ && event_creation_requests_.empty() ) );
+}
+
+
+bool timed_event_creator::compare_handles( const handle_type _handle, 
+	const event_creation_request& _event_creation_request )
+{
+	return ( _event_creation_request.get_handle() == _handle );
 }
 
 

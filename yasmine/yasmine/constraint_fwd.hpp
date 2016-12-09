@@ -13,8 +13,7 @@
 #define CONSTRAINT_FWD_1FEE3CF1_5B7B_43EF_9E40_8CE0D3170E67
 
 
-#include <memory>
-#include <functional>
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -23,8 +22,8 @@ namespace sxy
 
 class constraint;
 class event;
-using constraint_uptr = std::unique_ptr< constraint >;
-using constraint_function = std::function< bool ( const event& ) >;
+typedef Y_UNIQUE_PTR< constraint > constraint_uptr;
+typedef sxy::function< bool ( const event& ) > constraint_function;
 
 
 }

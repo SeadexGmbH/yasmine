@@ -22,8 +22,12 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
 	endif()
-	
-	set(extra_flags "${extra_flags} -std=c++14 -Wall -g")
+			
+	if("${CPP_VERSION}" STREQUAL "03")
+		set(extra_flags "${extra_flags} -std=c++03 -Wall -g -Wno-unknown-pragmas -D \"Y_CPP03_BOOST\"")
+	else()
+		set(extra_flags "${extra_flags} -std=c++14 -Wall -g")
+	endif()
 	
 # yasmine's preprocessor definitions
 	set(Y_OPTIMIZE "SPEED" CACHE STRING "Sets the optimize type. Supported values: SPEED and SIZE. Default value is SPEED.")
@@ -49,7 +53,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		message(STATUS "Y_NO_STD_MAKE_UNIQUE is defined.")
 	endif()
 
-	option("Y_LEAN_AND_MEAN" "If you compile the library with Y_LEAN_AND_MEAN being defined or if you define the macro locally before including yasmine.hpp, all the state pseudostates and the asynchronous simple state (with the asynchronous behavior) are excluded (i.e. those headers are not included). This can reduce compile time.")	
+	option("Y_LEAN_AND_MEAN" "If you compile the library with Y_LEAN_AND_MEAN being defined or if you define the macro locally before including yasmine.hpp, all the state pseudostates and the asynchronous simple state (with the asynchronous behaviour) are excluded (i.e. those headers are not included). This can reduce compile time.")	
 	if( "${Y_LEAN_AND_MEAN}" )
 		set(extra_flags "${extra_flags} -D \"Y_LEAN_AND_MEAN\"")
 		message(STATUS "Y_LEAN_AND_MEAN is defined.")	
@@ -78,7 +82,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	#Enables function-level linking.
 	set(extra_flags "${extra_flags} /Gy")
 	
-	#Specifies standard behavior under /Ze.
+	#Specifies standard behaviour under /Ze.
 	set(extra_flags "${extra_flags} /Zc:wchar_t /Zc:inline")
 	
 	#Disable minimal rebuild.
@@ -87,7 +91,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	#Enables additional security features and warnings.
 	set(extra_flags "${extra_flags} /sdl")
 			
-	#Specifies floating-point behavior.
+	#Specifies floating-point behaviour.
 	set(extra_flags "${extra_flags} /fp:precise")
 		
 	#Multibyte character sets macro.
@@ -141,7 +145,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 		message(STATUS "Y_NO_STD_MAKE_UNIQUE is defined.")
 	endif()
 
-	option("Y_LEAN_AND_MEAN" "If you compile the library with Y_LEAN_AND_MEAN being defined or if you define the macro locally before including yasmine.hpp, all the state pseudostates and the asynchronous simple state (with the asynchronous behavior) are excluded (i.e. those headers are not included). This can reduce compile time.")	
+	option("Y_LEAN_AND_MEAN" "If you compile the library with Y_LEAN_AND_MEAN being defined or if you define the macro locally before including yasmine.hpp, all the state pseudostates and the asynchronous simple state (with the asynchronous behaviour) are excluded (i.e. those headers are not included). This can reduce compile time.")	
 	if( "${Y_LEAN_AND_MEAN}" )
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"Y_LEAN_AND_MEAN\"")
 		message(STATUS "Y_LEAN_AND_MEAN is defined.")	

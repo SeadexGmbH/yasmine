@@ -20,22 +20,21 @@ namespace sxy
 {
 
 
-class simple_state_impl final:
+class simple_state_impl Y_FINAL:
 	public simple_state_base
 {
 public:
-	explicit simple_state_impl( const std::string& _name,	behavior_uptr do_action = nullptr,
-		behavior_uptr _entry_action = nullptr, behavior_uptr _exit_action = nullptr,
-		const event_ids& _deferred_events = {}, event_sptr _error_event = nullptr );
-	virtual ~simple_state_impl() noexcept override = default;
-	simple_state_impl( const simple_state_impl& ) = delete;
-	simple_state_impl& operator=( const simple_state_impl& ) = delete;	
-	void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const override;
+	explicit simple_state_impl( const std::string& _name, behaviour_uptr do_action = behaviour_uptr(),
+		behaviour_uptr _entry_action = behaviour_uptr(), behaviour_uptr _exit_action = behaviour_uptr(),
+		const event_ids& _deferred_events = event_ids(), event_sptr _error_event = event_sptr() );
+	virtual ~simple_state_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(simple_state_impl)
+	void execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
 
 private:
-	const behavior * get_do() const;
+	const behaviour * get_do() const;
 
-	behavior_uptr do_;	
+	behaviour_uptr do_;	
 };
 
 

@@ -26,6 +26,12 @@ history_impl::history_impl( const std::string& _name )
 }
 
 
+history_impl::~history_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 raw_transitions history_impl::get_default_transitions() const
 {
 	return( vertex_impl::get_outgoing_transitions() );
@@ -41,8 +47,8 @@ void history_impl::add_default_transition( transition& _default_transition )
 
 bool history_impl::check_if_state_was_active_before() const
 {
-	const auto& parent_state = get_parent_state();
-	const auto state_was_active = parent_state.was_active();
+	const composite_state& parent_state = get_parent_state();
+	const bool state_was_active = parent_state.was_active();
 	return( state_was_active );
 }
 

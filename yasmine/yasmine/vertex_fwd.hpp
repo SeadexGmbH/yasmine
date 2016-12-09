@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 class vertex;
-using vertex_uptr = std::unique_ptr< vertex >;
-using raw_const_vertices = std::vector< const vertex* >;
-using vertices = std::vector< vertex_uptr >;
+typedef Y_UNIQUE_PTR< vertex > vertex_uptr;
+typedef std::vector< const vertex* > raw_const_vertices;
+typedef std::vector< vertex_uptr > vertices;
 
 
 }

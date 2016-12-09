@@ -26,12 +26,11 @@ class history_impl:
 {
 public:
 	explicit history_impl( const std::string& _name );
-	virtual ~history_impl() noexcept override = default;
-	history_impl( const history_impl& ) = delete;
-	history_impl& operator=( const history_impl& ) = delete;
-	virtual raw_transitions get_default_transitions() const override;
-	virtual void add_default_transition( transition& _default_transition ) override;
-	virtual bool check_if_state_was_active_before() const override;
+	virtual ~history_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(history_impl)
+	virtual raw_transitions get_default_transitions() const Y_OVERRIDE;
+	virtual void add_default_transition( transition& _default_transition ) Y_OVERRIDE;
+	virtual bool check_if_state_was_active_before() const Y_OVERRIDE;
 };
 
 

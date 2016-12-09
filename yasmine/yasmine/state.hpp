@@ -24,7 +24,7 @@ namespace sxy
 
 
 class state_visitor;
-class behavior;
+class behaviour;
 class event;
 class async_event_handler;
 
@@ -33,17 +33,26 @@ class state:
 	public virtual vertex
 {
 public:
-	state() = default;
-	virtual ~state() noexcept override = default;
-	state( const state& ) = delete;
-	state& operator=( const state& ) = delete;
+	state()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~state() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(state)
 	virtual void set_parent_region( region* const _parent_region ) = 0;
 	virtual region * get_parent_region() const = 0;
 	virtual size_t get_parent_region_index() const = 0;
 	virtual region * get_region( const std::string& _region_name ) const = 0;
 	virtual vertex * get_pseudostate( const std::string& _name_of_pseudostate ) const = 0;
-	virtual behavior * get_entry_behavior() const = 0;
-	virtual behavior * get_exit_behavior() const = 0;
+	virtual behaviour * get_entry_behaviour() const = 0;
+	virtual behaviour * get_exit_behaviour() const = 0;
 	virtual std::size_t get_nesting_level() const = 0;
 	virtual void set_active() = 0;
 	virtual void set_inactive() = 0;
@@ -54,9 +63,9 @@ public:
 	virtual void set_was_active() = 0;
 	virtual const regions& get_regions() const = 0;
 	virtual regions& get_regions() = 0;
-	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const = 0;
-	virtual void execute_enter_behavior( const event& _event ) const = 0;
-	virtual void execute_exit_behavior( const event& _event ) const = 0;
+	virtual void execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const = 0;
+	virtual void execute_enter_behaviour( const event& _event ) const = 0;
+	virtual void execute_exit_behaviour( const event& _event ) const = 0;
 	virtual void accept_state_visitor( state_visitor& _visitor ) const = 0;
 	virtual void enter_state( const event& _event ) = 0;
 	virtual void exit_state( const event& _event ) = 0;

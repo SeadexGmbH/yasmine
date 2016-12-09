@@ -34,20 +34,26 @@ transition_executor::transition_executor()
 }
 
 
+transition_executor::~transition_executor() Y_NOEXCEPT
+{	
+	// Nothing to do...
+}
+
+
 bool transition_executor::check_sort_and_execute_transitions( const compound_transitions& _compound_transitions,
 	raw_const_choices& _vertices, event_processing_callback* const _event_processing_callback, 
 	const event& _event, events& _exception_events, async_event_handler* const _async_event_handler )
 {
-	auto terminate_pseudostate_has_been_reached = false;
+	bool terminate_pseudostate_has_been_reached = false;
 	Y_LOG( log_level::LL_TRACE, "Check for transition conflicts." );
 	transition_executor_impl_->conflict_check( _compound_transitions );
 	Y_LOG( log_level::LL_TRACE, "Sorting compound transitions." );
-	const auto& sorted_compound_transitions = transition_executor_impl_->sort_compound_transitions(
-		_compound_transitions );
+	const raw_compound_transitions& sorted_compound_transitions = 
+		transition_executor_impl_->sort_compound_transitions(	_compound_transitions );
 	Y_LOG( log_level::LL_TRACE, "Compound transitions sorted." );
 	Y_LOG( log_level::LL_TRACE, "Start calculating execution step(s) for all compound transitions." );
 
-	for( auto & compound_transition : sorted_compound_transitions )
+	Y_FOR( compound_transition* const compound_transition, sorted_compound_transitions )
 	{
 		if( _event_processing_callback )
 		{
@@ -56,7 +62,7 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 
 		execution_steps execution_steps;
 		execution_steps.reserve( EXECUTION_STEPS_VECTOR_SIZE );
-		raw_const_region_set entered_regions = {};
+		raw_const_region_set entered_regions;
 		Y_LOG( log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
 		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,
 			execution_steps, entered_regions,	_event );

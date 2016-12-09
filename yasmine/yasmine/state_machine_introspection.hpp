@@ -15,6 +15,7 @@
 
 #include "state_fwd.hpp"
 #include "event_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -27,10 +28,19 @@ class state_machine_introspection
 {
 public:
 	//!\brief Constructor of state_machine_introspection.
-	state_machine_introspection() = default;
-	virtual ~state_machine_introspection() noexcept = default;
-	state_machine_introspection( const state_machine_introspection& ) = delete;
-	state_machine_introspection& operator=( const state_machine_introspection& ) = delete;
+	state_machine_introspection()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~state_machine_introspection() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(state_machine_introspection)
 
 	//!\brief Gets the active state configuration of the state machine.
 	//!\return A list of active states of the state machine at the moment when the function is called.

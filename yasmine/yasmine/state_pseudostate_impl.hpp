@@ -27,14 +27,13 @@ class state_pseudostate_impl:
 {
 public:
 	explicit state_pseudostate_impl( const std::string& _name );
-	virtual ~state_pseudostate_impl() noexcept override = default;
-	state_pseudostate_impl( const state_pseudostate_impl& ) = delete;
-	state_pseudostate_impl& operator=( const state_pseudostate_impl& ) = delete;
-	virtual const state_machine_element * get_parent() const override;
-	virtual composite_state& get_parent_state() const override;
-	virtual void set_parent_state( composite_state* const _parent_state ) override;
-	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor ) const override;
-	virtual raw_regions get_ancestors_as_regions() const override;
+	virtual ~state_pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(state_pseudostate_impl)
+	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
+	virtual composite_state& get_parent_state() const Y_OVERRIDE;
+	virtual void set_parent_state( composite_state* const _parent_state ) Y_OVERRIDE;
+	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor ) const Y_OVERRIDE;
+	virtual raw_regions get_ancestors_as_regions() const Y_OVERRIDE;
 
 
 private:

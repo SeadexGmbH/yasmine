@@ -14,30 +14,29 @@
 
 
 #include "simple_state_base.hpp"
-#include "async_behavior.hpp"
+#include "async_behaviour.hpp"
 
 
 namespace sxy
 {
 
 
-class async_simple_state_impl final:
+class async_simple_state_impl Y_FINAL:
 	public simple_state_base
 {
 public:
-	explicit async_simple_state_impl( const std::string& _name, async_behavior_uptr _do_action,
-		behavior_uptr _entry_action = nullptr, behavior_uptr _exit_action = nullptr,
-		const event_ids& _deferred_events = {}, event_sptr _error_event = nullptr );
-	virtual ~async_simple_state_impl() noexcept override = default;
-	async_simple_state_impl( const async_simple_state_impl& ) = delete;
-	async_simple_state_impl& operator=( const async_simple_state_impl& ) = delete;	
-	void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const override;
-	void execute_exit_behavior( const event& _event ) const override;
-	void stop_do_behavior() const;
+	explicit async_simple_state_impl( const std::string& _name, async_behaviour_uptr _do_action,
+		behaviour_uptr _entry_action = behaviour_uptr(), behaviour_uptr _exit_action = behaviour_uptr(),
+		const event_ids& _deferred_events = event_ids(), event_sptr _error_event = event_sptr());
+	virtual ~async_simple_state_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(async_simple_state_impl)
+	void execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
+	void execute_exit_behaviour( const event& _event ) const Y_OVERRIDE;
+	void stop_do_behaviour() const;
 
 
 private:
-	async_behavior_uptr do_;
+	async_behaviour_uptr do_;
 };
 
 

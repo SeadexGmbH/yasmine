@@ -13,7 +13,7 @@
 #define COMPLEX_STATE_VISITOR_A1E31C49_08E0_400B_A6A9_20A333A8FD42
 
 
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -27,10 +27,19 @@ class simple_state;
 class complex_state_visitor
 {
 public:
-	complex_state_visitor() = default;
-	virtual ~complex_state_visitor() noexcept = default;
-	complex_state_visitor( const complex_state_visitor& ) = delete;
-	complex_state_visitor& operator=( const complex_state_visitor& ) = delete;
+	complex_state_visitor()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~complex_state_visitor() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(complex_state_visitor)
 	virtual void visit( const composite_state& _composite_state ) = 0;
 	virtual void visit( const simple_state& _simple_state ) = 0;	
 };

@@ -18,39 +18,45 @@ namespace sxy
 {
 
 
-async_simple_state_impl::async_simple_state_impl( const std::string& _name, async_behavior_uptr _do_action,
-	behavior_uptr _entry_action, behavior_uptr _exit_action, const event_ids& _deferred_events,
+async_simple_state_impl::async_simple_state_impl( const std::string& _name, async_behaviour_uptr _do_action,
+	behaviour_uptr _entry_action, behaviour_uptr _exit_action, const event_ids& _deferred_events,
 	event_sptr _error_event )
-	: simple_state_base( _name, std::move( _entry_action ), std::move( _exit_action ), _deferred_events, 
+	: simple_state_base( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events, 
 			_error_event ),
-	do_( std::move( _do_action ) )
+	do_( sxy::move( _do_action ) )
 {		
-	Y_ASSERT( do_, "Async simple state must have an 'async do behavior' asigned!" );
+	Y_ASSERT( do_, "Async simple state must have an 'async do behaviour' asigned!" );
+}
+
+
+async_simple_state_impl::~async_simple_state_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
 }
 																												 
 
-void async_simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
+void async_simple_state_impl::execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const
 {
-	auto behavior = do_.get();
-	if( behavior )
+	const async_behaviour* const behaviour = do_.get();
+	if( behaviour )
 	{
 		do_->start( _event, *this, *_async_event_handler );
 	}
 }
 
 
-void async_simple_state_impl::execute_exit_behavior( const event& _event ) const
+void async_simple_state_impl::execute_exit_behaviour( const event& _event ) const
 {
-	stop_do_behavior();
+	stop_do_behaviour();
 
-	complex_state_impl::execute_exit_behavior( _event );
+	complex_state_impl::execute_exit_behaviour( _event );
 }
 
 
-void async_simple_state_impl::stop_do_behavior() const
+void async_simple_state_impl::stop_do_behaviour() const
 {
-	auto behavior = do_.get();
-	if( behavior )
+	const async_behaviour* const behaviour = do_.get();
+	if( behaviour )
 	{
 		do_->stop();		
 	}

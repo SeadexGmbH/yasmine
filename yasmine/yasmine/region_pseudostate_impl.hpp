@@ -27,12 +27,12 @@ class region_pseudostate_impl:
 {
 public:
 	explicit region_pseudostate_impl( const std::string& _name );
-	virtual ~region_pseudostate_impl() noexcept override = default;
-	virtual const state_machine_element * get_parent() const override;
-	virtual region * get_parent_region() const override;
-	virtual void set_parent_region( region* const _parent_region ) override;
-	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor ) const override;
-	virtual raw_regions get_ancestors_as_regions() const override;
+	virtual ~region_pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
+	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
+	virtual region * get_parent_region() const Y_OVERRIDE;
+	virtual void set_parent_region( region* const _parent_region ) Y_OVERRIDE;
+	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor ) const Y_OVERRIDE;
+	virtual raw_regions get_ancestors_as_regions() const Y_OVERRIDE;
 
 
 private:

@@ -15,6 +15,7 @@
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
+#include "transition.hpp"
 
 
 namespace sxy
@@ -28,10 +29,16 @@ terminate_pseudostate_impl::terminate_pseudostate_impl( const std::string& _name
 }
 
 
+terminate_pseudostate_impl::~terminate_pseudostate_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool terminate_pseudostate_impl::check( state_machine_defects& _defects ) const
 {
 	Y_UNUSED_PARAMETER( _defects );
-	auto check_ok = true;
+	const bool check_ok = true;
 	return( check_ok );
 }
 

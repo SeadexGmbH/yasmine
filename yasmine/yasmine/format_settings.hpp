@@ -15,12 +15,14 @@
 
 #include <string>
 
+#include "compatibility.hpp"
+
 
 namespace sxy
 {
 
 
-struct format_settings final
+struct format_settings Y_FINAL
 {
 	format_settings();
 

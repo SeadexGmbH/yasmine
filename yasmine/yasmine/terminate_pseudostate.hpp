@@ -25,10 +25,19 @@ class terminate_pseudostate:
 	public virtual region_pseudostate
 {
 public:
-	terminate_pseudostate() = default;
-	virtual ~terminate_pseudostate() noexcept override = default;
-	terminate_pseudostate( const terminate_pseudostate& ) = delete;
-	terminate_pseudostate& operator=( const terminate_pseudostate& ) = delete;
+	terminate_pseudostate()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~terminate_pseudostate() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(terminate_pseudostate)
 };
 
 

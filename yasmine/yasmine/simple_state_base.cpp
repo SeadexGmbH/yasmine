@@ -24,10 +24,16 @@ namespace sxy
 {
 
 
-simple_state_base::simple_state_base( const std::string& _name, behavior_uptr _entry_action,
-	behavior_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event)
-	: complex_state_impl( _name, std::move( _entry_action ), std::move( _exit_action ), _deferred_events ),
+simple_state_base::simple_state_base( const std::string& _name, behaviour_uptr _entry_action,
+	behaviour_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event)
+	: complex_state_impl( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events ),
 	error_event_( _error_event )
+{
+	// Nothing to do...
+}
+
+
+simple_state_base::~simple_state_base() Y_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -74,7 +80,7 @@ void simple_state_base::accept_state_visitor( state_visitor& _visitor ) const
 bool simple_state_base::check( state_machine_defects& _defects ) const
 {
 	Y_UNUSED_PARAMETER( _defects );
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.11 State -> Constraint [4]: A simple state is a state without any regions.
 	// Enforced by design.
@@ -92,7 +98,7 @@ bool simple_state_base::check( state_machine_defects& _defects ) const
 
 bool simple_state_base::has_error_event() const
 {		
-	const auto state_has_error_event = ( error_event_ != nullptr );
+	const bool state_has_error_event = !!error_event_;
 	return( state_has_error_event );
 }
 

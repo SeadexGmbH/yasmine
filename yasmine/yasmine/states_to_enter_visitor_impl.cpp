@@ -18,6 +18,16 @@
 #include "region.hpp"
 #include "deep_history.hpp"
 #include "shallow_history.hpp"
+#include "initial_pseudostate.hpp"
+#include "choice.hpp"
+#include "junction.hpp"
+#include "join.hpp"
+#include "fork.hpp"
+#include "entry_point.hpp"
+#include "exit_point.hpp"
+#include "deep_history.hpp"
+#include "shallow_history.hpp"
+#include "terminate_pseudostate.hpp"
 
 
 namespace sxy
@@ -29,6 +39,12 @@ states_to_enter_visitor_impl::states_to_enter_visitor_impl( raw_states_by_nestin
 	: states_to_enter_( _states_to_enter ),
 		regions_to_enter_( _regions_to_enter ),
 		LCA_of_compound_transition_( _LCA_of_compound_transition )
+{
+	// Nothing to do...
+}
+
+
+states_to_enter_visitor_impl::~states_to_enter_visitor_impl() Y_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -102,7 +118,7 @@ void states_to_enter_visitor_impl::visit( exit_point& _exit_point )
 
 void states_to_enter_visitor_impl::visit( deep_history& _deep_history )
 {
-	auto& parent_state = _deep_history.get_parent_state();
+	composite_state& parent_state = _deep_history.get_parent_state();
 	states_to_enter_.insert( &parent_state );
 	add_last_active_child_states_to_enter( parent_state );
 }
@@ -110,12 +126,12 @@ void states_to_enter_visitor_impl::visit( deep_history& _deep_history )
 
 void states_to_enter_visitor_impl::visit( shallow_history& _shallow_history )
 {
-	auto& parent_state = _shallow_history.get_parent_state();
+	composite_state& parent_state = _shallow_history.get_parent_state();
 	states_to_enter_.insert( &parent_state );
 
-	for( const auto & region : parent_state.get_regions() )
+	Y_FOR( const region_uptr& region, parent_state.get_regions() )
 	{
-		const auto last_active_state_of_region = region->get_last_active_state();
+		state* const last_active_state_of_region = region->get_last_active_state();
 		if( last_active_state_of_region )
 		{
 			states_to_enter_.insert( last_active_state_of_region );
@@ -134,9 +150,9 @@ void states_to_enter_visitor_impl::visit( terminate_pseudostate& _terminate_pseu
 
 void states_to_enter_visitor_impl::get_states_up_to_LCA( state& _state )
 {
-	auto ancestors = _state.get_ancestors( &LCA_of_compound_transition_ );
+	const raw_composite_states& ancestors = _state.get_ancestors( &LCA_of_compound_transition_ );
 
-	for( auto ancestor : ancestors )
+	Y_FOR( composite_state* const ancestor, ancestors )
 	{
 		if( ancestor != &LCA_of_compound_transition_ )
 		{
@@ -150,9 +166,9 @@ void states_to_enter_visitor_impl::get_states_up_to_LCA( state& _state )
 
 void states_to_enter_visitor_impl::get_regions_up_to_LCA( const state& _state )
 {
-	auto ancestors_as_regions = _state.get_ancestors_as_regions();
+	const raw_regions& ancestors_as_regions = _state.get_ancestors_as_regions();
 
-	for( auto ancestor_as_region : ancestors_as_regions )
+	Y_FOR( region* const ancestor_as_region, ancestors_as_regions )
 	{
 		if( &ancestor_as_region->get_parent_state() != &LCA_of_compound_transition_ )
 		{
@@ -164,9 +180,9 @@ void states_to_enter_visitor_impl::get_regions_up_to_LCA( const state& _state )
 
 void states_to_enter_visitor_impl::add_last_active_child_states_to_enter( const state& _state )
 {
-	for( auto & region : _state.get_regions() )
+	Y_FOR( const region_uptr& region, _state.get_regions() )
 	{
-		const auto state = region->get_last_active_state();
+		state* const state = region->get_last_active_state();
 		states_to_enter_.insert( state );
 		regions_to_enter_.insert( state->get_parent_region() );
 		add_last_active_child_states_to_enter( *state );

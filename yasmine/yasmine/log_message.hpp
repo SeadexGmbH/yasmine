@@ -18,15 +18,16 @@
 #include <string>
 
 #include "log_level.hpp"
+#include "compatibility.hpp"
 
 
 namespace sxy
 {
 
 
-struct log_message final
+struct log_message Y_FINAL
 {
-	log_message() = default;
+	log_message();
 	log_message( const log_level _log_level, const std::string& _time_stamp, const std::string& _file,
 		const int _line, const std::string& _message );
 

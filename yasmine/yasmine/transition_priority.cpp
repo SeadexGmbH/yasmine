@@ -16,7 +16,7 @@
 #include "region.hpp"
 #include "deep_history.hpp"
 #include "shallow_history.hpp"
-#include "behavior.hpp"
+#include "behaviour.hpp"
 
 
 namespace sxy
@@ -26,6 +26,12 @@ namespace sxy
 transition_priority::transition_priority( compound_transition& _compound_transition )
 	: compound_transition_( &_compound_transition ),
 		priority_( _compound_transition.get_LCA_region()->get_parent_state().get_nesting_level() )
+{
+	// Nothing to do...
+}
+
+
+transition_priority::~transition_priority() Y_NOEXCEPT
 {
 	// Nothing to do...
 }

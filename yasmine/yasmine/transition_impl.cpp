@@ -14,7 +14,7 @@
 #include <algorithm>
 
 #include "vertex.hpp"
-#include "behavior.hpp"
+#include "behaviour.hpp"
 #include "constraint.hpp"
 #include "event.hpp"
 #include "uri.hpp"
@@ -29,22 +29,45 @@ namespace sxy
 {
 
 
+#ifdef Y_CPP03_BOOST
+#pragma warning( disable : 4100 )
+#endif
+
+
+#ifdef Y_CPP03_BOOST
 transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
-	: transition_impl( event_ids { _event_id }, _source, _target, _kind, std::move( _guard ), std::move( _behavior ) )
+	const sxy::transition_kind _kind, constraint_uptr _guard, behaviour_uptr _behaviour )
+	: state_machine_element_impl( get_transition_name(_source, _target, event_ids( 1, _event_id ) ) ),
+		event_ids_( event_ids( 1, _event_id ) ),
+		source_( _source ),
+		target_( _target ),
+		guard_( sxy::move( _guard ) ),
+		behaviour_( sxy::move( _behaviour ) ),
+		kind_( _kind )
 {
-	// Nothing to do...
+	source_.add_outgoing_transition( *this );
+	target_.add_incoming_transition( *this );
 }
+
+#else
+	transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target,
+		const sxy::transition_kind _kind, constraint_uptr _guard, behaviour_uptr _behaviour )
+		: transition_impl( event_ids{ _event_id }, _source, _target, _kind, sxy::move( _guard ), sxy::move( _behaviour ) )
+	{
+		// Nothing to do...
+	}
+#endif
+
 
 
 transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind,	constraint_uptr _guard, behavior_uptr _behavior )
+	const sxy::transition_kind _kind,	constraint_uptr _guard, behaviour_uptr _behaviour )
 	: state_machine_element_impl( get_transition_name( _source, _target, _event_ids ) ),
 		event_ids_( _event_ids ),
 		source_( _source ),
 		target_( _target ),
-		guard_( std::move( _guard ) ),
-		behavior_( std::move( _behavior ) ),
+		guard_( sxy::move( _guard ) ),
+		behaviour_( sxy::move( _behaviour ) ),
 		kind_( _kind )
 {
 	source_.add_outgoing_transition( *this );
@@ -52,7 +75,7 @@ transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, v
 }
 
 
-transition_impl::~transition_impl() noexcept
+transition_impl::~transition_impl() Y_NOEXCEPT
 {
 	source_.remove_outgoing_transition( *this );
 	target_.remove_incoming_transition( *this );
@@ -83,9 +106,9 @@ const constraint* transition_impl::get_guard() const
 }
 
 
-const behavior* transition_impl::get_behavior() const
+const behaviour* transition_impl::get_behaviour() const
 {
-	return( behavior_.get() );
+	return( behaviour_.get() );
 }
 
 
@@ -99,7 +122,7 @@ uri transition_impl::get_uri() const
 
 const state_machine_element* transition_impl::get_parent() const 
 {
-	return( nullptr );
+	return( Y_NULLPTR );
 }
 
 
@@ -117,14 +140,14 @@ void transition_impl::add_ancestor_uri( uri& _uri ) const
 }
 
 
-void transition_impl::on_transition_behavior( const event& _event ) const
+void transition_impl::on_transition_behaviour( const event& _event ) const
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Executing transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
 		get_target().get_name() );
-	auto behavior = get_behavior();
-	if( behavior != nullptr )
+	const behaviour* const behaviour = get_behaviour();
+	if( behaviour != Y_NULLPTR )
 	{
-		( *behavior )( _event );
+		( *behaviour )( _event );
 	}
 
 	Y_LOG( sxy::log_level::LL_TRACE, "Executed transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
@@ -134,8 +157,8 @@ void transition_impl::on_transition_behavior( const event& _event ) const
 
 bool transition_impl::check_guard( const event& _event ) const
 {
-	auto is_checked = true;
-	if( guard_ != nullptr )
+	bool is_checked = true;
+	if( guard_ )
 	{
 		is_checked = ( *guard_ )( _event );
 	}
@@ -147,19 +170,21 @@ bool transition_impl::check_guard( const event& _event ) const
 bool transition_impl::check( state_machine_defects& _defects ) const
 {
 	Y_UNUSED_PARAMETER( _defects );
-	auto check_ok = true;
-	const auto& source = get_source();
-	auto source_ancestors = source.get_ancestors_as_regions();
-	const auto& target = get_target();
-	auto target_ancestors = target.get_ancestors_as_regions();
-	const auto lca_of_source_target = source.LCA_region( target );
-	auto found_source_itr = std::find( source_ancestors.begin(), source_ancestors.end(), lca_of_source_target );
+	bool check_ok = true;
+	const vertex& source = get_source();
+	const raw_regions& source_ancestors = source.get_ancestors_as_regions();
+	const vertex& target = get_target();
+	const raw_regions& target_ancestors = target.get_ancestors_as_regions();
+	const region* const lca_of_source_target = source.LCA_region( target );
+	raw_regions::const_iterator found_source_itr = 
+		std::find( source_ancestors.begin(), source_ancestors.end(), lca_of_source_target );
 	if( found_source_itr != source_ancestors.begin() )
 	{
 		--found_source_itr;
 	}
 
-	auto found_target_itr = std::find( target_ancestors.begin(), target_ancestors.end(), lca_of_source_target );
+	raw_regions::const_iterator found_target_itr = 
+		std::find( target_ancestors.begin(), target_ancestors.end(), lca_of_source_target );
 	if( found_target_itr != target_ancestors.begin() )
 	{
 		--found_target_itr;
@@ -172,8 +197,8 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 	else
 	if( ( **found_source_itr ).get_uri().to_string() != ( **found_target_itr ).get_uri().to_string() )
 	{
-		auto& source_composite_state = ( **found_source_itr ).get_parent_state();
-		auto& target_composite_state = ( **found_target_itr ).get_parent_state();
+		const composite_state& source_composite_state = ( **found_source_itr ).get_parent_state();
+		const composite_state& target_composite_state = ( **found_target_itr ).get_parent_state();
 		if( source_composite_state.get_uri().to_string() == target_composite_state.get_uri().to_string() )
 		{
 			const std::string message =
@@ -186,7 +211,7 @@ bool transition_impl::check( state_machine_defects& _defects ) const
 
 	if( sxy::transition_kind::INTERNAL == get_kind() )
 	{
-		const auto source_state = dynamic_cast< const state* >( &get_source() );
+		const state* const source_state = dynamic_cast< const state* >( &get_source() );
 		if( source_state )
 		{
 			if( get_source().get_uri().to_string() != get_target().get_uri().to_string() )
@@ -249,8 +274,8 @@ bool transition_impl::can_accept_event( const event_id _event ) const
 bool transition_impl::check_if_source_and_target_are_in_ancestor_relationship(	const vertex& _source,	
 	const vertex& _target )
 {
-	auto are_in_ancestor_relationship = false;
-	auto target_as_composite_state = dynamic_cast< const composite_state* >( &_target );
+	bool are_in_ancestor_relationship = false;
+	const composite_state* const target_as_composite_state = dynamic_cast< const composite_state* >( &_target );
 	if( target_as_composite_state )
 	{
 		are_in_ancestor_relationship = check_relationship( _source, target_as_composite_state );
@@ -258,7 +283,7 @@ bool transition_impl::check_if_source_and_target_are_in_ancestor_relationship(	c
 
 	if( !are_in_ancestor_relationship )
 	{
-		auto source_as_composite_state = dynamic_cast< const composite_state* >( &_source );
+		const composite_state* const source_as_composite_state = dynamic_cast< const composite_state* >( &_source );
 		if( source_as_composite_state )
 		{
 			are_in_ancestor_relationship = check_relationship( _target, source_as_composite_state );
@@ -272,10 +297,10 @@ bool transition_impl::check_if_source_and_target_are_in_ancestor_relationship(	c
 
 bool transition_impl::check_relationship( const vertex& _lhs, const composite_state* _rhs )
 {
-	auto are_in_relationship = false;
-	const auto lhs_ancestors = _lhs.get_ancestors( nullptr );
+	bool are_in_relationship = false;
+	const raw_composite_states& lhs_ancestors = _lhs.get_ancestors( Y_NULLPTR );
 
-	for( const auto ancestor : lhs_ancestors )
+	Y_FOR( const composite_state* const ancestor, lhs_ancestors )
 	{
 		if( ancestor == _rhs )
 		{
@@ -289,9 +314,9 @@ bool transition_impl::check_relationship( const vertex& _lhs, const composite_st
 
 
 
-std::string transition_impl::get_transition_name( vertex& _source, vertex& _target, const event_ids _event_ids )
+std::string transition_impl::get_transition_name( vertex& _source, vertex& _target, const event_ids& _event_ids )
 {
-	auto transition_name = _source.get_name() + "->" + _target.get_name();
+	std::string transition_name = _source.get_name() + "->" + _target.get_name();
 	if( !_event_ids.empty() )
 	{
 		

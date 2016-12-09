@@ -14,6 +14,7 @@
 #include "version.hpp"
 #include "build_number.hpp"
 #include "log.hpp"
+#include "compatibility.hpp"
 
 
 namespace yasmine
@@ -28,9 +29,9 @@ namespace
 {
 
 
-const std::uint16_t VERSION_MAJOR( 0 );
-const std::uint16_t VERSION_MINOR( 5 );
-const std::uint16_t VERSION_PATCH( 0 );
+const sxy::uint16_t VERSION_MAJOR( 0 );
+const sxy::uint16_t VERSION_MINOR( 6 );
+const sxy::uint16_t VERSION_PATCH( 0 );
 
 
 }
@@ -48,25 +49,25 @@ void log_version()
 
 #endif
 
-std::uint16_t get_major_version()
+sxy::uint16_t get_major_version()
 {
 	return( VERSION_MAJOR );
 }
 
 
-std::uint16_t get_minor_version()
+sxy::uint16_t get_minor_version()
 {
 	return( VERSION_MINOR );
 }
 
 
-std::uint16_t get_patch_version()
+sxy::uint16_t get_patch_version()
 {
 	return( VERSION_PATCH );
 }
 
 
-std::uint16_t get_build_number()
+sxy::uint16_t get_build_number()
 {
 	return( BUILD_NUMBER );
 }

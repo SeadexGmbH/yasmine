@@ -21,7 +21,7 @@ namespace sxy
 
 
 event_creation_request::event_creation_request(
-	const std::chrono::time_point< std::chrono::system_clock >& _time, const event_sptr _event, const handle_type _handle )
+	const sxy::time_point< sxy::system_clock >& _time, const event_sptr _event, const handle_type _handle )
 	: time_( _time ),
 		event_( _event ),
 		handle_( _handle )
@@ -31,10 +31,17 @@ event_creation_request::event_creation_request(
 }
 
 
+event_creation_request::~event_creation_request() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
+#ifndef Y_CPP03_BOOST
 event_creation_request::event_creation_request( event_creation_request&& _event_creation_request )
-	: time_(std::move( _event_creation_request.time_)),
-		event_(std::move(_event_creation_request.event_)),
-		handle_(std::move(_event_creation_request.handle_))
+	: time_(sxy::move( _event_creation_request.time_)),
+		event_(sxy::move(_event_creation_request.event_)),
+		handle_(sxy::move(_event_creation_request.handle_))
 {
 	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' (%) @ %.", event_->get_name(), event_->get_id(),
 		time_.time_since_epoch().count() );
@@ -43,22 +50,23 @@ event_creation_request::event_creation_request( event_creation_request&& _event_
 
 event_creation_request& event_creation_request::operator=( event_creation_request&& _event_creation_request )
 {
-	time_ = std::move( _event_creation_request.time_ );	
-	event_ = std::move( _event_creation_request.event_ );
-	handle_ = std::move( _event_creation_request.handle_ );
+	time_ = sxy::move( _event_creation_request.time_ );	
+	event_ = sxy::move( _event_creation_request.event_ );
+	handle_ = sxy::move( _event_creation_request.handle_ );
 	Y_LOG( log_level::LL_TRACE, "Event creation request for event '%' (%) @ %.", event_->get_name(), event_->get_id(),
 		time_.time_since_epoch().count() );
 	return( *this );
 }
+#endif
 
 
-std::chrono::time_point< std::chrono::system_clock > event_creation_request::get_time() const
+sxy::time_point< sxy::system_clock > event_creation_request::get_time() const
 {
 	return( time_ );
 }
 
 
-event_creation_request::handle_type event_creation_request::get_handle() const
+handle_type event_creation_request::get_handle() const
 {
 	return( handle_ );
 }

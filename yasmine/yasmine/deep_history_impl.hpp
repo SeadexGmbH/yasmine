@@ -21,18 +21,17 @@ namespace sxy
 {
 
 
-class deep_history_impl final:
+class deep_history_impl Y_FINAL:
 	public virtual deep_history, public history_impl
 {
 public:
 	explicit deep_history_impl( const std::string& _name );
-	virtual ~deep_history_impl() noexcept override = default;
-	deep_history_impl( const deep_history_impl& ) = delete;
-	deep_history_impl& operator=( const deep_history_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
+	virtual ~deep_history_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(deep_history_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
 };
 
 

@@ -21,18 +21,17 @@ namespace sxy
 {
 
 
-class junction_impl final:
+class junction_impl Y_FINAL:
 	public virtual junction, public region_pseudostate_impl
 {
 public:
 	explicit junction_impl( const std::string& _name );
-	virtual ~junction_impl() noexcept override = default;
-	junction_impl( const junction_impl& ) = delete;
-	junction_impl& operator=( const junction_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
+	virtual ~junction_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(junction_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
 };
 
 

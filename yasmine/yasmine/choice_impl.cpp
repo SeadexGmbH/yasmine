@@ -30,16 +30,22 @@ choice_impl::choice_impl( const std::string& _name )
 }
 
 
+choice_impl::~choice_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 bool choice_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.8 Pseudostate -> Constraint [8]: Choice must have at least 1 incoming and 1 outgoing transition.
 	Y_LOG( log_level::LL_SPAM, "Checking if choice '%' has incoming transition(s).", get_name() );
 	if( get_incoming_transitions().empty() )
 	{
 		_defects.push_back( state_machine_defect( *this, "Choice '%' has no incoming transitions!",
-				get_name() ) );
+			get_name() ) );
 		check_ok = false;
 	}
 
@@ -58,9 +64,9 @@ bool choice_impl::check( state_machine_defects& _defects ) const
 			get_outgoing_transitions().size() );
 		Y_LOG( log_level::LL_SPAM, "Checking if choice '%' has more than one outgoing transition with no guard.",
 			get_name() );
-		auto number_of_transitions_with_no_guard = 0;
+		uint8_t number_of_transitions_with_no_guard = 0;
 
-		for( const auto transition : get_outgoing_transitions() )
+		Y_FOR( const transition* const transition, get_outgoing_transitions() )
 		{
 			if( !transition->get_guard() )
 			{

@@ -27,10 +27,19 @@ class complex_state:
 	public virtual state
 {
 public:
-	complex_state() = default;
-	virtual ~complex_state() noexcept override = default;
-	complex_state( const complex_state& ) = delete;
-	complex_state& operator=( const complex_state& ) = delete;
+	complex_state()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~complex_state() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(complex_state)
 	virtual void accept_complex_state_visitor( complex_state_visitor& _visitor ) const = 0;
 };
 

@@ -23,11 +23,11 @@ namespace sxy
 {
 
 
-class uri final
+class uri Y_FINAL
 {
 public:
 	explicit uri( const std::string& _uri = "" );
-	~uri() noexcept = default;
+	~uri() Y_NOEXCEPT;
 	bool is_empty() const;
 	const std::string to_string() const;
 	const std::string& get_front() const;

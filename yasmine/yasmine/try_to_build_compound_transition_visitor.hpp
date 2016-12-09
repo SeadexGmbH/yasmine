@@ -32,22 +32,21 @@ class try_to_build_compound_transition_visitor:
 public:
 	try_to_build_compound_transition_visitor(	transition& _enabled_transition,	
 		compound_transitions& _enabled_compound_transitions,	bool& _is_built,	const event& _event );
-	virtual ~try_to_build_compound_transition_visitor() noexcept override = default;
-	try_to_build_compound_transition_visitor( const try_to_build_compound_transition_visitor& ) = delete;
-	try_to_build_compound_transition_visitor& operator=( const try_to_build_compound_transition_visitor& ) = delete;
-	virtual void visit( const composite_state& _composite_state ) override;
-	virtual void visit( const simple_state& _simple_state ) override;
-	virtual void visit( const final_state& _final_state ) override;
-	virtual void visit( const initial_pseudostate& _initial_pseudostate ) override;
-	virtual void visit( const choice& _choice ) override;
-	virtual void visit( const junction& _junction ) override;
-	virtual void visit( const join& _join ) override;
-	virtual void visit( const fork& _fork ) override;
-	virtual void visit( const entry_point& _entry_point ) override;
-	virtual void visit( const exit_point& _exit_point ) override;
-	virtual void visit( const deep_history& _deep_history ) override;
-	virtual void visit( const shallow_history& _shallow_history ) override;
-	virtual void visit( const terminate_pseudostate& _terminate_pseudostate ) override;
+	virtual ~try_to_build_compound_transition_visitor() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(try_to_build_compound_transition_visitor)
+	virtual void visit( const composite_state& _composite_state ) Y_OVERRIDE;
+	virtual void visit( const simple_state& _simple_state ) Y_OVERRIDE;
+	virtual void visit( const final_state& _final_state ) Y_OVERRIDE;
+	virtual void visit( const initial_pseudostate& _initial_pseudostate ) Y_OVERRIDE;
+	virtual void visit( const choice& _choice ) Y_OVERRIDE;
+	virtual void visit( const junction& _junction ) Y_OVERRIDE;
+	virtual void visit( const join& _join ) Y_OVERRIDE;
+	virtual void visit( const fork& _fork ) Y_OVERRIDE;
+	virtual void visit( const entry_point& _entry_point ) Y_OVERRIDE;
+	virtual void visit( const exit_point& _exit_point ) Y_OVERRIDE;
+	virtual void visit( const deep_history& _deep_history ) Y_OVERRIDE;
+	virtual void visit( const shallow_history& _shallow_history ) Y_OVERRIDE;
+	virtual void visit( const terminate_pseudostate& _terminate_pseudostate ) Y_OVERRIDE;
 
 
 private:

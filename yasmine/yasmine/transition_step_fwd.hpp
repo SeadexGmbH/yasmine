@@ -16,14 +16,16 @@
 #include <vector>
 #include <memory>
 
+#include "compatibility.hpp"
+
 
 namespace sxy
 {
 
 
 class transition_step;
-using transition_step_uptr = std::unique_ptr< transition_step >;
-using transition_steps = std::vector< transition_step_uptr >;
+typedef sxy::Y_UNIQUE_PTR< transition_step > transition_step_uptr;
+typedef std::vector< transition_step_uptr > transition_steps;
 
 
 }

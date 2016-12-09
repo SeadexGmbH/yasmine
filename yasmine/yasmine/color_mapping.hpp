@@ -16,7 +16,7 @@
 
 #include <map>
 
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
 #include "color.hpp"
 #include "log_level.hpp"
 
@@ -25,18 +25,19 @@ namespace sxy
 {
 
 
-class color_mapping final
+class color_mapping Y_FINAL
 {
 public:
+	typedef std::map< log_level, color > color_map;
+
 	color_mapping();
-	~color_mapping() noexcept = default;
-	color_mapping( const color_mapping& ) = delete;
-	color_mapping& operator=( const color_mapping& ) = delete;
-	color get_color( const log_level _log_level );
+	~color_mapping() Y_NOEXCEPT;
+	Y_NO_COPY(color_mapping)
+	color get_color( const log_level _log_level ) const;
 
 
 private:
-	std::map< log_level, color > color_ma_;
+	color_map color_map_;
 };
 
 

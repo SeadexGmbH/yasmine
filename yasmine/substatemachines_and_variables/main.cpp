@@ -9,25 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "behavior_exception.hpp"
+#include "state_machine_with_submachines.hpp"
 
 
-namespace sxy
+int main()
 {
-
-
-behavior_exception::behavior_exception( const event_sptr _event )
-	: exception("Error handle exception."),
-		error_event_( _event )
-{	
-	// Nothing to do...
-}
-
-	
-const event_sptr behavior_exception::get_error_event() const
-{
-	return( error_event_ );
-}
-
-
+	sxy::state_machine_with_submachines state_machine_with_submachines;
+	state_machine_with_submachines.create();
+	state_machine_with_submachines.run();
 }

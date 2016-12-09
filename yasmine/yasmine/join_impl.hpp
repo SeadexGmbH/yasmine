@@ -20,20 +20,19 @@ namespace sxy
 {
 
 
-class join_impl final:
+class join_impl Y_FINAL:
 	public virtual join, public region_pseudostate_impl
 {
 public:
 	explicit join_impl( const std::string& _name );
-	virtual ~join_impl() noexcept override = default;
-	join_impl( const join_impl& ) = delete;
-	join_impl& operator=( const join_impl& ) = delete;
-	virtual bool check_if_all_source_states_of_incoming_transitions_are_active() const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void add_outgoing_transition( transition& _outgoing_transition ) override;
+	virtual ~join_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(join_impl)
+	virtual bool check_if_all_source_states_of_incoming_transitions_are_active() const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void add_outgoing_transition( transition& _outgoing_transition ) Y_OVERRIDE;
 };
 
 

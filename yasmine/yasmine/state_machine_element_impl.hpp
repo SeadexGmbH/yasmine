@@ -27,10 +27,9 @@ class state_machine_element_impl:
 {
 public:
 	explicit state_machine_element_impl( const std::string& _name );
-	virtual ~state_machine_element_impl() noexcept override = default;
-	state_machine_element_impl( const state_machine_element_impl& ) = delete;
-	state_machine_element_impl& operator=( const state_machine_element_impl& ) = delete;
-	virtual const std::string& get_name() const override;
+	virtual ~state_machine_element_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(state_machine_element_impl)	
+	virtual const std::string& get_name() const Y_OVERRIDE;
 
 
 private:

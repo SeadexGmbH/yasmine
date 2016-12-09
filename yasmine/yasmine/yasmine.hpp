@@ -24,22 +24,28 @@
 #include "region_pseudostates.hpp"
 
 #include "transition.hpp"
-#include "behavior.hpp"
+#include "behaviour.hpp"
+#include "behaviour_exception.hpp"
 #include "event_impl.hpp"
-#include "event_with_parameters.hpp"
+
 #include "event_template.hpp"
 #include "constraint.hpp"
+#include "completion_event.hpp"
 
 #include "logging.hpp"
 #include "utils.hpp"
 #include "assembly.hpp"
+#include "compatibility.hpp"
+#include "chrono.hpp"
+#include "thread.hpp"
+#include "non_copyable.hpp"
 
 
 #ifndef Y_LEAN_AND_MEAN
 
 
 #include "state_pseudostates.hpp"
-#include "async_behavior.hpp"
+#include "async_behaviour.hpp"
 
 
 #endif

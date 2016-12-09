@@ -24,21 +24,20 @@ class transition;
 class state;
 
 
-class simple_transition_step final:
+class simple_transition_step Y_FINAL:
 	public transition_step
 {
 public:
 	explicit simple_transition_step( transition& _transition );
-	virtual ~simple_transition_step() noexcept override = default;
-	simple_transition_step( const simple_transition_step& ) = delete;
-	simple_transition_step& operator=( const simple_transition_step& ) = delete;
-	virtual const raw_transitions& get_transitions() const override;
-	virtual const vertex& get_unique_source() const override;
-	virtual const vertex& get_unique_target() const override;
-	virtual const exit_point * get_exit_point() const override;
-	virtual const entry_point * get_entry_point() const override;
-	virtual const raw_const_vertices get_target_vertices() override;
-	void execute_transition_behaviors( const event& _event ) const override;
+	virtual ~simple_transition_step() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(simple_transition_step)
+	virtual const raw_transitions& get_transitions() const Y_OVERRIDE;
+	virtual const vertex& get_unique_source() const Y_OVERRIDE;
+	virtual const vertex& get_unique_target() const Y_OVERRIDE;
+	virtual const exit_point * get_exit_point() const Y_OVERRIDE;
+	virtual const entry_point * get_entry_point() const Y_OVERRIDE;
+	virtual const raw_const_vertices get_target_vertices() Y_OVERRIDE;
+	void execute_transition_behaviours( const event& _event ) const Y_OVERRIDE;
 
 
 private:

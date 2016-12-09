@@ -28,6 +28,12 @@ compound_transition_step::compound_transition_step( const raw_transitions& _tran
 }
 
 
+compound_transition_step::~compound_transition_step() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+
 const raw_transitions& compound_transition_step::get_transitions() const
 {
 	return( transitions_ );
@@ -36,30 +42,30 @@ const raw_transitions& compound_transition_step::get_transitions() const
 
 const vertex& compound_transition_step::get_unique_source() const
 {
-	const auto unique_transition = transitions_.front();
-	const auto& source_vertex = unique_transition->get_source();
+	const transition* const unique_transition = transitions_.front();
+	const vertex& source_vertex = unique_transition->get_source();
 	return( source_vertex );
 }
 
 
 const vertex& compound_transition_step::get_unique_target() const
 {
-	const auto unique_transition = transitions_.front();
-	const auto& target_vertex = unique_transition->get_target();
+	const transition* const unique_transition = transitions_.front();
+	const vertex& target_vertex = unique_transition->get_target();
 	return( target_vertex );
 }
 
 
 const exit_point* compound_transition_step::get_exit_point() const
 {
-	const auto l_exit_point = dynamic_cast< const exit_point* >( &get_unique_target() );
+	const exit_point* const l_exit_point = dynamic_cast< const exit_point* >( &get_unique_target() );
 	return( l_exit_point );
 }
 
 
 const entry_point* compound_transition_step::get_entry_point() const
 {
-	const auto l_entry_point = dynamic_cast< const entry_point* >( &get_unique_source() );
+	const entry_point* const l_entry_point = dynamic_cast< const entry_point* >( &get_unique_source() );
 	return( l_entry_point );
 }
 
@@ -70,9 +76,9 @@ const raw_const_vertices compound_transition_step::get_target_vertices()
 	raw_const_vertices target_vertices;
 	target_vertices.reserve( transitions_.size() );
 
-	for( const auto & transition : transitions_ )
+	Y_FOR( const transition* const transition, transitions_ )
 	{
-		const auto& target_vertex = transition->get_source();
+		const vertex& target_vertex = transition->get_source();
 		target_vertices.push_back( &target_vertex );
 	}
 
@@ -81,11 +87,11 @@ const raw_const_vertices compound_transition_step::get_target_vertices()
 
 
 // cppcheck-suppress unusedFunction
-void compound_transition_step::execute_transition_behaviors( const event& _event ) const
+void compound_transition_step::execute_transition_behaviours( const event& _event ) const
 {
-	for( const auto transition : transitions_ )
+	Y_FOR( const transition* const transition, transitions_ )
 	{
-		transition->on_transition_behavior( _event );
+		transition->on_transition_behaviour( _event );
 	}
 }
 

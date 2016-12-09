@@ -19,14 +19,68 @@
 namespace sxy
 {
 
+#ifndef Y_CPP03_BOOST
 
-enum struct transition_kind
-{
-	EXTERNAL = 0, INTERNAL = 1, LOCAL = 2
-};
+
+	enum class transition_kind
+	{
+		EXTERNAL = 0, INTERNAL = 1, LOCAL = 2
+	};
+
+
+#else
+
+
+	struct transition_kind
+	{
+
+		enum inner 
+		{
+			EXTERNAL = 0, INTERNAL = 1, LOCAL = 2
+		};
+
+
+		// cppcheck-suppress noExplicitConstructor
+		transition_kind() : value_( EXTERNAL )
+		{
+			// Nothing to do...
+		}
+
+
+		// cppcheck-suppress noExplicitConstructor
+		transition_kind( const inner _value ) : value_( _value )
+		{
+			// Nothing to do...
+		}
+
+
+		// cppcheck-suppress functionConst
+		operator inner()
+		{
+			return ( value_ );
+		}
+
+
+		inner value_;
+
+	};
+
+#endif
+
 
 std::string to_string( const transition_kind _kind );
 
+
+#ifdef Y_CPP03_BOOST
+
+
+bool operator==( const sxy::transition_kind& _lhs, const sxy::transition_kind::inner _rhs );
+bool operator==( const sxy::transition_kind::inner _lhs, const sxy::transition_kind& _rhs );
+bool operator<( const sxy::transition_kind _lhs, const sxy::transition_kind _rhs );
+
+
+
+#endif
 
 }
 

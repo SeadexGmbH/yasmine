@@ -14,7 +14,7 @@
 
 
 #include <vector>
-#include <memory>
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +22,9 @@ namespace sxy
 
 
 class join;
-using join_uptr = std::unique_ptr< join >;
-using joins = std::vector< join_uptr >;
-using raw_const_joins = std::vector< const join* >;
+typedef Y_UNIQUE_PTR< join > join_uptr;
+typedef std::vector< join_uptr > joins;
+typedef std::vector< const join* > raw_const_joins;
 
 
 }

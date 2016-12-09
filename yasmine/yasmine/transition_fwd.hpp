@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,10 +23,12 @@ namespace sxy
 
 
 class transition;
-using transition_uptr = std::unique_ptr< transition >;
-using raw_const_transitions = std::vector< const transition* >;
-using raw_transitions = std::vector< transition* >;
-using transitions = std::vector< transition_uptr >;
+
+
+typedef sxy::Y_UNIQUE_PTR< transition > transition_uptr;
+typedef std::vector< const transition* > raw_const_transitions;
+typedef std::vector< transition* > raw_transitions;
+typedef std::vector< transition_uptr > transitions;
 
 
 }

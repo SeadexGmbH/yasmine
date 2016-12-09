@@ -18,8 +18,9 @@
 
 	#ifdef Y_OPTIMIZE_4_SIZE
 
-
+		
 		#error "Y_OPTIMIZE_4_SPEED and Y_OPTIMIZE_4_SIZE are both defined!"
+		
 
 
 	#endif

@@ -27,17 +27,23 @@ final_state_impl::final_state_impl( const std::string& _name )
 {
 	// Nothing to do...
 }
+
+
+final_state_impl::~final_state_impl() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
 																				 
 
-behavior* final_state_impl::get_entry_behavior() const
+behaviour* final_state_impl::get_entry_behaviour() const
 {
-	return( nullptr );
+	return( Y_NULLPTR );
 }
 
 
-behavior* final_state_impl::get_exit_behavior() const
+behaviour* final_state_impl::get_exit_behaviour() const
 {
-	return( nullptr );
+	return( Y_NULLPTR );
 }
 
 
@@ -57,7 +63,7 @@ regions& final_state_impl::get_regions()
 
 bool final_state_impl::check( state_machine_defects& _defects ) const
 {
-	auto check_ok = true;
+	bool check_ok = true;
 
 	// 15.3.2 Final State -> Constraint [1]: A final state cannot have any outgoing transitions.
 	if( !get_outgoing_transitions().empty() )
@@ -77,23 +83,23 @@ bool final_state_impl::check( state_machine_defects& _defects ) const
 
 	// 15.3.2 Final State -> Constraint [3]: A final state cannot reference a submachine.
 	// Does not apply.
-	// 15.3.2 Final State -> Constraint [4]: A final state has no entry behavior.
-	if( get_entry_behavior() )
+	// 15.3.2 Final State -> Constraint [4]: A final state has no entry behaviour.
+	if( get_entry_behaviour() )
 	{
-		_defects.push_back( state_machine_defect( *this, "Final state '%' has entry behavior!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has entry behaviour!",
 				get_name() ) );
 		check_ok = false;
 	}
 
-	// 15.3.2 Final State -> Constraint [5]: A final state has no exit behavior.
-	if( get_exit_behavior() )
+	// 15.3.2 Final State -> Constraint [5]: A final state has no exit behaviour.
+	if( get_exit_behaviour() )
 	{
-		_defects.push_back( state_machine_defect( *this, "Final state '%' has exit behavior!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has exit behaviour!",
 				get_name() ) );
 		check_ok = false;
 	}
 
-	// 15.3.2 Final State -> Constraint [6]: A final state has no state (doActivity) behavior.
+	// 15.3.2 Final State -> Constraint [6]: A final state has no state (doActivity) behaviour.
 	// Enforced by design.
 	return( check_ok );
 }

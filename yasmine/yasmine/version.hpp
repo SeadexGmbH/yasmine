@@ -13,9 +13,8 @@
 #define VERSION_53B7B4DC_2A8B_4736_B190_6348C9D8F8F2
 
 
-#include <cstdint>
-
 #include "base.hpp"
+#include "compatibility.hpp"
 
 
 namespace yasmine
@@ -32,10 +31,10 @@ void log_version();
 #endif
 
 
-std::uint16_t get_major_version();
-std::uint16_t get_minor_version();
-std::uint16_t get_patch_version();
-std::uint16_t get_build_number();
+sxy::uint16_t get_major_version();
+sxy::uint16_t get_minor_version();
+sxy::uint16_t get_patch_version();
+sxy::uint16_t get_build_number();
 
 
 }

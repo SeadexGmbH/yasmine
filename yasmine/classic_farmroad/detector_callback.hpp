@@ -13,6 +13,10 @@
 #define DETECTOR_CALLBACK_0AF0AB58_4818_48B8_A10D_3894B6652355
 
 
+#include "non_copyable.hpp"
+#include "compatibility.hpp"
+
+
 namespace sxy
 {
 
@@ -20,10 +24,16 @@ namespace sxy
 class detector_callback
 {
 public:
-	detector_callback() = default;
-	virtual ~detector_callback() = default;
-	detector_callback( const detector_callback& ) = delete;
-	detector_callback& operator=( const detector_callback& ) = delete;
+	detector_callback()
+	{
+		// Nothing to do...
+	}
+	virtual ~detector_callback() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+	Y_NO_COPY( detector_callback )
 	virtual void detector_on() = 0;
 	virtual void detector_off() = 0;
 };

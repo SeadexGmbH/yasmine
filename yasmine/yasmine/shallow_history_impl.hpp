@@ -26,13 +26,12 @@ class shallow_history_impl:
 {
 public:
 	explicit shallow_history_impl( const std::string& _name );
-	virtual ~shallow_history_impl() noexcept override = default;
-	shallow_history_impl( const shallow_history_impl& ) = delete;
-	shallow_history_impl& operator=( const shallow_history_impl& ) = delete;
-	virtual bool check( state_machine_defects& _defects ) const override;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const override;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) override;
-	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const override;
+	virtual ~shallow_history_impl() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY(shallow_history_impl)
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
+	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const Y_OVERRIDE;
 };
 
 

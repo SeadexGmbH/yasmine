@@ -24,10 +24,19 @@ class region_pseudostate:
 	public virtual pseudostate
 {
 public:
-	region_pseudostate() = default;
-	virtual ~region_pseudostate() noexcept override = default;
-	region_pseudostate( const region_pseudostate& ) = delete;
-	region_pseudostate& operator=( const region_pseudostate& ) = delete;
+	region_pseudostate()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~region_pseudostate() Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(region_pseudostate)
 	virtual region* get_parent_region() const = 0;
 	virtual void set_parent_region( region* const _parent_region ) = 0;
 };

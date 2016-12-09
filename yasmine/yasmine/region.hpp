@@ -23,8 +23,8 @@
 #include "join_fwd.hpp"
 #include "junction_fwd.hpp"
 #include "terminate_pseudostate_fwd.hpp"
-#include "behavior_fwd.hpp"
-#include "async_behavior.hpp"
+#include "behaviour_fwd.hpp"
+#include "async_behaviour.hpp"
 #include "event.hpp"
 
 
@@ -40,10 +40,19 @@ class region:
 	public virtual state_machine_element
 {
 public:
-	region() = default;
-	virtual ~region () noexcept override = default;
-	region( const region& ) = delete;
-	region& operator=( const region& ) = delete;
+	region() 
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~region () Y_NOEXCEPT Y_OVERRIDE
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(region)
 	virtual void set_parent_state( composite_state* const _composite_state ) = 0;
 	virtual const composite_state& get_parent_state() const = 0;
 	virtual composite_state& get_parent_state() = 0;
@@ -65,27 +74,27 @@ public:
 	virtual junction& add_junction( junction_uptr _junction ) = 0;
 	virtual junction& add_junction( const std::string& _junction_name ) = 0;
 	virtual terminate_pseudostate& add_terminate_pseudostate( 
-		const terminate_pseudostate_uptr _terminate_pseudostate ) = 0;
+		terminate_pseudostate_uptr _terminate_pseudostate ) = 0;
 	virtual terminate_pseudostate& add_terminate_pseudostate( const std::string& _terminate_pseudostate_name ) = 0;
 	virtual simple_state& add_simple_state( const std::string& _name, 
-		const behavior_function& _behavior = behavior_function(),
-		const behavior_function& _entry_behavior = behavior_function(),
-		const behavior_function& _exit_behavior = behavior_function() ) = 0;
+		const behaviour_function& _behaviour = behaviour_function(),
+		const behaviour_function& _entry_behaviour = behaviour_function(),
+		const behaviour_function& _exit_behaviour = behaviour_function() ) = 0;
 	virtual simple_state& add_simple_state( const std::string& _name, const event_ids& _deferred_events,
-		const behavior_function& _behavior = behavior_function(),
-		const behavior_function& _entry_behavior = behavior_function(),
-		const behavior_function& _exit_behavior = behavior_function(),
-		event_sptr _error_event = nullptr ) = 0;
+		const behaviour_function& _behaviour = behaviour_function(),
+		const behaviour_function& _entry_behaviour = behaviour_function(),
+		const behaviour_function& _exit_behaviour = behaviour_function(),
+		event_sptr _error_event = event_sptr() ) = 0;
 	virtual simple_state& add_async_simple_state( const std::string& _name, const event_ids& _deferred_events,
-		async_behavior_uptr _do_action = nullptr, const behavior_function& _entry_behavior = behavior_function(), 
-		const behavior_function& _exit_behavior = behavior_function(),
-		event_sptr _error_event = nullptr ) = 0;
+		async_behaviour_uptr _do_action = async_behaviour_uptr(), const behaviour_function& _entry_behaviour = behaviour_function(),
+		const behaviour_function& _exit_behaviour = behaviour_function(),
+		event_sptr _error_event = event_sptr() ) = 0;
 	virtual composite_state& add_composite_state(	const std::string& _name,
-		const behavior_function& _entry_action = behavior_function(),
-		const behavior_function& _exit_action = behavior_function() ) = 0;
+		const behaviour_function& _entry_action = behaviour_function(),
+		const behaviour_function& _exit_action = behaviour_function() ) = 0;
 	virtual composite_state& add_composite_state(	const std::string& _name, const event_ids& _deferred_events,
-		const behavior_function& _entry_action = behavior_function(),
-		const behavior_function& _exit_action = behavior_function() ) = 0;
+		const behaviour_function& _entry_action = behaviour_function(),
+		const behaviour_function& _exit_action = behaviour_function() ) = 0;
 	virtual final_state& add_final_state( const std::string& _name ) = 0;
 	virtual size_t get_state_count() const = 0;
 	virtual state* get_state( const std::string& _name ) const = 0;
@@ -96,7 +105,7 @@ public:
 	virtual const state* get_last_active_state() const = 0;
 	virtual state* get_last_active_state() = 0;
 	virtual bool is_active_state_final() const = 0;
-	virtual bool check( state_machine_defects& _defects ) const override = 0;
+	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
 };
 
 

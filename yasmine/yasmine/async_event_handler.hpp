@@ -24,11 +24,20 @@ class async_event_handler
 
 
 public:
-	async_event_handler() = default;	
-	virtual ~async_event_handler() noexcept = default;
-	async_event_handler( const async_event_handler& ) = delete;
-	async_event_handler& operator=(	const async_event_handler& ) = delete;
-	virtual void on_event( const event_sptr _event ) = 0;
+	async_event_handler()
+	{
+		// Nothing to do...
+	}
+
+
+	virtual ~async_event_handler() Y_NOEXCEPT
+	{
+		// Nothing to do...
+	}
+
+
+	Y_NO_COPY(async_event_handler)
+	virtual void on_event( const event_sptr& _event ) = 0;
 
 
 };

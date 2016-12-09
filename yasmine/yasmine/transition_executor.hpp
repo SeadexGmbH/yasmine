@@ -13,10 +13,10 @@
 #define TRANSITION_EXECUTOR_H_2521E4B8_B89E_4CCE_9751_F5B6BD515AD5
 
 
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
-#include "behavior_exception_fwd.hpp"
+#include "behaviour_exception_fwd.hpp"
 #include "event_fwd.hpp"
 
 
@@ -37,13 +37,12 @@ class event_processing_callback;
 class async_event_handler;
 
 
-class transition_executor final
+class transition_executor Y_FINAL
 {
 public:
 	transition_executor();
-	~transition_executor() noexcept = default;
-	transition_executor( const transition_executor& ) = delete;
-	transition_executor& operator=( const transition_executor& ) = delete;
+	~transition_executor() Y_NOEXCEPT;
+	Y_NO_COPY(transition_executor)
 	bool check_sort_and_execute_transitions( const compound_transitions& _compound_transitions, 
 		raw_const_choices& _verices,	event_processing_callback* const _event_processing_callback,	
 		const event& _event, events& _exception_events, async_event_handler* const _async_event_handler );

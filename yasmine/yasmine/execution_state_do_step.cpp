@@ -11,12 +11,11 @@
 
 #include "execution_state_do_step.hpp"
 
-#include "make_unique.hpp"
 #include "log.hpp"
 #include "state.hpp"
 #include "event_processing_callback.hpp"
 #include "execution_step_visitor.hpp"
-#include "behavior_exception.hpp"
+#include "behaviour_exception.hpp"
 
 
 
@@ -32,10 +31,16 @@ execution_state_do_step::execution_state_do_step( const state& _state )
 }
 
 
-bool execution_state_do_step::execute_behavior( event_processing_callback* const _event_processing_callback,
+execution_state_do_step::~execution_state_do_step() Y_NOEXCEPT
+{
+	// Nothing to do...
+};
+
+
+bool execution_state_do_step::execute_behaviour( event_processing_callback* const _event_processing_callback,
 	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Executing do behavior of state '%'.", state_.get_name() );
+	Y_LOG( sxy::log_level::LL_TRACE, "Executing do behaviour of state '%'.", state_.get_name() );
 	if( _event_processing_callback )
 	{
 		_event_processing_callback->before_do( state_ );
@@ -43,9 +48,9 @@ bool execution_state_do_step::execute_behavior( event_processing_callback* const
 
 	try
 	{
-		state_.execute_do_behavior(_event, _async_event_handler);
+		state_.execute_do_behaviour(_event, _async_event_handler);
 	}
-	catch (const sxy::behavior_exception& exception)
+	catch (const sxy::behaviour_exception& exception)
 	{
 		_exception_events.push_back(exception.get_error_event());
 	}
@@ -68,7 +73,7 @@ bool execution_state_do_step::execute_behavior( event_processing_callback* const
 		_event_processing_callback->after_do( state_ );
 	}
 
-	Y_LOG( sxy::log_level::LL_TRACE, "'do behavior' of state '%' executed.", state_.get_name() );
+	Y_LOG( sxy::log_level::LL_TRACE, "'do behaviour' of state '%' executed.", state_.get_name() );
 	return( false );
 }
 

@@ -14,7 +14,8 @@
 
 
 #include <vector>
-#include <memory>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 class entry_point;
-using entry_point_uptr = std::unique_ptr< entry_point >;
-using entry_points = std::vector< entry_point_uptr >;
-using raw_const_entry_points = std::vector< const entry_point* >;
+typedef Y_UNIQUE_PTR< entry_point > entry_point_uptr;
+typedef std::vector< entry_point_uptr > entry_points;
+typedef std::vector< const entry_point* > raw_const_entry_points;
 
 
 }
