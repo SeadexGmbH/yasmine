@@ -19,7 +19,7 @@
 #include "event_processing_callback.hpp"
 #include "compound_transition_impl.hpp"
 #include "log_and_throw.hpp"
-#include "behaviour_exception.hpp"
+#include "behavior_exception.hpp"
 #include "conversion.hpp"
 #include "algorithm_parameters.hpp"
 #include "completion_event.hpp"
@@ -90,7 +90,7 @@ bool transition_controller::start_state_machine( const composite_state& _main_co
 	{
 		Y_LOG( log_level::LL_TRACE, "Found % compound transition(s) after searching for initial transitions.",
 			enabled_compound_transitions.size() );		
-		Y_LOG( log_level::LL_TRACE, "Executing transitions." );
+		Y_LOG( log_level::LL_TRACE, "Executing transitions." );		
 		if( execute_transitions( _main_composite_state, enabled_compound_transitions, _event_processing_callback,
 					*completion_event::create(), _async_event_handler ) )
 		{
@@ -150,7 +150,7 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 					_event_processing_callback->after_event_processings_stage( choices );
 				}
 
-				
+				// TODO function handle_execution_events -->
 				sxy::event_sptr error_event = exception_events.front();
 				transition_finder transition_finder;
 				bool event_is_deferred = false;
@@ -160,8 +160,10 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 					_event_processing_callback->before_event( error_event->get_id(), error_event->get_priority() );
 				}
 
-				transition_finder.search_for_enabled_transitions_in_all_regions( _main_composite_state, *error_event, compound_transitions, event_is_deferred );
-				execute_transitions( _main_composite_state, compound_transitions, _event_processing_callback, *error_event, _async_event_handler );
+				transition_finder.search_for_enabled_transitions_in_all_regions( _main_composite_state, *error_event, 
+					compound_transitions, event_is_deferred );
+				execute_transitions( _main_composite_state, compound_transitions, _event_processing_callback, *error_event, 
+					_async_event_handler );
 				exception_events.erase( exception_events.begin(), exception_events.begin() + 1 );
 
 
@@ -169,11 +171,12 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 				{
 					_event_processing_callback->after_event( error_event->get_id() );
 				}
+				// <-- function handle_execution_events
 
 			}
 
 			Y_LOG( log_level::LL_TRACE, "Searching for completion event transitions." );
-			search_completion_event_transitions( _main_composite_state, compound_transitions );
+			search_completion_event_transitions( _main_composite_state, compound_transitions );			
 		}
 
 		if( _event_processing_callback )

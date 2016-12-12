@@ -603,25 +603,25 @@
     <ClInclude Include="log_and_throw_helper.hpp">
       <Filter>Headerdateien\infrastructure\log</Filter>
     </ClInclude>
-    <ClInclude Include="async_behaviour.hpp">
+    <ClInclude Include="behavior.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="async_behaviour_fwd.hpp">
+    <ClInclude Include="behavior_exception.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="behaviour.hpp">
+    <ClInclude Include="behavior_exception_fwd.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="behaviour_exception.hpp">
+    <ClInclude Include="behavior_fwd.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="behaviour_exception_fwd.hpp">
+    <ClInclude Include="behavior_impl.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="behaviour_fwd.hpp">
+    <ClInclude Include="async_behavior.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="behaviour_impl.hpp">
+    <ClInclude Include="async_behavior_fwd.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
   </ItemGroup>
@@ -839,13 +839,13 @@
     <ClCompile Include="log_and_throw_helper.cpp">
       <Filter>Quelldateien\infrastructure\log</Filter>
     </ClCompile>
-    <ClCompile Include="behaviour_exception.cpp">
+    <ClCompile Include="behavior_exception.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
-    <ClCompile Include="async_behaviour.cpp">
+    <ClCompile Include="behavior_impl.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
-    <ClCompile Include="behaviour_impl.cpp">
+    <ClCompile Include="async_behavior.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
   </ItemGroup>

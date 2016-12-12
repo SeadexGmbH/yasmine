@@ -47,7 +47,7 @@ public:
 	virtual const raw_transitions& get_transitions() const = 0;
 	virtual const vertex& get_unique_source() const = 0;
 	virtual const vertex& get_unique_target() const = 0;
-	virtual void execute_transition_behaviours( const event& _event ) const = 0;
+	virtual void execute_transition_behaviors( const event& _event ) const = 0;
 	virtual const exit_point * get_exit_point() const = 0;
 	virtual const entry_point * get_entry_point() const = 0;
 	virtual const raw_const_vertices get_target_vertices() = 0;

@@ -16,7 +16,7 @@
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "event_id.hpp"
-#include "behaviour_exception_fwd.hpp"
+#include "behavior_exception_fwd.hpp"
 #include "non_copyable.hpp"
 
 

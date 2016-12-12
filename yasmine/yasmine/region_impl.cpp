@@ -22,7 +22,7 @@
 #include "simple_state_impl.hpp"
 #include "composite_state_impl.hpp"
 #include "final_state_impl.hpp"
-#include "behaviour_impl.hpp"
+#include "behavior_impl.hpp"
 #include "async_simple_state_impl.hpp"
 
 #include "state_machine_defect.hpp"
@@ -263,14 +263,14 @@ state& region_impl::add_state( state_uptr _state )
 
 
 // cppcheck-suppress unusedFunction
-simple_state& region_impl::add_simple_state( const std::string& _name, const behaviour_function& _behaviour,
-	const behaviour_function& _entry_behaviour,	const behaviour_function& _exit_behaviour )
+simple_state& region_impl::add_simple_state( const std::string& _name, const behavior_function& _behavior,
+	const behavior_function& _entry_behavior,	const behavior_function& _exit_behavior )
 {
-	behaviour_uptr behaviour = behaviour_impl::create_behaviour( _behaviour );
-	behaviour_uptr entry_behaviour = behaviour_impl::create_behaviour( _entry_behaviour );
-	behaviour_uptr exit_behaviour = behaviour_impl::create_behaviour( _exit_behaviour );
+	behavior_uptr behavior = behavior_impl::create_behavior( _behavior );
+	behavior_uptr entry_behavior = behavior_impl::create_behavior( _entry_behavior );
+	behavior_uptr exit_behavior = behavior_impl::create_behavior( _exit_behavior );
 	Y_UNIQUE_PTR< sxy::simple_state_impl > simple_state = Y_MAKE_UNIQUE< sxy::simple_state_impl >( _name,
-		sxy::move( behaviour ), sxy::move( entry_behaviour ), sxy::move( exit_behaviour ) );
+		sxy::move( behavior ), sxy::move( entry_behavior ), sxy::move( exit_behavior ) );
 	simple_state->set_parent_region( this );
 	simple_state_impl& state = *simple_state;
 	states_.push_back( sxy::move( simple_state ) );
@@ -279,14 +279,14 @@ simple_state& region_impl::add_simple_state( const std::string& _name, const beh
 
 
 simple_state& region_impl::add_simple_state( const std::string& _name, const event_ids& _deferred_events,
-	const behaviour_function& _behaviour,	const behaviour_function& _entry_behaviour,
-	const behaviour_function& _exit_behaviour, event_sptr _error_event )
+	const behavior_function& _behavior,	const behavior_function& _entry_behavior,
+	const behavior_function& _exit_behavior, event_sptr _error_event )
 {
 	Y_UNIQUE_PTR< sxy::simple_state_impl > simple_state =
 		Y_MAKE_UNIQUE< sxy::simple_state_impl >( _name,
-			( !_behaviour ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _behaviour ) ) ),
-			( !_entry_behaviour ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _entry_behaviour ) ) ),
-			( !_exit_behaviour ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _exit_behaviour ) ) ), _deferred_events,
+			( !_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _behavior ) ) ),
+			( !_entry_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_behavior ) ) ),
+			( !_exit_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_behavior ) ) ), _deferred_events,
 			_error_event );
 	simple_state->set_parent_region( this );
 	simple_state_impl& state = *simple_state;
@@ -297,13 +297,13 @@ simple_state& region_impl::add_simple_state( const std::string& _name, const eve
 
 // cppcheck-suppress unusedFunction
 simple_state& region_impl::add_async_simple_state( const std::string& _name, const event_ids& _deferred_events,
-	async_behaviour_uptr _do_action,	const behaviour_function& _entry_behaviour,	const behaviour_function& _exit_behaviour,
+	async_behavior_uptr _do_action,	const behavior_function& _entry_behavior,	const behavior_function& _exit_behavior,
 	event_sptr _error_event )
 {
 	Y_UNIQUE_PTR< sxy::async_simple_state_impl > simple_state = Y_MAKE_UNIQUE< sxy::async_simple_state_impl >( _name,
 		sxy::move( _do_action ), 
-		( !_entry_behaviour ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _entry_behaviour ) ) ),
-		( !_exit_behaviour ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _exit_behaviour ) ) ), _deferred_events,
+		( !_entry_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_behavior ) ) ),
+		( !_exit_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_behavior ) ) ), _deferred_events,
 		_error_event );
 	simple_state->set_parent_region( this );
 	async_simple_state_impl& state = *simple_state;
@@ -313,13 +313,13 @@ simple_state& region_impl::add_async_simple_state( const std::string& _name, con
 
 
 // cppcheck-suppress unusedFunction
-composite_state& region_impl::add_composite_state( const std::string& _name, const behaviour_function& _entry_action,
-	const behaviour_function& _exit_action )
+composite_state& region_impl::add_composite_state( const std::string& _name, const behavior_function& _entry_action,
+	const behavior_function& _exit_action )
 {
 	Y_UNIQUE_PTR< sxy::composite_state_impl > composite_state =
 		Y_MAKE_UNIQUE< sxy::composite_state_impl >( _name,
-			( !_entry_action ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _entry_action ) ) ),
-			( !_exit_action ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _exit_action ) ) ) );
+			( !_entry_action ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_action ) ) ),
+			( !_exit_action ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_action ) ) ) );
 	composite_state->set_parent_region( this );
 	composite_state_impl& state = *composite_state;
 	states_.push_back( sxy::move( composite_state ) );
@@ -328,12 +328,12 @@ composite_state& region_impl::add_composite_state( const std::string& _name, con
 
 
 composite_state& region_impl::add_composite_state( const std::string& _name, const event_ids& _deferred_events,
-	const behaviour_function& _entry_action, const behaviour_function& _exit_action )
+	const behavior_function& _entry_action, const behavior_function& _exit_action )
 {
 	Y_UNIQUE_PTR< sxy::composite_state_impl > composite_state =
 		Y_MAKE_UNIQUE< sxy::composite_state_impl >( _name,
-			( !_entry_action ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _entry_action ) ) ),
-			( !_exit_action ? behaviour_uptr() : ( behaviour_impl::create_behaviour( _exit_action ) ) ), _deferred_events );
+			( !_entry_action ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_action ) ) ),
+			( !_exit_action ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_action ) ) ), _deferred_events );
 	composite_state->set_parent_region( this );
 	composite_state_impl& state = *composite_state;
 	states_.push_back( sxy::move( composite_state ) );

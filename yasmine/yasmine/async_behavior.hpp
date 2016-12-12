@@ -9,20 +9,51 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef ASYNC_BEHAVIOUR_FWD_58B37F86_A51C_435F_8182_354B2D8960F4
-#define ASYNC_BEHAVIOUR_FWD_58B37F86_A51C_435F_8182_354B2D8960F4
+#ifndef ASYNC_BEHAVIOR_A799E0CD_DD3E_45EA_BF47_586C94FC32CB
+#define ASYNC_BEHAVIOR_A799E0CD_DD3E_45EA_BF47_586C94FC32CB
 
 
-#include "compatibility.hpp"
+#include "non_copyable.hpp"
+#include "async_behavior_fwd.hpp"
+#include "thread.hpp"
 
 
 namespace sxy
 {
 
 
-class async_behaviour;
 class event;
-typedef Y_UNIQUE_PTR< async_behaviour > async_behaviour_uptr;
+class simple_state_base;
+class async_event_handler;
+
+
+class async_behavior	
+{
+
+
+public:
+	async_behavior();
+	virtual ~async_behavior() Y_NOEXCEPT;
+	Y_NO_COPY(async_behavior)
+	void start( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
+	void stop();		
+
+protected:
+	bool should_stop() const;
+											
+
+private:	
+	void run( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
+	virtual void run_impl( const event& _event, async_event_handler& _async_event_handler ) = 0;
+	virtual void notify_should_stop();
+	void join();		
+
+	sxy::Y_UNIQUE_PTR<sxy::thread> worker_;
+	mutable sxy::mutex mutex_;
+	bool run_;
+
+
+};
 
 
 }

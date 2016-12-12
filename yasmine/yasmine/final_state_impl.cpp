@@ -35,13 +35,13 @@ final_state_impl::~final_state_impl() Y_NOEXCEPT
 }
 																				 
 
-behaviour* final_state_impl::get_entry_behaviour() const
+behavior* final_state_impl::get_entry_behavior() const
 {
 	return( Y_NULLPTR );
 }
 
 
-behaviour* final_state_impl::get_exit_behaviour() const
+behavior* final_state_impl::get_exit_behavior() const
 {
 	return( Y_NULLPTR );
 }
@@ -83,23 +83,23 @@ bool final_state_impl::check( state_machine_defects& _defects ) const
 
 	// 15.3.2 Final State -> Constraint [3]: A final state cannot reference a submachine.
 	// Does not apply.
-	// 15.3.2 Final State -> Constraint [4]: A final state has no entry behaviour.
-	if( get_entry_behaviour() )
+	// 15.3.2 Final State -> Constraint [4]: A final state has no entry behavior.
+	if( get_entry_behavior() )
 	{
-		_defects.push_back( state_machine_defect( *this, "Final state '%' has entry behaviour!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has entry behavior!",
 				get_name() ) );
 		check_ok = false;
 	}
 
-	// 15.3.2 Final State -> Constraint [5]: A final state has no exit behaviour.
-	if( get_exit_behaviour() )
+	// 15.3.2 Final State -> Constraint [5]: A final state has no exit behavior.
+	if( get_exit_behavior() )
 	{
-		_defects.push_back( state_machine_defect( *this, "Final state '%' has exit behaviour!",
+		_defects.push_back( state_machine_defect( *this, "Final state '%' has exit behavior!",
 				get_name() ) );
 		check_ok = false;
 	}
 
-	// 15.3.2 Final State -> Constraint [6]: A final state has no state (doActivity) behaviour.
+	// 15.3.2 Final State -> Constraint [6]: A final state has no state (doActivity) behavior.
 	// Enforced by design.
 	return( check_ok );
 }

@@ -53,24 +53,24 @@ public:
 	virtual initial_pseudostate& add_initial_pseudostate( const std::string& _initial_state_name ) Y_OVERRIDE;
 	virtual state& add_state( state_uptr _state ) Y_OVERRIDE;
 	virtual simple_state& add_simple_state( const std::string& _name, 
-		const behaviour_function& _behaviour = behaviour_function(), 
-		const behaviour_function& _entry_behaviour = behaviour_function(),
-		const behaviour_function& _exit_behaviour = behaviour_function() ) Y_OVERRIDE;
+		const behavior_function& _behavior = behavior_function(), 
+		const behavior_function& _entry_behavior = behavior_function(),
+		const behavior_function& _exit_behavior = behavior_function() ) Y_OVERRIDE;
 	virtual simple_state& add_simple_state( const std::string& _name, const event_ids& _deferred_events,
-		const behaviour_function& _behaviour = behaviour_function(), 
-		const behaviour_function& _entry_behaviour = behaviour_function(), 
-		const behaviour_function& _exit_behaviour = behaviour_function(),
+		const behavior_function& _behavior = behavior_function(), 
+		const behavior_function& _entry_behavior = behavior_function(), 
+		const behavior_function& _exit_behavior = behavior_function(),
 		event_sptr _error_event = event_sptr() ) Y_OVERRIDE;
 	virtual simple_state& add_async_simple_state( const std::string& _name, const event_ids& _deferred_events,
-		async_behaviour_uptr _do_action = async_behaviour_uptr(), const behaviour_function& _entry_behaviour = behaviour_function(),
-		const behaviour_function& _exit_behaviour = behaviour_function(), 
+		async_behavior_uptr _do_action = async_behavior_uptr(), const behavior_function& _entry_behavior = behavior_function(),
+		const behavior_function& _exit_behavior = behavior_function(), 
 		event_sptr _error_event = event_sptr() ) Y_OVERRIDE;
 	virtual composite_state& add_composite_state( const std::string& _name, 
-		const behaviour_function& _entry_action = behaviour_function(), 
-		const behaviour_function& _exit_action = behaviour_function() ) Y_OVERRIDE;
+		const behavior_function& _entry_action = behavior_function(), 
+		const behavior_function& _exit_action = behavior_function() ) Y_OVERRIDE;
 	virtual composite_state& add_composite_state( const std::string& _name, const event_ids& _deferred_events, 
-		const behaviour_function& _entry_action = behaviour_function(), 
-		const behaviour_function& _exit_action = behaviour_function() ) Y_OVERRIDE;
+		const behavior_function& _entry_action = behavior_function(), 
+		const behavior_function& _exit_action = behavior_function() ) Y_OVERRIDE;
 	virtual final_state& add_final_state( const std::string& _name ) Y_OVERRIDE;
 	virtual choice& add_choice( choice_uptr _choice ) Y_OVERRIDE;
 

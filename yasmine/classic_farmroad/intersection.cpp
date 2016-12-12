@@ -262,13 +262,13 @@ void intersection::build_intersection_state_machine()
 #ifdef Y_CPP03_BOOST
 	composite_state& l_highway_open =
 		main_region.add_composite_state( "highway open", 
-			Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, highway_open_entry ),
-			Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, highway_open_exit ) );
+			Y_BEHAVIOR_METHOD_NO_EVENT( intersection, highway_open_entry ),
+			Y_BEHAVIOR_METHOD_NO_EVENT( intersection, highway_open_exit ) );
 #else
 	composite_state& l_highway_open =
 		main_region.add_composite_state( "highway open", 
-			Y_BEHAVIOUR_METHOD_NO_EVENT( highway_open_entry ), 
-			Y_BEHAVIOUR_METHOD_NO_EVENT( highway_open_exit ) );
+			Y_BEHAVIOR_METHOD_NO_EVENT( highway_open_entry ), 
+			Y_BEHAVIOR_METHOD_NO_EVENT( highway_open_exit ) );
 #endif
 
 	region& highway_open_region = l_highway_open.add_region( "highway region" );
@@ -278,20 +278,20 @@ void intersection::build_intersection_state_machine()
 
 #ifdef Y_CPP03_BOOST
 	simple_state& l_minimum_time_not_elapsed = highway_open_region.add_simple_state( "minimum time not elapsed", 
-		Y_BEHAVIOUR_METHOD_NO_EVENT(	intersection, minimum_time_not_elapsed ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT(	intersection, minimum_time_not_elapsed ) );
 	simple_state& l_minimum_time_elapsed = highway_open_region.add_simple_state( "minimum time elapsed", 
-		Y_BEHAVIOUR_METHOD_NO_EVENT(	intersection, minimum_time_elapsed ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT(	intersection, minimum_time_elapsed ) );
 	simple_state& l_minimum_time_not_elapsed_farmroad_waiting = highway_open_region.add_simple_state(
 		"Minimum time not elapsed and farmroad waiting",
-		Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, minimum_time_not_elapsed_farmroad_waiting ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT( intersection, minimum_time_not_elapsed_farmroad_waiting ) );
 #else
 	simple_state& l_minimum_time_not_elapsed = highway_open_region.add_simple_state( "minimum time not elapsed", 
-		Y_BEHAVIOUR_METHOD_NO_EVENT(	minimum_time_not_elapsed ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT(	minimum_time_not_elapsed ) );
 	simple_state& l_minimum_time_elapsed = highway_open_region.add_simple_state( "minimum time elapsed", 
-		Y_BEHAVIOUR_METHOD_NO_EVENT(	minimum_time_elapsed ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT(	minimum_time_elapsed ) );
 	simple_state& l_minimum_time_not_elapsed_farmroad_waiting = highway_open_region.add_simple_state(
 		"Minimum time not elapsed and farmroad waiting",
-		Y_BEHAVIOUR_METHOD_NO_EVENT( minimum_time_not_elapsed_farmroad_waiting ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT( minimum_time_not_elapsed_farmroad_waiting ) );
 #endif
 
 
@@ -305,22 +305,22 @@ void intersection::build_intersection_state_machine()
 
 #ifdef Y_CPP03_BOOST
 	simple_state& l_switching_to_farmroad_phase_1 = switching_to_farmroad_region.add_simple_state(
-		"switching to farmroad phase 1", Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, switching_to_farmroad_phase_1 ) );
+		"switching to farmroad phase 1", Y_BEHAVIOR_METHOD_NO_EVENT( intersection, switching_to_farmroad_phase_1 ) );
 	simple_state& state_switching_to_farmroad_phase_2 = switching_to_farmroad_region.add_simple_state(
-		"switching to farmroad phase 2", behaviour_function(),
-		Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, switching_to_farmroad_phase_2 ) );		
+		"switching to farmroad phase 2", behavior_function(),
+		Y_BEHAVIOR_METHOD_NO_EVENT( intersection, switching_to_farmroad_phase_2 ) );		
 	simple_state& farmroad_open =
-		main_region.add_simple_state( "farmroad open", behaviour_function(),
-			Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, farmroad_open_entry ),
-			Y_BEHAVIOUR_METHOD_NO_EVENT( intersection, farmroad_open_exit ) );
+		main_region.add_simple_state( "farmroad open", behavior_function(),
+			Y_BEHAVIOR_METHOD_NO_EVENT( intersection, farmroad_open_entry ),
+			Y_BEHAVIOR_METHOD_NO_EVENT( intersection, farmroad_open_exit ) );
 #else
 	simple_state& l_switching_to_farmroad_phase_1 = switching_to_farmroad_region.add_simple_state(
-		"switching to farmroad phase 1", Y_BEHAVIOUR_METHOD_NO_EVENT( switching_to_farmroad_phase_1 ) );
+		"switching to farmroad phase 1", Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_farmroad_phase_1 ) );
 	simple_state& state_switching_to_farmroad_phase_2 = switching_to_farmroad_region.add_simple_state(
-		"switching to farmroad phase 2", Y_NULLPTR, Y_BEHAVIOUR_METHOD_NO_EVENT( switching_to_farmroad_phase_2 ) );
+		"switching to farmroad phase 2", Y_NULLPTR, Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_farmroad_phase_2 ) );
 	simple_state& farmroad_open =
 		main_region.add_simple_state( "farmroad open", Y_NULLPTR, 
-			Y_BEHAVIOUR_METHOD_NO_EVENT( farmroad_open_entry ), Y_BEHAVIOUR_METHOD_NO_EVENT( farmroad_open_exit ) );
+			Y_BEHAVIOR_METHOD_NO_EVENT( farmroad_open_entry ), Y_BEHAVIOR_METHOD_NO_EVENT( farmroad_open_exit ) );
 #endif
 
 	final_state& switching_to_farmroad_finished = 
@@ -334,16 +334,16 @@ void intersection::build_intersection_state_machine()
 
 #ifdef Y_CPP03_BOOST
 	simple_state& l_switching_to_highway_phase_1 = switching_to_highway_region.add_simple_state(
-		"switching to highway phase 1", behaviour_function(),
-		Y_BEHAVIOUR_METHOD_NO_EVENT( intersection,	switching_to_highway_phase_1 ) );
+		"switching to highway phase 1", behavior_function(),
+		Y_BEHAVIOR_METHOD_NO_EVENT( intersection,	switching_to_highway_phase_1 ) );
 	simple_state& l_switching_to_highway_phase_2 = switching_to_highway_region.add_simple_state(
-		"switching to highway phase 2", behaviour_function(),
-		Y_BEHAVIOUR_METHOD_NO_EVENT( intersection,	switching_to_highway_phase_2 ) );
+		"switching to highway phase 2", behavior_function(),
+		Y_BEHAVIOR_METHOD_NO_EVENT( intersection,	switching_to_highway_phase_2 ) );
 #else
 	simple_state& l_switching_to_highway_phase_1 = switching_to_highway_region.add_simple_state(
-		"switching to highway phase 1", Y_NULLPTR, Y_BEHAVIOUR_METHOD_NO_EVENT( switching_to_highway_phase_1 ) );
+		"switching to highway phase 1", Y_NULLPTR, Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_highway_phase_1 ) );
 	simple_state& l_switching_to_highway_phase_2 = switching_to_highway_region.add_simple_state(
-		"switching to highway phase 2", Y_NULLPTR, Y_BEHAVIOUR_METHOD_NO_EVENT( switching_to_highway_phase_2 ) );
+		"switching to highway phase 2", Y_NULLPTR, Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_highway_phase_2 ) );
 #endif
 
 
@@ -358,10 +358,10 @@ void intersection::build_intersection_state_machine()
 #ifdef Y_CPP03_BOOST
 	intersection_state_machine_.add_transition( EVENTS_EXIT_FARMROAD_OPEN, farmroad_open, switching_to_highway,
 		transition_kind::EXTERNAL, constraint_function(),
-		Y_BEHAVIOUR_METHOD( intersection, cancel_timer_event_on_detector_off ) );
+		Y_BEHAVIOR_METHOD( intersection, cancel_timer_event_on_detector_off ) );
 #else
 	intersection_state_machine_.add_transition( EVENTS_EXIT_FARMROAD_OPEN, farmroad_open, switching_to_highway,
-		transition_kind::EXTERNAL, Y_NULLPTR, Y_BEHAVIOUR_METHOD( cancel_timer_event_on_detector_off ) );
+		transition_kind::EXTERNAL, Y_NULLPTR, Y_BEHAVIOR_METHOD( cancel_timer_event_on_detector_off ) );
 #endif
 
 	intersection_state_machine_.add_transition( COMPLETION_EVENT_ID, switching_to_highway, l_highway_open );

@@ -9,40 +9,26 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "behaviour_impl.hpp"
-#include "event_impl.hpp"
+#ifndef BEHAVIOR_EXCEPTION_FWD_10403E70_B796_4F09_9764_470D42AF9C4A
+#define BEHAVIOR_EXCEPTION_FWD_10403E70_B796_4F09_9764_470D42AF9C4A
+
+
+#include <vector>
+
+#include "compatibility.hpp"
 
 
 namespace sxy
 {
 
 
-behaviour_impl::behaviour_impl( const behaviour_function& _function )
-	: function_( _function )
-{
-	// Nothing to do.
-}
+class behavior_exception;
 
 
-behaviour_impl::~behaviour_impl() Y_NOEXCEPT
-{
-	// Nothing to do.
-}
-
-
-void behaviour_impl::operator()( const event& _event ) const
-{
-	if( function_ )
-	{
-		function_( _event );
-	}
-}
-
-
-behaviour_uptr behaviour_impl::create_behaviour( const behaviour_function& _function )
-{
-	return( Y_MAKE_UNIQUE< sxy::behaviour_impl >( _function ) );
-}
-
+typedef Y_UNIQUE_PTR< behavior_exception > behavior_exception_uptr;
+typedef std::vector< behavior_exception_uptr > behavior_exceptions;
 
 }
+
+
+#endif

@@ -48,6 +48,7 @@ void transition_finder::search_for_enabled_transitions_in_all_regions( const sta
 void transition_finder::search_for_enabled_completion_transitions_in_all_regions(	const state& _current_state,
 	compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred ) const
 {
+	// TODO weird
 	const sxy::shared_ptr< event_impl > completion_event = Y_MAKE_SHARED< event_impl >( COMPLETION_EVENT_ID );
 	search_for_transition( _current_state, _enabled_compound_transitions, *completion_event, _event_is_deferred );
 }
@@ -65,6 +66,7 @@ void transition_finder::search_initial_transitions(	const composite_state& _stat
 			Y_LOG( log_level::LL_TRACE, "Initial pseudostate '%' found in region '%'.",
 				initial_pseudostate->get_name(), region->get_name() );
 			transition* const transition = initial_pseudostate->get_transition();
+			// TODO weird
 			const sxy::shared_ptr< event_impl > complition_event = Y_MAKE_SHARED< event_impl >( COMPLETION_EVENT_ID );
 			if( !try_to_build_compound_transition( *transition, _compound_transitions, *complition_event ) )
 			{	

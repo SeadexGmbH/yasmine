@@ -102,23 +102,23 @@ public:
 	//!\return void
 	virtual void after_enter( const state& _state ) = 0;
 
-	//!\brief Callback before execution of a state behaviour ("do behaviour").
-	//!\param _state State whose behaviour will be executed.
+	//!\brief Callback before execution of a state behavior ("do behavior").
+	//!\param _state State whose behavior will be executed.
 	//!\return void
 	virtual void before_do( const state& _state ) = 0;
 
-	//!\brief Callback after execution of a state behaviour ("do behaviour").
-	//!\param _state State whose behaviour was executed.
+	//!\brief Callback after execution of a state behavior ("do behavior").
+	//!\param _state State whose behavior was executed.
 	//!\return void
 	virtual void after_do( const state& _state ) = 0;
 
-	//!\brief Callback before execution of a transition behaviour.
-	//!\param _transition Transition whose behaviour will be executed.
+	//!\brief Callback before execution of a transition behavior.
+	//!\param _transition Transition whose behavior will be executed.
 	//!\return void
 	virtual void before_transition( const transition& _transition ) = 0;
 
-	//!\brief Callback after execution of a transition behaviour.
-	//!\param _transition Transition whose behaviour was executed.
+	//!\brief Callback after execution of a transition behavior.
+	//!\param _transition Transition whose behavior was executed.
 	//!\return void
 	virtual void after_transition( const transition& _transition ) = 0;
 };

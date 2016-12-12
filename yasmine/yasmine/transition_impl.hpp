@@ -16,7 +16,7 @@
 #include "transition.hpp"
 #include "state_machine_element_impl.hpp"
 #include "constraint.hpp"
-#include "behaviour.hpp"
+#include "behavior.hpp"
 
 
 namespace sxy
@@ -32,22 +32,22 @@ class transition_impl Y_FINAL:
 public:
 	transition_impl( const event_id _event_id, vertex& _source, vertex& _target, 
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL, 
-		constraint_uptr _guard = constraint_uptr(), behaviour_uptr _behaviour = behaviour_uptr());
+		constraint_uptr _guard = constraint_uptr(), behavior_uptr _behavior = behavior_uptr());
 	transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL,
-		constraint_uptr _guard = constraint_uptr(), behaviour_uptr _behaviour = behaviour_uptr());
+		constraint_uptr _guard = constraint_uptr(), behavior_uptr _behavior = behavior_uptr());
 	virtual ~transition_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(transition_impl)
 	virtual const vertex& get_source() const Y_OVERRIDE;
 	virtual const vertex& get_target() const Y_OVERRIDE;
 	virtual vertex& get_target() Y_OVERRIDE;
 	virtual const constraint * get_guard() const Y_OVERRIDE;
-	virtual const behaviour * get_behaviour() const Y_OVERRIDE;
+	virtual const behavior * get_behavior() const Y_OVERRIDE;
 	virtual uri get_uri() const Y_OVERRIDE;
 	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
 	virtual sxy::transition_kind get_kind() const Y_OVERRIDE;
 	virtual void add_ancestor_uri( uri& _uri ) const Y_OVERRIDE;
-	virtual void on_transition_behaviour( const event& _event ) const Y_OVERRIDE;
+	virtual void on_transition_behavior( const event& _event ) const Y_OVERRIDE;
 	virtual bool check_guard( const event& _event ) const Y_OVERRIDE;
 	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
 	virtual bool can_accept_event( const event_id _event ) const Y_OVERRIDE;
@@ -64,7 +64,7 @@ private:
 	vertex& source_;
 	vertex& target_;
 	constraint_uptr guard_;
-	behaviour_uptr behaviour_;
+	behavior_uptr behavior_;
 	transition_kind kind_;
 };
 

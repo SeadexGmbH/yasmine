@@ -7,7 +7,7 @@
     <ClCompile />
     <Link>
       <TargetMachine>NotSet</TargetMachine>
-      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>

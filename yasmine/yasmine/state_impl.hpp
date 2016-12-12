@@ -15,7 +15,7 @@
 
 #include "state.hpp"
 #include "vertex_impl.hpp"
-#include "behaviour_fwd.hpp"
+#include "behavior_fwd.hpp"
 #include "event_fwd.hpp"
 #include "optimization.hpp"
 
@@ -46,9 +46,9 @@ public:
 	virtual void set_inactive() Y_OVERRIDE;
 	virtual bool is_active() const Y_OVERRIDE;
 	virtual bool is_complete() const Y_OVERRIDE;
-	virtual void execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
-	virtual void execute_enter_behaviour( const event& _event ) const Y_OVERRIDE;
-	virtual void execute_exit_behaviour( const event& _event ) const Y_OVERRIDE;
+	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
+	virtual void execute_enter_behavior( const event& _event ) const Y_OVERRIDE;
+	virtual void execute_exit_behavior( const event& _event ) const Y_OVERRIDE;
 	virtual void enter_state( const event& _event ) Y_OVERRIDE;
 	virtual void exit_state( const event& _event ) Y_OVERRIDE;
 	virtual bool has_error_event() const Y_OVERRIDE;

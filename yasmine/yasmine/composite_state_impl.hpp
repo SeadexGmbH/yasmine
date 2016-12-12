@@ -29,8 +29,8 @@ class composite_state_impl Y_FINAL:
 	public virtual composite_state, public complex_state_impl
 {
 public:
-	explicit composite_state_impl(	const std::string& _name, behaviour_uptr _entry_action = behaviour_uptr(),
-		behaviour_uptr _exit_action = behaviour_uptr(), const event_ids& _deferred_events = event_ids() );
+	explicit composite_state_impl(	const std::string& _name, behavior_uptr _entry_action = behavior_uptr(),
+		behavior_uptr _exit_action = behavior_uptr(), const event_ids& _deferred_events = event_ids() );
 	virtual ~composite_state_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(composite_state_impl)
 	virtual region& add_region( region_uptr _region ) Y_OVERRIDE;

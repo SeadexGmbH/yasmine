@@ -58,7 +58,7 @@ bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 		check_ok = false;
 	}
 
-	// 15.3.8 Pseudostate -> Constraint [9]: Outgoing transition from an initial vertex may have a behaviour, but not a
+	// 15.3.8 Pseudostate -> Constraint [9]: Outgoing transition from an initial vertex may have a behavior, but not a
 	// trigger or guard.
 	Y_FOR( const transition* const transition, get_outgoing_transitions() )
 	{

@@ -9,39 +9,31 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BEHAVIOUR_EXCEPTION_2D8556FD_222C_4ABD_B11B_1AC356D1A0BB
-#define BEHAVIOUR_EXCEPTION_2D8556FD_222C_4ABD_B11B_1AC356D1A0BB
-		 
-
-#include "event_fwd.hpp"
-#include "event_id.hpp"
-#include "exception.hpp"
-#include "behaviour_exception_fwd.hpp"
-#include "non_copyable.hpp"
+#include "behavior_exception.hpp"
 
 
 namespace sxy
 {
 
 
-class behaviour_exception Y_FINAL:
-	public exception
-{
-
-
-public:
-	explicit behaviour_exception( const event_sptr& _event );
-	virtual ~behaviour_exception() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY_OPERATOR_EQUAL(behaviour_exception)
-	const event_sptr get_error_event() const;									
-
-
-private:
-	const event_sptr error_event_;
-};
-
-
+behavior_exception::behavior_exception( const event_sptr& _event )
+	: exception("Error handle exception."),
+		error_event_( _event )
+{	
+	// Nothing to do...
 }
 
 
-#endif
+behavior_exception::~behavior_exception() Y_NOEXCEPT
+{
+	// Nothing to do...
+}
+
+	
+const event_sptr behavior_exception::get_error_event() const
+{
+	return( error_event_ );
+}
+
+
+}

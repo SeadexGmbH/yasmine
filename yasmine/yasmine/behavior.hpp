@@ -9,12 +9,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BEHAVIOUR_86504172_8E66_4DF4_945F_A76FC04D3BEF
-#define BEHAVIOUR_86504172_8E66_4DF4_945F_A76FC04D3BEF
+#ifndef BEHAVIOR_2A20341F_93C3_409E_8792_B05E0D83C7D1
+#define BEHAVIOR_2A20341F_93C3_409E_8792_B05E0D83C7D1
 
 
 #include "non_copyable.hpp"
-#include "behaviour_fwd.hpp"
+#include "behavior_fwd.hpp"
 #include "event_fwd.hpp"
 
 
@@ -22,22 +22,22 @@ namespace sxy
 {
 
 
-class behaviour
+class behavior
 {
 public:
-	behaviour()
+	behavior()
 	{
 		// Nothing to do...
 	}
 
 
-	virtual ~behaviour() Y_NOEXCEPT
+	virtual ~behavior() Y_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(behaviour)
+	Y_NO_COPY(behavior)
 	virtual void operator()( const event& ) const = 0;
 };
 

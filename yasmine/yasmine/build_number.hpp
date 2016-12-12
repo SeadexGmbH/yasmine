@@ -24,7 +24,7 @@ namespace version
 {
 
 
-const sxy::uint16_t BUILD_NUMBER( 427 );
+const sxy::uint16_t BUILD_NUMBER( 432 );
 
 
 }

@@ -68,9 +68,9 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	initial_pseudostate& i1 = main_region.add_initial_pseudostate( "initial pseudostate 1" );
 #ifdef Y_CPP03_BOOST
 	simple_state& s1 = 
-		main_region.add_simple_state( "s1", Y_BEHAVIOUR_METHOD_NO_EVENT( forty_two, increment_iterations ) );
+		main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( forty_two, increment_iterations ) );
 #else
-	simple_state& s1 = main_region.add_simple_state( "s1", Y_BEHAVIOUR_METHOD_NO_EVENT( increment_iterations ) );
+	simple_state& s1 = main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( increment_iterations ) );
 #endif
 	simple_state& s2 = main_region.add_simple_state( "s2" );
 	composite_state& s3 = main_region.add_composite_state( "s3" );

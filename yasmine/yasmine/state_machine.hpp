@@ -20,7 +20,7 @@
 #include "composite_state.hpp"
 #include "transition_kind.hpp"
 #include "constraint_fwd.hpp"
-#include "behaviour_fwd.hpp"
+#include "behavior_fwd.hpp"
 
 
 namespace sxy
@@ -60,36 +60,36 @@ public:
 	//!\return transition Reference to the added transition.
 	virtual transition& add_transition( transition_uptr _transition );
 
-	//!\brief Creates a transition with the given name, kind, event, guard and behaviour between the given source and
+	//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
 	// target and adds it to the state machine given as parameter.
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\param _guard The guard of the transition. Default is an empty function.
-	//!\param _behaviour The behaviour of the transition. Default is an empty function.
+	//!\param _behavior The behavior of the transition. Default is an empty function.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition(	const event_id _event_id, vertex& _source,	vertex& _target,	
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL,
 		const constraint_function& _guard = constraint_function(),	
-		const behaviour_function& _behaviour = behaviour_function() );
+		const behavior_function& _behavior = behavior_function() );
 
-	//!\brief Creates a transition with the given name, kind, event, guard and behaviour between the given source and
+	//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
 	// target and adds it to the state machine given as parameter.	
 	//!\param event_ids List of IDs of the events for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\param _guard The guard of the transition. Default is an empty function.
-	//!\param _behaviour The behaviour of the transition. Default is an empty function.
+	//!\param _behavior The behavior of the transition. Default is an empty function.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition( const event_ids& _event_ids,	vertex& _source, vertex& _target, 
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL,	
 		const constraint_function& _guard = constraint_function(),
-		const behaviour_function& _behaviour = behaviour_function() );
+		const behavior_function& _behavior = behavior_function() );
 
 	//!\brief Creates a transition with the given name, kind, event, guard between the given source and
-	// target and adds it to the state machine given as parameter. There is no behaviour provided.	
+	// target and adds it to the state machine given as parameter. There is no behavior provided.	
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
@@ -99,29 +99,29 @@ public:
 	virtual transition& add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
 		const constraint_function& _guard, const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
-	//!\brief Creates a transition with the given name, kind, event, guard and behaviour between the given source and
+	//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
 	// target and adds it to the state machine given as parameter.	
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.	
 	//!\param _guard The guard of the transition.
-	//!\param _behaviour The behaviour of the transition.
+	//!\param _behavior The behavior of the transition.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition( const event_id _event_id,	vertex& _source, vertex& _target, 
-		const constraint_function& _guard, const behaviour_function& _behaviour,	
+		const constraint_function& _guard, const behavior_function& _behavior,	
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
-	//!\brief Creates a transition with the given name, kind, event and behaviour between the given source and
+	//!\brief Creates a transition with the given name, kind, event and behavior between the given source and
 	// target and adds it to the state machine given as parameter. There is no guard provided.	
 	//!\param _event_id ID of the event for which the transition will be enabled.
 	//!\param _source The source vertex.
 	//!\param _target The target vertex.
-	//!\param _behaviour The behaviour of the transition.
+	//!\param _behavior The behavior of the transition.
 	//!\param _kind Transition kind. Default is EXTERNAL.
 	//!\return a reference to the new created transition.
 	virtual transition& add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
-		const behaviour_function& _behaviour,	const sxy::transition_kind _kind = transition_kind::EXTERNAL );
+		const behavior_function& _behavior,	const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 	
 	//!\brief Fire the given event.
 	//!\param _event Event to be fired.	
@@ -139,7 +139,7 @@ public:
 	//!reached and the state machine is stopped.
 	virtual bool start_state_machine();
 
-	//!\brief Stops the state machine. It checks for active asynchronous simple states and stops their do behaviours.
+	//!\brief Stops the state machine. It checks for active asynchronous simple states and stops their do behaviors.
 	virtual void stop_state_machine();
 
 
@@ -149,7 +149,7 @@ protected:
 	//!\brief Starts the state machine.
 	//!\param _async_event_handler Pointer to an asynchronous event handler. For example, it's necessary for
 	//!the asynchronous state machine if it is needed to process the asynchronous errors that occurs in the 
-	//!asynchronous behaviour of asynchronous simple states.
+	//!asynchronous behavior of asynchronous simple states.
 	//!\return bool true if state machine can be started, else false what means that a terminate pseudostate has been
 	//!reached and the state machine is stopped.
 	bool start_state_machine( async_event_handler* const _async_event_handler );

@@ -17,9 +17,9 @@
 #include "region.hpp"
 #include "exception.hpp"
 #include "composite_state.hpp"
-#include "behaviour.hpp"
+#include "behavior.hpp"
 #include "log_and_throw.hpp"
-#include "behaviour_exception.hpp"
+#include "behavior_exception.hpp"
 #include "algorithm_parameters.hpp"
 
 
@@ -213,38 +213,38 @@ bool state_impl::is_complete() const
 }
 
 
-void state_impl::execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const
+void state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
 {
 	Y_UNUSED_PARAMETER( _event );
 	Y_UNUSED_PARAMETER( _async_event_handler );
 }
 
 
-void state_impl::execute_enter_behaviour( const event& _event ) const
+void state_impl::execute_enter_behavior( const event& _event ) const
 {
-	const behaviour* const behaviour = get_entry_behaviour();
-	if( behaviour )
+	const behavior* const behavior = get_entry_behavior();
+	if( behavior )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' enter behaviour.", get_name() );
-		( *behaviour )( _event );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' enter behavior.", get_name() );
+		( *behavior )( _event );
 	}
 }
 
 
-void state_impl::execute_exit_behaviour( const event& _event ) const
+void state_impl::execute_exit_behavior( const event& _event ) const
 {
-	const behaviour* const behaviour = get_exit_behaviour();
-	if( behaviour )
+	const behavior* const behavior = get_exit_behavior();
+	if( behavior )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' exit behaviour.", get_name().c_str() );
-		( *behaviour )( _event );
+		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' exit behavior.", get_name() );
+		( *behavior )( _event );
 	}
 }
 
 
 void state_impl::enter_state( const event& _event )
 {
-	execute_enter_behaviour( _event );
+	execute_enter_behavior( _event );
 	set_active();
 	set_was_active();
 }
@@ -252,7 +252,7 @@ void state_impl::enter_state( const event& _event )
 
 void state_impl::exit_state( const event& _event )
 {
-	execute_exit_behaviour( _event );
+	execute_exit_behavior( _event );
 	set_inactive();
 }
 

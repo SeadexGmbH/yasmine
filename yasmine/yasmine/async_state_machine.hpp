@@ -55,7 +55,7 @@ public:
 
 	//!\brief Stops the state machine. When stopping the state machine, all the events remaining in the queue of events
 	//!will be processed and the event processing thread will be then stopped and joined. The state machine will also 
-	//!check for active asynchronous simple states and will stop the do behaviour for all of them.
+	//!check for active asynchronous simple states and will stop the do behavior for all of them.
 	//!\return void
 	virtual void stop_state_machine() Y_OVERRIDE;
 

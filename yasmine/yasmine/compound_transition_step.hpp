@@ -33,7 +33,7 @@ public:
 	virtual const exit_point * get_exit_point() const Y_OVERRIDE;
 	virtual const entry_point * get_entry_point() const Y_OVERRIDE;
 	virtual const raw_const_vertices get_target_vertices() Y_OVERRIDE;
-	void execute_transition_behaviours( const event& _event ) const Y_OVERRIDE;
+	void execute_transition_behaviors( const event& _event ) const Y_OVERRIDE;
 
 
 private:

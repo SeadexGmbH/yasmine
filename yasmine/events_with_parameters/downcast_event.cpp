@@ -74,20 +74,20 @@ state_machine_uptr setup_state_machine( const std::string& _name )
 	region& main_region = root_state.add_region( "main region" );
 	initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 	simple_state& simple_state_1 = main_region.add_simple_state( "1", 
-		Y_BEHAVIOUR_FUNCTION( do_something_event_2_parameters ), 
-		Y_BEHAVIOUR_FUNCTION( do_something_event_2_parameters ),
-		Y_BEHAVIOUR_FUNCTION( do_something_event_1_parameter ) );
+		Y_BEHAVIOR_FUNCTION( do_something_event_2_parameters ), 
+		Y_BEHAVIOR_FUNCTION( do_something_event_2_parameters ),
+		Y_BEHAVIOR_FUNCTION( do_something_event_1_parameter ) );
 	simple_state& simple_state_2 = main_region.add_simple_state( "2", 
-		Y_BEHAVIOUR_FUNCTION( do_something_event_1_parameter ),
-		Y_BEHAVIOUR_FUNCTION( do_something_event_1_parameter ),
-		Y_BEHAVIOUR_FUNCTION( do_something_event_2_parameters ) );
+		Y_BEHAVIOR_FUNCTION( do_something_event_1_parameter ),
+		Y_BEHAVIOR_FUNCTION( do_something_event_1_parameter ),
+		Y_BEHAVIOR_FUNCTION( do_something_event_2_parameters ) );
 
 	state_machine->add_transition( COMPLETION_EVENT_ID, initial_pseudostate, simple_state_1,
-		Y_BEHAVIOUR_FUNCTION( do_something_event_0_parameters ) );
+		Y_BEHAVIOR_FUNCTION( do_something_event_0_parameters ) );
 	state_machine->add_transition( EVENT_1, simple_state_1, simple_state_2,
-		Y_BEHAVIOUR_FUNCTION( do_something_event_1_parameter ) );
+		Y_BEHAVIOR_FUNCTION( do_something_event_1_parameter ) );
 	state_machine->add_transition( EVENT_2, simple_state_2, simple_state_1,
-		Y_BEHAVIOUR_FUNCTION( do_something_event_2_parameters ) );
+		Y_BEHAVIOR_FUNCTION( do_something_event_2_parameters ) );
 	return( sxy::move( state_machine ) );
 }
 

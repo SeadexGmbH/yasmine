@@ -24,8 +24,8 @@ namespace sxy
 {
 
 
-simple_state_base::simple_state_base( const std::string& _name, behaviour_uptr _entry_action,
-	behaviour_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event)
+simple_state_base::simple_state_base( const std::string& _name, behavior_uptr _entry_action,
+	behavior_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event)
 	: complex_state_impl( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events ),
 	error_event_( _error_event )
 {

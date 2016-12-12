@@ -87,11 +87,11 @@ const raw_const_vertices compound_transition_step::get_target_vertices()
 
 
 // cppcheck-suppress unusedFunction
-void compound_transition_step::execute_transition_behaviours( const event& _event ) const
+void compound_transition_step::execute_transition_behaviors( const event& _event ) const
 {
 	Y_FOR( const transition* const transition, transitions_ )
 	{
-		transition->on_transition_behaviour( _event );
+		transition->on_transition_behavior( _event );
 	}
 }
 

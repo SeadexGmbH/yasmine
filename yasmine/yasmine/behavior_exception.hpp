@@ -9,47 +9,35 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef TRANSITION_EXECUTOR_H_2521E4B8_B89E_4CCE_9751_F5B6BD515AD5
-#define TRANSITION_EXECUTOR_H_2521E4B8_B89E_4CCE_9751_F5B6BD515AD5
+#ifndef BEHAVIOR_EXCEPTION_626C2339_34D7_4BC1_A01A_DB4C0914AA6C
+#define BEHAVIOR_EXCEPTION_626C2339_34D7_4BC1_A01A_DB4C0914AA6C
+		 
 
-
-#include "non_copyable.hpp"
-#include "choice_fwd.hpp"
-#include "compound_transition_fwd.hpp"
-#include "behavior_exception_fwd.hpp"
 #include "event_fwd.hpp"
+#include "event_id.hpp"
+#include "exception.hpp"
+#include "behavior_exception_fwd.hpp"
+#include "non_copyable.hpp"
 
 
 namespace sxy
 {
 
 
-namespace impl
+class behavior_exception Y_FINAL:
+	public exception
 {
-																 
-class transition_executor_impl;
-
-}
 
 
-class composite_state;
-class event_processing_callback;
-class async_event_handler;
-
-
-class transition_executor Y_FINAL
-{
 public:
-	transition_executor();
-	~transition_executor() Y_NOEXCEPT;
-	Y_NO_COPY(transition_executor)
-	bool check_sort_and_execute_transitions( const compound_transitions& _compound_transitions, 
-		raw_const_choices& _verices,	event_processing_callback* const _event_processing_callback,	
-		const event& _event, events& _exception_events, async_event_handler* const _async_event_handler );
+	explicit behavior_exception( const event_sptr& _event );
+	virtual ~behavior_exception() Y_NOEXCEPT Y_OVERRIDE;
+	Y_NO_COPY_OPERATOR_EQUAL( behavior_exception )
+	const event_sptr get_error_event() const;									
 
 
 private:
-	impl::transition_executor_impl* transition_executor_impl_;
+	const event_sptr error_event_;
 };
 
 

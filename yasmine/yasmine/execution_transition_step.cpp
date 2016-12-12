@@ -37,7 +37,7 @@ execution_transition_step::~execution_transition_step() Y_NOEXCEPT
 }
 
 
-bool execution_transition_step::execute_behaviour(	event_processing_callback* const _event_processing_callback,
+bool execution_transition_step::execute_behavior(	event_processing_callback* const _event_processing_callback,
 	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const
 {		
 	Y_UNUSED_PARAMETER( _exception_events );
@@ -52,7 +52,7 @@ bool execution_transition_step::execute_behaviour(	event_processing_callback* co
 			_event_processing_callback->before_transition( *transition );
 		}
 
-		transition->on_transition_behaviour( _event );
+		transition->on_transition_behavior( _event );
 
 		if( _event_processing_callback )
 		{

@@ -24,8 +24,8 @@
 #include "region_pseudostates.hpp"
 
 #include "transition.hpp"
-#include "behaviour.hpp"
-#include "behaviour_exception.hpp"
+#include "behavior.hpp"
+#include "behavior_exception.hpp"
 #include "event_impl.hpp"
 
 #include "event_template.hpp"
@@ -45,7 +45,7 @@
 
 
 #include "state_pseudostates.hpp"
-#include "async_behaviour.hpp"
+#include "async_behavior.hpp"
 
 
 #endif

@@ -19,7 +19,7 @@
 #include "compound_transition_fwd.hpp"
 #include "transition_step_fwd.hpp"
 #include "execution_step_fwd.hpp"
-#include "behaviour_exception_fwd.hpp"
+#include "behavior_exception_fwd.hpp"
 #include "event_fwd.hpp"
 #include "non_copyable.hpp"
 
@@ -77,11 +77,11 @@ public:
 	void add_remained_transitions( transition_steps::const_iterator& _transition_start,
 		const transition_steps::const_iterator& _transition_end, execution_steps& _execution_steps );
 	void fill_vector_of_choices( raw_const_choices& _choices, const compound_transitions& _compound_transitions );
-	void find_all_states_to_enter_and_exit( compound_transition& new_compound_transition,
+	void find_already_entered_regions( compound_transition& new_compound_transition,
 		raw_const_region_set& _entered_regions, const event& _event );
 	void find_states_to_enter_and_to_exit_and_calculate_execution_steps( 
 		compound_transition_consumer& compound_transition, execution_steps& _execution_steps, 
-		raw_const_region_set& _entered_regions, const event& _event );
+		raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit );
 	void check_conflicts_from_source_state_to_LCA( const state& _state, raw_const_state_set& _unique_exit_states,
 		const composite_state* _LCA ) const;
 };

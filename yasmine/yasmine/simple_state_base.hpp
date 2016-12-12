@@ -27,7 +27,7 @@ class simple_state_base:
 
 
 public:
-	simple_state_base( const std::string& _name, behaviour_uptr _entry_action,	behaviour_uptr _exit_action, 
+	simple_state_base( const std::string& _name, behavior_uptr _entry_action,	behavior_uptr _exit_action, 
 		const event_ids& _deferred_events, event_sptr _error_event );
 	virtual ~simple_state_base() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(simple_state_base)

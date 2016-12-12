@@ -28,8 +28,8 @@ public:
 	explicit final_state_impl( const std::string& _name );
 	virtual ~final_state_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(final_state_impl)
-	virtual behaviour * get_entry_behaviour() const Y_OVERRIDE;
-	virtual behaviour * get_exit_behaviour() const Y_OVERRIDE;
+	virtual behavior * get_entry_behavior() const Y_OVERRIDE;
+	virtual behavior * get_exit_behavior() const Y_OVERRIDE;
 	virtual const regions& get_regions() const Y_OVERRIDE;
 	virtual regions& get_regions() Y_OVERRIDE;
 	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;

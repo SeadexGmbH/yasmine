@@ -22,7 +22,7 @@
 #include "shallow_history_impl.hpp"
 #include "exit_point_impl.hpp"
 #include "entry_point_impl.hpp"
-#include "behaviour.hpp"
+#include "behavior.hpp"
 #include "state_machine_defect.hpp"
 #include "uri.hpp"
 #include "log_and_throw.hpp"
@@ -32,8 +32,8 @@ namespace sxy
 {
 
 
-composite_state_impl::composite_state_impl( const std::string& _name, behaviour_uptr _entry_action, 
-	behaviour_uptr _exit_action, const event_ids& _deferred_events )
+composite_state_impl::composite_state_impl( const std::string& _name, behavior_uptr _entry_action, 
+	behavior_uptr _exit_action, const event_ids& _deferred_events )
 	: complex_state_impl( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events ),
 		regions_(),
 		deep_history_(deep_history_uptr()),
