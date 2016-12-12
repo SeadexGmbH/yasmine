@@ -104,36 +104,36 @@ state_machine_uptr setup_state_machine2( const std::string& _name )
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 #ifndef Y_CPP03_BOOST
 	sxy::simple_state& simple_state_1 =	main_region.add_simple_state( "1",
-			Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_0_parameters, &do_something_event_2_parameters ),
-			Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_0_parameters, &do_something_event_2_parameters ),
-			Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_1_parameter ) );
+			Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_0_parameters, &do_something_event_2_parameters ),
+			Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_0_parameters, &do_something_event_2_parameters ),
+			Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_1_parameter ) );
 	sxy::simple_state& simple_state_2 =	main_region.add_simple_state( "2", 
-			Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_1_parameter ),
-			Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_1_parameter ),
-			Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_2_parameters ) );
+			Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_1_parameter ),
+			Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_1_parameter ),
+			Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_2_parameters ) );
 
 	state_machine->add_transition( sxy::COMPLETION_EVENT_ID, initial_pseudostate, simple_state_1,
-		Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_0_parameters ) );
+		Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_0_parameters ) );
 	state_machine->add_transition( sxy::EVENT_1, simple_state_1, simple_state_2,
-		Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_1_parameter ) );
+		Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_1_parameter ) );
 	state_machine->add_transition( sxy::EVENT_2, simple_state_2, simple_state_1,
-		Y_BEHAVIOUR_FUNCTION_EVENT( &do_something_event_2_parameters ) );
+		Y_BEHAVIOR_FUNCTION_EVENT( &do_something_event_2_parameters ) );
 #else
 	sxy::simple_state& simple_state_1 = main_region.add_simple_state( "1",
-		sxy::behaviour_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ) );
 	sxy::simple_state& simple_state_2 = main_region.add_simple_state( "2",
-		sxy::behaviour_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ) );
 
 	state_machine->add_transition( COMPLETION_EVENT_ID, initial_pseudostate, simple_state_1,
-		sxy::behaviour_function( sxy::bind( &do_something_event_0_parameters, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &do_something_event_0_parameters, sxy::_1 ) ) );
 	state_machine->add_transition( EVENT_1, simple_state_1, simple_state_2,
-		sxy::behaviour_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ) );
 	state_machine->add_transition( EVENT_2, simple_state_2, simple_state_1,
-		sxy::behaviour_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ) );
 #endif
 
 	

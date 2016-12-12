@@ -9,38 +9,23 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef BEHAVIOUR_IMPL_687393A8_48A8_4AB2_BC6B_99017F70AEAC
-#define BEHAVIOUR_IMPL_687393A8_48A8_4AB2_BC6B_99017F70AEAC
+#ifndef BEHAVIOR_FWD_0AA81213_6028_46A1_AB10_9FB2E31B8069
+#define BEHAVIOR_FWD_0AA81213_6028_46A1_AB10_9FB2E31B8069
 
 
-#include "behaviour.hpp"
+#include "compatibility.hpp"
 
 
 namespace sxy
 {
 
 
+class behavior;
 class event;
 
 
-class behaviour_impl Y_FINAL:
-	public virtual behaviour
-{
-public:
-	explicit behaviour_impl( const behaviour_function& _function );
-	virtual ~behaviour_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(behaviour_impl)
-	virtual void operator()( const event& _event ) const Y_OVERRIDE;
-
-	//!\brief Creates a behaviour with the given function that implements the behaviour.
-	//!\param _function Function that implements the behaviour.
-	//!\return A unique pointer to the created behaviour.
-	static behaviour_uptr create_behaviour( const behaviour_function& _function );
-
-
-private:
-	behaviour_function function_;
-};
+typedef Y_UNIQUE_PTR< behavior > behavior_uptr;
+typedef sxy::function< void ( const event& ) > behavior_function;
 
 
 }

@@ -21,7 +21,7 @@
 #include "transition_controller.hpp"
 #include "uri.hpp"
 #include "region.hpp"
-#include "behaviour_impl.hpp"
+#include "behavior_impl.hpp"
 #include "constraint_impl.hpp"
 #include "transition_impl.hpp"
 #include "exception.hpp"
@@ -94,12 +94,12 @@ transition& state_machine::add_transition( transition_uptr _transition )
 
 
 transition& state_machine::add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind, const constraint_function& _guard, const behaviour_function& _behaviour )
+	const sxy::transition_kind _kind, const constraint_function& _guard, const behavior_function& _behavior )
 {
 	Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
 		Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-			( _behaviour ? ( behaviour_impl::create_behaviour( sxy::ref( _behaviour ) ) ) : behaviour_uptr() ) );
+			( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
 	transition_impl& transition = *l_transition;
 	transitions_.push_back( sxy::move( l_transition ) );
 	return( transition );
@@ -107,12 +107,12 @@ transition& state_machine::add_transition( const event_id _event_id, vertex& _so
 
 
 transition& state_machine::add_transition( const event_ids& _event_ids, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind, const constraint_function& _guard, const behaviour_function& _behaviour )
+	const sxy::transition_kind _kind, const constraint_function& _guard, const behavior_function& _behavior )
 {																																																						 
 	Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
 		Y_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxy::ref( _source ), sxy::ref( _target ), _kind,
 		( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-		( _behaviour ? ( behaviour_impl::create_behaviour( sxy::ref( _behaviour ) ) ) : behaviour_uptr() ) );
+		( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
 	transition_impl& transition = *l_transition;
 	transitions_.push_back( sxy::move( l_transition ) );
 	return( transition );
@@ -124,7 +124,7 @@ transition& state_machine::add_transition( const event_id _event_id, vertex& _so
 {
 	Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
 		Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
-		( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ), behaviour_uptr());
+		( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ), behavior_uptr());
 	transition_impl& transition = *l_transition;
 	transitions_.push_back( sxy::move( l_transition ) );
 	return( transition );
@@ -132,12 +132,12 @@ transition& state_machine::add_transition( const event_id _event_id, vertex& _so
 
 
 transition& state_machine::add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
-	const constraint_function& _guard, const behaviour_function& _behaviour, const sxy::transition_kind _kind )
+	const constraint_function& _guard, const behavior_function& _behavior, const sxy::transition_kind _kind )
 {
 	Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
 		Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
 		( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-		( _behaviour ? ( behaviour_impl::create_behaviour( sxy::ref( _behaviour ) ) ) : behaviour_uptr() ) );
+		( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
 	transition_impl& transition = *l_transition;
 	transitions_.push_back( sxy::move( l_transition ) );
 	return( transition );
@@ -145,12 +145,12 @@ transition& state_machine::add_transition( const event_id _event_id, vertex& _so
 
 
 transition& state_machine::add_transition( const event_id _event_id, vertex& _source, vertex& _target, 
-	const behaviour_function& _behaviour, const sxy::transition_kind _kind )
+	const behavior_function& _behavior, const sxy::transition_kind _kind )
 {		
 	Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
 		Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
 			constraint_uptr(), 
-			( _behaviour ? ( behaviour_impl::create_behaviour( sxy::ref( _behaviour ) ) ) : behaviour_uptr() ) );
+			( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
 	transition_impl& transition = *l_transition;
 	transitions_.push_back( sxy::move( l_transition ) );
 	return( transition );
@@ -433,7 +433,7 @@ void state_machine::stop_all_async_states_from_region( region_uptr& _region)
 		async_simple_state_impl* const async_state = dynamic_cast< async_simple_state_impl* >( active_state );
 		if( async_state )
 		{
-			async_state->stop_do_behaviour();
+			async_state->stop_do_behavior();
 		}
 		else
 		{

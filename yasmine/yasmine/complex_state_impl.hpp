@@ -15,7 +15,7 @@
 
 #include "complex_state.hpp"
 #include "state_impl.hpp"
-#include "behaviour.hpp"
+#include "behavior.hpp"
 
 
 namespace sxy
@@ -26,12 +26,12 @@ class complex_state_impl:
 	public virtual complex_state, public state_impl
 {
 public:
-	explicit complex_state_impl(	const std::string& _name, behaviour_uptr _entry_behaviour, 
-		behaviour_uptr _exit_behaviour, const event_ids& _deferred_events = event_ids() );
+	explicit complex_state_impl(	const std::string& _name, behavior_uptr _entry_behavior, 
+		behavior_uptr _exit_behavior, const event_ids& _deferred_events = event_ids() );
 	virtual ~complex_state_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(complex_state_impl)	
-	virtual behaviour * get_entry_behaviour() const Y_OVERRIDE;
-	virtual behaviour * get_exit_behaviour() const Y_OVERRIDE;
+	virtual behavior * get_entry_behavior() const Y_OVERRIDE;
+	virtual behavior * get_exit_behavior() const Y_OVERRIDE;
 	virtual bool is_event_deferred( const event_id& _event_id ) const Y_OVERRIDE;
 
 
@@ -40,8 +40,8 @@ protected:
 
 
 private:
-	behaviour_uptr entry_;
-	behaviour_uptr exit_;
+	behavior_uptr entry_;
+	behavior_uptr exit_;
 	event_ids deferred_events_;
 };
 

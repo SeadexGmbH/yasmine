@@ -65,7 +65,7 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 		raw_const_region_set entered_regions;
 		Y_LOG( log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
 		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,
-			execution_steps, entered_regions,	_event );
+			execution_steps, entered_regions,	_event, true );
 		Y_LOG( log_level::LL_TRACE, "Found % execution step(s).", execution_steps.size() );
 		Y_LOG( log_level::LL_TRACE, "Start running execution step(s)." );
 		terminate_pseudostate_has_been_reached = transition_executor_impl_->run_execution_steps( execution_steps,

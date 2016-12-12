@@ -38,8 +38,8 @@ state_machine_uptr setup_state_machine( const std::string& _name )
 	sxy::composite_state& root_state = state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
-	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOUR_FUNCTION_NO_EVENT( wait ) );
-	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOUR_FUNCTION_NO_EVENT( reply ) );
+	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION_NO_EVENT( wait ) );
+	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION_NO_EVENT( reply ) );
 	
 	state_machine->add_transition( HELLO_EVENT, simple_state_waiting, simple_state_replying );
 

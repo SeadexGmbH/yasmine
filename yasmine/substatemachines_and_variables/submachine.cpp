@@ -26,9 +26,9 @@ namespace sxy
 submachine::submachine( sxy::state_machine& _parent_state_machine, sxy::region& _parent_region )
 :	
 #ifndef Y_CPP03_BOOST
-	submachine_( _parent_region.add_composite_state( "submachine", Y_BEHAVIOUR_METHOD_NO_EVENT( reset_members ) ) ),
+	submachine_( _parent_region.add_composite_state( "submachine", Y_BEHAVIOR_METHOD_NO_EVENT( reset_members ) ) ),
 #else
-	submachine_( _parent_region.add_composite_state( "submachine", Y_BEHAVIOUR_METHOD_NO_EVENT( submachine, reset_members ) ) ),
+	submachine_( _parent_region.add_composite_state( "submachine", Y_BEHAVIOR_METHOD_NO_EVENT( submachine, reset_members ) ) ),
 #endif
 	i_(),
 	s_()
@@ -38,14 +38,14 @@ submachine::submachine( sxy::state_machine& _parent_state_machine, sxy::region& 
 		"submachine_initial_pseudostate" );
 #ifndef Y_CPP03_BOOST
 	simple_state& submachine_simple_state_1 = submachine_region.add_simple_state( "submachine simple_state_1",
-		Y_BEHAVIOUR_METHOD_NO_EVENT( print_members ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT( print_members ) );
 	simple_state& submachine_simple_state_2 = submachine_region.add_simple_state( "submachine simple_state_2",
-		Y_BEHAVIOUR_METHOD_EVENT( &submachine::change_members ) );
+		Y_BEHAVIOR_METHOD_EVENT( &submachine::change_members ) );
 #else
 	simple_state& submachine_simple_state_1 = submachine_region.add_simple_state( "submachine simple_state_1",
-		Y_BEHAVIOUR_METHOD_NO_EVENT( submachine, print_members ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT( submachine, print_members ) );
 	simple_state& submachine_simple_state_2 = submachine_region.add_simple_state( "submachine simple_state_2",
-		sxy::behaviour_function( sxy::bind( &submachine::change_members, this, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &submachine::change_members, this, sxy::_1 ) ) );
 #endif
 
 	_parent_state_machine.add_transition( COMPLETION_EVENT_ID, submachine_initial_pseudostate, submachine_simple_state_1 );

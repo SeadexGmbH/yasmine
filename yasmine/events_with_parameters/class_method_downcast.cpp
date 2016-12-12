@@ -115,40 +115,40 @@ state_machine_uptr class_method_downcast::setup_state_machine( const std::string
 	initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 #ifndef Y_CPP03_BOOST	
 	simple_state& simple_state_1 = main_region.add_simple_state( "1",
-			Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters,
+			Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters,
 				&class_method_downcast::do_something_event_0_parameters ),
-			Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters,
+			Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters,
 				&class_method_downcast::do_something_event_0_parameters),
-			Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ) );
+			Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ) );
 
 	simple_state& simple_state_2 = main_region.add_simple_state( "2",
-		Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ),
-		Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ),
-		Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters ) );
+		Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ),
+		Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ),
+		Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters ) );
 
 	state_machine->add_transition( COMPLETION_EVENT_ID, initial_pseudostate, simple_state_1,
-		Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_0_parameters ) );
+		Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_0_parameters ) );
 	state_machine->add_transition( EVENT_1, simple_state_1, simple_state_2,
-		Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ) );
+		Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_1_parameter ) );
 	state_machine->add_transition( EVENT_2, simple_state_2, simple_state_1,
-		Y_BEHAVIOUR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters ) );
+		Y_BEHAVIOR_METHOD_EVENT( &class_method_downcast::do_something_event_2_parameters ) );
 #else
 	simple_state& simple_state_1 = main_region.add_simple_state( "1",
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ),		
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ),		
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ) );
 
 	simple_state& simple_state_2 = main_region.add_simple_state( "2",
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ),
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ),
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ) );
 
 	state_machine->add_transition( COMPLETION_EVENT_ID, initial_pseudostate, simple_state_1,
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_0_parameters, this, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_0_parameters, this, sxy::_1 ) ) );
 	state_machine->add_transition( EVENT_1, simple_state_1, simple_state_2,
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_1_parameter, this, sxy::_1 ) ) );
 	state_machine->add_transition( EVENT_2, simple_state_2, simple_state_1,
-		sxy::behaviour_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ) );
+		sxy::behavior_function( sxy::bind( &class_method_downcast::do_something_event_2_parameters, this, sxy::_1 ) ) );
 #endif
 	
 

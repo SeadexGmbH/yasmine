@@ -14,7 +14,7 @@
 #include <algorithm>
 
 #include "vertex.hpp"
-#include "behaviour.hpp"
+#include "behavior.hpp"
 #include "constraint.hpp"
 #include "event.hpp"
 #include "uri.hpp"
@@ -36,13 +36,13 @@ namespace sxy
 
 #ifdef Y_CPP03_BOOST
 transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind, constraint_uptr _guard, behaviour_uptr _behaviour )
+	const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
 	: state_machine_element_impl( get_transition_name(_source, _target, event_ids( 1, _event_id ) ) ),
 		event_ids_( event_ids( 1, _event_id ) ),
 		source_( _source ),
 		target_( _target ),
 		guard_( sxy::move( _guard ) ),
-		behaviour_( sxy::move( _behaviour ) ),
+		behavior_( sxy::move( _behavior ) ),
 		kind_( _kind )
 {
 	source_.add_outgoing_transition( *this );
@@ -51,8 +51,8 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 
 #else
 	transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target,
-		const sxy::transition_kind _kind, constraint_uptr _guard, behaviour_uptr _behaviour )
-		: transition_impl( event_ids{ _event_id }, _source, _target, _kind, sxy::move( _guard ), sxy::move( _behaviour ) )
+		const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
+		: transition_impl( event_ids{ _event_id }, _source, _target, _kind, sxy::move( _guard ), sxy::move( _behavior ) )
 	{
 		// Nothing to do...
 	}
@@ -61,13 +61,13 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 
 
 transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind,	constraint_uptr _guard, behaviour_uptr _behaviour )
+	const sxy::transition_kind _kind,	constraint_uptr _guard, behavior_uptr _behavior )
 	: state_machine_element_impl( get_transition_name( _source, _target, _event_ids ) ),
 		event_ids_( _event_ids ),
 		source_( _source ),
 		target_( _target ),
 		guard_( sxy::move( _guard ) ),
-		behaviour_( sxy::move( _behaviour ) ),
+		behavior_( sxy::move( _behavior ) ),
 		kind_( _kind )
 {
 	source_.add_outgoing_transition( *this );
@@ -106,9 +106,9 @@ const constraint* transition_impl::get_guard() const
 }
 
 
-const behaviour* transition_impl::get_behaviour() const
+const behavior* transition_impl::get_behavior() const
 {
-	return( behaviour_.get() );
+	return( behavior_.get() );
 }
 
 
@@ -140,14 +140,14 @@ void transition_impl::add_ancestor_uri( uri& _uri ) const
 }
 
 
-void transition_impl::on_transition_behaviour( const event& _event ) const
+void transition_impl::on_transition_behavior( const event& _event ) const
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Executing transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
 		get_target().get_name() );
-	const behaviour* const behaviour = get_behaviour();
-	if( behaviour != Y_NULLPTR )
+	const behavior* const behavior = get_behavior();
+	if( behavior != Y_NULLPTR )
 	{
-		( *behaviour )( _event );
+		( *behavior )( _event );
 	}
 
 	Y_LOG( sxy::log_level::LL_TRACE, "Executed transition '%' from '%' to '%'.", get_name(), get_source().get_name(),

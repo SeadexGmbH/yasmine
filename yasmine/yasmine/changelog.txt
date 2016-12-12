@@ -1,14 +1,22 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+
+##[0.6.1] - 2016-12-12
+
+### Changed
+• 'behaviour' to 'behavior' in code and documentation
+• bug fix: invalid state exit on external transition returning into source state
+• replaced platform/compiler specific code with a single solution, removed dead code, minor refactoring
+
+
 ##[0.6.0] - 2016-12-09
 
 ### Added
 • C++03 compatibility
-• macros for creating events classes for a easy usecase.
 • A new example: Events with parameters. It explains the use case of events with parameters macros.
 • a new example of using sub-machine and variables into a state machine: Sub state machine with variables
-• Macros for passing handlers as behaviour (states and transitions) and transition guards.
+• Macros for setting handlers (that expect a certain event type) as behaviors of states (do, enter, exit) or transitions.
 
 ### Changed
 • 'behavior' to 'behaviour' in code and documentation
@@ -18,7 +26,7 @@ All notable changes to this project will be documented in this file.
 ##[0.5.0] - 2016-11-07
 
 ### Added
-• Y_EMPTY_BEHAVIOR for creating a behaviour that does nothing
+• Y_EMPTY_BEHAVIOR for creating a behavior that does nothing
 • CMake files for generators under Windows (Visual Studio) and Linux (gcc, clang)
 
 
@@ -49,8 +57,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 • changelog.txt. It contains the changelog for the yasmine library
-• assembly.h. It contains macros used for different tasks like creating the lambda wrappers for behaviours and guards (constraints)
-• overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behaviour
+• assembly.h. It contains macros used for different tasks like creating the lambda wrappers for behaviors and guards (constraints)
+• overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behavior
 • priority for events and event priority processing in the state machine
 • yasmine's interpretation of the choice pseudostate. The choice allows only one default outgoing transition (a transition with no guard).
 • 'Y_NOEXCEPT' for all destructors
@@ -63,7 +71,7 @@ All notable changes to this project will be documented in this file.
 • Both the synchronous and asynchronous state machines use "start_state_machine" and "stop_state_machine" methods to start and stop the state machines.
 • "start_state_machine" will return now true if the state machine was started and is running and false if a terminate pseudostate was reached or the state machine encountered a problem and is shutting down. Before the opposite was true.
 • COMPLETION_EVENT will now have the maximum value of event_id (std::uint32_t -> 4.294.967.295 or 0xFFFFFFFF) instead of 0
-• simple state and asynchronous simple state store an error event instead of a behaviour exception
+• simple state and asynchronous simple state store an error event instead of a behavior exception
 • Defects of the state machine will not be stored in the free store anymore. A copy of the object is stored instead.
 • event's 'create_event' is now called 'create'
 • constraint's (guard's) 'create_constraint' is now called 'create'

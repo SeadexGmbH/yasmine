@@ -9,30 +9,39 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "behaviour_exception.hpp"
+#include "behavior_impl.hpp"
+#include "event_impl.hpp"
 
 
 namespace sxy
 {
 
 
-behaviour_exception::behaviour_exception( const event_sptr& _event )
-	: exception("Error handle exception."),
-		error_event_( _event )
-{	
-	// Nothing to do...
+	behavior_impl::behavior_impl( const behavior_function& _function )
+	: function_( _function )
+{
+	// Nothing to do.
 }
 
 
-behaviour_exception::~behaviour_exception() Y_NOEXCEPT
+	behavior_impl::~behavior_impl() Y_NOEXCEPT
 {
-	// Nothing to do...
+	// Nothing to do.
 }
 
-	
-const event_sptr behaviour_exception::get_error_event() const
+
+void behavior_impl::operator()( const event& _event ) const
 {
-	return( error_event_ );
+	if( function_ )
+	{
+		function_( _event );
+	}
+}
+
+
+behavior_uptr behavior_impl::create_behavior( const behavior_function& _function )
+{
+	return( Y_MAKE_UNIQUE< sxy::behavior_impl >( _function ) );
 }
 
 

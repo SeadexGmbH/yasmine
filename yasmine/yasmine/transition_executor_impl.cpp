@@ -124,15 +124,7 @@ void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not
 					Y_LOG( log_level::LL_TRACE, "Found initial pseudostate '%' in region '%'.",
 						initial_pseudostate->get_name(), region->get_name() );
 
-#ifdef _MSC_VER
-#if _MSC_VER >= 1900
 					Y_UNIQUE_PTR< compound_transition_impl > new_compound_transition = Y_MAKE_UNIQUE< compound_transition_impl >();
-#elif _MSC_VER <= 1800
-					sxy::shared_ptr< compound_transition_impl > new_compound_transition = Y_MAKE_SHARED< compound_transition_impl >();
-#endif
-#else
-					Y_UNIQUE_PTR< compound_transition_impl > new_compound_transition = Y_MAKE_UNIQUE< compound_transition_impl >();
-#endif
 
 					Y_LOG( log_level::LL_TRACE, "New compound transition created for event with ID %.", _event.get_id() );
 					const bool built_compound_transition = new_compound_transition->create_and_check_transition_path(
@@ -142,23 +134,13 @@ void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not
 					if( built_compound_transition )
 					{
 						Y_LOG( log_level::LL_TRACE, "Build sub compound transition for '%' transition.",
-							initial_pseudostate->get_name() );
-						find_all_states_to_enter_and_exit( *new_compound_transition, _entered_regions, _event );
-						compound_transition_impl* const compound_transition = dynamic_cast< compound_transition_impl* >( &_compound_transition );
+							initial_pseudostate->get_name() );						
+						find_already_entered_regions( *new_compound_transition, _entered_regions, _event );
+						compound_transition_impl* const compound_transition = 
+							dynamic_cast< compound_transition_impl* >( &_compound_transition );
 
-#ifdef _MSC_VER
-#if _MSC_VER >= 1900
-						compound_transition->add_sub_compound_transition( sxy::move( new_compound_transition ) );
-#elif _MSC_VER <= 1800
-						compound_transition->add_sub_compound_transition( new_compound_transition );
-#endif
-#else
-						compound_transition->add_sub_compound_transition( sxy::move( new_compound_transition ) );
-#endif
-						//Y_LOG( log_level::LL_SPAM,
-							//"New compound transition added to compound transition as a sub compound transition." );
-
-							Y_LOG( log_level::LL_SPAM,
+						compound_transition->add_sub_compound_transition( sxy::move( new_compound_transition ) );						
+						Y_LOG( log_level::LL_SPAM, 
 							"New compound transition added to compound transition as a sub compound transition." );
 					}
 				}
@@ -345,7 +327,7 @@ void transition_executor_impl::calculate_execution_steps( compound_transition_co
 		Y_LOG( log_level::LL_SPAM, "Compound transition has % sub compound transition(s).",
 			_compound_transition.get_sub_compound_transitions().size() );
 		find_states_to_enter_and_to_exit_and_calculate_execution_steps( *sub_compound_transition, _execution_steps,
-			_entered_regions, _event );
+			_entered_regions, _event, false );
 	}
 }
 
@@ -359,7 +341,7 @@ bool transition_executor_impl::run_execution_steps( const execution_steps& _exec
 
 	Y_FOR( const execution_step_uptr& execution_step, _execution_steps )
 	{
-		if( execution_step->execute_behaviour( _event_processing_callback, _event, _exception_events, _async_event_handler ) )
+		if( execution_step->execute_behavior( _event_processing_callback, _event, _exception_events, _async_event_handler ) )
 		{
 			run_reached_terminate_pseudostate = true;
 			break;
@@ -575,28 +557,26 @@ void transition_executor_impl::fill_vector_of_choices( raw_const_choices& _choic
 }
 
 
-void transition_executor_impl::find_all_states_to_enter_and_exit( compound_transition& new_compound_transition,
+void transition_executor_impl::find_already_entered_regions( compound_transition& new_compound_transition,
 	raw_const_region_set& _entered_regions, const event& _event )
-{
-	raw_states_by_nesting_level_ascending states_to_exit;
-	Y_LOG( log_level::LL_TRACE, "Start searching states to exit." );
-	find_all_states_to_exit( new_compound_transition, states_to_exit );
-	Y_LOG( log_level::LL_TRACE, "Found % state(s) to exit.", states_to_exit.size() );
-	raw_states_by_nesting_level states_to_enter;
-	Y_LOG( log_level::LL_TRACE, "Start searching states to enter." );
-	find_all_states_to_enter( new_compound_transition, states_to_enter, _entered_regions, _event );
-	Y_LOG( log_level::LL_TRACE, "Found % state(s) to enter.", states_to_enter.size() );
+{	
+	raw_states_by_nesting_level states_to_enter;	
+	find_all_states_to_enter( new_compound_transition, states_to_enter, _entered_regions, _event );	
 }
 
 
 void transition_executor_impl::find_states_to_enter_and_to_exit_and_calculate_execution_steps(
 	compound_transition_consumer& _compound_transition, execution_steps& _execution_steps, 
-	raw_const_region_set& _entered_regions, const event& _event )
+	raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit )
 {
-	raw_states_by_nesting_level_ascending states_to_exit;
+	raw_states_by_nesting_level_ascending states_to_exit;	
 	Y_LOG( log_level::LL_TRACE, "Start searching states to exit." );
-	find_all_states_to_exit( _compound_transition, states_to_exit );
-	Y_LOG( log_level::LL_TRACE, "Found % state(s) to exit.", states_to_exit.size() );
+		
+	if( _find_states_to_exit )
+	{
+		find_all_states_to_exit( _compound_transition, states_to_exit );
+		Y_LOG( log_level::LL_TRACE, "Found % state(s) to exit.", states_to_exit.size() );
+	}
 	raw_states_by_nesting_level states_to_enter;
 	Y_LOG( log_level::LL_TRACE, "Start searching states to enter." );
 	find_all_states_to_enter( _compound_transition, states_to_enter, _entered_regions, _event );

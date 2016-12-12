@@ -77,11 +77,11 @@ const raw_const_vertices simple_transition_step::get_target_vertices()
 }
 
 
-void simple_transition_step::execute_transition_behaviours( const event& _event ) const
+void simple_transition_step::execute_transition_behaviors( const event& _event ) const
 {
 	Y_FOR( const transition* const transition, transition_step_ )
 	{
-		transition->on_transition_behaviour( _event );
+		transition->on_transition_behavior( _event );
 	}
 }
 

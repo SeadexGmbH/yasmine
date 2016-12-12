@@ -35,7 +35,7 @@ execution_state_exit_step::~execution_state_exit_step() Y_NOEXCEPT
 }
 
 
-bool execution_state_exit_step::execute_behaviour( event_processing_callback* const _event_processing_callback,
+bool execution_state_exit_step::execute_behavior( event_processing_callback* const _event_processing_callback,
 	const event& _event, events& _exception_events, async_event_handler* const _async_event_handler ) const
 {
 	Y_UNUSED_PARAMETER( _exception_events );

@@ -16,7 +16,7 @@
 #include "region.hpp"
 #include "deep_history.hpp"
 #include "shallow_history.hpp"
-#include "behaviour.hpp"
+#include "behavior.hpp"
 
 
 namespace sxy

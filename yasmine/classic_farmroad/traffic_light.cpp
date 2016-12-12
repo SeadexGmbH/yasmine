@@ -117,22 +117,22 @@ void traffic_light::build_traffic_light_state_machine()
 	// states
 #ifdef Y_CPP03_BOOST
 	simple_state& red_state =
-		main_region.add_simple_state( "Red", Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red ) );
+		main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red ) );
 	simple_state& red_yellow_state =
 		main_region.add_simple_state( "Red-Yellow",
-			Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red_yellow ) );
+			Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red_yellow ) );
 	simple_state& green_state =
-		main_region.add_simple_state( "Green", Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_green ) );
+		main_region.add_simple_state( "Green", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_green ) );
 	simple_state& yellow_state =
-		main_region.add_simple_state( "Yellow", Y_BEHAVIOUR_METHOD_NO_EVENT( traffic_light, on_traffic_light_yellow ) );
+		main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_yellow ) );
 #else
-	simple_state& red_state = main_region.add_simple_state( "Red", Y_BEHAVIOUR_METHOD_NO_EVENT( on_traffic_light_red ) );
+	simple_state& red_state = main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red ) );
 	simple_state& red_yellow_state =
-		main_region.add_simple_state( "Red-Yellow", Y_BEHAVIOUR_METHOD_NO_EVENT( on_traffic_light_red_yellow ) );
+		main_region.add_simple_state( "Red-Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red_yellow ) );
 	simple_state& green_state = main_region.add_simple_state( "Green", 
-		Y_BEHAVIOUR_METHOD_NO_EVENT(	on_traffic_light_green ) );
+		Y_BEHAVIOR_METHOD_NO_EVENT(	on_traffic_light_green ) );
 	simple_state& yellow_state =
-		main_region.add_simple_state( "Yellow", Y_BEHAVIOUR_METHOD_NO_EVENT( on_traffic_light_yellow ) );
+		main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_yellow ) );
 #endif
 
 	// transitions

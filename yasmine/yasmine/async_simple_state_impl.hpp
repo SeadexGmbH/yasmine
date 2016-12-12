@@ -14,7 +14,7 @@
 
 
 #include "simple_state_base.hpp"
-#include "async_behaviour.hpp"
+#include "async_behavior.hpp"
 
 
 namespace sxy
@@ -25,18 +25,18 @@ class async_simple_state_impl Y_FINAL:
 	public simple_state_base
 {
 public:
-	explicit async_simple_state_impl( const std::string& _name, async_behaviour_uptr _do_action,
-		behaviour_uptr _entry_action = behaviour_uptr(), behaviour_uptr _exit_action = behaviour_uptr(),
+	explicit async_simple_state_impl( const std::string& _name, async_behavior_uptr _do_action,
+		behavior_uptr _entry_action = behavior_uptr(), behavior_uptr _exit_action = behavior_uptr(),
 		const event_ids& _deferred_events = event_ids(), event_sptr _error_event = event_sptr());
 	virtual ~async_simple_state_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(async_simple_state_impl)
-	void execute_do_behaviour( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
-	void execute_exit_behaviour( const event& _event ) const Y_OVERRIDE;
-	void stop_do_behaviour() const;
+	void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
+	void execute_exit_behavior( const event& _event ) const Y_OVERRIDE;
+	void stop_do_behavior() const;
 
 
 private:
-	async_behaviour_uptr do_;
+	async_behavior_uptr do_;
 };
 
 

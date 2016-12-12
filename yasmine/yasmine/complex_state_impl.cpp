@@ -21,11 +21,11 @@ namespace sxy
 {		
 
 
-complex_state_impl::complex_state_impl( const std::string& _name, behaviour_uptr _entry_behaviour, 
-	behaviour_uptr _exit_behaviour, const event_ids& _deferred_events )
+complex_state_impl::complex_state_impl( const std::string& _name, behavior_uptr _entry_behavior, 
+	behavior_uptr _exit_behavior, const event_ids& _deferred_events )
 	: state_impl( _name ),
-		entry_( sxy::move( _entry_behaviour ) ),
-		exit_( sxy::move( _exit_behaviour ) ),
+		entry_( sxy::move( _entry_behavior ) ),
+		exit_( sxy::move( _exit_behavior ) ),
 		deferred_events_( _deferred_events )
 {
 	// Nothing to do...
@@ -38,13 +38,13 @@ complex_state_impl::~complex_state_impl() Y_NOEXCEPT
 }
 
 
-behaviour* complex_state_impl::get_entry_behaviour() const
+behavior* complex_state_impl::get_entry_behavior() const
 {
 	return( entry_.get() );
 }
 
 
-behaviour* complex_state_impl::get_exit_behaviour() const
+behavior* complex_state_impl::get_exit_behavior() const
 {
 	return( exit_.get() );
 }

@@ -26,16 +26,7 @@ class compound_transition;
 class compound_transition_consumer;
 
 
-#ifdef _MSC_VER
-#if _MSC_VER >= 1900
 typedef sxy::Y_UNIQUE_PTR< compound_transition > compound_transition_uptr;
-#elif _MSC_VER <= 1800
-typedef sxy::shared_ptr< compound_transition > compound_transition_uptr;
-#endif
-#else
-typedef Y_UNIQUE_PTR< compound_transition > compound_transition_uptr;
-#endif
-
 
 typedef std::vector< compound_transition* > raw_compound_transitions;
 typedef std::vector< compound_transition_uptr > compound_transitions;
