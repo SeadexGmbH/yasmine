@@ -26,8 +26,7 @@ and Y_EVENT_1PARAM_WITH_ID_PRIORITY to Y_EVENT_10PARAM_WITH_ID_PRIORITY)
 • renamed 'start' method to 'run' for logger and async_behavior
 • renamed 'stop' method to 'halt' for logger and async_behavior
 • examples are no more using the sxy namespace
-• yasmine file structure refactoring. All source files are now located in the 'source' folder, the header files that compose yasmine's
-  external API are located in the 'include' folder, and internally used headers are in the 'include_impl' folder.
+• yasmine file structure refactoring. All source files are now located in the 'source' folder, the header files that compose yasmine's external API are located in the 'include' folder, and internally used headers are in the 'include_impl' folder.
 • removed LL_PROTOCOL from log levels
 • version.hpp is now under sxy namespace instead of yasmine namespace
 • version.hpp is now included in the collection header yasmine.hpp
