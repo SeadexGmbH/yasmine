@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yasmine", "yasmine\yasmine.vcxproj", "{A728DDFB-BE51-49B5-8593-4E89E024A500}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyasmine", "libyasmine\libyasmine.vcxproj", "{A728DDFB-BE51-49B5-8593-4E89E024A500}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hello_yasmine", "hello_yasmine\hello_yasmine.vcxproj", "{C231C585-F237-4F08-8BF5-8DC7106599D4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hello_yasmine", "examples\hello_yasmine\hello_yasmine.vcxproj", "{C231C585-F237-4F08-8BF5-8DC7106599D4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
 	EndProjectSection
@@ -19,24 +19,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "license", "license", "{FBC8
 		license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160804_en.pdf = license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160804_en.pdf
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classic_farmroad", "classic_farmroad\classic_farmroad.vcxproj", "{DDCFB59A-D19C-4382-ACFD-747105EB8D03}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classic_farmroad", "examples\classic_farmroad\classic_farmroad.vcxproj", "{DDCFB59A-D19C-4382-ACFD-747105EB8D03}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B7DF480E-DC38-410F-86E7-330696F7D5AB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forty_two", "forty_two\forty_two.vcxproj", "{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forty_two", "examples\forty_two\forty_two.vcxproj", "{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "events_with_parameters", "events_with_parameters\events_with_parameters.vcxproj", "{44767840-E79D-4049-B97B-867D32783090}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "events_with_parameters", "examples\events_with_parameters\events_with_parameters.vcxproj", "{44767840-E79D-4049-B97B-867D32783090}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "substatemachines_and_variables", "substatemachines_and_variables\substatemachines_and_variables.vcxproj", "{E27E791D-29D2-4FAA-A683-D58228818F67}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "substatemachines_and_variables", "examples\substatemachines_and_variables\substatemachines_and_variables.vcxproj", "{E27E791D-29D2-4FAA-A683-D58228818F67}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
 	EndProjectSection

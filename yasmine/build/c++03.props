@@ -5,7 +5,9 @@
     <BOOST_PATH>..\..\..\..\..\3rd party\boost\Content\boost_1_60_0</BOOST_PATH>
     <BOOST_LIB_PATH>..\..\..\..\..\3rd party\boost\Content\boost_1_60_0\stage\VS2015\$(Platform)\lib</BOOST_LIB_PATH>
   </PropertyGroup>
-  <PropertyGroup />
+  <PropertyGroup>
+    <_PropertySheetDisplayName>c++03</_PropertySheetDisplayName>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>Y_NO_VARIADIC_MACRO;Y_CPP03_BOOST;BOOST_SP_USE_STD_ATOMIC;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>

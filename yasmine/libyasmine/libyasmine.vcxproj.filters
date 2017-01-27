@@ -1,0 +1,876 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\core">
+      <UniqueIdentifier>{f0d68c57-ca54-4f39-b7c4-9efa5a425b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\infrastructure">
+      <UniqueIdentifier>{8fbbf8be-400b-4900-a8c9-a202768d53c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core">
+      <UniqueIdentifier>{56a553a9-c84f-42ad-9f23-fd242c06d8cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\infrastructure">
+      <UniqueIdentifier>{cad0287a-4a4f-42bd-ad2c-1f404ff0339f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\infrastructure\log">
+      <UniqueIdentifier>{f4f69fdb-6087-4901-a3c4-4288af6f9f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\infrastructure\log">
+      <UniqueIdentifier>{07430b58-6b76-4254-a349-f0bec852927c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine">
+      <UniqueIdentifier>{8aa9ad44-df67-4c70-ac7c-3bf75abf39e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm">
+      <UniqueIdentifier>{552c9f9a-b2bb-4f84-9cbf-571de6444e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine\vertex">
+      <UniqueIdentifier>{5fe76966-a9cf-495b-8dfc-b55d4876bfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm\transition finder">
+      <UniqueIdentifier>{a4b70c10-4574-434a-9973-954216bcf83e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm\transition executor">
+      <UniqueIdentifier>{6f9006a1-f985-4488-9cbf-05074c158bf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm\transition controller">
+      <UniqueIdentifier>{c48c2f2e-231f-41ba-add9-44d18cd93305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm">
+      <UniqueIdentifier>{c3bd0da5-253a-485f-ba77-1b0111e519cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine">
+      <UniqueIdentifier>{198c7254-7fa9-465c-9dc7-75a2bb20553d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\vertex">
+      <UniqueIdentifier>{ef3a0c93-a676-4ae3-8a7e-cda72d797230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\vertex\state">
+      <UniqueIdentifier>{54f50b7b-a871-4024-bfc5-e0f7cb9fac02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\vertex\pseudostate">
+      <UniqueIdentifier>{77d625ae-5e35-4435-8d29-043f8c716f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine\element">
+      <UniqueIdentifier>{a6a9febe-675d-44f7-9465-1fab2c6d8c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine\vertex\state">
+      <UniqueIdentifier>{b8c81cc5-b016-458f-83d6-9bd2c6aa7094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine\vertex\pseudostate">
+      <UniqueIdentifier>{c6ba97a5-92cf-41d3-afbc-b5cabe478ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\element">
+      <UniqueIdentifier>{1c3623f5-a6ab-4ca2-ad31-1bce2fee6768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\visitor">
+      <UniqueIdentifier>{385b9a6d-0246-4e4b-b5e4-9f610d3aa8e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition controller">
+      <UniqueIdentifier>{4f4478b6-d50f-4559-94ca-f88b67c0dd22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition executor">
+      <UniqueIdentifier>{743742f9-ce11-4d46-9159-801d736c1ff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition finder">
+      <UniqueIdentifier>{e1c2f833-17b2-4ec0-b1b5-f231b0227d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\vertex\pseudostate\algorithm">
+      <UniqueIdentifier>{7ac0239c-b556-416b-88cc-0f2328a4aad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine\vertex\pseudostate\algorithm">
+      <UniqueIdentifier>{97b22894-84bd-43d3-827b-fc398c6da086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition executor\execution step">
+      <UniqueIdentifier>{3e59d28f-bca5-462b-bc6f-7a47a56cf43a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm\transition executor\execution step">
+      <UniqueIdentifier>{7cd4914e-9b7a-4b21-b5a7-17995179c5bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm\transition finder\transition step">
+      <UniqueIdentifier>{379a7d53-fd21-4572-90f3-1a6f5a6c810e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition finder\transition step">
+      <UniqueIdentifier>{d1970c82-da3c-46f6-a38f-f77442a46e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition executor\execution step\visitor">
+      <UniqueIdentifier>{187a568e-a493-404b-b5fa-ca2330993817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\algorithm\transition executor\impl">
+      <UniqueIdentifier>{0438a931-1d02-4bce-8d43-a94af9835b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\algorithm\transition executor\impl">
+      <UniqueIdentifier>{28a1ace0-8cdf-40f3-ba5d-75f3bbf56c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\timed event">
+      <UniqueIdentifier>{5a7d55f5-d26d-4ec4-89ef-c0130ddbc9d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\core\state machine\timed event">
+      <UniqueIdentifier>{ec79268c-5b43-45ea-bea5-6627d17fd363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\core\state machine\collection header">
+      <UniqueIdentifier>{3fba89b8-2b01-4eec-92d1-74140dc91589}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\event.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_controller.hpp">
+      <Filter>Headerdateien\core\algorithm\transition controller</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_step_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step\visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_state_do_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_state_enter_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_state_exit_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_step_fwd.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\execution_transition_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\execution step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_executor_impl.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\states_nesting_comparer.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\states_nesting_comparer_ascending.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\states_to_enter_visitor_impl.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_executor.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_priority.hpp">
+      <Filter>Headerdateien\core\algorithm\transition executor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\compound_transition_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder\transition step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\simple_transition_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder\transition step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_step.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder\transition step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_step_fwd.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder\transition step</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\build_transition_steps_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\compound_transition.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\compound_transition_builder.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\compound_transition_consumer.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\compound_transition_fwd.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\compound_transition_impl.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\transition_finder.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\try_to_build_compound_transition_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\transition finder</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\complex_state_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\const_vertex_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\pseudostate_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\state_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\vertex_visitor.hpp">
+      <Filter>Headerdateien\core\algorithm\visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\logging.hpp">
+      <Filter>Headerdateien\core\state machine\collection header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region_pseudostates.hpp">
+      <Filter>Headerdateien\core\state machine\collection header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_pseudostates.hpp">
+      <Filter>Headerdateien\core\state machine\collection header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\states.hpp">
+      <Filter>Headerdateien\core\state machine\collection header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yasmine.hpp">
+      <Filter>Headerdateien\core\state machine\collection header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\constraint.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\constraint_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\constraint_impl.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_id.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_impl.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_priority.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_impl.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_kind.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\uri.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_creation_request.hpp">
+      <Filter>Headerdateien\core\state machine\timed event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_creation_request_time_comparer.hpp">
+      <Filter>Headerdateien\core\state machine\timed event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\timed_event_creator.hpp">
+      <Filter>Headerdateien\core\state machine\timed event</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\check_if_all_incoming_transitions_sources_are_active_visitor.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\choice.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\choice_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\choice_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\deep_history.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\deep_history_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\deep_history_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\entry_point.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\entry_point_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\entry_point_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exit_point.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exit_point_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\exit_point_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fork.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fork_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\fork_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\history.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\history_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\initial_pseudostate.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\initial_pseudostate_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\initial_pseudostate_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\join.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\join_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\join_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\junction.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\junction_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\junction_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pseudostate.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pseudostate_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\pseudostate_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region_pseudostate.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\region_pseudostate_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shallow_history.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shallow_history_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\shallow_history_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_pseudostate.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\state_pseudostate_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\terminate_pseudostate.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\terminate_pseudostate_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\terminate_pseudostate_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\async_simple_state_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\complex_state.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\complex_state_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\composite_state.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\composite_state_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\composite_state_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\final_state.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\final_state_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\region_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\simple_state.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\simple_state_base.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\simple_state_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertex.hpp">
+      <Filter>Headerdateien\core\state machine\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertex_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertex_impl.hpp">
+      <Filter>Headerdateien\core\state machine\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="include\async_event_handler.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\async_state_machine.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\event_processing_callback.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exception.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_defect.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_defect_fwd.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_element.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_element_impl.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_introspection.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\color.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\color_mapping.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cout_logger.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file_logger.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\format_settings.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log_level.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log_manager_template.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log_message.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\logger.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\logger_fwd.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\std_timestamp_policy.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\conversion.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exception_template.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\file_system.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\globals.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yprintf.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\build_number.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\version.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_template.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\assembly.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\specialized_event.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\compatibility.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\algorithm_parameters.hpp">
+      <Filter>Headerdateien\core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\optimization.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_handle.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\non_copyable.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\chrono.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macro_helpers.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\completion_event.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\caller.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log_helper.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\log_and_throw_helper.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\behavior.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\behavior_exception.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\behavior_exception_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\behavior_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\behavior_impl.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\async_behavior.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\async_behavior_fwd.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\log_callback.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\waiter.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include_impl\log_and_throw.hpp">
+      <Filter>Headerdateien\infrastructure\log</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_status.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal_completion_event_id.hpp">
+      <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\utils.cpp">
+      <Filter>Quelldateien\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="source\conversion.cpp">
+      <Filter>Quelldateien\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="source\yprintf.cpp">
+      <Filter>Quelldateien\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="source\file_system.cpp">
+      <Filter>Quelldateien\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="source\version.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_controller.cpp">
+      <Filter>Quelldateien\core\algorithm\transition controller</Filter>
+    </ClCompile>
+    <ClCompile Include="source\execution_state_do_step.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor\execution step</Filter>
+    </ClCompile>
+    <ClCompile Include="source\execution_state_enter_step.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor\execution step</Filter>
+    </ClCompile>
+    <ClCompile Include="source\execution_state_exit_step.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor\execution step</Filter>
+    </ClCompile>
+    <ClCompile Include="source\execution_transition_step.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor\execution step</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states_nesting_comparer.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states_nesting_comparer_ascending.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states_to_enter_visitor_impl.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_executor.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_priority.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\compound_transition_step.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder\transition step</Filter>
+    </ClCompile>
+    <ClCompile Include="source\simple_transition_step.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder\transition step</Filter>
+    </ClCompile>
+    <ClCompile Include="source\build_transition_steps_visitor.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder</Filter>
+    </ClCompile>
+    <ClCompile Include="source\compound_transition_impl.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_finder.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder</Filter>
+    </ClCompile>
+    <ClCompile Include="source\try_to_build_compound_transition_visitor.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder</Filter>
+    </ClCompile>
+    <ClCompile Include="source\constraint_impl.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\event_impl.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_impl.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_kind.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\uri.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\event_creation_request.cpp">
+      <Filter>Quelldateien\core\state machine\timed event</Filter>
+    </ClCompile>
+    <ClCompile Include="source\event_creation_request_time_comparer.cpp">
+      <Filter>Quelldateien\core\state machine\timed event</Filter>
+    </ClCompile>
+    <ClCompile Include="source\timed_event_creator.cpp">
+      <Filter>Quelldateien\core\state machine\timed event</Filter>
+    </ClCompile>
+    <ClCompile Include="source\check_if_all_incoming_transitions_sources_are_active_visitor.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\choice_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\deep_history_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\entry_point_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\exit_point_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fork_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\history_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\initial_pseudostate_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\join_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\junction_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\pseudostate_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\region_pseudostate_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\shallow_history_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_pseudostate_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\terminate_pseudostate_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\complex_state_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\composite_state_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\final_state_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\region_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\simple_state_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vertex_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="source\async_state_machine.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_element_impl.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\color_mapping.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\cout_logger.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\file_logger.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\format_settings.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\log_level.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\log_message.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\std_timestamp_policy.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_executor_impl.cpp">
+      <Filter>Quelldateien\core\algorithm\transition executor\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_defect.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\globals.cpp">
+      <Filter>Quelldateien\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="source\async_simple_state_impl.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\simple_state_base.cpp">
+      <Filter>Quelldateien\core\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\compound_transition_builder.cpp">
+      <Filter>Quelldateien\core\algorithm\transition finder</Filter>
+    </ClCompile>
+    <ClCompile Include="source\algorithm_parameters.cpp">
+      <Filter>Quelldateien\core\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\event_handle.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\log_helper.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\log_and_throw_helper.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\behavior_exception.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\behavior_impl.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\async_behavior.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\waiter.cpp">
+      <Filter>Quelldateien\infrastructure\log</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_status.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\completion_event.cpp">
+      <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="changelog.txt" />
+  </ItemGroup>
+</Project>
