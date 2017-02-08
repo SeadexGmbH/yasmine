@@ -181,7 +181,7 @@
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\debug_info.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -198,7 +198,7 @@
     <Import Project="..\..\build\yasmine.props" />
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -218,7 +218,7 @@
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\debug_info.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -235,7 +235,7 @@
     <Import Project="..\..\build\yasmine.props" />
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />

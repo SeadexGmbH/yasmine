@@ -36,7 +36,7 @@ public:
 	virtual ~async_behavior() Y_NOEXCEPT;
 	Y_NO_COPY(async_behavior)
 	void run( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
-	void halt();		
+	void halt_and_join();		
 											 
 protected:
 	bool should_stop() const;
