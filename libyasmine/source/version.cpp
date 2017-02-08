@@ -31,7 +31,7 @@ namespace
 
 const sxy::uint16_t VERSION_MAJOR( 1 );
 const sxy::uint16_t VERSION_MINOR( 0 );
-const sxy::uint16_t VERSION_PATCH( 0 );
+const sxy::uint16_t VERSION_PATCH( 1 );
 
 
 }
