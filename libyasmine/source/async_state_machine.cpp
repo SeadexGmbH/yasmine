@@ -113,11 +113,11 @@ void async_state_machine::join()
 		Y_ASSERT( ( state_machine_status::STOP_REQUESTED == status_ ) || ( state_machine_status::TERMINATED == status_ ), 
 			"Status is not 'STOP_REQUESTED' or 'TERMNINATED' when joining!" );
 	}
-	
-	state_machine::halt();
+		
 	worker_thread_->join();
 	worker_thread_.reset();
-	status_ = state_machine_status::STOPPED;	
+	status_ = state_machine_status::STOPPED;
+	state_machine::halt();
 
 	Y_LOG( log_level::LL_TRACE, "Joined state machine '%'.", get_name() );
 }

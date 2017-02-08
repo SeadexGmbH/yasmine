@@ -46,7 +46,7 @@ void async_behavior::run( const event& _event, const simple_state_base& _simple_
 }
 
 
-void async_behavior::halt()
+void async_behavior::halt_and_join()
 {		
 	{
 		sxy::lock_guard< sxy::mutex > lock( mutex_ );
