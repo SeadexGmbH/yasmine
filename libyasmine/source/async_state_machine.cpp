@@ -123,7 +123,6 @@ void async_state_machine::join()
 	worker_thread_.reset();	
 	status_ = state_machine_status::STOPPED;
 	state_machine_base::halt();
-
 	Y_LOG( log_level::LL_TRACE, "Joined state machine '%'.", get_name() );
 }
 
