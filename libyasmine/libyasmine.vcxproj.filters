@@ -124,6 +124,9 @@
     <Filter Include="Headerdateien\core\state machine\collection header">
       <UniqueIdentifier>{3fba89b8-2b01-4eec-92d1-74140dc91589}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\core\state machine\caller">
+      <UniqueIdentifier>{300a4103-75a9-433d-8fb0-a35791d8b2f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\event.hpp">
@@ -474,9 +477,6 @@
     <ClInclude Include="include\exception.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
     </ClInclude>
-    <ClInclude Include="include\state_machine.hpp">
-      <Filter>Headerdateien\core\state machine</Filter>
-    </ClInclude>
     <ClInclude Include="include\state_machine_defect.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
     </ClInclude>
@@ -531,7 +531,7 @@
     <ClInclude Include="include\base.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="include_impl\conversion.hpp">
+    <ClInclude Include="include\conversion.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
     <ClInclude Include="include\exception_template.hpp">
@@ -591,9 +591,6 @@
     <ClInclude Include="include\completion_event.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="include\caller.hpp">
-      <Filter>Headerdateien\core\state machine</Filter>
-    </ClInclude>
     <ClInclude Include="include\log_helper.hpp">
       <Filter>Headerdateien\infrastructure\log</Filter>
     </ClInclude>
@@ -635,6 +632,33 @@
     </ClInclude>
     <ClInclude Include="include\internal_completion_event_id.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_base.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sync_state_machine.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_collector.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interruptible.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\caller.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\caller_adapter.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\guard_caller.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\caller_helper.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_adjuster.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -794,9 +818,6 @@
     <ClCompile Include="source\async_state_machine.cpp">
       <Filter>Quelldateien\core\state machine</Filter>
     </ClCompile>
-    <ClCompile Include="source\state_machine.cpp">
-      <Filter>Quelldateien\core\state machine</Filter>
-    </ClCompile>
     <ClCompile Include="source\state_machine_element_impl.cpp">
       <Filter>Quelldateien\core\state machine</Filter>
     </ClCompile>
@@ -868,6 +889,21 @@
     </ClCompile>
     <ClCompile Include="source\completion_event.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sync_state_machine.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_base.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\caller_adapter.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\caller.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\guard_caller.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -24,10 +24,17 @@ namespace
 {
 
 
-Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED_YELLOW, 1 )
-Y_EVENT_WITH_ID( EVENT_SWITCH_TO_GREEN, 2 )
-Y_EVENT_WITH_ID( EVENT_SWITCH_TO_YELLOW, 3 )
-Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED, 4 )
+#ifdef Y_CPP03_BOOST
+	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED_YELLOW, 1 )
+	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_GREEN, 2 )
+	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_YELLOW, 3 )
+	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED, 4 )
+#else
+	Y_EVENT_CREATE( EVENT_SWITCH_TO_RED_YELLOW, 1 )
+	Y_EVENT_CREATE( EVENT_SWITCH_TO_GREEN, 2 )
+	Y_EVENT_CREATE( EVENT_SWITCH_TO_YELLOW, 3 )
+	Y_EVENT_CREATE( EVENT_SWITCH_TO_RED, 4 )
+#endif
 
 
 }
@@ -126,13 +133,14 @@ void traffic_light::build_traffic_light_state_machine()
 	sxy::simple_state& yellow_state =
 		main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_yellow ) );
 #else
-	sxy::simple_state& red_state = main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red ) );
-	sxy::simple_state& red_yellow_state =
-		main_region.add_simple_state( "Red-Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_red_yellow ) );
+	sxy::simple_state& red_state = main_region.add_simple_state( "Red", 
+		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_red ) );
+	sxy::simple_state& red_yellow_state = main_region.add_simple_state( "Red-Yellow", 
+		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_red_yellow ) );
 	sxy::simple_state& green_state = main_region.add_simple_state( "Green",
-		Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_green ) );
-	sxy::simple_state& yellow_state =
-		main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( on_traffic_light_yellow ) );
+		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_green ) );
+	sxy::simple_state& yellow_state = main_region.add_simple_state( "Yellow", 
+		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_yellow ) );
 #endif
 
 	// transitions

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -234,19 +234,23 @@ initial_pseudostate& region_impl::add_initial_pseudostate( initial_pseudostate_u
 	initial_pseudostate_ = _initial_state.get();
 	pseudostates_.push_back( sxy::move( _initial_state ) );
 	initial_pseudostate& new_initial_state = *initial_pseudostate_;
+	Y_LOG( log_level::LL_TRACE, "Initial pseudostate '%' was added to the region '%'.", _initial_state->get_name(),
+		get_name() );
 	return( new_initial_state );
 }
 
 
-initial_pseudostate& region_impl::add_initial_pseudostate( const std::string& _initial_state_name )
+initial_pseudostate& region_impl::add_initial_pseudostate( const std::string& _initial_pseudostate_name )
 {
 	Y_ASSERT( !initial_pseudostate_, "There is already a initial pseudostate in the region." );
 	Y_UNIQUE_PTR< sxy::initial_pseudostate_impl > initial_state =
-		Y_MAKE_UNIQUE< sxy::initial_pseudostate_impl >( _initial_state_name );
+		Y_MAKE_UNIQUE< sxy::initial_pseudostate_impl >( _initial_pseudostate_name );
 	initial_state->set_parent_region( this );
 	initial_pseudostate_ = initial_state.get();
 	pseudostates_.push_back( sxy::move( initial_state ) );
 	initial_pseudostate& new_initial_state = *initial_pseudostate_;
+	Y_LOG( log_level::LL_TRACE, "Initial pseudostate '%' was added to the region '%'.", _initial_pseudostate_name,
+		get_name() );
 	return( new_initial_state );
 }
 
@@ -256,31 +260,33 @@ state& region_impl::add_state( state_uptr _state )
 	_state->set_parent_region( this );
 	state& state = *_state;
 	states_.push_back( sxy::move( _state ) );
+	Y_LOG( log_level::LL_TRACE, "State '%' was added to the region '%'.", _state->get_name(), get_name() );
 	return( state );
 }
 
 
-simple_state& region_impl::add_simple_state( const std::string& _name, const behavior_function& _behavior,
+simple_state& region_impl::add_simple_state( const std::string& _simple_state_name, const behavior_function& _behavior,
 	const behavior_function& _entry_behavior,	const behavior_function& _exit_behavior )
 {
 	behavior_uptr behavior = behavior_impl::create_behavior( _behavior );
 	behavior_uptr entry_behavior = behavior_impl::create_behavior( _entry_behavior );
 	behavior_uptr exit_behavior = behavior_impl::create_behavior( _exit_behavior );
-	Y_UNIQUE_PTR< sxy::simple_state_impl > simple_state = Y_MAKE_UNIQUE< sxy::simple_state_impl >( _name,
+	Y_UNIQUE_PTR< sxy::simple_state_impl > simple_state = Y_MAKE_UNIQUE< sxy::simple_state_impl >( _simple_state_name,
 		sxy::move( behavior ), sxy::move( entry_behavior ), sxy::move( exit_behavior ) );
 	simple_state->set_parent_region( this );
 	simple_state_impl& state = *simple_state;
 	states_.push_back( sxy::move( simple_state ) );
+	Y_LOG( log_level::LL_TRACE, "Simple state '%' was added to the region '%'.", _simple_state_name, get_name() );
 	return( state );
 }	 
 
 
-simple_state& region_impl::add_simple_state( const std::string& _name, const event_ids& _deferred_events,
+simple_state& region_impl::add_simple_state( const std::string& _simple_state_name, const event_ids& _deferred_events,
 	const behavior_function& _behavior,	const behavior_function& _entry_behavior,
 	const behavior_function& _exit_behavior, event_sptr _error_event )
 {
 	Y_UNIQUE_PTR< sxy::simple_state_impl > simple_state =
-		Y_MAKE_UNIQUE< sxy::simple_state_impl >( _name,
+		Y_MAKE_UNIQUE< sxy::simple_state_impl >( _simple_state_name,
 			( !_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _behavior ) ) ),
 			( !_entry_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_behavior ) ) ),
 			( !_exit_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_behavior ) ) ), _deferred_events,
@@ -288,60 +294,66 @@ simple_state& region_impl::add_simple_state( const std::string& _name, const eve
 	simple_state->set_parent_region( this );
 	simple_state_impl& state = *simple_state;
 	states_.push_back( sxy::move( simple_state ) );
+	Y_LOG( log_level::LL_TRACE, "Simple state '%' was added to the region '%'.", _simple_state_name, get_name() );
 	return( state );
 }
 
 
-simple_state& region_impl::add_async_simple_state( const std::string& _name, const event_ids& _deferred_events,
-	async_behavior_uptr _do_action,	const behavior_function& _entry_behavior,	const behavior_function& _exit_behavior,
-	event_sptr _error_event )
+simple_state& region_impl::add_async_simple_state( const std::string& _async_simple_state_name, 
+	const event_ids& _deferred_events, async_behavior_uptr _do_action, const behavior_function& _entry_behavior,
+	const behavior_function& _exit_behavior, event_sptr _error_event )
 {
-	Y_UNIQUE_PTR< sxy::async_simple_state_impl > simple_state = Y_MAKE_UNIQUE< sxy::async_simple_state_impl >( _name,
-		sxy::move( _do_action ), 
+	Y_UNIQUE_PTR< sxy::async_simple_state_impl > simple_state = Y_MAKE_UNIQUE< sxy::async_simple_state_impl >( 
+		_async_simple_state_name, sxy::move( _do_action ), 
 		( !_entry_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_behavior ) ) ),
 		( !_exit_behavior ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_behavior ) ) ), _deferred_events,
 		_error_event );
 	simple_state->set_parent_region( this );
 	async_simple_state_impl& state = *simple_state;
 	states_.push_back( sxy::move( simple_state ) );
+	Y_LOG( log_level::LL_TRACE, "Asynchronous simple state '%' was added to the region '%'.", _async_simple_state_name,
+		get_name() );
 	return( state );
 }
 
 
-composite_state& region_impl::add_composite_state( const std::string& _name, const behavior_function& _entry_action,
-	const behavior_function& _exit_action )
+composite_state& region_impl::add_composite_state( const std::string& _composite_state_name, 
+	const behavior_function& _entry_action, const behavior_function& _exit_action )
 {
 	Y_UNIQUE_PTR< sxy::composite_state_impl > composite_state =
-		Y_MAKE_UNIQUE< sxy::composite_state_impl >( _name,
+		Y_MAKE_UNIQUE< sxy::composite_state_impl >( _composite_state_name,
 			( !_entry_action ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_action ) ) ),
 			( !_exit_action ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_action ) ) ) );
 	composite_state->set_parent_region( this );
 	composite_state_impl& state = *composite_state;
 	states_.push_back( sxy::move( composite_state ) );
+	Y_LOG( log_level::LL_TRACE, "Composite state '%' was added to the region '%'.", _composite_state_name, get_name() );
 	return( state );
 }
 
 
-composite_state& region_impl::add_composite_state( const std::string& _name, const event_ids& _deferred_events,
-	const behavior_function& _entry_action, const behavior_function& _exit_action )
+composite_state& region_impl::add_composite_state( const std::string& _composite_state_name, 
+	const event_ids& _deferred_events, const behavior_function& _entry_action, const behavior_function& _exit_action )
 {
 	Y_UNIQUE_PTR< sxy::composite_state_impl > composite_state =
-		Y_MAKE_UNIQUE< sxy::composite_state_impl >( _name,
+		Y_MAKE_UNIQUE< sxy::composite_state_impl >( _composite_state_name,
 			( !_entry_action ? behavior_uptr() : ( behavior_impl::create_behavior( _entry_action ) ) ),
 			( !_exit_action ? behavior_uptr() : ( behavior_impl::create_behavior( _exit_action ) ) ), _deferred_events );
 	composite_state->set_parent_region( this );
 	composite_state_impl& state = *composite_state;
 	states_.push_back( sxy::move( composite_state ) );
+	Y_LOG( log_level::LL_TRACE, "Composite state '%' was added to the region '%'.", _composite_state_name, get_name() );
 	return( state );
 }
 
 
-final_state& region_impl::add_final_state( const std::string& _name )
+final_state& region_impl::add_final_state( const std::string& _final_state_name )
 {
-	Y_UNIQUE_PTR< sxy::final_state_impl > final_state = Y_MAKE_UNIQUE< sxy::final_state_impl >( _name );
+	Y_UNIQUE_PTR< sxy::final_state_impl > final_state = Y_MAKE_UNIQUE< sxy::final_state_impl >( _final_state_name );
 	final_state->set_parent_region( this );
 	final_state_impl& state = *final_state;
 	states_.push_back( sxy::move( final_state ) );
+	Y_LOG( log_level::LL_TRACE, "Final state '%' was added to the region '%'.", _final_state_name, get_name() );
 	return( state );
 }
 
@@ -351,6 +363,7 @@ choice& region_impl::add_choice( choice_uptr _choice )
 	_choice->set_parent_region( this );
 	choice& choice = *_choice.get();
 	pseudostates_.push_back( sxy::move( _choice ) );
+	Y_LOG( log_level::LL_TRACE, "Choice '%' was added to the region '%'.", _choice->get_name(), get_name() );
 	return( choice );
 }
 
@@ -361,6 +374,7 @@ choice& region_impl::add_choice( const std::string& _choice_name )
 	choice->set_parent_region( this );
 	choice_impl& new_choice = *choice.get();
 	pseudostates_.push_back( sxy::move( choice ) );
+	Y_LOG( log_level::LL_TRACE, "Choice '%' was added to the region '%'.", _choice_name, get_name() );
 	return( new_choice );
 }
 
@@ -370,6 +384,7 @@ fork& region_impl::add_fork( fork_uptr _fork )
 	_fork->set_parent_region( this );
 	fork& fork = *_fork.get();
 	pseudostates_.push_back( sxy::move( _fork ) );
+	Y_LOG( log_level::LL_TRACE, "Fork '%' was added to the region '%'.", _fork->get_name(), get_name() );
 	return( fork );
 }
 
@@ -380,6 +395,7 @@ fork& region_impl::add_fork( const std::string& _fork_name )
 	fork->set_parent_region( this );
 	fork_impl& new_fork = *fork.get();
 	pseudostates_.push_back( sxy::move( fork ) );
+	Y_LOG( log_level::LL_TRACE, "Fork '%' was added to the region '%'.", _fork_name, get_name() );
 	return( new_fork );
 }
 
@@ -389,6 +405,7 @@ join& region_impl::add_join( join_uptr _join )
 	_join->set_parent_region( this );
 	join& join = *_join.get();
 	pseudostates_.push_back( sxy::move( _join ) );
+	Y_LOG( log_level::LL_TRACE, "Join '%' was added to the region '%'.", _join->get_name(), get_name() );
 	return( join );
 }
 
@@ -399,6 +416,7 @@ join& region_impl::add_join( const std::string& _join_name )
 	join->set_parent_region( this );
 	join_impl& new_join = *join.get();
 	pseudostates_.push_back( sxy::move( join ) );
+	Y_LOG( log_level::LL_TRACE, "Join '%' was added to the region '%'.", _join_name, get_name() );
 	return( new_join );
 }
 
@@ -408,6 +426,7 @@ junction& region_impl::add_junction( junction_uptr _junction )
 	_junction->set_parent_region( this );
 	junction& junction = *_junction.get();
 	pseudostates_.push_back( sxy::move( _junction ) );
+	Y_LOG( log_level::LL_TRACE, "Junction '%' was added to the region '%'.", _junction->get_name(), get_name() );
 	return( junction );
 }
 
@@ -418,6 +437,7 @@ junction& region_impl::add_junction( const std::string& _junction_name )
 	junction->set_parent_region( this );
 	junction_impl& new_junction = *junction.get();
 	pseudostates_.push_back( sxy::move( junction ) );
+	Y_LOG( log_level::LL_TRACE, "Junction '%' was added to the region '%'.", _junction_name, get_name() );
 	return( new_junction );
 }
 
@@ -426,6 +446,8 @@ terminate_pseudostate& region_impl::add_terminate_pseudostate( terminate_pseudos
 	_terminate_pseudostate->set_parent_region( this );
 	terminate_pseudostate& terminate_pseudostate = *_terminate_pseudostate.get();
 	pseudostates_.push_back( sxy::move( _terminate_pseudostate ) );
+	Y_LOG( log_level::LL_TRACE, "Terminate pseudostate '%' was added to the region '%'.",
+		_terminate_pseudostate->get_name(), get_name() );
 	return( terminate_pseudostate );
 }
 
@@ -437,6 +459,8 @@ terminate_pseudostate& region_impl::add_terminate_pseudostate( const std::string
 	terminate_pseudostate->set_parent_region( this );
 	terminate_pseudostate_impl& new_terminate_pseudostate = *terminate_pseudostate.get();
 	pseudostates_.push_back( sxy::move( terminate_pseudostate ) );
+	Y_LOG( log_level::LL_TRACE, "Terminate pseudostate '%' was added to the region '%'.",
+		_terminate_pseudostate_name, get_name() );
 	return( new_terminate_pseudostate );
 }
 

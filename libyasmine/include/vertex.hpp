@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -30,6 +30,7 @@ class const_vertex_visitor;
 class vertex_visitor;
 class uri;
 class event;
+class event_collector;
 
 
 class vertex:
@@ -60,7 +61,7 @@ public:
 	virtual raw_regions get_ancestors_as_regions() const = 0;
 	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor, 
 		bool _include_final_ancestor = true ) const = 0;
-	virtual transition * search_transition( const event& _event ) const = 0;
+	virtual transition * search_transition( const event& _event, event_collector& _event_collector ) const = 0;
 	virtual region * LCA_region( const vertex& _target_vertex ) const = 0;
 	virtual composite_state * LCA_composite_state( const vertex& _rhs ) const = 0;
 	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const = 0;

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -35,14 +35,15 @@ simple_state_impl::~simple_state_impl() Y_NOEXCEPT
 }
 
 
-void simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
+void simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector ) const
 {
-	Y_UNUSED_PARAMETER( _async_event_handler );
+	Y_UNUSED_PARAMETER( _async_event_handler );	
 	const behavior* const behavior = get_do();
 	if( behavior )
 	{
 		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' do behavior.", get_name() );
-		( *behavior )( _event );		
+		( *behavior )( _event, _event_collector );
 	}
 }
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -36,7 +36,8 @@ public:
 	virtual composite_state * get_LCA_composite_state() Y_OVERRIDE;
 	virtual transition_kind get_transition_kind() Y_OVERRIDE;
 	virtual bool check_if_starts_with( const transition& _incoming_transition ) Y_OVERRIDE;
-	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event ) Y_OVERRIDE;
+	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event, 
+		event_collector& _event_collector ) Y_OVERRIDE;
 
 
 private:

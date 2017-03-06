@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -38,10 +38,11 @@ execution_transition_step::~execution_transition_step() Y_NOEXCEPT
 
 
 bool execution_transition_step::execute_behavior(	event_processing_callback* const _event_processing_callback,
-	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler ) const
+	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler,
+	event_collector& _event_collector ) const
 {		
 	Y_UNUSED_PARAMETER( _exception_events );
-	Y_UNUSED_PARAMETER( _async_event_handler );
+	Y_UNUSED_PARAMETER( _async_event_handler );	
 	bool reached_terminate_pseudostate = false;
 	const raw_transitions& transitions = transition_step_.get_transitions();
 
@@ -52,7 +53,7 @@ bool execution_transition_step::execute_behavior(	event_processing_callback* con
 			_event_processing_callback->before_transition( *transition );
 		}
 
-		transition->on_transition_behavior( _event );
+		transition->on_transition_behavior( _event, _event_collector );
 
 		if( _event_processing_callback )
 		{

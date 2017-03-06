@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -41,13 +41,14 @@ namespace sxy
 
 
 build_transition_steps_visitor::build_transition_steps_visitor( transition& _current_transition, 
-	transition_steps& _transitions_steps, const event& _event )
+	transition_steps& _transitions_steps, const event& _event, event_collector& _event_collector )
 	: const_vertex_visitor(),
 		current_transition_( _current_transition ),
 		transition_steps_( _transitions_steps ),
 		next_transition_( Y_NULLPTR ),
 		reached_end_of_transition_( true ),
-		event_( _event )
+		event_( _event ),
+		event_collector_ ( _event_collector )
 {
 	// Nothing to do...
 }
@@ -165,7 +166,7 @@ transition* build_transition_steps_visitor::find_next_transition( const pseudost
 
 	Y_FOR( transition* const transition, transitions )
 	{
-		const bool guard_is_ok = transition->check_guard( _event );
+		const bool guard_is_ok = transition->check_guard( _event, event_collector_ );
 		if( guard_is_ok )
 		{
 			enabled_transition = transition;

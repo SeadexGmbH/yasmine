@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -77,11 +77,12 @@ const raw_const_vertices simple_transition_step::get_target_vertices()
 }
 
 
-void simple_transition_step::execute_transition_behaviors( const event& _event ) const
+void simple_transition_step::execute_transition_behaviors( const event& _event, 
+	event_collector& _event_collector ) const
 {
 	Y_FOR( const transition* const transition, transition_step_ )
 	{
-		transition->on_transition_behavior( _event );
+		transition->on_transition_behavior( _event, _event_collector );
 	}
 }
 

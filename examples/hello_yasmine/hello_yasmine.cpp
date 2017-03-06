@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -15,7 +15,7 @@
 
 
 const sxy::event_id HELLO_EVENT = 1;
-typedef sxy::Y_UNIQUE_PTR< sxy::state_machine > state_machine_uptr;
+typedef sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
 
 
 
@@ -33,13 +33,17 @@ void wait()
 
 state_machine_uptr setup_state_machine( const std::string& _name )
 {
-	state_machine_uptr state_machine = Y_MAKE_UNIQUE< sxy::state_machine >( _name );
+	state_machine_uptr state_machine = Y_MAKE_UNIQUE< sxy::sync_state_machine >( _name );	
 	sxy::composite_state& root_state = state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
+#ifdef Y_CPP03_BOOST
 	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION_NO_EVENT( wait ) );
 	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION_NO_EVENT( reply ) );
-	
+#else
+	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION2( wait ) );
+	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION2( reply ) );
+#endif
 	state_machine->add_transition( HELLO_EVENT, simple_state_waiting, simple_state_replying );
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, initial_pseudostate, simple_state_waiting );
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, simple_state_replying, simple_state_waiting );
@@ -48,7 +52,7 @@ state_machine_uptr setup_state_machine( const std::string& _name )
 }
 
 
-bool check_state_machine_for_defects( const sxy::state_machine& _state_machine )
+bool check_state_machine_for_defects( const sxy::sync_state_machine& _state_machine )
 {
 	sxy::state_machine_defects defects;
 	const bool state_machine_has_no_defects = _state_machine.check( defects );

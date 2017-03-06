@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -21,7 +21,7 @@ namespace sxy
 {
 
 
-	class state_machine;
+	class sync_state_machine;
 	class region;
 	class composite_state;
 
@@ -43,7 +43,7 @@ namespace examples
 class submachine Y_FINAL
 {
 public:
-	submachine( sxy::state_machine& _parent_state_machine, sxy::region& _parent_region );
+	submachine( sxy::sync_state_machine& _parent_state_machine, sxy::region& _parent_region );
 	~submachine() Y_NOEXCEPT;
 	Y_NO_COPY( submachine )
 	sxy::composite_state& get_submachine_root_state() const;

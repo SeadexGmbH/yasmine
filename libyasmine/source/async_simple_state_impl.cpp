@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -36,21 +36,22 @@ async_simple_state_impl::~async_simple_state_impl() Y_NOEXCEPT
 }
 																												 
 
-void async_simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
-{
+void async_simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector ) const
+{	
 	const async_behavior* const behavior = do_.get();
 	if( behavior )
 	{
-		do_->run( _event, *this, *_async_event_handler );
+		do_->run( _event, _event_collector, *this, *_async_event_handler );
 	}
 }
 
 
-void async_simple_state_impl::execute_exit_behavior( const event& _event ) const
+void async_simple_state_impl::execute_exit_behavior( const event& _event, event_collector& _event_collector ) const
 {
 	stop_do_behavior();
 
-	complex_state_impl::execute_exit_behavior( _event );
+	complex_state_impl::execute_exit_behavior( _event, _event_collector );
 }
 
 
@@ -59,7 +60,7 @@ void async_simple_state_impl::stop_do_behavior() const
 	const async_behavior* const behavior = do_.get();
 	if( behavior )
 	{
-		do_->halt();		
+		do_->halt_and_join();		
 	}
 }
 

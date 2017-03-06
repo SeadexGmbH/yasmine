@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -27,6 +27,7 @@ class state_visitor;
 class behavior;
 class event;
 class async_event_handler;
+class event_collector;
 
 
 class state:
@@ -63,12 +64,13 @@ public:
 	virtual void set_was_active() = 0;
 	virtual const regions& get_regions() const = 0;
 	virtual regions& get_regions() = 0;
-	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const = 0;
-	virtual void execute_enter_behavior( const event& _event ) const = 0;
-	virtual void execute_exit_behavior( const event& _event ) const = 0;
+	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler, 
+		event_collector& _event_collector ) const = 0;
+	virtual void execute_enter_behavior( const event& _event, event_collector& _event_collector ) const = 0;
+	virtual void execute_exit_behavior( const event& _event, event_collector& _event_collector ) const = 0;
 	virtual void accept_state_visitor( state_visitor& _visitor ) const = 0;
-	virtual void enter_state( const event& _event ) = 0;
-	virtual void exit_state( const event& _event ) = 0;
+	virtual void enter_state( const event& _event, event_collector& _event_collector ) = 0;
+	virtual void exit_state( const event& _event, event_collector& _event_collector ) = 0;
 	virtual bool has_error_event() const = 0;
 	virtual event_sptr get_error_event() const = 0;
 };

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -16,7 +16,7 @@
 #include <list>
 
 #include "thread.hpp"
-#include "state_machine.hpp"
+#include "state_machine_base.hpp"
 #include "async_event_handler.hpp"
 #include "state_machine_status.hpp"
 #include "chrono.hpp"
@@ -30,7 +30,7 @@ namespace sxy
 //!\brief Class for the "multi-threaded version" of the state machine. Provides methods to start and halt the state
 //! machine and to fire events.
 class async_state_machine Y_FINAL:
-	public state_machine, private async_event_handler
+	public state_machine_base, private async_event_handler
 {
 public:
 	//!\brief Constructor of async_state_machine.
@@ -92,6 +92,14 @@ public:
 	//!\sa halt_and_join, halt, run, wait
 	bool terminated() const;
 
+	
+	//!\brief Enqueue the given event for firing.
+	//!\param _event Event to be fired.
+	//!\return true if event was successfully enqueued for firing, else false. It returns false if the enqueue for firing
+	//!of the event is not possible because the state machine was stopped in the meantime (or was never started).
+	//!Firing the event enqueues the event for being processed.
+	virtual bool push( const event_sptr& _event ) Y_OVERRIDE;
+
 
 protected:
 	void start_state_machine();
@@ -107,6 +115,8 @@ private:
 	//!\brief Sends a priority (internal) event and add it in the front of the event list, so it will be processed before other events.
 	//!\return void
 	virtual void on_event( const event_sptr& _event ) Y_OVERRIDE;
+
+	virtual void interrupt_impl() Y_OVERRIDE;
 
 
 	state_machine_status status_;

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -30,7 +30,7 @@ public:
 	explicit behavior_impl( const behavior_function& _function );
 	virtual ~behavior_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY( behavior_impl )
-	virtual void operator()( const event& _event ) const Y_OVERRIDE;
+	virtual void operator()( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
 
 	//!\brief Creates a behavior with the given function that implements the behavior.
 	//!\param _function Function that implements the behavior.

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -34,6 +34,7 @@ class composite_state;
 class async_event_handler;
 class choice;
 class vertex;
+class event_collector;
 
 
 namespace impl
@@ -51,7 +52,7 @@ public:
 		raw_states_by_nesting_level_ascending& _states );
 	void get_all_states_to_enter_from_regions_that_are_not_explicitly_entered( 
 		compound_transition_consumer& _compound_transition, raw_const_region_set& _entered_regions,
-		raw_states_by_nesting_level& _states_to_enter, const event& _event );
+		raw_states_by_nesting_level& _states_to_enter, const event& _event, event_collector& _event_collector );
 	void merge_transitions_steps_with_exit_state_steps( execution_steps& _execution_steps,
 		compound_transition_consumer& _compound_transition, 
 		const raw_states_by_nesting_level_ascending& _states_to_exit, 
@@ -62,17 +63,18 @@ public:
 	void calculate_execution_steps( compound_transition_consumer& _compound_transition,
 		const raw_states_by_nesting_level_ascending& _states_to_exit, 
 		const raw_states_by_nesting_level& _states_to_enter, execution_steps& _execution_steps,
-		raw_const_region_set& _entered_regions, const event& _event );
+		raw_const_region_set& _entered_regions, const event& _event, event_collector& _event_collector );
 	static bool run_execution_steps( const execution_steps& _execution_steps, 
 		event_processing_callback* const _event_processing_callback, const event& _event, 
-		events& _exception_events, async_event_handler* const _async_event_handler );
+		events& _exception_events, async_event_handler* const _async_event_handler, event_collector& _event_collector );
 	void conflict_check( const compound_transitions& _compound_transitions ) const;
 	static raw_compound_transitions sort_compound_transitions( 
 		const compound_transitions& _unsorted_compound_transitions );
 	void find_all_states_to_exit( compound_transition_consumer& _compound_transition,
 		raw_states_by_nesting_level_ascending& _states_to_exit );
 	void find_all_states_to_enter( compound_transition_consumer& _compound_transition, 
-		raw_states_by_nesting_level& _states_to_enter, raw_const_region_set& _regions_to_enter, const event& _event );
+		raw_states_by_nesting_level& _states_to_enter, raw_const_region_set& _regions_to_enter, const event& _event,
+		event_collector& _event_collector );
 	void add_remaining_states_to_enter( const raw_states_by_nesting_level::const_iterator _state_start,
 		const raw_states_by_nesting_level& _states_to_enter, execution_steps& _execution_steps );
 	void add_remaining_states_to_exit( const raw_states_by_nesting_level_ascending::const_iterator _state_start,
@@ -81,10 +83,11 @@ public:
 		const transition_steps::const_iterator& _transition_end, execution_steps& _execution_steps );
 	void fill_vector_of_choices( raw_const_choices& _choices, const compound_transitions& _compound_transitions );
 	void find_already_entered_regions( compound_transition& new_compound_transition,
-		raw_const_region_set& _entered_regions, const event& _event );
+		raw_const_region_set& _entered_regions, const event& _event, event_collector& _event_collector );
 	void find_states_to_enter_and_to_exit_and_calculate_execution_steps( 
 		compound_transition_consumer& compound_transition, execution_steps& _execution_steps, 
-		raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit );
+		raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit, 
+		event_collector& _event_collector );
 	void check_conflicts_from_source_state_to_LCA( const state& _state, raw_const_state_set& _unique_exit_states,
 		const composite_state* _LCA ) const;
 

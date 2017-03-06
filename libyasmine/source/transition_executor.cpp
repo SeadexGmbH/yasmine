@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -21,6 +21,7 @@
 #include "event_processing_callback.hpp"
 #include "event.hpp"
 #include "algorithm_parameters.hpp"
+#include "interruptible.hpp"
 
 
 namespace sxy
@@ -42,7 +43,8 @@ transition_executor::~transition_executor() Y_NOEXCEPT
 
 bool transition_executor::check_sort_and_execute_transitions( const compound_transitions& _compound_transitions,
 	raw_const_choices& _vertices, event_processing_callback* const _event_processing_callback, 
-	const event& _event, events& _exception_events, async_event_handler* const _async_event_handler )
+	const event& _event, events& _exception_events, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector, const interruptible& _interruptible )
 {
 	bool terminate_pseudostate_has_been_reached = false;
 	Y_LOG( log_level::LL_TRACE, "Check for transition conflicts." );
@@ -55,6 +57,11 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 
 	Y_FOR( compound_transition* const compound_transition, sorted_compound_transitions )
 	{
+		if( _interruptible.is_interrupted() )
+		{
+			break;
+		}
+
 		if( _event_processing_callback )
 		{
 			_event_processing_callback->before_compound_transition();
@@ -65,11 +72,11 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 		raw_const_region_set entered_regions;
 		Y_LOG( log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
 		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,
-			execution_steps, entered_regions,	_event, true );
+			execution_steps, entered_regions,	_event, true, _event_collector );
 		Y_LOG( log_level::LL_TRACE, "Found % execution step(s).", execution_steps.size() );
 		Y_LOG( log_level::LL_TRACE, "Start running execution step(s)." );
 		terminate_pseudostate_has_been_reached = transition_executor_impl_->run_execution_steps( execution_steps,
-			_event_processing_callback,	_event, _exception_events, _async_event_handler );
+			_event_processing_callback,	_event, _exception_events, _async_event_handler, _event_collector );
 		Y_LOG( log_level::LL_TRACE, "Finished running execution step(s)." );
 		if( terminate_pseudostate_has_been_reached )
 		{

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -37,11 +37,13 @@ namespace sxy
 
 
 try_to_build_compound_transition_visitor::try_to_build_compound_transition_visitor( transition& _enabled_transition,
-	compound_transitions& _enabled_compound_transitions,	bool& _is_built, const event& _event )
+	compound_transitions& _enabled_compound_transitions,	bool& _is_built, const event& _event, 
+	event_collector& _event_collector )
 	: enabled_transition_( _enabled_transition ),
 		enabled_compound_transitions_( _enabled_compound_transitions ),
 		is_built_( _is_built ),
-		event_( _event )
+		event_( _event ),
+		event_collector_( _event_collector )
 {
 	is_built_ = false;
 }
@@ -69,83 +71,84 @@ void try_to_build_compound_transition_visitor::visit(	const simple_state& _simpl
 
 void try_to_build_compound_transition_visitor::visit(	const final_state& _final_state )
 {
-	Y_UNUSED_PARAMETER( _final_state );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached final state '%'.", _final_state.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const initial_pseudostate& _initial_pseudostate )
 {
-	Y_UNUSED_PARAMETER( _initial_pseudostate );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached initial pseudostate '%'.", _initial_pseudostate.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const choice& _choice )
 {
-	Y_UNUSED_PARAMETER( _choice );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached choice '%'.", _choice.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit( const junction& _junction )
 {
-	Y_UNUSED_PARAMETER( _junction );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached junction '%'.", _junction.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit( const join& _join )
 {
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached join '%'.", _join.get_name() );
 	check_if_join_is_active_and_was_not_processed_yet( _join );
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const fork& _fork )
 {
-	Y_UNUSED_PARAMETER( _fork );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached fork '%'.", _fork.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const entry_point& _entry_point )
 {
-	Y_UNUSED_PARAMETER( _entry_point );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached entry point '%'.", _entry_point.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const exit_point& _exit_point )
 {
-	Y_UNUSED_PARAMETER( _exit_point );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached exit point '%'.", _exit_point.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const deep_history& _deep_history )
 {
-	Y_UNUSED_PARAMETER( _deep_history );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached deep history '%'.", _deep_history.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const shallow_history& _shallow_history )
 {
-	Y_UNUSED_PARAMETER( _shallow_history );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached shallow history '%'.", _shallow_history.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 																					
 
 void try_to_build_compound_transition_visitor::visit(	const terminate_pseudostate& _terminate_pseudostate )
 {
-	Y_UNUSED_PARAMETER( _terminate_pseudostate );
+	Y_LOG( sxy::log_level::LL_TRACE, "Reached terminate pseudostate '%'.", _terminate_pseudostate.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::build_compound_transition_and_insert_in_container()
 {
-	compound_transition_uptr compound_transition = sxy::build_compound_transition( enabled_transition_, event_ );
+	compound_transition_uptr compound_transition = sxy::build_compound_transition( enabled_transition_, event_, event_collector_ );
 	if( compound_transition )
 	{
 		enabled_compound_transitions_.push_back( sxy::move( compound_transition ) );

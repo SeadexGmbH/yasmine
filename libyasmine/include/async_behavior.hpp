@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -25,6 +25,7 @@ namespace sxy
 class event;
 class simple_state_base;
 class async_event_handler;
+class event_collector;
 
 
 class async_behavior	
@@ -35,16 +36,18 @@ public:
 	async_behavior();
 	virtual ~async_behavior() Y_NOEXCEPT;
 	Y_NO_COPY(async_behavior)
-	void run( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
-	void halt();		
+	void run( const event& _event, event_collector& _event_collector, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
+	void halt_and_join();
 											 
 protected:
 	bool should_stop() const;
 											
 
 private:		
-	void work( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
-	virtual void run_impl( const event& _event, async_event_handler& _async_event_handler ) = 0;
+	void work( const event& _event, event_collector& _event_collector, const simple_state_base& _simple_state, 
+		async_event_handler& _async_event_handler );
+	virtual void run_impl( const event& _event, event_collector& _event_collector, 
+		async_event_handler& _async_event_handler ) = 0;
 	virtual void notify_should_stop();
 	void join();		
 

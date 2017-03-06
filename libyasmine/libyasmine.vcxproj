@@ -81,6 +81,13 @@
     <ClInclude Include="include\async_simple_state_impl.hpp" />
     <ClInclude Include="include\base.hpp" />
     <ClInclude Include="include\behavior_exception_fwd.hpp" />
+    <ClInclude Include="include\caller_adapter.hpp" />
+    <ClInclude Include="include\caller_helper.hpp" />
+    <ClInclude Include="include\event_collector.hpp" />
+    <ClInclude Include="include\event_adjuster.hpp" />
+    <ClInclude Include="include\guard_caller.hpp" />
+    <ClInclude Include="include\interruptible.hpp" />
+    <ClInclude Include="include\state_machine_base.hpp" />
     <ClInclude Include="include_impl\build_number.hpp" />
     <ClInclude Include="include\caller.hpp" />
     <ClInclude Include="include\chrono.hpp" />
@@ -89,7 +96,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="include\completion_event.hpp" />
-    <ClInclude Include="include_impl\conversion.hpp" />
+    <ClInclude Include="include\conversion.hpp" />
     <ClInclude Include="include\entry_point_fwd.hpp">
       <SubType>
       </SubType>
@@ -243,7 +250,7 @@
     <ClInclude Include="include_impl\simple_state_impl.hpp" />
     <ClInclude Include="include_impl\simple_transition_step.hpp" />
     <ClInclude Include="include\state_impl.hpp" />
-    <ClInclude Include="include\state_machine.hpp" />
+    <ClInclude Include="include\sync_state_machine.hpp" />
     <ClInclude Include="include\state_machine_defect.hpp" />
     <ClInclude Include="include\state_machine_defect_fwd.hpp" />
     <ClInclude Include="include\state_machine_element_impl.hpp" />
@@ -269,6 +276,8 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="source\async_simple_state_impl.cpp" />
+    <ClCompile Include="source\caller.cpp" />
+    <ClCompile Include="source\caller_adapter.cpp" />
     <ClCompile Include="source\completion_event.cpp" />
     <ClCompile Include="source\conversion.cpp" />
     <ClCompile Include="source\event_creation_request.cpp" />
@@ -282,6 +291,7 @@
     </ClCompile>
     <ClCompile Include="source\execution_state_do_step.cpp" />
     <ClCompile Include="source\globals.cpp" />
+    <ClCompile Include="source\guard_caller.cpp" />
     <ClCompile Include="source\log_and_throw_helper.cpp" />
     <ClCompile Include="source\log_helper.cpp" />
     <ClCompile Include="source\simple_state_base.cpp">
@@ -290,6 +300,7 @@
     </ClCompile>
     <ClCompile Include="source\states_nesting_comparer_ascending.cpp" />
     <ClCompile Include="source\states_to_enter_visitor_impl.cpp" />
+    <ClCompile Include="source\state_machine_base.cpp" />
     <ClCompile Include="source\state_machine_status.cpp" />
     <ClCompile Include="source\timed_event_creator.cpp" />
     <ClCompile Include="source\event_creation_request_time_comparer.cpp" />
@@ -336,7 +347,7 @@
     <ClCompile Include="source\simple_transition_step.cpp" />
     <ClCompile Include="source\state_impl.cpp" />
     <ClCompile Include="source\states_nesting_comparer.cpp" />
-    <ClCompile Include="source\state_machine.cpp" />
+    <ClCompile Include="source\sync_state_machine.cpp" />
     <ClCompile Include="source\state_machine_defect.cpp" />
     <ClCompile Include="source\state_machine_element_impl.cpp" />
     <ClCompile Include="source\state_pseudostate_impl.cpp" />

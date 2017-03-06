@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -25,7 +25,7 @@ namespace sxy
 
 async_state_machine::async_state_machine( const std::string& _name, 
 	event_processing_callback* const _event_processing_callback )
-	: state_machine( _name, _event_processing_callback ),
+	: state_machine_base( _name, _event_processing_callback ),
 		status_( state_machine_status::NEW ),
 		run_and_event_mutex_(),
 		run_and_event_condition_(),
@@ -52,7 +52,12 @@ async_state_machine::~async_state_machine() Y_NOEXCEPT
 
 bool async_state_machine::fire_event( const event_sptr& _event )
 {
-	return( insert( _event ) );
+	bool event_fired = false;
+	if( !is_interrupted() )
+	{
+		event_fired = insert( _event );
+	}
+	return( event_fired );
 }
 
 
@@ -60,7 +65,7 @@ bool async_state_machine::run()
 {
 	Y_LOG( log_level::LL_INFO, "Starting async state machine '%'.", get_name() );
 
-	const bool state_machine_started = state_machine::run( this );
+	const bool state_machine_started = state_machine_base::run( this );
 	if( state_machine_started )
 	{
 		start_state_machine();
@@ -113,11 +118,11 @@ void async_state_machine::join()
 		Y_ASSERT( ( state_machine_status::STOP_REQUESTED == status_ ) || ( state_machine_status::TERMINATED == status_ ), 
 			"Status is not 'STOP_REQUESTED' or 'TERMNINATED' when joining!" );
 	}
-	
-	state_machine::halt();
+		
 	worker_thread_->join();
-	worker_thread_.reset();
-	status_ = state_machine_status::STOPPED;	
+	worker_thread_.reset();	
+	status_ = state_machine_status::STOPPED;
+	state_machine_base::halt();
 
 	Y_LOG( log_level::LL_TRACE, "Joined state machine '%'.", get_name() );
 }
@@ -153,6 +158,13 @@ bool async_state_machine::terminated() const
 }
 
 
+
+bool async_state_machine::push( const event_sptr& _event )
+{
+	return( fire_event( _event ) );
+}
+
+
 void async_state_machine::start_state_machine()
 {
 	Y_ASSERT( ( state_machine_status::NEW == status_ ) || ( state_machine_status::STOPPED == status_ ),
@@ -178,8 +190,7 @@ bool async_state_machine::insert( const event_sptr& _event )
 		else
 		{
 			Y_LOG( log_level::LL_WARN, "Event '%' was not inserted in the queue of events! State machine is not running.", _event->get_name() );
-		}
-		
+		}		
 	}
 	if( event_added )
 	{
@@ -240,7 +251,7 @@ void async_state_machine::work()
 			{
 				sxy::unique_lock< sxy::mutex > lock( run_and_event_mutex_ );
 				run_and_event_condition_.wait( lock, sxy::bind( &async_state_machine::wait_predicate, this ) );				
-				if( !( status_ == state_machine_status::STARTED  ) && event_list_.empty() )
+				if( !( status_ == state_machine_status::STARTED ) && ( event_list_.empty() || is_interrupted() ) )
 				{
 					break;
 				}
@@ -278,6 +289,12 @@ void async_state_machine::work()
 void async_state_machine::on_event( const event_sptr& _event )
 {
 	insert( _event );
+}
+
+
+void async_state_machine::interrupt_impl()
+{
+	halt();
 }
 
 

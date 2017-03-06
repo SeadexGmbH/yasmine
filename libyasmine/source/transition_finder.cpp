@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -39,22 +39,24 @@ transition_finder::~transition_finder() Y_NOEXCEPT
 
 
 void transition_finder::search_for_enabled_transitions_in_all_regions( const state& _current_state, 
-	const event& _event,	compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred ) const
+	const event& _event, compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred, 
+	event_collector& _event_collector ) const
 {
-	search_for_transition( _current_state, _enabled_compound_transitions, _event, _event_is_deferred );
+	search_for_transition( _current_state, _enabled_compound_transitions, _event, _event_is_deferred, _event_collector );
 }
 
 
 void transition_finder::search_for_enabled_completion_transitions_in_all_regions(	const state& _current_state,
-	compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred ) const
+	compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred, 
+	event_collector& _event_collector ) const
 {
 	search_for_transition( _current_state, _enabled_compound_transitions, *sxy::completion_event::create(), 
-		_event_is_deferred );
+		_event_is_deferred, _event_collector );
 }
 
 
 void transition_finder::search_initial_transitions(	const composite_state& _state,	
-	compound_transitions& _compound_transitions )
+	compound_transitions& _compound_transitions, event_collector& _event_collector )
 {
 	Y_FOR( const region_uptr& region, _state.get_regions() )
 	{
@@ -65,7 +67,7 @@ void transition_finder::search_initial_transitions(	const composite_state& _stat
 			Y_LOG( log_level::LL_TRACE, "Initial pseudostate '%' found in region '%'.",
 				initial_pseudostate->get_name(), region->get_name() );
 			transition* const transition = initial_pseudostate->get_transition();
-			if( !try_to_build_compound_transition( *transition, _compound_transitions, *sxy::completion_event::create() ) )
+			if( !try_to_build_compound_transition( *transition, _compound_transitions, *sxy::completion_event::create(), _event_collector ) )
 			{	
 				std::string message = sxy::yprintf( 
 					"A compound transition could not be built for the initial transition emitting from the initial pseudostate '%'!",
@@ -82,7 +84,7 @@ void transition_finder::search_initial_transitions(	const composite_state& _stat
 
 
 void transition_finder::search_choice_transitions( const raw_const_choices& _choices, 
-	compound_transitions& _compound_transitions,	const event& _event )
+	compound_transitions& _compound_transitions, const event& _event, event_collector& _event_collector )
 {
 	Y_FOR( const choice* const choice, _choices )
 	{
@@ -97,12 +99,12 @@ void transition_finder::search_choice_transitions( const raw_const_choices& _cho
 				"Transition leaving choice is not a completion transition!" );
 			Y_LOG( log_level::LL_SPAM, "Checking outgoing transition '%' of choice '%' for guard.",
 				transition->get_name(), choice->get_name() );
-			const bool guard_evaluated_to_true = transition->check_guard( _event );
+			const bool guard_evaluated_to_true = transition->check_guard( _event, _event_collector );
 			if( guard_evaluated_to_true )
 			{
 				Y_LOG( log_level::LL_SPAM, "Guard of outgoing transition '%' of choice '%' evaluates to true.",
 					transition->get_name(), choice->get_name() );
-				if( !try_to_build_compound_transition( *transition, _compound_transitions, _event ) )
+				if( !try_to_build_compound_transition( *transition, _compound_transitions, _event, _event_collector ) )
 				{
 					LOG_AND_THROW( log_level::LL_FATAL, 
 						"Transition following choice '%' could not be built in compound transition!",	choice->get_name() );
@@ -129,14 +131,14 @@ void transition_finder::search_choice_transitions( const raw_const_choices& _cho
 }
 
 
-transition* transition_finder::search_completion_transition( const state& _state )
+transition* transition_finder::search_completion_transition( const state& _state, event_collector& _event_collector )
 {
 	transition* completion_transition = Y_NULLPTR;
 	if( _state.is_complete() )
 	{
 		Y_LOG( log_level::LL_SPAM, "State '%' is complete.", _state.get_name() );
 		const sxy::shared_ptr< event_impl > completion_event = Y_MAKE_SHARED< event_impl >( sxy::completion_event::get_event_id() );
-		completion_transition = _state.search_transition( *completion_event );
+		completion_transition = _state.search_transition( *completion_event, _event_collector );
 	}
 
 	return( completion_transition );
@@ -144,7 +146,8 @@ transition* transition_finder::search_completion_transition( const state& _state
 
 
 bool transition_finder::search_for_transition( const state& _current_state, 
-	compound_transitions& _enabled_compound_transitions, const event& _event, bool& _event_is_deferred ) const
+	compound_transitions& _enabled_compound_transitions, const event& _event, bool& _event_is_deferred, 
+	event_collector& _event_collector ) const
 {
 	Y_LOG( log_level::LL_SPAM, "Search for transition in state '%'.", _current_state.get_name() );
 	bool found = false;
@@ -158,7 +161,8 @@ bool transition_finder::search_for_transition( const state& _current_state,
 		{
 			Y_LOG( log_level::LL_SPAM, "Found active state '%' in region '%'.", active_state->get_name(),
 				region->get_name() );
-			const bool l_found = search_for_transition( *active_state, _enabled_compound_transitions, _event, _event_is_deferred );
+			const bool l_found = search_for_transition( *active_state, _enabled_compound_transitions, _event, 
+				_event_is_deferred, _event_collector );
 			if( l_found )
 			{					
 				Y_LOG( log_level::LL_SPAM, "Transition found in active state '%'.", active_state->get_name() );
@@ -181,20 +185,20 @@ bool transition_finder::search_for_transition( const state& _current_state,
 		if( sxy::completion_event::get_event_id() == _event.get_id() )
 		{
 			Y_LOG( log_level::LL_TRACE, "Search completion transition in state '%'.", _current_state.get_name() );
-			transition = search_completion_transition( _current_state );
+			transition = search_completion_transition( _current_state, _event_collector );
 		}
 		else
 		{
 			Y_LOG( log_level::LL_TRACE, "Search transition with event id % in state '%'.",
 				_event.get_id(), _current_state.get_name() );
-			transition = _current_state.search_transition( _event );
+			transition = _current_state.search_transition( _event, _event_collector );
 		}
 
 		if( transition )
 		{
 			Y_LOG( log_level::LL_TRACE, "Transition '%' found in the current state '%'.",
 				transition->get_name(), _current_state.get_name() );
-			found = try_to_build_compound_transition( *transition, _enabled_compound_transitions, _event );
+			found = try_to_build_compound_transition( *transition, _enabled_compound_transitions, _event, _event_collector );
 			if( found )
 			{
 				Y_LOG( log_level::LL_SPAM, "Compound transition was built for transition '%'.", transition->get_name() );

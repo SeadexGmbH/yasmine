@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -28,9 +28,13 @@ constexpr sxy::event_id EVENT_2 = 2;
 namespace	examples
 {
 
-
+#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 	Y_EVENT_1PARAM_WITH_ID( event_1, std::string, get_param, EVENT_1 )
 	Y_EVENT_2PARAM_WITH_ID( event_2, int, get_param_1, double, get_param_2, EVENT_2 )
+#else
+	Y_EVENT_CREATE( event_1, EVENT_1, std::string, get_param )
+	Y_EVENT_CREATE( event_2, EVENT_2, int, get_param_1, double, get_param_2 )
+#endif
 
 
 }
