@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-#include "state_machine.hpp"
+#include "sync_state_machine.hpp"
 #include "region.hpp"
 
 #include "events.hpp"
@@ -23,12 +23,14 @@ namespace examples
 {		
 
 
-submachine::submachine( sxy::state_machine& _parent_state_machine, sxy::region& _parent_region )
+submachine::submachine( sxy::sync_state_machine& _parent_state_machine, sxy::region& _parent_region )
 :	
 #ifndef Y_CPP03_BOOST
-	submachine_( _parent_region.add_composite_state( "submachine", Y_BEHAVIOR_METHOD_NO_EVENT( reset_members ) ) ),
+	submachine_( _parent_region.add_composite_state( "submachine", 
+		Y_BEHAVIOR_METHOD2( this, &submachine::reset_members ) ) ),
 #else
-	submachine_( _parent_region.add_composite_state( "submachine", Y_BEHAVIOR_METHOD_NO_EVENT( submachine, reset_members ) ) ),
+	submachine_( _parent_region.add_composite_state( "submachine", 
+		Y_BEHAVIOR_METHOD_NO_EVENT( submachine, reset_members ) ) ),
 #endif
 	i_(),
 	s_()
@@ -38,14 +40,14 @@ submachine::submachine( sxy::state_machine& _parent_state_machine, sxy::region& 
 		"submachine_initial_pseudostate" );
 #ifndef Y_CPP03_BOOST
 	sxy::simple_state& submachine_simple_state_1 = submachine_region.add_simple_state( "submachine simple_state_1",
-		Y_BEHAVIOR_METHOD_NO_EVENT( print_members ) );
+		Y_BEHAVIOR_METHOD2( this, &submachine::print_members ) );
 	sxy::simple_state& submachine_simple_state_2 = submachine_region.add_simple_state( "submachine simple_state_2",
-		Y_BEHAVIOR_METHOD_EVENT( &submachine::change_members ) );
+		Y_BEHAVIOR_METHOD2( this, &submachine::change_members ) );
 #else
 	sxy::simple_state& submachine_simple_state_1 = submachine_region.add_simple_state( "submachine simple_state_1",
 		Y_BEHAVIOR_METHOD_NO_EVENT( submachine, print_members ) );
 	sxy::simple_state& submachine_simple_state_2 = submachine_region.add_simple_state( "submachine simple_state_2",
-		sxy::behavior_function( sxy::bind( &submachine::change_members, this, sxy::_1 ) ) );
+		Y_BEHAVIOR_METHOD( submachine, change_members ) );
 #endif
 
 	_parent_state_machine.add_transition( sxy::Y_COMPLETION_EVENT_ID, submachine_initial_pseudostate, submachine_simple_state_1 );
@@ -80,11 +82,11 @@ void submachine::print_members() const
 
 
 #ifndef Y_CPP03_BOOST
-void submachine::change_members( const event_5& _event )
+void submachine::change_members( const event_5& _event)
 #else
 void submachine::change_members( const sxy::event& _event )
 #endif 
-{
+{	
 	++i_;
 #ifndef Y_CPP03_BOOST
 	s_ = _event.get_param();		

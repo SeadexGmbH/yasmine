@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -120,14 +120,15 @@ bool compound_transition_impl::check_if_starts_with( const transition& _transiti
 
 
 bool compound_transition_impl::create_and_check_transition_path( transition& _start_transition,	
-	const event& _event )
+	const event& _event, event_collector& _event_collector )
 {
 	transition* current_transition = &_start_transition;
 	bool reached_end_of_transition = true;
 	while( current_transition != Y_NULLPTR )
 	{
 		const vertex& target = current_transition->get_target();
-		build_transition_steps_visitor build_transition_steps_visitor( *current_transition, transition_steps_, _event );
+		build_transition_steps_visitor build_transition_steps_visitor( *current_transition, transition_steps_, _event, 
+			_event_collector );
 		target.accept_vertex_visitor( build_transition_steps_visitor );
 		current_transition = build_transition_steps_visitor.get_next_transition();
 		reached_end_of_transition = build_transition_steps_visitor.reached_end_of_transition();

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -23,27 +23,52 @@ namespace examples
 namespace
 {
 
+#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
-const sxy::event_id DETECTOR_ON = 1;
-Y_EVENT_WITH_ID( detector_on_event, DETECTOR_ON )
+	const sxy::event_id DETECTOR_ON = 1;
+	Y_EVENT_WITH_ID( detector_on_event, DETECTOR_ON )
 
-const sxy::event_id DETECTOR_OFF = 2;
-Y_EVENT_WITH_ID( detector_off_event, DETECTOR_OFF )
+		const sxy::event_id DETECTOR_OFF = 2;
+	Y_EVENT_WITH_ID( detector_off_event, DETECTOR_OFF )
 
-const sxy::event_id TIMER_HIGHWAY_MINIMUM_TIME = 3;
-Y_EVENT_WITH_ID( timer_highway_minimum_time_event, TIMER_HIGHWAY_MINIMUM_TIME )
+		const sxy::event_id TIMER_HIGHWAY_MINIMUM_TIME = 3;
+	Y_EVENT_WITH_ID( timer_highway_minimum_time_event, TIMER_HIGHWAY_MINIMUM_TIME )
 
-const sxy::event_id TIMER_PHASE_1 = 4;
-Y_EVENT_WITH_ID( timer_phase_1_event, TIMER_PHASE_1 )
+		const sxy::event_id TIMER_PHASE_1 = 4;
+	Y_EVENT_WITH_ID( timer_phase_1_event, TIMER_PHASE_1 )
 
-const sxy::event_id TIMER_PHASE_2 = 5;
-Y_EVENT_WITH_ID( timer_phase_2_event, TIMER_PHASE_2 )
+		const sxy::event_id TIMER_PHASE_2 = 5;
+	Y_EVENT_WITH_ID( timer_phase_2_event, TIMER_PHASE_2 )
 
-const sxy::event_id TIMER_FARMROAD_MAXIMUM_TIME = 6;
-Y_EVENT_WITH_ID( timer_farmroad_maximum_time_event, TIMER_FARMROAD_MAXIMUM_TIME )
+		const sxy::event_id TIMER_FARMROAD_MAXIMUM_TIME = 6;
+	Y_EVENT_WITH_ID( timer_farmroad_maximum_time_event, TIMER_FARMROAD_MAXIMUM_TIME )
 
-const sxy::event_id EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED = 7;
-Y_EVENT_WITH_ID( event_farmroad_maximum_time_elapsed_event, EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED )
+		const sxy::event_id EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED = 7;
+	Y_EVENT_WITH_ID( event_farmroad_maximum_time_elapsed_event, EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED )
+
+#else
+	const sxy::event_id DETECTOR_ON = 1;
+	Y_EVENT_CREATE( detector_on_event, DETECTOR_ON )
+
+		const sxy::event_id DETECTOR_OFF = 2;
+	Y_EVENT_CREATE( detector_off_event, DETECTOR_OFF )
+
+		const sxy::event_id TIMER_HIGHWAY_MINIMUM_TIME = 3;
+	Y_EVENT_CREATE( timer_highway_minimum_time_event, TIMER_HIGHWAY_MINIMUM_TIME )
+
+		const sxy::event_id TIMER_PHASE_1 = 4;
+	Y_EVENT_CREATE( timer_phase_1_event, TIMER_PHASE_1 )
+
+		const sxy::event_id TIMER_PHASE_2 = 5;
+	Y_EVENT_CREATE( timer_phase_2_event, TIMER_PHASE_2 )
+
+		const sxy::event_id TIMER_FARMROAD_MAXIMUM_TIME = 6;
+	Y_EVENT_CREATE( timer_farmroad_maximum_time_event, TIMER_FARMROAD_MAXIMUM_TIME )
+
+		const sxy::event_id EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED = 7;
+	Y_EVENT_CREATE( event_farmroad_maximum_time_elapsed_event, EVENT_FARMROAD_MAXIMUM_TIME_ELAPSED )
+#endif
+
 
 #ifndef Y_CPP03_BOOST
 const sxy::event_ids EVENTS_EXIT_FARMROAD_OPEN =
@@ -229,7 +254,7 @@ bool intersection::check_detector_is_off()
 
 
 void intersection::cancel_timer_event_on_detector_off( const sxy::event& _event )
-{
+{	
 	if( _event.get_id() == detector_off_event::get_event_id() )
 	{
 		if( farmroad_maximum_time_event_handle_ > 0 )
@@ -274,7 +299,8 @@ void intersection::build_intersection_state_machine()
 			Y_BEHAVIOR_METHOD_NO_EVENT( intersection, highway_open_exit ) );
 #else
 	sxy::composite_state& l_highway_open = main_region.add_composite_state( "highway open", 
-			Y_BEHAVIOR_METHOD_NO_EVENT( highway_open_entry ), Y_BEHAVIOR_METHOD_NO_EVENT( highway_open_exit ) );
+		Y_BEHAVIOR_METHOD2( this, &intersection::highway_open_entry ), 
+		Y_BEHAVIOR_METHOD2( this, &intersection::highway_open_exit ) );
 #endif
 
 	sxy::region& highway_open_region = l_highway_open.add_region( "highway region" );
@@ -292,13 +318,13 @@ void intersection::build_intersection_state_machine()
 		Y_BEHAVIOR_METHOD_NO_EVENT( intersection, minimum_time_not_elapsed_farmroad_waiting ) );
 #else
 	sxy::simple_state& l_minimum_time_not_elapsed = highway_open_region.add_simple_state( "minimum time not elapsed",
-		Y_BEHAVIOR_METHOD_NO_EVENT(	minimum_time_not_elapsed ) );
+		Y_BEHAVIOR_METHOD2( this, &intersection::minimum_time_not_elapsed ) );
 	sxy::simple_state& l_minimum_time_elapsed = highway_open_region.add_simple_state( "minimum time elapsed",
-		Y_BEHAVIOR_METHOD_NO_EVENT(	minimum_time_elapsed ) );
+		Y_BEHAVIOR_METHOD2( this, &intersection::minimum_time_elapsed ) );
 	sxy::simple_state& l_minimum_time_not_elapsed_farmroad_waiting = highway_open_region.add_simple_state(
 		"Minimum time not elapsed and farmroad waiting",
-		Y_BEHAVIOR_METHOD_NO_EVENT( minimum_time_not_elapsed_farmroad_waiting ) );
-#endif
+		Y_BEHAVIOR_METHOD2( this, &intersection::minimum_time_not_elapsed_farmroad_waiting ) );
+#endif													
 
 
 	sxy::final_state& highway_finished = highway_open_region.add_final_state( "highway finished" );
@@ -320,12 +346,14 @@ void intersection::build_intersection_state_machine()
 			Y_BEHAVIOR_METHOD_NO_EVENT( intersection, farmroad_open_exit ) );
 #else
 	sxy::simple_state& l_switching_to_farmroad_phase_1 = switching_to_farmroad_region.add_simple_state(
-		"switching to farmroad phase 1", Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_farmroad_phase_1 ) );
+		"switching to farmroad phase 1", Y_BEHAVIOR_METHOD2( this, &intersection::switching_to_farmroad_phase_1 ) );
 	sxy::simple_state& state_switching_to_farmroad_phase_2 = switching_to_farmroad_region.add_simple_state(
-		"switching to farmroad phase 2", Y_NULLPTR, Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_farmroad_phase_2 ) );
+		"switching to farmroad phase 2", Y_NULLPTR, 
+		Y_BEHAVIOR_METHOD2( this, &intersection::switching_to_farmroad_phase_2 ) );
 	sxy::simple_state& farmroad_open =
 		main_region.add_simple_state( "farmroad open", Y_NULLPTR, 
-			Y_BEHAVIOR_METHOD_NO_EVENT( farmroad_open_entry ), Y_BEHAVIOR_METHOD_NO_EVENT( farmroad_open_exit ) );
+			Y_BEHAVIOR_METHOD2( this, &intersection::farmroad_open_entry ),
+			Y_BEHAVIOR_METHOD2( this, &intersection::farmroad_open_exit ) );
 #endif
 
 	sxy::final_state& switching_to_farmroad_finished =
@@ -346,9 +374,11 @@ void intersection::build_intersection_state_machine()
 		Y_BEHAVIOR_METHOD_NO_EVENT( intersection,	switching_to_highway_phase_2 ) );
 #else
 	sxy::simple_state& l_switching_to_highway_phase_1 = switching_to_highway_region.add_simple_state(
-		"switching to highway phase 1", Y_NULLPTR, Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_highway_phase_1 ) );
+		"switching to highway phase 1", Y_NULLPTR, 
+		Y_BEHAVIOR_METHOD2( this, &intersection::switching_to_highway_phase_1 ) );
 	sxy::simple_state& l_switching_to_highway_phase_2 = switching_to_highway_region.add_simple_state(
-		"switching to highway phase 2", Y_NULLPTR, Y_BEHAVIOR_METHOD_NO_EVENT( switching_to_highway_phase_2 ) );
+		"switching to highway phase 2", Y_NULLPTR, 
+		Y_BEHAVIOR_METHOD2( this, &intersection::switching_to_highway_phase_2 ) );
 #endif
 
 
@@ -366,7 +396,8 @@ void intersection::build_intersection_state_machine()
 		Y_BEHAVIOR_METHOD( intersection, cancel_timer_event_on_detector_off ) );
 #else
 	intersection_state_machine_.add_transition( EVENTS_EXIT_FARMROAD_OPEN, farmroad_open, switching_to_highway,
-		sxy::transition_kind::EXTERNAL, Y_EMPTY_GUARD, Y_BEHAVIOR_METHOD( cancel_timer_event_on_detector_off ) );
+		sxy::transition_kind::EXTERNAL, Y_EMPTY_GUARD,		
+		Y_BEHAVIOR_METHOD2( this, &intersection::cancel_timer_event_on_detector_off ) );
 #endif
 
 	intersection_state_machine_.add_transition( sxy::Y_COMPLETION_EVENT_ID, switching_to_highway, l_highway_open );
@@ -383,9 +414,10 @@ void intersection::build_intersection_state_machine()
 #else
 	intersection_state_machine_.add_transition( sxy::Y_COMPLETION_EVENT_ID, detector_junction,
 		l_minimum_time_not_elapsed_farmroad_waiting, sxy::transition_kind::EXTERNAL,
-		Y_GUARD_METHOD_NO_EVENT( check_detector_is_on ) );
-	intersection_state_machine_.add_transition( sxy::Y_COMPLETION_EVENT_ID, detector_junction, l_minimum_time_not_elapsed,
-		sxy::transition_kind::EXTERNAL, Y_GUARD_METHOD_NO_EVENT(	check_detector_is_off ) );
+		Y_GUARD_METHOD2( this, &intersection::check_detector_is_on ) );
+	intersection_state_machine_.add_transition( sxy::Y_COMPLETION_EVENT_ID, detector_junction, 
+		l_minimum_time_not_elapsed, sxy::transition_kind::EXTERNAL, 
+		Y_GUARD_METHOD2( this, &intersection::check_detector_is_off ) );
 #endif
 
 	intersection_state_machine_.add_transition(

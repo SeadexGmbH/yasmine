@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -22,6 +22,7 @@
 #include "behavior_exception.hpp"
 #include "algorithm_parameters.hpp"
 #include "event.hpp"
+#include "event_collector.hpp"
 
 
 #include <iostream>
@@ -235,46 +236,48 @@ bool state_impl::is_complete() const
 }
 
 
-void state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const
+void state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector ) const
 {
 	Y_UNUSED_PARAMETER( _event );
 	Y_UNUSED_PARAMETER( _async_event_handler );
+	Y_UNUSED_PARAMETER( _event_collector );
 }
 
 
-void state_impl::execute_enter_behavior( const event& _event ) const
+void state_impl::execute_enter_behavior( const event& _event, event_collector& _event_collector ) const
 {
 	const behavior* const behavior = get_entry_behavior();
 	if( behavior )
 	{
 		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' enter behavior.", get_name() );
-		( *behavior )( _event );
+		( *behavior )( _event, _event_collector );
 	}
 }
 
 
-void state_impl::execute_exit_behavior( const event& _event ) const
+void state_impl::execute_exit_behavior( const event& _event, event_collector& _event_collector ) const
 {
 	const behavior* const behavior = get_exit_behavior();
 	if( behavior )
 	{
 		Y_LOG( sxy::log_level::LL_TRACE, "Executing state's '%' exit behavior.", get_name() );
-		( *behavior )( _event );
+		( *behavior )( _event, _event_collector );
 	}
 }
 
 
-void state_impl::enter_state( const event& _event )
+void state_impl::enter_state( const event& _event, event_collector& _event_collector )
 {
-	execute_enter_behavior( _event );
+	execute_enter_behavior( _event, _event_collector );
 	set_active();
 	set_was_active();
 }
 
 
-void state_impl::exit_state( const event& _event )
+void state_impl::exit_state( const event& _event, event_collector& _event_collector )
 {
-	execute_exit_behavior( _event );
+	execute_exit_behavior( _event, _event_collector );
 	set_inactive();
 }
 

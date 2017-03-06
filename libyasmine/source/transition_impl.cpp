@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -179,14 +179,14 @@ void transition_impl::add_ancestor_uri( uri& _uri ) const
 }
 
 
-void transition_impl::on_transition_behavior( const event& _event ) const
+void transition_impl::on_transition_behavior( const event& _event, event_collector& _event_collector ) const
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Executing transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
 		get_target().get_name() );
 	const behavior* const behavior = get_behavior();
 	if( behavior != Y_NULLPTR )
 	{
-		( *behavior )( _event );
+		( *behavior )( _event, _event_collector );
 	}
 
 	Y_LOG( sxy::log_level::LL_TRACE, "Executed transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
@@ -194,12 +194,12 @@ void transition_impl::on_transition_behavior( const event& _event ) const
 }
 
 
-bool transition_impl::check_guard( const event& _event ) const
+bool transition_impl::check_guard( const event& _event, event_collector& _event_collector ) const
 {
 	bool is_checked = true;
 	if( guard_ )
 	{
-		is_checked = ( *guard_ )( _event );
+		is_checked = ( *guard_ )( _event, _event_collector );
 	}
 
 	return( is_checked );
@@ -449,6 +449,16 @@ bool transition_impl::check_initial_pseudostate( state_machine_defects& _defects
 				"Transition's '%' target '%' is not a state! The target of the transition emanating from initial pseudostate is always a state.",
 				get_name(), get_target().get_name() ) );
 			check_ok = false;
+		}
+		else
+		{
+			if( initial->get_parent_region() != initial->LCA_region( *target_state ) )
+			{
+				_defects.push_back( state_machine_defect( *this,
+					"Transition '%' is targeting a state('%') out of the parent region of the initial pseudostate(source)!",
+					get_name(), get_target().get_name() ) );
+				check_ok = false;
+			}
 		}
 	}
 

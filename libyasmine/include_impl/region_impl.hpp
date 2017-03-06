@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -52,24 +52,25 @@ public:
 	//!\return A reference to the newly created initial pseudostate.
 	virtual initial_pseudostate& add_initial_pseudostate( const std::string& _initial_state_name ) Y_OVERRIDE;
 	virtual state& add_state( state_uptr _state ) Y_OVERRIDE;
-	virtual simple_state& add_simple_state( const std::string& _name, 
+	virtual simple_state& add_simple_state( const std::string& _simple_state_name, 
 		const behavior_function& _behavior = behavior_function(), 
 		const behavior_function& _entry_behavior = behavior_function(),
 		const behavior_function& _exit_behavior = behavior_function() ) Y_OVERRIDE;
-	virtual simple_state& add_simple_state( const std::string& _name, const event_ids& _deferred_events,
+	virtual simple_state& add_simple_state( const std::string& _simple_state_name, const event_ids& _deferred_events,
 		const behavior_function& _behavior = behavior_function(), 
 		const behavior_function& _entry_behavior = behavior_function(), 
 		const behavior_function& _exit_behavior = behavior_function(),
 		event_sptr _error_event = event_sptr() ) Y_OVERRIDE;
-	virtual simple_state& add_async_simple_state( const std::string& _name, const event_ids& _deferred_events,
-		async_behavior_uptr _do_action = async_behavior_uptr(), const behavior_function& _entry_behavior = behavior_function(),
+	virtual simple_state& add_async_simple_state( const std::string& _async_simple_state_name, 
+		const event_ids& _deferred_events, async_behavior_uptr _do_action = async_behavior_uptr(), 
+		const behavior_function& _entry_behavior = behavior_function(),
 		const behavior_function& _exit_behavior = behavior_function(), 
 		event_sptr _error_event = event_sptr() ) Y_OVERRIDE;
-	virtual composite_state& add_composite_state( const std::string& _name, 
+	virtual composite_state& add_composite_state( const std::string& _composite_state_name,
 		const behavior_function& _entry_action = behavior_function(), 
 		const behavior_function& _exit_action = behavior_function() ) Y_OVERRIDE;
-	virtual composite_state& add_composite_state( const std::string& _name, const event_ids& _deferred_events, 
-		const behavior_function& _entry_action = behavior_function(), 
+	virtual composite_state& add_composite_state( const std::string& _composite_state_name, 
+		const event_ids& _deferred_events, const behavior_function& _entry_action = behavior_function(), 
 		const behavior_function& _exit_action = behavior_function() ) Y_OVERRIDE;
 	virtual final_state& add_final_state( const std::string& _name ) Y_OVERRIDE;
 	virtual choice& add_choice( choice_uptr _choice ) Y_OVERRIDE;

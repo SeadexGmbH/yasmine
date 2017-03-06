@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -19,7 +19,9 @@
 namespace sxy
 {
 
-
+//!\class event_impl
+//!\brief Events that are processed by the state machine. 
+//!\An event can have an ID, a name and a priority (for processing by the async state machine).
 class event_impl:
 	public event
 {
@@ -27,10 +29,29 @@ public:
 	explicit event_impl( const event_id _event_id, const event_priority _event_priority = DEFAULT_EVENT_PRIORITY );
 	virtual ~event_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(event_impl)
+
+	//!\brief Getter of event's ID.
+	//!\return ID of event.
 	virtual event_id get_id() const Y_OVERRIDE;
+
+	//!\brief Getter of event's name.
+	//!\return Name of event.
 	virtual std::string get_name() const Y_OVERRIDE;
+
+	//!\brief Getter of event's priority.
+	//!\return Priority of event.
 	virtual event_priority get_priority() const Y_OVERRIDE;
+	
+	//!\brief Method for comparing the priorities between the current event and a given event.
+	//!\param _rhs Reference to an event whose priority will be compared with the current event's priority.
+	//!\return True if the current event has a greater priority, else false.
 	virtual bool operator>(const event& _rhs) const Y_OVERRIDE;
+	
+	//!\brief Static method for creating an event with the given ID and a priority. 
+	//!\Priority has DEFAULT_EVENT_PRIORITY as default value.
+	//!\param _event_id ID of the event that will be created.
+	//!\param _event_priority Priority of the event that will be created. DEFAULT_EVENT_PRIORITY is the default value.
+	//!\return The created event.
 	static event_sptr create( const event_id _event_id, const event_priority _event_priority = DEFAULT_EVENT_PRIORITY );
 
 

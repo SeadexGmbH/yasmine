@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -30,9 +30,9 @@ constraint_impl::~constraint_impl() Y_NOEXCEPT
 }
 
 
-bool constraint_impl::operator()( const event& _event ) const
+bool constraint_impl::operator()( const event& _event, event_collector& _event_collector ) const
 {
-	return( function_( _event ) );
+	return( function_( _event, _event_collector ) );
 }
 
 

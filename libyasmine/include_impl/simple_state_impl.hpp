@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -29,7 +29,8 @@ public:
 		const event_ids& _deferred_events = event_ids(), event_sptr _error_event = event_sptr() );
 	virtual ~simple_state_impl() Y_NOEXCEPT Y_OVERRIDE;
 	Y_NO_COPY(simple_state_impl)
-	void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
+	void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
+		event_collector& _event_collector ) const Y_OVERRIDE;
 
 private:
 	const behavior * get_do() const;

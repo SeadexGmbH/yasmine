@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -104,7 +104,7 @@ void transition_executor_impl::get_active_states_from_regions( const state* cons
 
 void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not_explicitly_entered(
 	compound_transition_consumer& _compound_transition, raw_const_region_set& _entered_regions,
-	raw_states_by_nesting_level& _states_to_enter, const event& _event )
+	raw_states_by_nesting_level& _states_to_enter, const event& _event, event_collector& _event_collector )
 {
 	Y_FOR( const state* const state, _states_to_enter )
 	{
@@ -128,14 +128,14 @@ void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not
 
 					Y_LOG( log_level::LL_TRACE, "New compound transition created for event with ID %.", _event.get_id() );
 					const bool built_compound_transition = new_compound_transition->create_and_check_transition_path(
-						*initial_pseudostate->get_transition(), _event );
+						*initial_pseudostate->get_transition(), _event, _event_collector );
 					Y_ASSERT( built_compound_transition,
 						"Transition of initial pseudostate could not be built in compound transition!" );
 					if( built_compound_transition )
 					{
 						Y_LOG( log_level::LL_TRACE, "Build sub compound transition for '%' transition.",
 							initial_pseudostate->get_name() );						
-						find_already_entered_regions( *new_compound_transition, _entered_regions, _event );
+						find_already_entered_regions( *new_compound_transition, _entered_regions, _event, _event_collector );
 						compound_transition_impl* const compound_transition = 
 							dynamic_cast< compound_transition_impl* >( &_compound_transition );
 
@@ -297,7 +297,7 @@ void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( 
 void transition_executor_impl::calculate_execution_steps( compound_transition_consumer& _compound_transition,
 	const raw_states_by_nesting_level_ascending& _states_to_exit, 
 	const raw_states_by_nesting_level& _states_to_enter, execution_steps& _execution_steps,
-	raw_const_region_set& _entered_regions, const event& _event )
+	raw_const_region_set& _entered_regions, const event& _event, event_collector& _event_collector )
 {
 	Y_LOG( log_level::LL_SPAM, "Compound transition has % step(s).", 
 		_compound_transition.get_transition_steps().size() );
@@ -327,21 +327,22 @@ void transition_executor_impl::calculate_execution_steps( compound_transition_co
 		Y_LOG( log_level::LL_SPAM, "Compound transition has % sub compound transition(s).",
 			_compound_transition.get_sub_compound_transitions().size() );
 		find_states_to_enter_and_to_exit_and_calculate_execution_steps( *sub_compound_transition, _execution_steps,
-			_entered_regions, _event, false );
+			_entered_regions, _event, false, _event_collector );
 	}
 }
 
 
 bool transition_executor_impl::run_execution_steps( const execution_steps& _execution_steps,
 	event_processing_callback* const _event_processing_callback, const event& _event,
-	events& _exception_events, async_event_handler* const _async_event_handler )
+	events& _exception_events, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector )
 {
 	Y_LOG( log_level::LL_TRACE, "Start executing % steps.", _execution_steps.size() );
 	bool run_reached_terminate_pseudostate = false;
 
 	Y_FOR( const execution_step_uptr& execution_step, _execution_steps )
 	{
-		if( execution_step->execute_behavior( _event_processing_callback, _event, _exception_events, _async_event_handler ) )
+		if( execution_step->execute_behavior( _event_processing_callback, _event, _exception_events, _async_event_handler, _event_collector ) )
 		{
 			run_reached_terminate_pseudostate = true;
 			break;
@@ -435,7 +436,8 @@ void transition_executor_impl::find_all_states_to_exit( compound_transition_cons
 
 
 void transition_executor_impl::find_all_states_to_enter( compound_transition_consumer& _compound_transition,
-	raw_states_by_nesting_level& _states_to_enter, raw_const_region_set& _regions_to_enter, const event& _event )
+	raw_states_by_nesting_level& _states_to_enter, raw_const_region_set& _regions_to_enter, const event& _event, 
+	event_collector& _event_collector )
 {
 	const transition_kind compound_transition_kind = _compound_transition.get_transition_kind();
 	if( !( transition_kind::INTERNAL == compound_transition_kind ) )
@@ -486,7 +488,7 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 		}
 
 		get_all_states_to_enter_from_regions_that_are_not_explicitly_entered( _compound_transition, _regions_to_enter,
-			_states_to_enter, _event );
+			_states_to_enter, _event, _event_collector );
 	}
 	else
 	{
@@ -561,16 +563,17 @@ void transition_executor_impl::fill_vector_of_choices( raw_const_choices& _choic
 
 
 void transition_executor_impl::find_already_entered_regions( compound_transition& new_compound_transition,
-	raw_const_region_set& _entered_regions, const event& _event )
+	raw_const_region_set& _entered_regions, const event& _event, event_collector& _event_collector )
 {	
 	raw_states_by_nesting_level states_to_enter;	
-	find_all_states_to_enter( new_compound_transition, states_to_enter, _entered_regions, _event );	
+	find_all_states_to_enter( new_compound_transition, states_to_enter, _entered_regions, _event, _event_collector );	
 }
 
 
 void transition_executor_impl::find_states_to_enter_and_to_exit_and_calculate_execution_steps(
 	compound_transition_consumer& _compound_transition, execution_steps& _execution_steps, 
-	raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit )
+	raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit, 
+	event_collector& _event_collector )
 {
 	raw_states_by_nesting_level_ascending states_to_exit;	
 	Y_LOG( log_level::LL_TRACE, "Start searching states to exit." );
@@ -582,11 +585,11 @@ void transition_executor_impl::find_states_to_enter_and_to_exit_and_calculate_ex
 	}
 	raw_states_by_nesting_level states_to_enter;
 	Y_LOG( log_level::LL_TRACE, "Start searching states to enter." );
-	find_all_states_to_enter( _compound_transition, states_to_enter, _entered_regions, _event );
+	find_all_states_to_enter( _compound_transition, states_to_enter, _entered_regions, _event, _event_collector );
 	Y_LOG( log_level::LL_TRACE, "Found % state(s) to enter.", states_to_enter.size() );
 	Y_LOG( log_level::LL_TRACE, "Calculating the execution steps." );
 	calculate_execution_steps( _compound_transition, states_to_exit, states_to_enter, _execution_steps,
-		_entered_regions, _event );
+		_entered_regions, _event, _event_collector );
 	Y_LOG( log_level::LL_TRACE, "% execution step(s) were calculated.", _execution_steps.size() );
 }
 

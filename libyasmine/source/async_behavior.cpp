@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -38,11 +38,13 @@ async_behavior::~async_behavior() Y_NOEXCEPT
 }
 
 
-void async_behavior::run( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
+void async_behavior::run( const event& _event, event_collector& _event_collector, 
+	const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
 {	
 	run_ = true;
 
-	worker_ = Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &async_behavior::work, this, sxy::ref( _event ), sxy::ref( _simple_state ), sxy::ref( _async_event_handler ) ) );
+	worker_ = Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &async_behavior::work, this, sxy::ref( _event ), 
+		sxy::ref( _event_collector ), sxy::ref( _simple_state ), sxy::ref( _async_event_handler ) ) );
 }
 
 
@@ -71,11 +73,12 @@ void async_behavior::notify_should_stop()
 }
 
 
-void async_behavior::work( const event& _event, const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
+void async_behavior::work( const event& _event, event_collector& _event_collector, 
+	const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
 {		
 	try
 	{																					 				
-		run_impl( _event, _async_event_handler );				
+		run_impl( _event, _event_collector, _async_event_handler );
 	}
 	catch( const sxy::behavior_exception& exception )
 	{			

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -27,6 +27,7 @@ class region;
 class transition;
 class composite_state;
 class event;
+class event_collector;
 
 
 class compound_transition:
@@ -48,7 +49,8 @@ public:
 	Y_NO_COPY(compound_transition)
 	virtual void add_sub_compound_transition( compound_transition_uptr _sub_compound_transition ) = 0;
 	virtual bool check_if_starts_with( const transition& _incoming_transition ) = 0;
-	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event ) = 0;
+	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event, 
+		event_collector& _event_collector ) = 0;
 };
 
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -46,8 +46,7 @@ public:
 	//!\param _event The event that will be fired.
 	//!\return Handle of the new event creation request. The handle can be used for canceling the request.
 	//!\sa cancel()
-	handle_type create_event_creation_request( 
-		const sxy::time_point< sxy::system_clock >& _time_till_event_is_fired,	
+	handle_type create_event_creation_request( const sxy::time_point< sxy::system_clock >& _time_till_event_is_fired,	
 		const event_sptr _event );
 
 	//!\brief Creates an event creation request.

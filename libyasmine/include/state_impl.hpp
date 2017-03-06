@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -47,11 +47,12 @@ public:
 	virtual void set_inactive() Y_OVERRIDE;
 	virtual bool is_active() const Y_OVERRIDE;
 	virtual bool is_complete() const Y_OVERRIDE;
-	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler ) const Y_OVERRIDE;
-	virtual void execute_enter_behavior( const event& _event ) const Y_OVERRIDE;
-	virtual void execute_exit_behavior( const event& _event ) const Y_OVERRIDE;
-	virtual void enter_state( const event& _event ) Y_OVERRIDE;
-	virtual void exit_state( const event& _event ) Y_OVERRIDE;
+	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
+		event_collector& _event_collector ) const Y_OVERRIDE;
+	virtual void execute_enter_behavior( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
+	virtual void execute_exit_behavior( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
+	virtual void enter_state( const event& _event, event_collector& _event_collector ) Y_OVERRIDE;
+	virtual void exit_state( const event& _event, event_collector& _event_collector ) Y_OVERRIDE;
 	virtual bool has_error_event() const Y_OVERRIDE;
 	virtual event_sptr get_error_event() const Y_OVERRIDE;
 

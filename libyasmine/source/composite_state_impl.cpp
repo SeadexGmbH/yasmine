@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -56,6 +56,7 @@ region& composite_state_impl::add_region( region_uptr _region )
 	_region->set_parent_state( this );
 	region& new_region = *_region;
 	regions_.push_back( sxy::move( _region ) );
+	Y_LOG( log_level::LL_TRACE, "Region '%' was added to composite state'%'.", _region->get_name(), get_name() );
 	return( new_region );
 }
 
@@ -66,6 +67,7 @@ region& composite_state_impl::add_region( const std::string& _region_name )
 	region->set_parent_state( this );
 	region_impl& new_region = *region;
 	regions_.push_back( sxy::move( region ) );
+	Y_LOG( log_level::LL_TRACE, "Region '%' was added to composite state'%'.", _region_name, get_name() );
 	return( new_region );
 }
 
@@ -115,11 +117,13 @@ deep_history& composite_state_impl::add_deep_history( deep_history_uptr _deep_hi
 {
 	if( deep_history_ )
 	{
-		LOG_AND_THROW( log_level::LL_FATAL, "There is already a deep history in the composite state '%'!", get_name() );
+		LOG_AND_THROW( log_level::LL_FATAL, "There already is a deep history in the composite state '%'!", get_name() );
 	}
 
 	_deep_history->set_parent_state( this );
 	deep_history_ = sxy::move( _deep_history );
+	Y_LOG( log_level::LL_TRACE, "Deep history '%' was added to composite state'%'.", _deep_history->get_name(),
+		get_name() );
 	return( *deep_history_ );
 }
 
@@ -135,6 +139,7 @@ deep_history& composite_state_impl::add_deep_history( const std::string& _deep_h
 		Y_MAKE_UNIQUE< sxy::deep_history_impl >( _deep_history_name );
 	deep_history->set_parent_state( this );
 	deep_history_ = sxy::move( deep_history );
+	Y_LOG( log_level::LL_TRACE, "Deep history '%' was added to composite state'%'.", _deep_history_name, get_name() );
 	return( *deep_history_ );
 }
 
@@ -154,6 +159,8 @@ shallow_history& composite_state_impl::add_shallow_history( shallow_history_uptr
 
 	_shallow_history->set_parent_state( this );
 	shallow_history_ = sxy::move( _shallow_history );
+	Y_LOG( log_level::LL_TRACE, "Shallow history '%' was added to composite state'%'.", _shallow_history->get_name(),
+		get_name() );
 	return( *shallow_history_ );
 }
 
@@ -166,9 +173,12 @@ shallow_history& composite_state_impl::add_shallow_history( const std::string& _
 			get_name() );
 	}
 
-	Y_UNIQUE_PTR< sxy::shallow_history_impl > shallow_history = Y_MAKE_UNIQUE< sxy::shallow_history_impl >( _shallow_history_name );
+	Y_UNIQUE_PTR< sxy::shallow_history_impl > shallow_history = 
+		Y_MAKE_UNIQUE< sxy::shallow_history_impl >( _shallow_history_name );
 	shallow_history->set_parent_state( this );
 	shallow_history_ = sxy::move( shallow_history );
+	Y_LOG( log_level::LL_TRACE, "Shallow history '%' was added to composite state'%'.", _shallow_history_name,
+		get_name() );
 	return( *shallow_history_ );
 }
 
@@ -191,7 +201,8 @@ entry_point& composite_state_impl::add_entry_point( entry_point_uptr _entry_poin
 {
 	_entry_point->set_parent_state( this );
 	entry_points_.push_back( sxy::move( _entry_point ) );
-	return( *entry_points_.back() );
+	Y_LOG( log_level::LL_TRACE, "Entry point '%' was added to composite state'%'.", _entry_point->get_name(), get_name() );
+	return( *entry_points_.back() );	
 }
 
 
@@ -201,6 +212,7 @@ entry_point& composite_state_impl::add_entry_point( const std::string& _entry_po
 		Y_MAKE_UNIQUE< sxy::entry_point_impl >( _entry_point_name );
 	entry_point->set_parent_state( this );
 	entry_points_.push_back( sxy::move( entry_point ) );
+	Y_LOG( log_level::LL_TRACE, "Entry point '%' was added to composite state'%'.", _entry_point_name, get_name() );
 	return( *entry_points_.back() );
 }
 
@@ -223,6 +235,7 @@ exit_point& composite_state_impl::add_exit_point( exit_point_uptr _exit_point )
 {
 	_exit_point->set_parent_state( this );
 	exit_points_.push_back( sxy::move( _exit_point ) );
+	Y_LOG( log_level::LL_TRACE, "Exit point '%' was added to composite state'%'.", _exit_point->get_name(), get_name() );
 	return( *exit_points_.back() );
 }
 
@@ -232,6 +245,7 @@ exit_point& composite_state_impl::add_exit_point( const std::string& _exit_point
 	Y_UNIQUE_PTR< sxy::exit_point_impl > exit_point = Y_MAKE_UNIQUE< sxy::exit_point_impl >( _exit_point_name );
 	exit_point->set_parent_state( this );
 	exit_points_.push_back( sxy::move( exit_point ) );
+	Y_LOG( log_level::LL_TRACE, "Entry point '%' was added to composite state'%'.", _exit_point_name, get_name() );
 	return( *exit_points_.back() );
 }
 

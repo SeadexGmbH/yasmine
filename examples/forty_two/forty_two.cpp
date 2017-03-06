@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -22,26 +22,49 @@
 namespace examples
 {
 
-Y_EVENT_WITH_ID( event_A, 1 )
-Y_EVENT_WITH_ID( event_B, 2 )
-Y_EVENT_WITH_ID( event_C, 3 )
-Y_EVENT_WITH_ID( event_D, 4 )
-Y_EVENT_WITH_ID( event_E, 5 )
-Y_EVENT_WITH_ID( event_F, 6 )
-Y_EVENT_WITH_ID( event_G, 7 )
-Y_EVENT_WITH_ID( event_H, 8 )
-Y_EVENT_WITH_ID( event_I, 9 )
-Y_EVENT_WITH_ID( event_J, 10 )
-Y_EVENT_WITH_ID( event_K, 11 )
-Y_EVENT_WITH_ID( event_L, 12 )
-Y_EVENT_WITH_ID( event_M, 13 )
-Y_EVENT_WITH_ID( event_N, 14 )
-Y_EVENT_WITH_ID( event_O, 15 )
-Y_EVENT_WITH_ID( event_P, 16 )
-Y_EVENT_WITH_ID( event_Q, 17 )
-Y_EVENT_WITH_ID( event_R, 18 )
-Y_EVENT_WITH_ID( event_S, 19 )
-Y_EVENT_WITH_ID( event_T, 20 )
+#ifdef Y_CPP03_BOOST
+	Y_EVENT_WITH_ID( event_A, 1 )
+	Y_EVENT_WITH_ID( event_B, 2 )
+	Y_EVENT_WITH_ID( event_C, 3 )
+	Y_EVENT_WITH_ID( event_D, 4 )
+	Y_EVENT_WITH_ID( event_E, 5 )
+	Y_EVENT_WITH_ID( event_F, 6 )
+	Y_EVENT_WITH_ID( event_G, 7 )
+	Y_EVENT_WITH_ID( event_H, 8 )
+	Y_EVENT_WITH_ID( event_I, 9 )
+	Y_EVENT_WITH_ID( event_J, 10 )
+	Y_EVENT_WITH_ID( event_K, 11 )
+	Y_EVENT_WITH_ID( event_L, 12 )
+	Y_EVENT_WITH_ID( event_M, 13 )
+	Y_EVENT_WITH_ID( event_N, 14 )
+	Y_EVENT_WITH_ID( event_O, 15 )
+	Y_EVENT_WITH_ID( event_P, 16 )
+	Y_EVENT_WITH_ID( event_Q, 17 )
+	Y_EVENT_WITH_ID( event_R, 18 )
+	Y_EVENT_WITH_ID( event_S, 19 )
+	Y_EVENT_WITH_ID( event_T, 20 )
+#else
+	Y_EVENT_CREATE( event_A, 1 )
+	Y_EVENT_CREATE( event_B, 2 )
+	Y_EVENT_CREATE( event_C, 3 )
+	Y_EVENT_CREATE( event_D, 4 )
+	Y_EVENT_CREATE( event_E, 5 )
+	Y_EVENT_CREATE( event_F, 6 )
+	Y_EVENT_CREATE( event_G, 7 )
+	Y_EVENT_CREATE( event_H, 8 )
+	Y_EVENT_CREATE( event_I, 9 )
+	Y_EVENT_CREATE( event_J, 10 )
+	Y_EVENT_CREATE( event_K, 11 )
+	Y_EVENT_CREATE( event_L, 12 )
+	Y_EVENT_CREATE( event_M, 13 )
+	Y_EVENT_CREATE( event_N, 14 )
+	Y_EVENT_CREATE( event_O, 15 )
+	Y_EVENT_CREATE( event_P, 16 )
+	Y_EVENT_CREATE( event_Q, 17 )
+	Y_EVENT_CREATE( event_R, 18 )
+	Y_EVENT_CREATE( event_S, 19 )
+	Y_EVENT_CREATE( event_T, 20 )
+#endif
 
 
 forty_two::forty_two( const sxy::uint32_t _max_iterations )
@@ -62,8 +85,8 @@ forty_two::~forty_two() Y_NOEXCEPT
 
 forty_two::state_machine_uptr forty_two::build_state_machine()
 {
-	sxy::Y_UNIQUE_PTR< sxy::state_machine > l_state_machine = 
-		Y_MAKE_UNIQUE< sxy::state_machine >( "forty two state machine" );
+	sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > l_state_machine = 
+		Y_MAKE_UNIQUE< sxy::sync_state_machine >( "forty two state machine" );
 	sxy::composite_state& root_state = l_state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& i1 = main_region.add_initial_pseudostate( "initial pseudostate 1" );
@@ -71,7 +94,8 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	sxy::simple_state& s1 = 
 		main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( forty_two, increment_iterations ) );
 #else
-	sxy::simple_state& s1 = main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( increment_iterations ) );
+	sxy::simple_state& s1 = main_region.add_simple_state( "s1", 
+		Y_BEHAVIOR_METHOD2( this, &forty_two::increment_iterations ) );
 #endif
 	sxy::simple_state& s2 = main_region.add_simple_state( "s2" );
 	sxy::composite_state& s3 = main_region.add_composite_state( "s3" );
@@ -253,7 +277,7 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_2 ) );
 #else
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, s19,
-		Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_2 ) );
+		Y_GUARD_METHOD2( this, &forty_two::check_iterations_divided_by_2 ) );
 #endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, junction1 );
 
@@ -264,9 +288,9 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_5 ) );
 #else
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s20,
-		Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_3 ) );
+		Y_GUARD_METHOD2( this, &forty_two::check_iterations_divided_by_3 ) );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s21,
-		Y_GUARD_METHOD_NO_EVENT( check_iterations_divided_by_5 ) );
+		Y_GUARD_METHOD2( this, &forty_two::check_iterations_divided_by_5 ) );
 #endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s22 );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s19, s23 );
@@ -281,7 +305,7 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_exceded ) );
 #else
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, terminate_pseudostate_1,
-		Y_GUARD_METHOD_NO_EVENT( check_iterations_exceded ) );
+		Y_GUARD_METHOD2( this, &forty_two::check_iterations_exceded ) );
 #endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, s1 );
 	return( sxy::move( l_state_machine ) );

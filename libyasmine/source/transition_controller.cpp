@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -23,6 +23,7 @@
 #include "conversion.hpp"
 #include "algorithm_parameters.hpp"
 #include "completion_event.hpp"
+#include "interruptible.hpp"
 
 
 namespace sxy
@@ -42,8 +43,9 @@ transition_controller::~transition_controller() Y_NOEXCEPT
 
 
 bool transition_controller::process_event( const event& _event, const composite_state& _main_composite_state,
-	event_processing_callback* const _event_processing_callback,	bool& _event_is_deferred, 
-	async_event_handler* const _async_event_handler )
+	event_processing_callback* const _event_processing_callback, bool& _event_is_deferred, 
+	async_event_handler* const _async_event_handler, event_collector& _event_collector,
+	const interruptible& _interruptible )
 {
 	Y_LOG( sxy::log_level::LL_TRACE, "Begin processing event '%'.", _event.get_id() );
 	bool reached_terminate_pseudostate = false;
@@ -52,7 +54,7 @@ bool transition_controller::process_event( const event& _event, const composite_
 	Y_LOG( log_level::LL_SPAM, "Search for enabled transition(s) for event '%'.", _event.get_id() );
 	transition_finder transition_finder;
 	transition_finder.search_for_enabled_transitions_in_all_regions( _main_composite_state, _event,
-		enabled_compound_transitions, _event_is_deferred );
+		enabled_compound_transitions, _event_is_deferred, _event_collector );
 	if( enabled_compound_transitions.empty() )
 	{
 		Y_LOG( sxy::log_level::LL_TRACE, "There are no compound transitions to execute for the event '%'.",
@@ -64,7 +66,7 @@ bool transition_controller::process_event( const event& _event, const composite_
 			enabled_compound_transitions.size(), _event.get_id() );
 		Y_LOG( log_level::LL_SPAM, "Start executing transition(s) for event '%'.", _event.get_id() );
 		reached_terminate_pseudostate = execute_transitions( _main_composite_state, enabled_compound_transitions,
-			_event_processing_callback, _event, _async_event_handler );
+			_event_processing_callback, _event, _async_event_handler, _event_collector, _interruptible );
 		_event_is_deferred = false;
 	}
 
@@ -74,14 +76,15 @@ bool transition_controller::process_event( const event& _event, const composite_
 
 
 bool transition_controller::start_state_machine( const composite_state& _main_composite_state,
-	event_processing_callback* const _event_processing_callback, async_event_handler* const _async_event_handler )
+	event_processing_callback* const _event_processing_callback, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector, const interruptible& _interruptible )
 {
 	bool terminate_pseudostate_has_been_reached = false;
 	compound_transitions enabled_compound_transitions;
 	enabled_compound_transitions.reserve( ENABLED_COMPOUND_TRANSITION_VECTOR_SIZE );
 	transition_finder transition_finder;
 	Y_LOG( log_level::LL_TRACE, "Searching for initial transitions on state machine start." );
-	transition_finder.search_initial_transitions( _main_composite_state, enabled_compound_transitions );
+	transition_finder.search_initial_transitions( _main_composite_state, enabled_compound_transitions, _event_collector );
 	if( enabled_compound_transitions.empty() )
 	{
 		Y_LOG( sxy::log_level::LL_TRACE, "No initial transitions found." );
@@ -92,7 +95,7 @@ bool transition_controller::start_state_machine( const composite_state& _main_co
 			enabled_compound_transitions.size() );		
 		Y_LOG( log_level::LL_TRACE, "Executing transitions." );		
 		if( execute_transitions( _main_composite_state, enabled_compound_transitions, _event_processing_callback,
-					*completion_event::create(), _async_event_handler ) )
+					*completion_event::create(), _async_event_handler, _event_collector, _interruptible ) )
 		{
 			Y_LOG( log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
 			terminate_pseudostate_has_been_reached = true;
@@ -105,14 +108,15 @@ bool transition_controller::start_state_machine( const composite_state& _main_co
 
 bool transition_controller::execute_transitions( const composite_state& _main_composite_state,
 	compound_transitions& compound_transitions,	event_processing_callback* const _event_processing_callback,	
-	const event& _event, async_event_handler* const _async_event_handler )
+	const event& _event, async_event_handler* const _async_event_handler, event_collector& _event_collector,
+	const interruptible& _interruptible )
 {
 	bool terminate_pseudostate_has_been_reached = false;
 	transition_executor transition_executor;
 	events exception_events;
 	exception_events.reserve( EXCEPTION_EVENTS_VECTOR_SIZE );
 
-	while( !compound_transitions.empty() )
+	while( !compound_transitions.empty() && !_interruptible.is_interrupted() )
 	{
 		raw_const_choices choices;
 		choices.reserve( CHOICES_VECTOR_SIZE );
@@ -122,8 +126,9 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 		}
 
 		Y_LOG( log_level::LL_TRACE, "Check, sort and execute transitions." );
-		terminate_pseudostate_has_been_reached = transition_executor.check_sort_and_execute_transitions(
-			compound_transitions, choices, _event_processing_callback, _event, exception_events, _async_event_handler );
+		terminate_pseudostate_has_been_reached = transition_executor.check_sort_and_execute_transitions( 
+			compound_transitions, choices, _event_processing_callback, _event, exception_events, _async_event_handler, 
+			_event_collector, _interruptible );
 		if( terminate_pseudostate_has_been_reached )
 		{
 			Y_LOG( log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
@@ -132,7 +137,7 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 
 		compound_transitions.clear();
 		Y_LOG( log_level::LL_SPAM, "Search for choice transitions." );
-		search_choice_transitions( choices, compound_transitions, _event );	
+		search_choice_transitions( choices, compound_transitions, _event, _event_collector );	
 		Y_LOG( log_level::LL_TRACE, "Found % transition(s) after searched for choice transitions.",
 			compound_transitions.size() );
 
@@ -151,11 +156,11 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 				}
 								
 				handle_execution_events( exception_events, _event_processing_callback, _main_composite_state, 
-					compound_transitions, _async_event_handler );
+					compound_transitions, _async_event_handler, _event_collector, _interruptible );
 			}
 
 			Y_LOG( log_level::LL_TRACE, "Searching for completion event transitions." );
-			search_completion_event_transitions( _main_composite_state, compound_transitions );			
+			search_completion_event_transitions( _main_composite_state, compound_transitions, _event_collector );
 		}
 
 		if( _event_processing_callback )
@@ -170,7 +175,8 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 
 void transition_controller::handle_execution_events( events& _exception_events,
 	event_processing_callback* const _event_processing_callback, const composite_state& _main_composite_state,
-	compound_transitions& _compound_transitions, async_event_handler* const _async_event_handler )
+	compound_transitions& _compound_transitions, async_event_handler* const _async_event_handler,
+	event_collector& _event_collector, const interruptible& _interruptible )
 {
 	sxy::event_sptr error_event = _exception_events.front();
 	transition_finder transition_finder;
@@ -182,9 +188,9 @@ void transition_controller::handle_execution_events( events& _exception_events,
 	}
 
 	transition_finder.search_for_enabled_transitions_in_all_regions( _main_composite_state, *error_event,
-		_compound_transitions, event_is_deferred );
+		_compound_transitions, event_is_deferred, _event_collector );
 	execute_transitions( _main_composite_state, _compound_transitions, _event_processing_callback, *error_event,
-		_async_event_handler );
+		_async_event_handler, _event_collector, _interruptible );
 	_exception_events.erase( _exception_events.begin(), _exception_events.begin() + 1 );
 
 
@@ -196,20 +202,20 @@ void transition_controller::handle_execution_events( events& _exception_events,
 
 
 void transition_controller::search_choice_transitions( const raw_const_choices& _choices, 
-	compound_transitions& compound_transitions,	const event& _event )
+	compound_transitions& compound_transitions,	const event& _event, event_collector& _event_collector )
 {
 	transition_finder transition_finder;
-	transition_finder.search_choice_transitions( _choices, compound_transitions, _event );
+	transition_finder.search_choice_transitions( _choices, compound_transitions, _event, _event_collector );
 }
 
 
 void transition_controller::search_completion_event_transitions( const composite_state& _main_composite_state,
-	compound_transitions& compound_transitions )
+	compound_transitions& compound_transitions, event_collector& _event_collector )
 {
 	bool event_is_deferred = false;
 	transition_finder transition_finder;
 	transition_finder.search_for_enabled_completion_transitions_in_all_regions( _main_composite_state,	
-		compound_transitions,	event_is_deferred );
+		compound_transitions,	event_is_deferred, _event_collector );
 	Y_ASSERT( !event_is_deferred, "An completion transition was deferred!" );
 }
 

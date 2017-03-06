@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016 Seadex GmbH                                                                   //
+// Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
@@ -144,7 +144,7 @@ uri vertex_impl::get_uri() const
 }
 
 
-transition* vertex_impl::search_transition( const event& _event ) const
+transition* vertex_impl::search_transition( const event& _event, event_collector& _event_collector ) const
 {
 	const raw_transitions& transitions = get_outgoing_transitions();
 	transition* found_transition = Y_NULLPTR;
@@ -153,7 +153,7 @@ transition* vertex_impl::search_transition( const event& _event ) const
 	{
 		if( transition->can_accept_event( _event.get_id() ) )
 		{
-			const bool is_checked = transition->check_guard( _event );
+			const bool is_checked = transition->check_guard( _event, _event_collector );
 			if( is_checked )
 			{
 				found_transition = transition;
