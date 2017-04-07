@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,9 +13,10 @@
 #define STATE_MACHINE_INTROSPECTION_45E0820B_4D2F_4EF7_AF0D_EA840DA9F7C0
 
 
+#include "essentials/non_copyable.hpp"
+
 #include "state_fwd.hpp"
 #include "event_fwd.hpp"
-#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -34,13 +35,13 @@ public:
 	}
 
 
-	virtual ~state_machine_introspection() Y_NOEXCEPT
+	virtual ~state_machine_introspection() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(state_machine_introspection)
+	SX_NO_COPY(state_machine_introspection)
 
 	//!\brief Gets the active state configuration of the state machine.
 	//!\return A list of active states of the state machine at the moment when the function is called.

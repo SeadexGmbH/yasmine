@@ -4,15 +4,16 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "state_pseudostate_impl.hpp"
 
+#include "essentials/exception.hpp"
+
 #include "region.hpp"
-#include "exception.hpp"
 #include "algorithm_parameters.hpp"
 
 
@@ -35,7 +36,7 @@ state_pseudostate_impl::state_pseudostate_impl( const std::string& _name )
 }
 
 
-state_pseudostate_impl::~state_pseudostate_impl() Y_NOEXCEPT
+state_pseudostate_impl::~state_pseudostate_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }

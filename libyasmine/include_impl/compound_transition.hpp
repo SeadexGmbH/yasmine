@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -40,13 +40,13 @@ public:
 	}
 
 
-	virtual ~compound_transition() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~compound_transition() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(compound_transition)
+	SX_NO_COPY(compound_transition)
 	virtual void add_sub_compound_transition( compound_transition_uptr _sub_compound_transition ) = 0;
 	virtual bool check_if_starts_with( const transition& _incoming_transition ) = 0;
 	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event, 

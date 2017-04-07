@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 
 #include <algorithm>
 
-#include "log_and_throw.hpp"
+#include "hermes/log_and_throw.hpp"
+
 #include "state.hpp"
 #include "region.hpp"
 #include "initial_pseudostate.hpp"
@@ -24,7 +25,6 @@
 #include "transition.hpp"
 #include "terminate_pseudostate.hpp"
 #include "event.hpp"
-
 #include "transition_step.hpp"
 #include "compound_transition_impl.hpp"
 #include "execution_transition_step.hpp"
@@ -32,9 +32,7 @@
 #include "execution_state_enter_step.hpp"
 #include "execution_state_do_step.hpp"
 #include "transition_priority.hpp"
-
 #include "states_to_enter_visitor_impl.hpp"
-
 #include "compound_transition_consumer.hpp"
 #include "algorithm_parameters.hpp"
 
@@ -53,7 +51,7 @@ transition_executor_impl::transition_executor_impl()
 }
 
 
-transition_executor_impl::~transition_executor_impl() Y_NOEXCEPT
+transition_executor_impl::~transition_executor_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -62,19 +60,19 @@ transition_executor_impl::~transition_executor_impl() Y_NOEXCEPT
 void transition_executor_impl::get_active_states_from_region( region& _region, 
 	raw_states_by_nesting_level_ascending& _states )
 {
-	Y_LOG( log_level::LL_SPAM, "Checking for active state in region '%' of state '%'.",
+	SX_LOG( hermes::log_level::LL_SPAM, "Checking for active state in region '%' of state '%'.",
 		_region.get_name(), _region.get_parent_state().get_name() );
 	state* const active_state = _region.get_active_state();
 	if( active_state )
 	{
-		Y_LOG( log_level::LL_SPAM, "Active state '%' found in region '%'.", active_state->get_name(),
+		SX_LOG( hermes::log_level::LL_SPAM, "Active state '%' found in region '%'.", active_state->get_name(),
 			_region.get_name() );
 		get_active_states_from_regions( active_state, _states );
 		_states.insert( active_state );
 	}
 	else
 	{
-		Y_LOG( log_level::LL_SPAM, "No active state found in region '%'.", _region.get_name() );
+		SX_LOG( hermes::log_level::LL_SPAM, "No active state found in region '%'.", _region.get_name() );
 	}
 }
 
@@ -82,21 +80,21 @@ void transition_executor_impl::get_active_states_from_region( region& _region,
 void transition_executor_impl::get_active_states_from_regions( const state* const _state,
 	raw_states_by_nesting_level_ascending& _states )
 {
-	Y_FOR(const region_uptr& region, _state->get_regions())
+	SX_FOR(const region_uptr& region, _state->get_regions())
 	{
-		Y_LOG( log_level::LL_SPAM, "Checking for active state in region '%' of state '%'.",
+		SX_LOG( hermes::log_level::LL_SPAM, "Checking for active state in region '%' of state '%'.",
 			region->get_name(), _state->get_name() );
 		state* const active_state = region->get_active_state();
 		if( active_state )
 		{
-			Y_LOG( log_level::LL_SPAM, "Active state '%' found in region '%'.",
+			SX_LOG( hermes::log_level::LL_SPAM, "Active state '%' found in region '%'.",
 				active_state->get_name(), region->get_name() );
 			get_active_states_from_regions( active_state, _states );
 			_states.insert( active_state );
 		}
 		else
 		{
-			Y_LOG( log_level::LL_SPAM, "No active state found in region '%'.", region->get_name() );
+			SX_LOG( hermes::log_level::LL_SPAM, "No active state found in region '%'.", region->get_name() );
 		}
 	}
 }
@@ -106,41 +104,41 @@ void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not
 	compound_transition_consumer& _compound_transition, raw_const_region_set& _entered_regions,
 	raw_states_by_nesting_level& _states_to_enter, const event& _event, event_collector& _event_collector )
 {
-	Y_FOR( const state* const state, _states_to_enter )
+	SX_FOR( const state* const state, _states_to_enter )
 	{
-		Y_FOR( const region_uptr& region, state->get_regions() )		
+		SX_FOR( const region_uptr& region, state->get_regions() )		
 		{
 			const std::pair<raw_const_region_set::const_iterator, bool>	inserted_region_iterator = 
 				_entered_regions.insert( region.get() );
 			if( false == inserted_region_iterator.second )
 			{
-				Y_LOG( log_level::LL_TRACE, "Region '%' was already entered.", region->get_name() );
+				SX_LOG( hermes::log_level::LL_TRACE, "Region '%' was already entered.", region->get_name() );
 			}
 			else
 			{
 				const initial_pseudostate* const initial_pseudostate = region->get_initial_pseudostate();
 				if( initial_pseudostate )
 				{
-					Y_LOG( log_level::LL_TRACE, "Found initial pseudostate '%' in region '%'.",
+					SX_LOG( hermes::log_level::LL_TRACE, "Found initial pseudostate '%' in region '%'.",
 						initial_pseudostate->get_name(), region->get_name() );
 
-					Y_UNIQUE_PTR< compound_transition_impl > new_compound_transition = Y_MAKE_UNIQUE< compound_transition_impl >();
+					sxe::SX_UNIQUE_PTR< compound_transition_impl > new_compound_transition = SX_MAKE_UNIQUE< compound_transition_impl >();
 
-					Y_LOG( log_level::LL_TRACE, "New compound transition created for event with ID %.", _event.get_id() );
+					SX_LOG( hermes::log_level::LL_TRACE, "New compound transition created for event with ID %.", _event.get_id() );
 					const bool built_compound_transition = new_compound_transition->create_and_check_transition_path(
 						*initial_pseudostate->get_transition(), _event, _event_collector );
-					Y_ASSERT( built_compound_transition,
+					SX_ASSERT( built_compound_transition,
 						"Transition of initial pseudostate could not be built in compound transition!" );
 					if( built_compound_transition )
 					{
-						Y_LOG( log_level::LL_TRACE, "Build sub compound transition for '%' transition.",
+						SX_LOG( hermes::log_level::LL_TRACE, "Build sub compound transition for '%' transition.",
 							initial_pseudostate->get_name() );						
 						find_already_entered_regions( *new_compound_transition, _entered_regions, _event, _event_collector );
 						compound_transition_impl* const compound_transition = 
 							dynamic_cast< compound_transition_impl* >( &_compound_transition );
 
-						compound_transition->add_sub_compound_transition( sxy::move( new_compound_transition ) );						
-						Y_LOG( log_level::LL_SPAM, 
+						compound_transition->add_sub_compound_transition( sxe::move( new_compound_transition ) );						
+						SX_LOG( hermes::log_level::LL_SPAM, 
 							"New compound transition added to compound transition as a sub compound transition." );
 					}
 				}
@@ -155,7 +153,7 @@ void transition_executor_impl::merge_transitions_steps_with_exit_state_steps( ex
 	const raw_states_by_nesting_level_ascending& _states_to_exit, 
 	transition_steps::const_iterator& _transition_start, transition_steps::const_iterator& _transition_end )
 {
-	Y_LOG( log_level::LL_TRACE, "There are % states to exit.", _states_to_exit.size() );
+	SX_LOG( hermes::log_level::LL_TRACE, "There are % states to exit.", _states_to_exit.size() );
 	if( !_states_to_exit.empty() )
 	{
 		raw_states_by_nesting_level_ascending::const_iterator state_to_exit_start = _states_to_exit.begin();
@@ -167,27 +165,27 @@ void transition_executor_impl::merge_transitions_steps_with_exit_state_steps( ex
 			if( exit_point )
 			{
 				composite_state& exit_point_parent_state = exit_point->get_parent_state();
-				Y_LOG( log_level::LL_TRACE, "Found exit point '%' with parent state '%'.",
+				SX_LOG( hermes::log_level::LL_TRACE, "Found exit point '%' with parent state '%'.",
 					exit_point->get_name(), exit_point_parent_state.get_name() );
 				state* state_from_list = *( state_to_exit_end );
-				Y_LOG( log_level::LL_SPAM, "The state from the list of 'states to exit' is '%'",
+				SX_LOG( hermes::log_level::LL_SPAM, "The state from the list of 'states to exit' is '%'",
 							 state_from_list->get_name() );
 				while( state_from_list != &exit_point_parent_state )
 				{
-					Y_LOG( log_level::LL_SPAM, "Add state '%' to execution steps as 'state to exit'.",
+					SX_LOG( hermes::log_level::LL_SPAM, "Add state '%' to execution steps as 'state to exit'.",
 								 state_from_list->get_name() );
-					Y_UNIQUE_PTR< execution_state_exit_step > execution_state_step = 
-						Y_MAKE_UNIQUE< execution_state_exit_step >( sxy::ref( *state_from_list ) );
-					_execution_steps.push_back( sxy::move( execution_state_step ) );
+					sxe::SX_UNIQUE_PTR< execution_state_exit_step > execution_state_step =
+						SX_MAKE_UNIQUE< execution_state_exit_step >( sxe::ref( *state_from_list ) );
+					_execution_steps.push_back( sxe::move( execution_state_step ) );
 					++state_to_exit_end;
 					state_from_list = *( state_to_exit_end );
 				}
 
 				while( _transition_start != _transition_end )
 				{
-					Y_UNIQUE_PTR< execution_transition_step > l_execution_transition_step = 
-						Y_MAKE_UNIQUE< execution_transition_step >( sxy::ref( **_transition_start ) );
-					_execution_steps.push_back( sxy::move( l_execution_transition_step ) );
+					sxe::SX_UNIQUE_PTR< execution_transition_step > l_execution_transition_step =
+						SX_MAKE_UNIQUE< execution_transition_step >( sxe::ref( **_transition_start ) );
+					_execution_steps.push_back( sxe::move( l_execution_transition_step ) );
 					++_transition_start;
 				}
 
@@ -225,9 +223,9 @@ void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( 
 			{
 				while( _transition_start < _transition_end )
 				{
-					Y_UNIQUE_PTR< execution_transition_step > l_execution_transition_step = 
-						Y_MAKE_UNIQUE< execution_transition_step >( sxy::ref( **_transition_start ) );
-					_execution_steps.push_back( sxy::move( l_execution_transition_step ) );
+					sxe::SX_UNIQUE_PTR< execution_transition_step > l_execution_transition_step =
+						SX_MAKE_UNIQUE< execution_transition_step >( sxe::ref( **_transition_start ) );
+					_execution_steps.push_back( sxe::move( l_execution_transition_step ) );
 					++_transition_start;
 				}
 
@@ -235,24 +233,24 @@ void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( 
 				state* state_from_list = *( state_to_enter_end );
 				while( parent_state_of_entry_point != state_from_list )
 				{
-					Y_UNIQUE_PTR< execution_state_enter_step > execution_state_step = 
-						Y_MAKE_UNIQUE< execution_state_enter_step >( sxy::ref( *state_from_list ) );
-					_execution_steps.push_back( sxy::move( execution_state_step ) );
-					Y_UNIQUE_PTR< execution_state_do_step > l_execution_state_do_step = 
-						Y_MAKE_UNIQUE< execution_state_do_step >( sxy::ref( *state_from_list ) );
-					_execution_steps.push_back( sxy::move( l_execution_state_do_step ) );
+					sxe::SX_UNIQUE_PTR< execution_state_enter_step > execution_state_step =
+						SX_MAKE_UNIQUE< execution_state_enter_step >( sxe::ref( *state_from_list ) );
+					_execution_steps.push_back( sxe::move( execution_state_step ) );
+					sxe::SX_UNIQUE_PTR< execution_state_do_step > l_execution_state_do_step =
+						SX_MAKE_UNIQUE< execution_state_do_step >( sxe::ref( *state_from_list ) );
+					_execution_steps.push_back( sxe::move( l_execution_state_do_step ) );
 					++state_to_enter_end;
 					state_from_list = *( state_to_enter_end );
 				}
 
 				if( parent_state_of_entry_point == state_from_list )
 				{
-					Y_UNIQUE_PTR< execution_state_enter_step > execution_state_step = 
-						Y_MAKE_UNIQUE< execution_state_enter_step >( sxy::ref( *state_from_list ) );
-					_execution_steps.push_back( sxy::move( execution_state_step ) );
-					Y_UNIQUE_PTR< execution_state_do_step > l_execution_state_do_step = 
-						Y_MAKE_UNIQUE< execution_state_do_step >( sxy::ref( *state_from_list ) );
-					_execution_steps.push_back( sxy::move( l_execution_state_do_step ) );
+					sxe::SX_UNIQUE_PTR< execution_state_enter_step > execution_state_step =
+						SX_MAKE_UNIQUE< execution_state_enter_step >( sxe::ref( *state_from_list ) );
+					_execution_steps.push_back( sxe::move( execution_state_step ) );
+					sxe::SX_UNIQUE_PTR< execution_state_do_step > l_execution_state_do_step =
+						SX_MAKE_UNIQUE< execution_state_do_step >( sxe::ref( *state_from_list ) );
+					_execution_steps.push_back( sxe::move( l_execution_state_do_step ) );
 				}
 
 				state_to_enter_start = ++state_to_enter_end;
@@ -270,13 +268,13 @@ void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( 
 	}
 	else
 	{
-		Y_LOG( log_level::LL_TRACE, "There are no states to enter." );
+		SX_LOG( hermes::log_level::LL_TRACE, "There are no states to enter." );
 		if( _transition_start == _transition_end )
 		{
 			const vertex& target = _transition_end->get()->get_unique_target();
 			if( dynamic_cast< const terminate_pseudostate* >( &target ) )
 			{
-				_execution_steps.push_back( Y_MAKE_UNIQUE< execution_transition_step >( sxy::ref( **_transition_start ) ) );
+				_execution_steps.push_back( SX_MAKE_UNIQUE< execution_transition_step >( sxe::ref( **_transition_start ) ) );
 			}
 			else
 			{
@@ -286,7 +284,7 @@ void transition_executor_impl::merge_transitions_steps_with_enter_states_steps( 
 				const state* state_to_execute = dynamic_cast< const state* >( &last_target );
 				if( state_to_execute )
 				{
-					_execution_steps.push_back( Y_MAKE_UNIQUE< execution_state_do_step >( sxy::ref( *state_to_execute ) ) );
+					_execution_steps.push_back( SX_MAKE_UNIQUE< execution_state_do_step >( sxe::ref( *state_to_execute ) ) );
 				}
 			}
 		}
@@ -299,9 +297,9 @@ void transition_executor_impl::calculate_execution_steps( compound_transition_co
 	const raw_states_by_nesting_level& _states_to_enter, execution_steps& _execution_steps,
 	raw_const_region_set& _entered_regions, const event& _event, event_collector& _event_collector )
 {
-	Y_LOG( log_level::LL_SPAM, "Compound transition has % step(s).", 
+	SX_LOG( hermes::log_level::LL_SPAM, "Compound transition has % step(s).", 
 		_compound_transition.get_transition_steps().size() );
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	transition_steps::const_iterator transition_start = _compound_transition.get_transition_steps().cbegin();
 	transition_steps::const_iterator transition_end = _compound_transition.get_transition_steps().cbegin();
 #else
@@ -310,7 +308,7 @@ void transition_executor_impl::calculate_execution_steps( compound_transition_co
 #endif
 	merge_transitions_steps_with_exit_state_steps( _execution_steps, _compound_transition, _states_to_exit,
 		transition_start, transition_end );
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	if( transition_end == _compound_transition.get_transition_steps().cend() )
 #else
 	if( transition_end == _compound_transition.get_transition_steps().end() )
@@ -322,9 +320,9 @@ void transition_executor_impl::calculate_execution_steps( compound_transition_co
 	merge_transitions_steps_with_enter_states_steps( _execution_steps, _compound_transition, _states_to_enter,
 		transition_start, transition_end );
 
-	Y_FOR( const compound_transition_uptr& sub_compound_transition, _compound_transition.get_sub_compound_transitions() )
+	SX_FOR( const compound_transition_uptr& sub_compound_transition, _compound_transition.get_sub_compound_transitions() )
 	{
-		Y_LOG( log_level::LL_SPAM, "Compound transition has % sub compound transition(s).",
+		SX_LOG( hermes::log_level::LL_SPAM, "Compound transition has % sub compound transition(s).",
 			_compound_transition.get_sub_compound_transitions().size() );
 		find_states_to_enter_and_to_exit_and_calculate_execution_steps( *sub_compound_transition, _execution_steps,
 			_entered_regions, _event, false, _event_collector );
@@ -337,10 +335,10 @@ bool transition_executor_impl::run_execution_steps( const execution_steps& _exec
 	events& _exception_events, async_event_handler* const _async_event_handler,
 	event_collector& _event_collector )
 {
-	Y_LOG( log_level::LL_TRACE, "Start executing % steps.", _execution_steps.size() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Start executing % steps.", _execution_steps.size() );
 	bool run_reached_terminate_pseudostate = false;
 
-	Y_FOR( const execution_step_uptr& execution_step, _execution_steps )
+	SX_FOR( const execution_step_uptr& execution_step, _execution_steps )
 	{
 		if( execution_step->execute_behavior( _event_processing_callback, _event, _exception_events, _async_event_handler, _event_collector ) )
 		{
@@ -349,7 +347,7 @@ bool transition_executor_impl::run_execution_steps( const execution_steps& _exec
 		}
 	}
 
-	Y_LOG( log_level::LL_TRACE, "Finished executing % steps.", _execution_steps.size() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Finished executing % steps.", _execution_steps.size() );
 	return( run_reached_terminate_pseudostate );
 }
 
@@ -358,21 +356,21 @@ void transition_executor_impl::conflict_check( const compound_transitions& _comp
 {
 	raw_const_state_set unique_exit_states;
 
-	Y_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
+	SX_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
 	{
 		const transition_steps& transition_steps = compound_transition->get_transition_steps();
-		Y_LOG( log_level::LL_TRACE, "Found % transition step(s) for compound transition.", transition_steps.size() );
-		Y_LOG( log_level::LL_SPAM, "Getting the source of the compound transition." );
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % transition step(s) for compound transition.", transition_steps.size() );
+		SX_LOG( hermes::log_level::LL_SPAM, "Getting the source of the compound transition." );
 		const transition_step_uptr& transition_step = transition_steps.front();
 		const transition*const transition = transition_step->get_transitions().front();
 		const vertex& vertex = transition->get_source();
-		Y_LOG( log_level::LL_TRACE, "Source of compound transition is '%'.", vertex.get_name() );
+		SX_LOG( hermes::log_level::LL_TRACE, "Source of compound transition is '%'.", vertex.get_name() );
 		const state* const l_state = dynamic_cast< const state* >( &vertex );
 		if( l_state )
 		{
-			Y_LOG( log_level::LL_TRACE, "Source of compound transition is a state ( '%' ).", l_state->get_name() );
+			SX_LOG( hermes::log_level::LL_TRACE, "Source of compound transition is a state ( '%' ).", l_state->get_name() );
 			const region* LCA_region = compound_transition->get_LCA_region();
-			const composite_state* parent_state = Y_NULLPTR;
+			const composite_state* parent_state = SX_NULLPTR;
 			if( LCA_region )
 			{
 				parent_state = &LCA_region->get_parent_state();
@@ -393,7 +391,7 @@ raw_compound_transitions transition_executor_impl::sort_compound_transitions(
 	std::vector< transition_priority > transitions_priorities;
 	transitions_priorities.reserve( TRANSITION_PRIORITIES_VECTOR_SIZE );
 
-	Y_FOR( const compound_transition_uptr& compound_transition, _unsorted_compound_transitions )
+	SX_FOR( const compound_transition_uptr& compound_transition, _unsorted_compound_transitions )
 	{
 		transition_priority order_object( *compound_transition );
 		transitions_priorities.push_back( order_object );
@@ -404,7 +402,7 @@ raw_compound_transitions transition_executor_impl::sort_compound_transitions(
 	sorted_compound_transitions.reserve( transitions_priorities.size() );
 
 	// cppcheck-suppress duplicateExpression
-	Y_FOR( const transition_priority& transition_priority, transitions_priorities )
+	SX_FOR( const transition_priority& transition_priority, transitions_priorities )
 	{
 		compound_transition& compound_transition = transition_priority.get_compound_transition();
 		sorted_compound_transitions.push_back( &compound_transition );
@@ -430,7 +428,7 @@ void transition_executor_impl::find_all_states_to_exit( compound_transition_cons
 	}
 	else
 	{
-		Y_LOG( log_level::LL_SPAM, "Transitions of compound transition are 'INTERNAL'. There are no states to exit." );
+		SX_LOG( hermes::log_level::LL_SPAM, "Transitions of compound transition are 'INTERNAL'. There are no states to exit." );
 	}
 }
 
@@ -444,14 +442,14 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 	{
 		transition_step_uptr& last_transition_step = _compound_transition.get_transition_steps().back();
 
-		Y_FOR( transition* const transition, last_transition_step->get_transitions() )
+		SX_FOR( transition* const transition, last_transition_step->get_transitions() )
 		{
 			vertex& vertex = transition->get_target();
-			Y_LOG( log_level::LL_SPAM, "Target of transition '%' is '%'.", transition->get_name(), vertex.get_name() );
+			SX_LOG( hermes::log_level::LL_SPAM, "Target of transition '%' is '%'.", transition->get_name(), vertex.get_name() );
 			if( transition_kind::LOCAL == compound_transition_kind )
 			{
 				region* LCA_region = _compound_transition.get_LCA_region();				
-				composite_state* active_state_as_composite_state = Y_NULLPTR;
+				composite_state* active_state_as_composite_state = SX_NULLPTR;
 				if( LCA_region )
 				{					
 					active_state_as_composite_state = dynamic_cast< composite_state* >( LCA_region->get_active_state() );					
@@ -472,7 +470,7 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 			else
 			{					
 				region* LCA_region = _compound_transition.get_LCA_region();
-				composite_state* parent_state = Y_NULLPTR;
+				composite_state* parent_state = SX_NULLPTR;
 				if( LCA_region )
 				{
 					parent_state = &LCA_region->get_parent_state();
@@ -492,7 +490,7 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 	}
 	else
 	{
-		Y_LOG( log_level::LL_SPAM, "Transitions of compound transition are 'INTERNAL'. There are no states to enter." );
+		SX_LOG( hermes::log_level::LL_SPAM, "Transitions of compound transition are 'INTERNAL'. There are no states to enter." );
 	}
 }
 
@@ -505,10 +503,10 @@ void transition_executor_impl::add_remaining_states_to_enter(
 	while( state_start != _states_to_enter.end() )
 	{
 		state* const state_from_list = *state_start;
-		Y_LOG( log_level::LL_SPAM, "State '%' added to execution steps as 'state to enter'.",
+		SX_LOG( hermes::log_level::LL_SPAM, "State '%' added to execution steps as 'state to enter'.",
 			state_from_list->get_name() );
-		_execution_steps.push_back( Y_MAKE_UNIQUE< execution_state_enter_step >( sxy::ref( *state_from_list ) ) );
-		_execution_steps.push_back( Y_MAKE_UNIQUE< execution_state_do_step >( sxy::ref( *state_from_list ) ) );
+		_execution_steps.push_back( SX_MAKE_UNIQUE< execution_state_enter_step >( sxe::ref( *state_from_list ) ) );
+		_execution_steps.push_back( SX_MAKE_UNIQUE< execution_state_do_step >( sxe::ref( *state_from_list ) ) );
 		++state_start;
 	}
 }
@@ -522,9 +520,9 @@ void transition_executor_impl::add_remaining_states_to_exit(
 	while( state_start != _states.end() )
 	{
 		state* const state_from_list = *state_start;
-		Y_LOG( log_level::LL_SPAM, "Add remaining state '%' to execution steps as 'state to exit'.",
+		SX_LOG( hermes::log_level::LL_SPAM, "Add remaining state '%' to execution steps as 'state to exit'.",
 			state_from_list->get_name() );
-		_execution_steps.push_back( Y_MAKE_UNIQUE< execution_state_exit_step >( sxy::ref( *state_from_list ) ) );
+		_execution_steps.push_back( SX_MAKE_UNIQUE< execution_state_exit_step >( sxe::ref( *state_from_list ) ) );
 		++state_start;
 	}
 }
@@ -535,9 +533,9 @@ void transition_executor_impl::add_remained_transitions( transition_steps::const
 {
 	while( _transition_start != _transition_end )
 	{
-		Y_UNIQUE_PTR< execution_transition_step > l_execution_transition_step 
-			= Y_MAKE_UNIQUE< execution_transition_step >( sxy::ref( **_transition_start ) );
-		_execution_steps.push_back( sxy::move( l_execution_transition_step ) );
+		sxe::SX_UNIQUE_PTR< execution_transition_step > l_execution_transition_step 
+			= SX_MAKE_UNIQUE< execution_transition_step >( sxe::ref( **_transition_start ) );
+		_execution_steps.push_back( sxe::move( l_execution_transition_step ) );
 		++_transition_start;
 	}
 }
@@ -546,18 +544,18 @@ void transition_executor_impl::add_remained_transitions( transition_steps::const
 void transition_executor_impl::fill_vector_of_choices( raw_const_choices& _choices,
 	const compound_transitions& _compound_transitions )
 {
-	Y_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
+	SX_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
 	{
 		const choice* const l_choice = dynamic_cast< const choice* >( &compound_transition->get_last_target() );
 		if( l_choice )
 		{
-			Y_LOG( log_level::LL_TRACE, "Found one choice ( '%' ) as target of compound transition.", l_choice->get_name() );
+			SX_LOG( hermes::log_level::LL_TRACE, "Found one choice ( '%' ) as target of compound transition.", l_choice->get_name() );
 			_choices.push_back( l_choice );
 		}
 
-		Y_LOG( log_level::LL_TRACE, "Fill vector of choices for one compound transition." );
+		SX_LOG( hermes::log_level::LL_TRACE, "Fill vector of choices for one compound transition." );
 		fill_vector_of_choices( _choices, compound_transition->get_sub_compound_transitions() );
-		Y_LOG( log_level::LL_TRACE, "Found % choice(s) for one compound transition.", _choices.size() );
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % choice(s) for one compound transition.", _choices.size() );
 	}
 }
 
@@ -576,21 +574,21 @@ void transition_executor_impl::find_states_to_enter_and_to_exit_and_calculate_ex
 	event_collector& _event_collector )
 {
 	raw_states_by_nesting_level_ascending states_to_exit;	
-	Y_LOG( log_level::LL_TRACE, "Start searching states to exit." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Start searching states to exit." );
 		
 	if( _find_states_to_exit )
 	{
 		find_all_states_to_exit( _compound_transition, states_to_exit );
-		Y_LOG( log_level::LL_TRACE, "Found % state(s) to exit.", states_to_exit.size() );
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % state(s) to exit.", states_to_exit.size() );
 	}
 	raw_states_by_nesting_level states_to_enter;
-	Y_LOG( log_level::LL_TRACE, "Start searching states to enter." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Start searching states to enter." );
 	find_all_states_to_enter( _compound_transition, states_to_enter, _entered_regions, _event, _event_collector );
-	Y_LOG( log_level::LL_TRACE, "Found % state(s) to enter.", states_to_enter.size() );
-	Y_LOG( log_level::LL_TRACE, "Calculating the execution steps." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Found % state(s) to enter.", states_to_enter.size() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Calculating the execution steps." );
 	calculate_execution_steps( _compound_transition, states_to_exit, states_to_enter, _execution_steps,
 		_entered_regions, _event, _event_collector );
-	Y_LOG( log_level::LL_TRACE, "% execution step(s) were calculated.", _execution_steps.size() );
+	SX_LOG( hermes::log_level::LL_TRACE, "% execution step(s) were calculated.", _execution_steps.size() );
 }
 
 
@@ -599,23 +597,23 @@ void transition_executor_impl::check_conflicts_from_source_state_to_LCA( const s
 {		
 	if( &_state != _LCA )
 	{
-		Y_LOG( log_level::LL_TRACE, "Checking conflicts from source '%' up to LCA '%'.", _state.get_name(),
+		SX_LOG( hermes::log_level::LL_TRACE, "Checking conflicts from source '%' up to LCA '%'.", _state.get_name(),
 			_LCA->get_name() );
 		const std::pair< raw_const_state_set::const_iterator, bool > insert_result = _unique_exit_states.insert( &_state );
 		if( !insert_result.second )
 		{
-			LOG_AND_THROW( log_level::LL_FATAL, "There are conflicts. The intersection of states '%' and '%' is not empty.",
+			LOG_AND_THROW( hermes::log_level::LL_FATAL, "There are conflicts. The intersection of states '%' and '%' is not empty.",
 				_state.get_name(), _LCA->get_name() );
 		}
 		else
 		{
-			Y_LOG( log_level::LL_TRACE, "There are no conflicts. The intersection of states '%' and '%' is empty.",
+			SX_LOG( hermes::log_level::LL_TRACE, "There are no conflicts. The intersection of states '%' and '%' is empty.",
 				_state.get_name(), _LCA->get_name() );
 		}
 
-		Y_ASSERT( _state.get_parent_region(), "State has no parent region!" );
+		SX_ASSERT( _state.get_parent_region(), "State has no parent region!" );
 		const composite_state& parent_state = _state.get_parent_region()->get_parent_state();
-		Y_LOG( log_level::LL_SPAM, "Parent state of the state '%' is '%'.", _state.get_name(), parent_state.get_name() );
+		SX_LOG( hermes::log_level::LL_SPAM, "Parent state of the state '%' is '%'.", _state.get_name(), parent_state.get_name() );
 		if( &parent_state != _LCA )
 		{
 			check_conflicts_from_source_state_to_LCA( parent_state, _unique_exit_states, _LCA );
@@ -636,11 +634,11 @@ void transition_executor_impl::fill_vector_of_states_to_exit( region* _LCA_regio
 		if( _LCA_region->get_parent_state().is_active() )
 		{
 			get_active_states_from_region( *_LCA_region, _states_to_exit );
-			Y_LOG( log_level::LL_TRACE, "Number of states to exit: %.", _states_to_exit.size() );
+			SX_LOG( hermes::log_level::LL_TRACE, "Number of states to exit: %.", _states_to_exit.size() );
 		}
 		else
 		{
-			Y_LOG( log_level::LL_SPAM,
+			SX_LOG( hermes::log_level::LL_SPAM,
 				"Least common ancestor '%' of compound transition is not active. No states to exit.",
 				_LCA_region->get_parent_state().get_name() );
 		}
@@ -651,15 +649,15 @@ void transition_executor_impl::fill_vector_of_states_to_exit( region* _LCA_regio
 			sxy::state* active_state = _LCA_region->get_active_state();
 			if( active_state )
 			{
-				Y_FOR( const region_uptr& region, active_state->get_regions() )
+				SX_FOR( const region_uptr& region, active_state->get_regions() )
 				{
 					get_active_states_from_region( *region, _states_to_exit );
-					Y_LOG( log_level::LL_TRACE, "Number of states to exit: %.", _states_to_exit.size() );
+					SX_LOG( hermes::log_level::LL_TRACE, "Number of states to exit: %.", _states_to_exit.size() );
 				}
 			}
 			else
 			{
-				Y_LOG( log_level::LL_TRACE, "Least common ancestor '%' of compound transition, has no active state. .",
+				SX_LOG( hermes::log_level::LL_TRACE, "Least common ancestor '%' of compound transition, has no active state. .",
 					_LCA_region->get_name() );
 			}
 		}

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,22 +33,22 @@ public:
 	//!\param _event_processing_callback Event processing callback interface pointer. It can be a nullptr if no callback
 	//!interface should be used.
 	explicit sync_state_machine( const std::string& _name,
-		event_processing_callback* const _event_processing_callback = Y_NULLPTR );
-	virtual ~sync_state_machine() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY( sync_state_machine )
+		event_processing_callback* const _event_processing_callback = SX_NULLPTR );
+	virtual ~sync_state_machine() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY( sync_state_machine )
 
-	virtual bool push( const event_sptr& _event ) Y_OVERRIDE;
+	virtual bool push( const event_sptr& _event ) SX_OVERRIDE;
 
 	//!\brief Fire the given event.
 	//!\param _event Event to be fired.	
 	//!\return true if event was successfully fired, else false what means that a terminate pseudostate has been reached,
 	//!the state machine was stopped and no further events can be fired.
-	virtual bool fire_event( const event_sptr& _event ) Y_OVERRIDE;
+	virtual bool fire_event( const event_sptr& _event ) SX_OVERRIDE;
 
 	//!\brief Starts the state machine.	
 	//!\return bool true if state machine can be started, else false what means that a terminate pseudostate has been
 	//!reached and the state machine is stopped.
-	virtual bool run() Y_OVERRIDE;
+	virtual bool run() SX_OVERRIDE;
 	
 
 private:

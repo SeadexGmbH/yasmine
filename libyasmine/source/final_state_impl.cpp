@@ -4,19 +4,20 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "final_state_impl.hpp"
 
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "state_visitor.hpp"
 #include "region.hpp"
 #include "state_machine_defect.hpp"
-#include "base.hpp"
 
 
 namespace sxy
@@ -30,7 +31,7 @@ final_state_impl::final_state_impl( const std::string& _name )
 }
 
 
-final_state_impl::~final_state_impl() Y_NOEXCEPT
+final_state_impl::~final_state_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -38,13 +39,13 @@ final_state_impl::~final_state_impl() Y_NOEXCEPT
 
 behavior* final_state_impl::get_entry_behavior() const
 {
-	return( Y_NULLPTR );
+	return( SX_NULLPTR );
 }
 
 
 behavior* final_state_impl::get_exit_behavior() const
 {
-	return( Y_NULLPTR );
+	return( SX_NULLPTR );
 }
 
 
@@ -126,7 +127,7 @@ void final_state_impl::accept_state_visitor( state_visitor& _visitor ) const
 
 bool final_state_impl::is_event_deferred( const event_id& _event_id ) const
 {
-	Y_UNUSED_PARAMETER( _event_id );
+	SX_UNUSED_PARAMETER( _event_id );
 	return( false );
 }
 

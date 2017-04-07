@@ -1,5 +1,60 @@
 # Change log
-All notable changes to this project will be documented in this file.
+All notable changes to this project are documented in this file.
+
+##[1.1.1] - 2017-04-07
+
+### Added
+• SX_NO_ASSIGNMENT_OPERATOR in exception template class (created using SX_EXCEPTION macro)
+
+### Changed
+• Y_CONSTEXPR to SX_CONSTEXPR
+• Y_FINAL to SX_FINAL
+• Y_NOEXCEPT to SX_NOEXCEPT
+• Y_OVERRIDE to SX_OVERRIDE
+• Y_NO_COPY to SX_NO_COPY
+• Y_NO_COPY_OPERATOR_EQUAL to SX_NO_ASSIGNMENT_OPERATOR
+• Y_UNIQUE_PTR to SX_UNIQUE_PTR
+• Y_MAKE_UNIQUE to SX_MAKE_UNIQUE
+• sxy::shared_ptr to sxe::shared_ptr
+• Y_MAKE_SHARED to SX_MAKE_SHARED
+• Y_UNUSED_PARAMETER to SX_UNUSED_PARAMETER
+• preprocessor definition Y_NO_LOGGING to SX_NO_LOGGING
+• Y_LOG to SX_LOG
+• Y_LOG_HEX to SX_LOG_HEX
+• Y_ASSERT to SX_ASSERT
+• Y_NULLPTR to SX_NULLPTR
+• Y_FOR to SX_FOR
+• preprocessor definition Y_CPP03_BOOST to SX_CPP03_BOOST
+• preprocessor definition Y_NO_STD_MAKE_UNIQUE to SX_NO_STD_MAKE_UNIQUE
+• preprocessor definition Y_NO_WINDOWS_H to SX_NO_WINDOWS_H
+
+### Fixed
+• log double quote
+• log messages
+• code documentation improvements.
+
+### Deprecated
+• macro Y_CONSTEXPR use SX_CONSTEXPR instead
+• macro Y_FINAL use SX_FINAL instead
+• macro Y_NOEXCEPT use SX_NOEXCEPT instead
+• macro Y_OVERRIDE use SX_OVERRIDE instead
+• macro Y_NO_COPY use SX_NO_COPY instead
+• macro Y_NO_COPY_OPERATOR_EQUAL use SX_NO_ASSIGNMENT_OPERATOR instead
+• macro Y_UNIQUE_PTR use SX_UNIQUE_PTR instead
+• macro Y_MAKE_UNIQUE use SX_MAKE_UNIQUE instead
+• sxy::shared_ptr use sxe::shared_ptr instead
+• macro Y_MAKE_SHARED use SX_MAKE_SHARED instead
+• macro Y_UNUSED_PARAMETER use SX_UNUSED_PARAMETER instead
+• preprocessor definition Y_NO_LOGGING use SX_NO_LOGGING instead
+• macro Y_LOG use SX_LOG instead
+• macro Y_LOG_HEX use SX_LOG_HEX instead
+• macro Y_ASSERT use SX_ASSERT instead
+• macro Y_NULLPTR use SX_NULLPTR instead
+• macro Y_FOR use SX_FOR instead
+• preprocessor definition Y_CPP03_BOOST use SX_CPP03_BOOST instead
+• preprocessor definition Y_NO_STD_MAKE_UNIQUE use SX_NO_STD_MAKE_UNIQUE instead
+• preprocessor definition Y_NO_WINDOWS_H use SX_NO_WINDOWS_H instead
+
 
 ##[1.1.0] - 2017-03-06
 
@@ -59,7 +114,7 @@ of async do behaviors or to async do behaviors not being terminated at all.
 
 ### Added
 • The logger now has got a halt_and_join method.
-• Logging: A message that can be waited for. Needed for Y_ASSERT in order to guarantee that the log message from the assert gets 
+• Logging: A message that can be waited for. Needed for SX_ASSERT in order to guarantee that the log message from the assert gets 
 written before the application terminates.
 • New check: The target of a transition emanating from an initial pseudostate: It has to be a state.
 • New check for local transitions: The target has to be a child of the source or the source itself.
@@ -117,7 +172,7 @@ and Y_EVENT_1PARAM_WITH_ID_PRIORITY to Y_EVENT_10PARAM_WITH_ID_PRIORITY)
 
 ### Changed
 • 'behavior' to 'behaviour' in code and documentation
-• Y_ASSERT instead of Y_LOG_AND_THROW when checking if the transition of an initial pseudostate was build in a compound transition
+• SX_ASSERT instead of SX_LOG_AND_THROW when checking if the transition of an initial pseudostate was build in a compound transition
 • event ID of completion event, COMPLETION_EVENT, becomes COMPLETION_EVENT_ID
 
 
@@ -159,8 +214,8 @@ and Y_EVENT_1PARAM_WITH_ID_PRIORITY to Y_EVENT_10PARAM_WITH_ID_PRIORITY)
 • overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behavior
 • priority for events and event priority processing in the state machine
 • yasmine's interpretation of the choice pseudostate. The choice allows only one default outgoing transition (a transition with no guard).
-• 'Y_NOEXCEPT' for all destructors
-• log macro Y_LOG_HEX for logging hex editor style messages
+• 'SX_NOEXCEPT' for all destructors
+• log macro SX_LOG_HEX for logging hex editor style messages
 • get_name method for events. It returns the ID of the event as a string if not overloaded
 • event_template.hpp containing macros to created event_impl sub classes with fixed ID and priority (EVENT_WITH_ID, EVENT_WITH_ID_PRIORITY)
 

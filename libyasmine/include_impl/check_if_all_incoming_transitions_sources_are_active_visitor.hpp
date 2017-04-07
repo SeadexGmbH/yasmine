@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,15 +23,15 @@ namespace sxy
 class event;
 
 
-class check_if_all_incoming_transitions_sources_are_active_visitor Y_FINAL:
+class check_if_all_incoming_transitions_sources_are_active_visitor SX_FINAL:
 	public complex_state_visitor
 {
 public:
 	check_if_all_incoming_transitions_sources_are_active_visitor();
-	virtual ~check_if_all_incoming_transitions_sources_are_active_visitor() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(check_if_all_incoming_transitions_sources_are_active_visitor)
-	virtual void visit( const composite_state& _composite_state ) Y_OVERRIDE;
-	virtual void visit( const simple_state& _simple_state ) Y_OVERRIDE;
+	virtual ~check_if_all_incoming_transitions_sources_are_active_visitor() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(check_if_all_incoming_transitions_sources_are_active_visitor)
+	virtual void visit( const composite_state& _composite_state ) SX_OVERRIDE;
+	virtual void visit( const simple_state& _simple_state ) SX_OVERRIDE;
 	bool get_result() const;
 
 

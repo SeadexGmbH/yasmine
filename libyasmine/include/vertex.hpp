@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -43,13 +43,13 @@ public:
 	}
 
 
-	virtual ~vertex() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~vertex() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY( vertex )
+	SX_NO_COPY( vertex )
 	virtual composite_state* get_root_state() = 0;
 	virtual const composite_state* get_root_state() const = 0;
 	virtual void add_outgoing_transition( transition& _outgoing_transition ) = 0;
@@ -66,7 +66,7 @@ public:
 	virtual composite_state * LCA_composite_state( const vertex& _rhs ) const = 0;
 	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const = 0;
 	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) = 0;
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE = 0;
 };
 
 

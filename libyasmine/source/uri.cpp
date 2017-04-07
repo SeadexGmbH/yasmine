@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -14,8 +14,8 @@
 #include <vector>
 #include <sstream>
 
-#include "base.hpp"
-#include "globals.hpp"
+#include "essentials/base.hpp"
+#include "hermes/globals.hpp"
 
 
 namespace sxy
@@ -29,7 +29,7 @@ uri::uri( const std::string& _uri )
 }
 
 
-uri::~uri() Y_NOEXCEPT
+uri::~uri() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -49,14 +49,14 @@ const std::string uri::to_string() const
 
 const std::string& uri::get_front() const
 {
-	Y_ASSERT( !uri_.empty(), "Uri is empty!" );
+	SX_ASSERT( !uri_.empty(), "Uri is empty!" );
 	return( uri_.front() );
 }
 
 
 const std::string& uri::get_back()
 {
-	Y_ASSERT( !uri_.empty(), "Uri is empty!" );
+	SX_ASSERT( !uri_.empty(), "Uri is empty!" );
 	return( uri_.back() );
 }
 
@@ -75,14 +75,14 @@ void uri::push_back( const std::string& _segment )
 
 void uri::pop_front()
 {
-	Y_ASSERT( !uri_.empty(), "Uri is empty!" );
+	SX_ASSERT( !uri_.empty(), "Uri is empty!" );
 	uri_.pop_front();
 }
 
 
 void uri::pop_back()
 {
-	Y_ASSERT( !uri_.empty(), "Uri is empty!" );
+	SX_ASSERT( !uri_.empty(), "Uri is empty!" );
 	uri_.pop_back();
 }
 
@@ -97,9 +97,9 @@ const std::string uri::build_uri() const
 {
 	std::stringstream uri;
 
-	Y_FOR( const std::string& uri_element, uri_ )
+	SX_FOR( const std::string& uri_element, uri_ )
 	{
-		uri << URI_DELIMITER << uri_element;
+		uri << hermes::URI_DELIMITER << uri_element;
 	}
 
 	return( uri.str() );
@@ -111,23 +111,23 @@ void uri::split_string_to_uri_segments( const std::string& _uri )
 	std::string uri = _uri;
 	if( !_uri.empty() )
 	{
-		if( URI_DELIMITER == _uri[ 0 ] )
+		if( hermes::URI_DELIMITER == _uri[ 0 ] )
 		{
 			uri = _uri.substr( 1 );
 		}
 
 		std::string::size_type start = 0;
-		std::string::size_type end = uri.find( URI_DELIMITER );
+		std::string::size_type end = uri.find( hermes::URI_DELIMITER );
 		while( end != std::string::npos )
 		{
 			const std::string& segment = uri.substr( start, end - start );
 			uri_.push_back( segment );
 			start = ++end;
-			end = uri.find( URI_DELIMITER, end );
+			end = uri.find( hermes::URI_DELIMITER, end );
 		}
 
 		const std::string& last_segment = uri.substr( start );
-		if( last_segment[ 0 ] != URI_DELIMITER )
+		if( last_segment[ 0 ] != hermes::URI_DELIMITER )
 		{
 			uri_.push_back( last_segment );
 		}

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,6 +12,8 @@
 #ifndef TRANSITION_EXECUTOR_IMPL_D556EFC8_A5CE_4750_96D9_BDDBF8FFF10A
 #define TRANSITION_EXECUTOR_IMPL_D556EFC8_A5CE_4750_96D9_BDDBF8FFF10A
 
+
+#include "essentials/non_copyable.hpp"
 
 #include "state_fwd.hpp"
 #include "region_fwd.hpp"
@@ -21,7 +23,6 @@
 #include "execution_step_fwd.hpp"
 #include "behavior_exception_fwd.hpp"
 #include "event_fwd.hpp"
-#include "non_copyable.hpp"
 #include "transition_kind.hpp"
 
 
@@ -45,8 +46,8 @@ class transition_executor_impl
 {
 public:
 	transition_executor_impl();
-	virtual ~transition_executor_impl() Y_NOEXCEPT;
-	Y_NO_COPY(transition_executor_impl)
+	virtual ~transition_executor_impl() SX_NOEXCEPT;
+	SX_NO_COPY(transition_executor_impl)
 	void get_active_states_from_region( region& _region, raw_states_by_nesting_level_ascending& _states );
 	void get_active_states_from_regions( const state* const _state, 
 		raw_states_by_nesting_level_ascending& _states );

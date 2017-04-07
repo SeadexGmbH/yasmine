@@ -4,19 +4,19 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 
 
 #include "caller_adapter.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
 
 
-sxy::function<void()> adapt_function( void( *_function )( ) )
+sxe::function<void()> adapt_function( void( *_function )( ) )
 {
 	return( [ _function ]()
 	{		
@@ -26,7 +26,7 @@ sxy::function<void()> adapt_function( void( *_function )( ) )
 }
 
 
-sxy::function<bool()> adapt_function( bool( *_function )() )
+sxe::function<bool()> adapt_function( bool( *_function )() )
 {
 	return( [_function]()
 	{		
@@ -37,7 +37,7 @@ sxy::function<bool()> adapt_function( bool( *_function )() )
 
 
 // cppcheck-suppress unusedFunction
-sxy::function<void( sxy::event_collector& )> adapt_function(
+sxe::function<void( sxy::event_collector& )> adapt_function(
 	void( *_function )( sxy::event_collector& ) )
 {
 	return( [_function]( sxy::event_collector& _event_collector )
@@ -48,7 +48,7 @@ sxy::function<void( sxy::event_collector& )> adapt_function(
 }
 
 
-sxy::function<bool( sxy::event_collector& )> adapt_function( bool( *_function )( sxy::event_collector& ) )
+sxe::function<bool( sxy::event_collector& )> adapt_function( bool( *_function )( sxy::event_collector& ) )
 {
 	return( [_function]( sxy::event_collector& _event_collector )
 	{

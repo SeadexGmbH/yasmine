@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 #define MACHINE_B41DB262_B103_4A14_9F5E_C75B945CB276
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
+
 #include "action.hpp"
 		 		 
 
@@ -31,16 +32,16 @@ namespace examples
 {	
 
 
-typedef sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
+typedef sxe::SX_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
 
 
-class machine Y_FINAL
+class machine SX_FINAL
 {	
 	
 public:		
 	machine();
-	~machine() Y_NOEXCEPT;
-	Y_NO_COPY( machine )
+	~machine() SX_NOEXCEPT;
+	SX_NO_COPY( machine )
 private:
 	int run_machine();
 	state_machine_uptr setup_state_machine( const std::string& _name );

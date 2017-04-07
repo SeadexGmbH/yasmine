@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,13 +31,13 @@ public:
 	}
 
 
-	virtual ~join() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~join() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(join)
+	SX_NO_COPY(join)
 	virtual bool check_if_all_source_states_of_incoming_transitions_are_active() const = 0;
 };
 

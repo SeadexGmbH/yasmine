@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,9 +13,9 @@
 #define DETECTOR_5EBE86D2_647F_4029_94D8_B5521F641349
 
 
-#include "compatibility.hpp"
-#include "thread.hpp"
-#include "non_copyable.hpp"
+#include "essentials/compatibility/compatibility.hpp"
+#include "essentials/compatibility/thread.hpp"
+#include "essentials/non_copyable.hpp"
 
 
 namespace examples
@@ -25,12 +25,12 @@ namespace examples
 class detector_callback;
 
 
-class detector Y_FINAL
+class detector SX_FINAL
 {
 public:
 	explicit detector( detector_callback& _detector_callback );
 	~detector();
-	Y_NO_COPY( detector )
+	SX_NO_COPY( detector )
 	void start();
 	void stop();
 	bool is_on();
@@ -42,10 +42,10 @@ private:
 
 	detector_callback& detector_callback_;
 	bool is_on_;
-	sxy::Y_UNIQUE_PTR< sxy::thread > generate_random_detector_events_;
+	sxe::SX_UNIQUE_PTR< sxe::thread > generate_random_detector_events_;
 	bool run_;
-	sxy::mutex mutex_;
-	sxy::condition_variable condition_variable_;
+	sxe::mutex mutex_;
+	sxe::condition_variable condition_variable_;
 };
 
 

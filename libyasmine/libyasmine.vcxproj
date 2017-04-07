@@ -67,6 +67,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\externals\essentials\include\essentials\base.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\exception_template.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\format_settings.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\build_number.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\color.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\color_mapping.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\cout_logger.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\file_logger.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\file_system.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\globals.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\hermes_version.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\logger.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\logger_fwd.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_and_throw.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_and_throw_helper.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_callback.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_helper.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_level.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_manager_template.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\log_message.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\std_timestamp_policy.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\waiter.hpp" />
     <ClInclude Include="include\algorithm_parameters.hpp" />
     <ClInclude Include="include\assembly.hpp" />
     <ClInclude Include="include\async_behavior_fwd.hpp" />
@@ -79,7 +112,8 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="include\async_simple_state_impl.hpp" />
-    <ClInclude Include="include\base.hpp" />
+    <ClInclude Include="include\backward_compatibility.hpp" />
+    <ClInclude Include="include\y_assert.hpp" />
     <ClInclude Include="include\behavior_exception_fwd.hpp" />
     <ClInclude Include="include\caller_adapter.hpp" />
     <ClInclude Include="include\caller_helper.hpp" />
@@ -90,13 +124,7 @@
     <ClInclude Include="include\state_machine_base.hpp" />
     <ClInclude Include="include_impl\build_number.hpp" />
     <ClInclude Include="include\caller.hpp" />
-    <ClInclude Include="include\chrono.hpp" />
-    <ClInclude Include="include\compatibility.hpp">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="include\completion_event.hpp" />
-    <ClInclude Include="include\conversion.hpp" />
     <ClInclude Include="include\entry_point_fwd.hpp">
       <SubType>
       </SubType>
@@ -108,11 +136,6 @@
     <ClInclude Include="include\event_template.hpp" />
     <ClInclude Include="include\internal_completion_event_id.hpp" />
     <ClInclude Include="include\logging.hpp" />
-    <ClInclude Include="include_impl\log_and_throw_helper.hpp" />
-    <ClInclude Include="include\log_callback.hpp" />
-    <ClInclude Include="include\log_helper.hpp" />
-    <ClInclude Include="include\macro_helpers.hpp" />
-    <ClInclude Include="include\non_copyable.hpp" />
     <ClInclude Include="include\optimization.hpp" />
     <ClInclude Include="include\simple_state_base.hpp">
       <SubType>
@@ -133,7 +156,6 @@
     </ClInclude>
     <ClInclude Include="include\state_machine_introspection.hpp" />
     <ClInclude Include="include\event_creation_request.hpp" />
-    <ClInclude Include="include_impl\globals.hpp" />
     <ClInclude Include="include\behavior.hpp" />
     <ClInclude Include="include\behavior_fwd.hpp" />
     <ClInclude Include="include\choice.hpp" />
@@ -166,8 +188,6 @@
     <ClInclude Include="include\join_fwd.hpp" />
     <ClInclude Include="include\junction.hpp" />
     <ClInclude Include="include\junction_fwd.hpp" />
-    <ClInclude Include="include\logger.hpp" />
-    <ClInclude Include="include\logger_fwd.hpp" />
     <ClInclude Include="include\pseudostate.hpp" />
     <ClInclude Include="include\pseudostate_fwd.hpp" />
     <ClInclude Include="include_impl\pseudostate_visitor.hpp" />
@@ -185,7 +205,6 @@
     <ClInclude Include="include\state_machine_status.hpp" />
     <ClInclude Include="include\terminate_pseudostate.hpp" />
     <ClInclude Include="include\terminate_pseudostate_fwd.hpp" />
-    <ClInclude Include="include\thread.hpp" />
     <ClInclude Include="include\transition.hpp" />
     <ClInclude Include="include\transition_fwd.hpp" />
     <ClInclude Include="include_impl\transition_step.hpp" />
@@ -194,24 +213,18 @@
     <ClInclude Include="include\vertex_fwd.hpp" />
     <ClInclude Include="include_impl\const_vertex_visitor.hpp" />
     <ClInclude Include="include_impl\vertex_visitor.hpp" />
-    <ClInclude Include="include\log.hpp" />
     <ClInclude Include="include_impl\execution_state_do_step.hpp" />
-    <ClInclude Include="include_impl\log_and_throw.hpp" />
     <ClInclude Include="include\states_nesting_comparer_ascending.hpp" />
     <ClInclude Include="include_impl\states_to_enter_visitor_impl.hpp" />
     <ClInclude Include="include\timed_event_creator.hpp" />
     <ClInclude Include="include\event_creation_request_time_comparer.hpp" />
     <ClInclude Include="include_impl\transition_executor_impl.hpp" />
     <ClInclude Include="include\version.hpp" />
-    <ClInclude Include="include\waiter.hpp" />
     <ClInclude Include="include\yasmine.hpp" />
-    <ClInclude Include="include\yprintf.hpp" />
     <ClInclude Include="include_impl\behavior_impl.hpp" />
     <ClInclude Include="include_impl\build_transition_steps_visitor.hpp" />
     <ClInclude Include="include_impl\check_if_all_incoming_transitions_sources_are_active_visitor.hpp" />
     <ClInclude Include="include_impl\choice_impl.hpp" />
-    <ClInclude Include="include\color.hpp" />
-    <ClInclude Include="include\color_mapping.hpp" />
     <ClInclude Include="include\complex_state_impl.hpp" />
     <ClInclude Include="include_impl\composite_state_impl.hpp" />
     <ClInclude Include="include_impl\compound_transition_impl.hpp" />
@@ -219,29 +232,21 @@
     <ClInclude Include="include_impl\compound_transition_fwd.hpp" />
     <ClInclude Include="include_impl\compound_transition_step.hpp" />
     <ClInclude Include="include_impl\constraint_impl.hpp" />
-    <ClInclude Include="include\cout_logger.hpp" />
     <ClInclude Include="include_impl\deep_history_impl.hpp" />
     <ClInclude Include="include_impl\entry_point_impl.hpp" />
     <ClInclude Include="include\event_impl.hpp" />
     <ClInclude Include="include\event_id.hpp" />
     <ClInclude Include="include\async_state_machine.hpp" />
-    <ClInclude Include="include\exception.hpp" />
-    <ClInclude Include="include\exception_template.hpp" />
     <ClInclude Include="include_impl\execution_state_enter_step.hpp" />
     <ClInclude Include="include_impl\execution_state_exit_step.hpp" />
     <ClInclude Include="include_impl\execution_transition_step.hpp" />
     <ClInclude Include="include_impl\exit_point_impl.hpp" />
-    <ClInclude Include="include\file_logger.hpp" />
     <ClInclude Include="include_impl\final_state_impl.hpp" />
     <ClInclude Include="include_impl\fork_impl.hpp" />
-    <ClInclude Include="include\format_settings.hpp" />
     <ClInclude Include="include_impl\history_impl.hpp" />
     <ClInclude Include="include_impl\initial_pseudostate_impl.hpp" />
     <ClInclude Include="include_impl\join_impl.hpp" />
     <ClInclude Include="include_impl\junction_impl.hpp" />
-    <ClInclude Include="include\log_level.hpp" />
-    <ClInclude Include="include\log_manager_template.hpp" />
-    <ClInclude Include="include\log_message.hpp" />
     <ClInclude Include="include_impl\pseudostate_impl.hpp" />
     <ClInclude Include="include_impl\region_impl.hpp" />
     <ClInclude Include="include_impl\region_pseudostate_impl.hpp" />
@@ -255,7 +260,6 @@
     <ClInclude Include="include\state_machine_defect_fwd.hpp" />
     <ClInclude Include="include\state_machine_element_impl.hpp" />
     <ClInclude Include="include_impl\state_pseudostate_impl.hpp" />
-    <ClInclude Include="include\std_timestamp_policy.hpp" />
     <ClInclude Include="include_impl\terminate_pseudostate_impl.hpp" />
     <ClInclude Include="include\transition_impl.hpp" />
     <ClInclude Include="include_impl\transition_controller.hpp" />
@@ -267,9 +271,24 @@
     <ClInclude Include="include\uri.hpp" />
     <ClInclude Include="include\vertex_impl.hpp" />
     <ClInclude Include="include\utils.hpp" />
-    <ClInclude Include="include_impl\file_system.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\externals\essentials\source\conversion.cpp" />
+    <ClCompile Include="..\externals\essentials\source\essentials_version.cpp" />
+    <ClCompile Include="..\externals\essentials\source\format_settings.cpp" />
+    <ClCompile Include="..\externals\essentials\source\sxprintf.cpp" />
+    <ClCompile Include="..\externals\hermes\source\color_mapping.cpp" />
+    <ClCompile Include="..\externals\hermes\source\cout_logger.cpp" />
+    <ClCompile Include="..\externals\hermes\source\file_logger.cpp" />
+    <ClCompile Include="..\externals\hermes\source\file_system.cpp" />
+    <ClCompile Include="..\externals\hermes\source\globals.cpp" />
+    <ClCompile Include="..\externals\hermes\source\hermes_version.cpp" />
+    <ClCompile Include="..\externals\hermes\source\log_and_throw_helper.cpp" />
+    <ClCompile Include="..\externals\hermes\source\log_helper.cpp" />
+    <ClCompile Include="..\externals\hermes\source\log_level.cpp" />
+    <ClCompile Include="..\externals\hermes\source\log_message.cpp" />
+    <ClCompile Include="..\externals\hermes\source\std_timestamp_policy.cpp" />
+    <ClCompile Include="..\externals\hermes\source\waiter.cpp" />
     <ClCompile Include="source\algorithm_parameters.cpp" />
     <ClCompile Include="source\async_behavior.cpp">
       <SubType>
@@ -279,7 +298,6 @@
     <ClCompile Include="source\caller.cpp" />
     <ClCompile Include="source\caller_adapter.cpp" />
     <ClCompile Include="source\completion_event.cpp" />
-    <ClCompile Include="source\conversion.cpp" />
     <ClCompile Include="source\event_creation_request.cpp" />
     <ClCompile Include="source\behavior_exception.cpp">
       <SubType>
@@ -290,10 +308,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="source\execution_state_do_step.cpp" />
-    <ClCompile Include="source\globals.cpp" />
     <ClCompile Include="source\guard_caller.cpp" />
-    <ClCompile Include="source\log_and_throw_helper.cpp" />
-    <ClCompile Include="source\log_helper.cpp" />
     <ClCompile Include="source\simple_state_base.cpp">
       <SubType>
       </SubType>
@@ -307,38 +322,30 @@
     <ClCompile Include="source\transition_executor_impl.cpp" />
     <ClCompile Include="source\transition_kind.cpp" />
     <ClCompile Include="source\version.cpp" />
-    <ClCompile Include="source\waiter.cpp" />
-    <ClCompile Include="source\yprintf.cpp" />
     <ClCompile Include="source\check_if_all_incoming_transitions_sources_are_active_visitor.cpp" />
     <ClCompile Include="source\execution_state_enter_step.cpp" />
     <ClCompile Include="source\execution_state_exit_step.cpp" />
-    <ClCompile Include="source\format_settings.cpp" />
     <ClCompile Include="source\behavior_impl.cpp" />
     <ClCompile Include="source\build_transition_steps_visitor.cpp" />
     <ClCompile Include="source\choice_impl.cpp" />
-    <ClCompile Include="source\color_mapping.cpp" />
     <ClCompile Include="source\complex_state_impl.cpp" />
     <ClCompile Include="source\composite_state_impl.cpp" />
     <ClCompile Include="source\compound_transition_impl.cpp" />
     <ClCompile Include="source\compound_transition_builder.cpp" />
     <ClCompile Include="source\compound_transition_step.cpp" />
     <ClCompile Include="source\constraint_impl.cpp" />
-    <ClCompile Include="source\cout_logger.cpp" />
     <ClCompile Include="source\deep_history_impl.cpp" />
     <ClCompile Include="source\entry_point_impl.cpp" />
     <ClCompile Include="source\event_impl.cpp" />
     <ClCompile Include="source\async_state_machine.cpp" />
     <ClCompile Include="source\execution_transition_step.cpp" />
     <ClCompile Include="source\exit_point_impl.cpp" />
-    <ClCompile Include="source\file_logger.cpp" />
     <ClCompile Include="source\final_state_impl.cpp" />
     <ClCompile Include="source\fork_impl.cpp" />
     <ClCompile Include="source\history_impl.cpp" />
     <ClCompile Include="source\initial_pseudostate_impl.cpp" />
     <ClCompile Include="source\join_impl.cpp" />
     <ClCompile Include="source\junction_impl.cpp" />
-    <ClCompile Include="source\log_level.cpp" />
-    <ClCompile Include="source\log_message.cpp" />
     <ClCompile Include="source\pseudostate_impl.cpp" />
     <ClCompile Include="source\region_impl.cpp" />
     <ClCompile Include="source\region_pseudostate_impl.cpp" />
@@ -351,7 +358,6 @@
     <ClCompile Include="source\state_machine_defect.cpp" />
     <ClCompile Include="source\state_machine_element_impl.cpp" />
     <ClCompile Include="source\state_pseudostate_impl.cpp" />
-    <ClCompile Include="source\std_timestamp_policy.cpp" />
     <ClCompile Include="source\terminate_pseudostate_impl.cpp" />
     <ClCompile Include="source\transition_impl.cpp" />
     <ClCompile Include="source\transition_controller.cpp" />
@@ -362,7 +368,6 @@
     <ClCompile Include="source\uri.cpp" />
     <ClCompile Include="source\vertex_impl.cpp" />
     <ClCompile Include="source\utils.cpp" />
-    <ClCompile Include="source\file_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="changelog.txt" />
@@ -482,78 +487,114 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
     <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
     <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
     <Import Project="..\build\yasmine_clang.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
+    <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
     <Import Project="..\build\yasmine_clang.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
+    <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine_clang.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Clang|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine_clang.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
     <Import Project="..\build\debug_info.props" />
+    <Import Project="..\build\vs2013.props" />
+    <Import Project="..\build\use_boost.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - C++ 03|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
-    <Import Project="..\build\debug_info.props" />
     <Import Project="..\build\c++03.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
+    <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2013|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
     <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - C++ 03|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
-    <Import Project="..\build\debug_info.props" />
     <Import Project="..\build\c++03.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
+    <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - C++ 03|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
     <Import Project="..\build\c++03.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - VS 2013|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - C++ 03|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
     <Import Project="..\build\c++03.props" />
+    <Import Project="..\build\use_essentials.props" />
+    <Import Project="..\build\use_hermes.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

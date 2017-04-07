@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 #define BEHAVIOR_2A20341F_93C3_409E_8792_B05E0D83C7D1
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
+
 #include "behavior_fwd.hpp"
 #include "event_fwd.hpp"
 
@@ -31,13 +32,13 @@ public:
 	}
 
 
-	virtual ~behavior() Y_NOEXCEPT
+	virtual ~behavior() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(behavior)
+	SX_NO_COPY(behavior)
 	virtual void operator()( const event&, event_collector& ) const = 0;
 };
 

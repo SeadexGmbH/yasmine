@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 
 #include <algorithm>
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "transition.hpp"
 
 
@@ -24,15 +25,15 @@ namespace sxy
 complex_state_impl::complex_state_impl( const std::string& _name, behavior_uptr _entry_behavior, 
 	behavior_uptr _exit_behavior, const event_ids& _deferred_events )
 	: state_impl( _name ),
-		entry_( sxy::move( _entry_behavior ) ),
-		exit_( sxy::move( _exit_behavior ) ),
+		entry_( sxe::move( _entry_behavior ) ),
+		exit_( sxe::move( _exit_behavior ) ),
 		deferred_events_( _deferred_events )
 {
 	// Nothing to do...
 }
 
 
-complex_state_impl::~complex_state_impl() Y_NOEXCEPT
+complex_state_impl::~complex_state_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -62,9 +63,9 @@ bool complex_state_impl::check_if_one_of_the_deferred_events_triggers_a_transiti
 {
 	bool deferred_event_trigger_a_transition = false;
 
-	Y_FOR( const event_id deferred_event, deferred_events_ )
+	SX_FOR( const event_id deferred_event, deferred_events_ )
 	{
-		Y_FOR( const transition* const transition, get_outgoing_transitions() )
+		SX_FOR( const transition* const transition, get_outgoing_transitions() )
 		{
 			deferred_event_trigger_a_transition = transition->can_accept_event( deferred_event );
 			if( deferred_event_trigger_a_transition )

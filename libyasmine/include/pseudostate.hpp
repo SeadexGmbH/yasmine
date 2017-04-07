@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,15 +34,15 @@ public:
 	}
 
 
-	virtual ~pseudostate() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~pseudostate() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(pseudostate)
+	SX_NO_COPY(pseudostate)
 	virtual void accept_pseudostate_visitor( pseudostate_visitor& _visitor ) const = 0;
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE = 0;
 };
 
 

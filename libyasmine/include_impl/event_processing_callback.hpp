@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,11 +13,12 @@
 #define EVENT_PROCESSING_CALLBACK_7D1528DE_08BA_4C56_90DF_290C3353040B
 
 
+#include "essentials/non_copyable.hpp"
+
 #include "event_id.hpp"
 #include "event_priority.hpp"
 #include "state_fwd.hpp"
 #include "choice_fwd.hpp"
-#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -42,16 +43,16 @@ public:
 	}
 
 
-	virtual ~event_processing_callback() Y_NOEXCEPT
+	virtual ~event_processing_callback() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(event_processing_callback)
+	SX_NO_COPY(event_processing_callback)
 
 	//!\brief Adds a state machine introspection interface.
-	//!\param	_state_machine The state machine which will be monitored.
+	//!\param _state_machine The state machine which is monitored.
 	//!\return void
 	virtual void add_state_machine_introspection( state_machine_introspection& _state_machine ) = 0;
 

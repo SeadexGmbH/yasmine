@@ -1,14 +1,10 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 project(libyasmine)
 
-set(MAJOR_VERSION 1)
-set(MINOR_VERSION 0)
-set(PATH_VERSION 0)
-
 set(CMAKE_VERBOSE_MAKEFILE, 1)
 
-file(GLOB yasmine_SRC "include/*.hpp" "include_impl/*.hpp" "source/*.cpp")
+file(GLOB yasmine_SRC "include/*.hpp" "include_impl/*.hpp" "source/*.cpp" "../externals/essentials/include/essentials/*.hpp" "../externals/essentials/include/essentials/compatibility/*.hpp" "../externals/hermes/include/hermes/*.hpp" "../externals/essentials/source/*.cpp" "../externals/hermes/source/*.cpp")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -24,7 +20,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 	endif()
 			
 	if("${CPP_VERSION}" STREQUAL "03")		
-		set(extra_flags "${extra_flags} -std=c++03 -Wall -Wpedantic -g -Wno-unknown-pragmas -D \"Y_CPP03_BOOST\" -D \"Y_NO_VARIADIC_MACRO\"")
+		set(extra_flags "${extra_flags} -std=c++03 -Wall -Wpedantic -g -Wno-unknown-pragmas -D \"SX_CPP03_BOOST\" -D \"SX_NO_VARIADIC_MACRO\"")
 	else()
 		set(extra_flags "${extra_flags} -std=c++14 -Wall -Wpedantic -g")
 	endif()
@@ -39,18 +35,18 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		message(STATUS "Optimizing for speed.")
 	endif()
 
-	option("Y_NO_LOGGING" "Use when you want to use no logging at all (no logging code is created).")
-	if( "${Y_NO_LOGGING}" )
-		set(extra_flags "${extra_flags} -D \"Y_NO_LOGGING\"")
+	option("SX_NO_LOGGING" "Use when you want to use no logging at all (no logging code is created).")
+	if( "${SX_NO_LOGGING}" )
+		set(extra_flags "${extra_flags} -D \"SX_NO_LOGGING\"")
 		message(STATUS "No logging used.")
 	else()	
 		message(STATUS "Logger is used.")
 	endif()
 
-	option("Y_NO_STD_MAKE_UNIQUE" "When the standard make_unique is not available (e.g. no C++14 support), you have to define this preprocessor definition. A yasmine drop-in replacement template will be used instead then.")		
-	if( "${Y_NO_STD_MAKE_UNIQUE}" )
-		set(extra_flags "${extra_flags} -D \"Y_NO_STD_MAKE_UNIQUE\"")
-		message(STATUS "Y_NO_STD_MAKE_UNIQUE is defined.")
+	option("SX_NO_STD_MAKE_UNIQUE" "When the standard make_unique is not available (e.g. no C++14 support), you have to define this preprocessor definition. A yasmine drop-in replacement template will be used instead then.")		
+	if( "${SX_NO_STD_MAKE_UNIQUE}" )
+		set(extra_flags "${extra_flags} -D \"SX_NO_STD_MAKE_UNIQUE\"")
+		message(STATUS "SX_NO_STD_MAKE_UNIQUE is defined.")
 	endif()
 
 	option("Y_LEAN_AND_MEAN" "If you compile the library with Y_LEAN_AND_MEAN being defined or if you define the macro locally before including yasmine.hpp, all the state pseudostates and the asynchronous simple state (with the asynchronous behaviour) are excluded (i.e. those headers are not included). This can reduce compile time.")	
@@ -131,18 +127,18 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 		message(STATUS "Optimizing for speed.")
 	endif()
 
-	option("Y_NO_LOGGING" "Use when you want to use no logging at all (no logging code is created).")
-	if( "${Y_NO_LOGGING}" )
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"Y_NO_LOGGING\"")
+	option("SX_NO_LOGGING" "Use when you want to use no logging at all (no logging code is created).")
+	if( "${SX_NO_LOGGING}" )
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"SX_NO_LOGGING\"")
 		message(STATUS "No logging used.")
 	else()	
 		message(STATUS "Logger is used.")
 	endif()
 
-	option("Y_NO_STD_MAKE_UNIQUE" "When the standard make_unique is not available (e.g. no C++14 support), you have to define this preprocessor definition. A yasmine drop-in replacement template will be used instead then.")		
-	if( "${Y_NO_STD_MAKE_UNIQUE}" )
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"Y_NO_STD_MAKE_UNIQUE\"")
-		message(STATUS "Y_NO_STD_MAKE_UNIQUE is defined.")
+	option("SX_NO_STD_MAKE_UNIQUE" "When the standard make_unique is not available (e.g. no C++14 support), you have to define this preprocessor definition. A yasmine drop-in replacement template will be used instead then.")		
+	if( "${SX_NO_STD_MAKE_UNIQUE}" )
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"SX_NO_STD_MAKE_UNIQUE\"")
+		message(STATUS "SX_NO_STD_MAKE_UNIQUE is defined.")
 	endif()
 
 	option("Y_LEAN_AND_MEAN" "If you compile the library with Y_LEAN_AND_MEAN being defined or if you define the macro locally before including yasmine.hpp, all the state pseudostates and the asynchronous simple state (with the asynchronous behaviour) are excluded (i.e. those headers are not included). This can reduce compile time.")	
@@ -159,7 +155,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 		
 endif()
 
-include_directories("./include" "./include_impl")
+include_directories("./include" "./include_impl" "../externals/essentials/include" "../externals/hermes/include")
 
 # for release
 if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	

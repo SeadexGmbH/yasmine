@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,9 +13,10 @@
 #define STATE_MACHINE_ELEMENT_122BB9E6_0CA4_4EEC_A341_EAD756AC89E9
 
 
+#include "essentials/non_copyable.hpp"
+
 #include "state_machine_defect_fwd.hpp"
 #include "uri.hpp"
-#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -31,13 +32,13 @@ public:
 	}
 
 
-	virtual ~state_machine_element() Y_NOEXCEPT
+	virtual ~state_machine_element() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(state_machine_element)
+	SX_NO_COPY(state_machine_element)
 	virtual const std::string& get_name() const = 0;
 	virtual uri get_uri() const = 0;
 	virtual void add_ancestor_uri( uri& _uri ) const = 0;

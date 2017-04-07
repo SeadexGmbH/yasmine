@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "entry_point_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
@@ -28,7 +29,7 @@ entry_point_impl::entry_point_impl( const std::string& _name )
 }
 
 
-entry_point_impl::~entry_point_impl() Y_NOEXCEPT
+entry_point_impl::~entry_point_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }

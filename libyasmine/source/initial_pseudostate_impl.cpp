@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "initial_pseudostate_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
@@ -30,7 +31,7 @@ initial_pseudostate_impl::initial_pseudostate_impl( const std::string& _name )
 }
 
 
-initial_pseudostate_impl::~initial_pseudostate_impl() Y_NOEXCEPT
+initial_pseudostate_impl::~initial_pseudostate_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -60,7 +61,7 @@ bool initial_pseudostate_impl::check( state_machine_defects& _defects ) const
 
 	// 15.3.8 Pseudostate -> Constraint [9]: Outgoing transition from an initial vertex may have a behavior, but not a
 	// trigger or guard.
-	Y_FOR( const transition* const transition, get_outgoing_transitions() )
+	SX_FOR( const transition* const transition, get_outgoing_transitions() )
 	{
 		if( transition->get_guard() )
 		{
@@ -102,15 +103,15 @@ void initial_pseudostate_impl::accept_pseudostate_visitor( pseudostate_visitor& 
 transition* initial_pseudostate_impl::get_transition() const
 {
 	const raw_transitions& transitions = get_outgoing_transitions();
-	Y_ASSERT( !transitions.empty(), "There are no transitions!" );
+	SX_ASSERT( !transitions.empty(), "There are no transitions!" );
 	return( transitions.front() );
 }
 
 
 void initial_pseudostate_impl::add_incoming_transition( transition& _incoming_transition )
 {
-	Y_UNUSED_PARAMETER( _incoming_transition );
-	Y_ASSERT( vertex_impl::get_incoming_transitions().empty(), "Initial pseudostate cannot have incoming transitions!" );
+	SX_UNUSED_PARAMETER( _incoming_transition );
+	SX_ASSERT( vertex_impl::get_incoming_transitions().empty(), "Initial pseudostate cannot have incoming transitions!" );
 }
 
 

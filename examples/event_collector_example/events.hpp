@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@
 #include "yasmine.hpp"
 
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 	#define	EVENT_1 1
 	#define	EVENT_2 2
 	#define	EVENT_3 3
@@ -32,7 +32,7 @@
 namespace	examples
 {
 	
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 	Y_EVENT_WITH_ID( E1, EVENT_1 )
 	Y_EVENT_WITH_ID( E2, EVENT_2 )
 	Y_EVENT_WITH_ID( E3, EVENT_3 )	

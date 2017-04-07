@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -21,23 +21,23 @@ namespace sxy
 {
 
 
-class compound_transition_impl Y_FINAL:
+class compound_transition_impl SX_FINAL:
 	public virtual compound_transition
 {
 public:
 	compound_transition_impl();
-	virtual ~compound_transition_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(compound_transition_impl)
-	virtual transition_steps& get_transition_steps() Y_OVERRIDE;
-	virtual const vertex& get_last_target() const Y_OVERRIDE;
-	virtual const compound_transitions& get_sub_compound_transitions() const Y_OVERRIDE;
-	virtual void add_sub_compound_transition( compound_transition_uptr _sub_compound_transition ) Y_OVERRIDE;
-	virtual region * get_LCA_region() Y_OVERRIDE;
-	virtual composite_state * get_LCA_composite_state() Y_OVERRIDE;
-	virtual transition_kind get_transition_kind() Y_OVERRIDE;
-	virtual bool check_if_starts_with( const transition& _incoming_transition ) Y_OVERRIDE;
+	virtual ~compound_transition_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(compound_transition_impl)
+	virtual transition_steps& get_transition_steps() SX_OVERRIDE;
+	virtual const vertex& get_last_target() const SX_OVERRIDE;
+	virtual const compound_transitions& get_sub_compound_transitions() const SX_OVERRIDE;
+	virtual void add_sub_compound_transition( compound_transition_uptr _sub_compound_transition ) SX_OVERRIDE;
+	virtual region * get_LCA_region() SX_OVERRIDE;
+	virtual composite_state * get_LCA_composite_state() SX_OVERRIDE;
+	virtual transition_kind get_transition_kind() SX_OVERRIDE;
+	virtual bool check_if_starts_with( const transition& _incoming_transition ) SX_OVERRIDE;
 	virtual bool create_and_check_transition_path( transition& _start_transition, const event& _event, 
-		event_collector& _event_collector ) Y_OVERRIDE;
+		event_collector& _event_collector ) SX_OVERRIDE;
 
 
 private:

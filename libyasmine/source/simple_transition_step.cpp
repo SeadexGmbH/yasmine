@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@ simple_transition_step::simple_transition_step( transition& _transition )
 }
 
 
-simple_transition_step::~simple_transition_step() Y_NOEXCEPT
+simple_transition_step::~simple_transition_step() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -80,7 +80,7 @@ const raw_const_vertices simple_transition_step::get_target_vertices()
 void simple_transition_step::execute_transition_behaviors( const event& _event, 
 	event_collector& _event_collector ) const
 {
-	Y_FOR( const transition* const transition, transition_step_ )
+	SX_FOR( const transition* const transition, transition_step_ )
 	{
 		transition->on_transition_behavior( _event, _event_collector );
 	}

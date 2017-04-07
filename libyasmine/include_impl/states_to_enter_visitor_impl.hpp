@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -32,22 +32,22 @@ public:
 	states_to_enter_visitor_impl( raw_states_by_nesting_level& _states_to_enter, 
 		raw_const_region_set& _regions_to_enter, composite_state& _LCA_of_compound_transition,
 		const vertex& _source_of_transition );
-	virtual ~states_to_enter_visitor_impl() Y_NOEXCEPT Y_OVERRIDE;
+	virtual ~states_to_enter_visitor_impl() SX_NOEXCEPT SX_OVERRIDE;
 	
-	Y_NO_COPY(states_to_enter_visitor_impl)
-	virtual void visit( composite_state& _composite_state ) Y_OVERRIDE;
-	virtual void visit( simple_state& _simple_state ) Y_OVERRIDE;
-	virtual void visit( final_state& _final_state ) Y_OVERRIDE;
-	virtual void visit( initial_pseudostate& _initial_pseudostate ) Y_OVERRIDE;
-	virtual void visit( choice& _choice ) Y_OVERRIDE;
-	virtual void visit( junction& _junction ) Y_OVERRIDE;
-	virtual void visit( join& _join ) Y_OVERRIDE;
-	virtual void visit( fork& _fork ) Y_OVERRIDE;
-	virtual void visit( entry_point& _entry_point ) Y_OVERRIDE;
-	virtual void visit( exit_point& _exit_point ) Y_OVERRIDE;
-	virtual void visit( deep_history& _deep_history ) Y_OVERRIDE;
-	virtual void visit( shallow_history& _shallow_history ) Y_OVERRIDE;
-	virtual void visit( terminate_pseudostate& _terminate_pseudostate ) Y_OVERRIDE;
+	SX_NO_COPY(states_to_enter_visitor_impl)
+	virtual void visit( composite_state& _composite_state ) SX_OVERRIDE;
+	virtual void visit( simple_state& _simple_state ) SX_OVERRIDE;
+	virtual void visit( final_state& _final_state ) SX_OVERRIDE;
+	virtual void visit( initial_pseudostate& _initial_pseudostate ) SX_OVERRIDE;
+	virtual void visit( choice& _choice ) SX_OVERRIDE;
+	virtual void visit( junction& _junction ) SX_OVERRIDE;
+	virtual void visit( join& _join ) SX_OVERRIDE;
+	virtual void visit( fork& _fork ) SX_OVERRIDE;
+	virtual void visit( entry_point& _entry_point ) SX_OVERRIDE;
+	virtual void visit( exit_point& _exit_point ) SX_OVERRIDE;
+	virtual void visit( deep_history& _deep_history ) SX_OVERRIDE;
+	virtual void visit( shallow_history& _shallow_history ) SX_OVERRIDE;
+	virtual void visit( terminate_pseudostate& _terminate_pseudostate ) SX_OVERRIDE;
 
 
 private:

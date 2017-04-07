@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@ namespace examples
 	}
 	
 	
-	machine::~machine() Y_NOEXCEPT
+	machine::~machine() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
@@ -44,12 +44,12 @@ namespace examples
 			}
 			catch( const std::exception& exception )
 			{
-				Y_LOG( sxy::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );
+				SX_LOG( hermes::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );
 				error_code = 1;
 			}
 			catch( ... )
 			{
-				Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception!" );
+				SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception!" );
 				error_code = 2;
 			}
 		}
@@ -64,18 +64,18 @@ namespace examples
 
 	state_machine_uptr machine::setup_state_machine( const std::string& _name )
 	{		
-		state_machine_uptr state_machine = Y_MAKE_UNIQUE< sxy::sync_state_machine >( _name );
+		state_machine_uptr state_machine = SX_MAKE_UNIQUE< sxy::sync_state_machine >( _name );
 		sxy::composite_state& root_state = state_machine->get_root_state();
 		sxy::region& main_region = root_state.add_region( "main region" );
 		sxy::initial_pseudostate& initial = main_region.add_initial_pseudostate( "initial" );
 		sxy::simple_state& s1 = main_region.add_simple_state( "S1" );		
 		action* action_ptr = &action_;
-#ifndef Y_CPP03_BOOST		
+#ifndef SX_CPP03_BOOST		
 		sxy::simple_state& s2 = main_region.add_simple_state( "S2", 		
 			Y_BEHAVIOR_METHOD2( action_ptr, &examples::action::fire_event_E3 ), Y_EMPTY_BEHAVIOR, Y_EMPTY_BEHAVIOR );
 #else
 		sxy::simple_state& s2 = main_region.add_simple_state( "S2",			
-			sxy::behavior_function( sxy::bind( &action::fire_event_E3, action_ptr, sxy::_1, sxy::_2 ) ),
+			sxy::behavior_function( sxe::bind( &action::fire_event_E3, action_ptr, sxe::_1, sxe::_2 ) ),
 			Y_EMPTY_BEHAVIOR, Y_EMPTY_BEHAVIOR );
 #endif
 		sxy::simple_state& s3 = main_region.add_simple_state( "S3" );
@@ -85,21 +85,21 @@ namespace examples
 		state_machine->add_transition( examples::E1::get_event_id(), s1, s2 );
 		state_machine->add_transition( examples::E2::get_event_id(), s2, s3 );
 		state_machine->add_transition( examples::E3::get_event_id(), s2, s4 );
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 		state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s4, s3, 
 			Y_BEHAVIOR_METHOD2( action_ptr, &examples::action::fire_event_E4 ) );
 		state_machine->add_transition( examples::E4::get_event_id(), s3, final,
 			Y_BEHAVIOR_METHOD2( action_ptr, &examples::action::print_message_from_event ) );
 #else
 		state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s4, s3,			
-			sxy::behavior_function( sxy::bind( &action::fire_event_E4, action_ptr, sxy::_1, sxy::_2 ) ) );
+			sxy::behavior_function( sxe::bind( &action::fire_event_E4, action_ptr, sxe::_1, sxe::_2 ) ) );
 		state_machine->add_transition( examples::E4::get_event_id(), s3, final,			
-			sxy::behavior_function( sxy::bind( &action::print_message_from_event, action_ptr, sxy::_1 ) )
+			sxy::behavior_function( sxe::bind( &action::print_message_from_event, action_ptr, sxe::_1 ) )
 		);
 #endif
 		state_machine->add_transition( examples::E1::get_event_id(), s3, s2 );
 
-		return( sxy::move( state_machine ) );
+		return( sxe::move( state_machine ) );
 	}
 
 

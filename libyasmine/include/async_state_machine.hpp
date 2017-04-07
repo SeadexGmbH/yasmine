@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,11 +15,12 @@
 
 #include <list>
 
-#include "thread.hpp"
+#include "essentials/compatibility/thread.hpp"
+#include "essentials/compatibility/chrono.hpp"
+
 #include "state_machine_base.hpp"
 #include "async_event_handler.hpp"
 #include "state_machine_status.hpp"
-#include "chrono.hpp"
 
 
 namespace sxy
@@ -29,7 +30,7 @@ namespace sxy
 //!\class async_state_machine
 //!\brief Class for the "multi-threaded version" of the state machine. Provides methods to start and halt the state
 //! machine and to fire events.
-class async_state_machine Y_FINAL:
+class async_state_machine SX_FINAL:
 	public state_machine_base, private async_event_handler
 {
 public:
@@ -38,23 +39,23 @@ public:
 	//!\param _event_processing_callback Event processing callback interface pointer. It can be a nullptr if no callback
 	//!interface should be used.
 	explicit async_state_machine(	const std::string& _name, 
-		event_processing_callback* const _event_processing_callback = Y_NULLPTR );
-	virtual ~async_state_machine() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(async_state_machine)
+		event_processing_callback* const _event_processing_callback = SX_NULLPTR );
+	virtual ~async_state_machine() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(async_state_machine)
 
 	//!\brief Enqueue the given event for firing.
 	//!\param _event Event to be fired.
 	//!\return true if event was successfully enqueued for firing, else false. It returns false if the enqueue for firing
 	//!of the event is not possible because the state machine was stopped in the meantime (or was never started).
 	//!Firing the event enqueues the event for being processed.
-	virtual bool fire_event( const event_sptr& _event ) Y_OVERRIDE;
+	virtual bool fire_event( const event_sptr& _event ) SX_OVERRIDE;
 
 	//!\brief Starts the state machine.	When starting the state machine, the initial transitions are searched and
 	//!executed. Without running the state machine, it is not possible to fire events.
 	//!\return If the state machine reaches a terminate pseudostate after starting (on calling run), returns false. Else
 	//!if the state machine is started and running, returns true.
 	//!\sa halt_and_join, halt, join
-	virtual bool run() Y_OVERRIDE;
+	virtual bool run() SX_OVERRIDE;
 
 	//!\brief Stops and joins the state machine. When stopping the state machine, all the events remaining in the queue
 	//!of events will be processed and the event processing thread will be then stopped and joined. The state machine
@@ -68,7 +69,7 @@ public:
 	//!will also check for active asynchronous simple states and will stop the do behavior for all of them.
 	//!\return void
 	//!\sa halt_and_join, join, run
-	virtual void halt() Y_OVERRIDE;
+	virtual void halt() SX_OVERRIDE;
 
 	//!\brief Joins the thread of the state machine.
 	//!\return void
@@ -80,7 +81,7 @@ public:
 	//!\param _timeoutInMs Time in milliseconds to wait for the state machine to terminate.
 	//!\return bool true if the state machine is terminated or stopped, false otherwise.
 	//!\sa halt_and_join, halt, run, wait	
-	bool wait( const sxy::milliseconds _timeoutInMs ) const;
+	bool wait( const sxe::milliseconds _timeoutInMs ) const;
 
 	//!\brief Wait for the machine to terminate (or to stop).	
 	//!\return void
@@ -98,7 +99,7 @@ public:
 	//!\return true if event was successfully enqueued for firing, else false. It returns false if the enqueue for firing
 	//!of the event is not possible because the state machine was stopped in the meantime (or was never started).
 	//!Firing the event enqueues the event for being processed.
-	virtual bool push( const event_sptr& _event ) Y_OVERRIDE;
+	virtual bool push( const event_sptr& _event ) SX_OVERRIDE;
 
 
 protected:
@@ -114,16 +115,16 @@ private:
 	
 	//!\brief Sends a priority (internal) event and add it in the front of the event list, so it will be processed before other events.
 	//!\return void
-	virtual void on_event( const event_sptr& _event ) Y_OVERRIDE;
+	virtual void on_event( const event_sptr& _event ) SX_OVERRIDE;
 
-	virtual void interrupt_impl() Y_OVERRIDE;
+	virtual void interrupt_impl() SX_OVERRIDE;
 
 
 	state_machine_status status_;
-	mutable sxy::mutex run_and_event_mutex_;
-	sxy::condition_variable run_and_event_condition_;
-	mutable sxy::condition_variable terminated_condition_;
-	Y_UNIQUE_PTR< sxy::thread > worker_thread_;
+	mutable sxe::mutex run_and_event_mutex_;
+	sxe::condition_variable run_and_event_condition_;
+	mutable sxe::condition_variable terminated_condition_;
+	sxe::SX_UNIQUE_PTR< sxe::thread > worker_thread_;
 	std::list<event_sptr> event_list_;
 };
 

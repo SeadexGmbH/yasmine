@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ namespace sxy
 }
 
 
-	behavior_impl::~behavior_impl() Y_NOEXCEPT
+	behavior_impl::~behavior_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -41,7 +41,7 @@ void behavior_impl::operator()( const event& _event, event_collector& _event_col
 
 behavior_uptr behavior_impl::create_behavior( const behavior_function& _function )
 {
-	return( Y_MAKE_UNIQUE< sxy::behavior_impl >( _function ) );
+	return( SX_MAKE_UNIQUE< sxy::behavior_impl >( _function ) );
 }
 
 

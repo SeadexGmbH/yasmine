@@ -4,14 +4,14 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "try_to_build_compound_transition_visitor.hpp"
 
-#include "base.hpp"
+#include "hermes/log.hpp"
 
 #include "join.hpp"
 #include "compound_transition_impl.hpp"
@@ -49,7 +49,7 @@ try_to_build_compound_transition_visitor::try_to_build_compound_transition_visit
 }
 
 
-try_to_build_compound_transition_visitor::~try_to_build_compound_transition_visitor() Y_NOEXCEPT
+try_to_build_compound_transition_visitor::~try_to_build_compound_transition_visitor() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -57,91 +57,91 @@ try_to_build_compound_transition_visitor::~try_to_build_compound_transition_visi
 
 void try_to_build_compound_transition_visitor::visit( const composite_state& _composite_state )
 {
-	Y_UNUSED_PARAMETER( _composite_state );
+	SX_UNUSED_PARAMETER( _composite_state );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const simple_state& _simple_state )
 {
-	Y_UNUSED_PARAMETER( _simple_state );
+	SX_UNUSED_PARAMETER( _simple_state );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const final_state& _final_state )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached final state '%'.", _final_state.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached final state '%'.", _final_state.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const initial_pseudostate& _initial_pseudostate )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached initial pseudostate '%'.", _initial_pseudostate.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached initial pseudostate '%'.", _initial_pseudostate.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const choice& _choice )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached choice '%'.", _choice.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached choice '%'.", _choice.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit( const junction& _junction )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached junction '%'.", _junction.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached junction '%'.", _junction.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit( const join& _join )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached join '%'.", _join.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached join '%'.", _join.get_name() );
 	check_if_join_is_active_and_was_not_processed_yet( _join );
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const fork& _fork )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached fork '%'.", _fork.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached fork '%'.", _fork.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const entry_point& _entry_point )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached entry point '%'.", _entry_point.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached entry point '%'.", _entry_point.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const exit_point& _exit_point )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached exit point '%'.", _exit_point.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached exit point '%'.", _exit_point.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const deep_history& _deep_history )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached deep history '%'.", _deep_history.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached deep history '%'.", _deep_history.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
 
 void try_to_build_compound_transition_visitor::visit(	const shallow_history& _shallow_history )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached shallow history '%'.", _shallow_history.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached shallow history '%'.", _shallow_history.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 																					
 
 void try_to_build_compound_transition_visitor::visit(	const terminate_pseudostate& _terminate_pseudostate )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Reached terminate pseudostate '%'.", _terminate_pseudostate.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Reached terminate pseudostate '%'.", _terminate_pseudostate.get_name() );
 	build_compound_transition_and_insert_in_container();
 }
 
@@ -151,7 +151,7 @@ void try_to_build_compound_transition_visitor::build_compound_transition_and_ins
 	compound_transition_uptr compound_transition = sxy::build_compound_transition( enabled_transition_, event_, event_collector_ );
 	if( compound_transition )
 	{
-		enabled_compound_transitions_.push_back( sxy::move( compound_transition ) );
+		enabled_compound_transitions_.push_back( sxe::move( compound_transition ) );
 		is_built_ = true;
 	}
 }
@@ -185,7 +185,7 @@ bool try_to_build_compound_transition_visitor::check_if_transition_was_already_u
 	const transition& _transition,	compound_transitions& _compound_transitions )
 {
 	bool already_used = false;
-	Y_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
+	SX_FOR( const compound_transition_uptr& compound_transition, _compound_transitions )
 	{
 		already_used = compound_transition->check_if_starts_with( _transition );
 		if( already_used )

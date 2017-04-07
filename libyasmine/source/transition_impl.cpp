@@ -4,16 +4,16 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "transition_impl.hpp"
 
-#include "log.hpp"
-
 #include <algorithm>
+
+#include "hermes/log.hpp"
 
 #include "vertex.hpp"
 #include "behavior.hpp"
@@ -33,21 +33,21 @@ namespace sxy
 {
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 #pragma warning( push )
 #pragma warning( disable : 4100 )
 #endif
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target, 
 	const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
 	: state_machine_element_impl( get_transition_name(_source, _target, event_ids( 1, _event_id ) ) ),
 		event_ids_( event_ids( 1, _event_id ) ),
 		source_( _source ),
 		target_( _target ),
-		guard_( sxy::move( _guard ) ),
-		behavior_( sxy::move( _behavior ) ),
+		guard_( sxe::move( _guard ) ),
+		behavior_( sxe::move( _behavior ) ),
 		kind_( _kind )
 {
 	source_.add_outgoing_transition( *this );
@@ -63,8 +63,8 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 				event_ids_( event_ids( 1, _event_id ) ),
 				source_( _source ),
 				target_( _target ),
-				guard_( sxy::move( _guard ) ),
-				behavior_( sxy::move( _behavior ) ),
+				guard_( sxe::move( _guard ) ),
+				behavior_( sxe::move( _behavior ) ),
 				kind_( _kind )
 			{
 				source_.add_outgoing_transition( *this );
@@ -73,7 +73,7 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 		#else
 			transition_impl::transition_impl( const event_id _event_id, vertex& _source, vertex& _target,
 				const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
-				: transition_impl( event_ids( 1, _event_id ), _source, _target, _kind, sxy::move( _guard ), sxy::move( _behavior ) )
+				: transition_impl( event_ids( 1, _event_id ), _source, _target, _kind, sxe::move( _guard ), sxe::move( _behavior ) )
 			{
 				// Nothing to do...
 			}
@@ -85,8 +85,8 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 			event_ids_( event_ids( 1, _event_id ) ),
 			source_( _source ),
 			target_( _target ),
-			guard_( sxy::move( _guard ) ),
-			behavior_( sxy::move( _behavior ) ),
+			guard_( sxe::move( _guard ) ),
+			behavior_( sxe::move( _behavior ) ),
 			kind_( _kind )
 		{
 			source_.add_outgoing_transition( *this );
@@ -96,7 +96,7 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 #endif
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 #pragma warning( pop )
 #endif
 
@@ -107,8 +107,8 @@ transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, v
 		event_ids_( _event_ids ),
 		source_( _source ),
 		target_( _target ),
-		guard_( sxy::move( _guard ) ),
-		behavior_( sxy::move( _behavior ) ),
+		guard_( sxe::move( _guard ) ),
+		behavior_( sxe::move( _behavior ) ),
 		kind_( _kind )
 {
 	source_.add_outgoing_transition( *this );
@@ -116,7 +116,7 @@ transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, v
 }
 
 
-transition_impl::~transition_impl() Y_NOEXCEPT
+transition_impl::~transition_impl() SX_NOEXCEPT
 {
 	source_.remove_outgoing_transition( *this );
 	target_.remove_incoming_transition( *this );
@@ -163,7 +163,7 @@ uri transition_impl::get_uri() const
 
 const state_machine_element* transition_impl::get_parent() const 
 {
-	return( Y_NULLPTR );
+	return( SX_NULLPTR );
 }
 
 
@@ -175,21 +175,21 @@ sxy::transition_kind transition_impl::get_kind() const
 
 void transition_impl::add_ancestor_uri( uri& _uri ) const
 {
-	Y_UNUSED_PARAMETER( _uri );
+	SX_UNUSED_PARAMETER( _uri );
 }
 
 
 void transition_impl::on_transition_behavior( const event& _event, event_collector& _event_collector ) const
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Executing transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
+	SX_LOG( hermes::log_level::LL_TRACE, "Executing transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
 		get_target().get_name() );
 	const behavior* const behavior = get_behavior();
-	if( behavior != Y_NULLPTR )
+	if( behavior != SX_NULLPTR )
 	{
 		( *behavior )( _event, _event_collector );
 	}
 
-	Y_LOG( sxy::log_level::LL_TRACE, "Executed transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
+	SX_LOG( hermes::log_level::LL_TRACE, "Executed transition '%' from '%' to '%'.", get_name(), get_source().get_name(),
 		get_target().get_name() );
 }
 
@@ -326,9 +326,9 @@ bool transition_impl::check_if_source_and_target_are_in_ancestor_relationship(	c
 bool transition_impl::check_relationship( const vertex& _lhs, const composite_state* _rhs )
 {
 	bool are_in_relationship = false;
-	const raw_composite_states& lhs_ancestors = _lhs.get_ancestors( Y_NULLPTR );
+	const raw_composite_states& lhs_ancestors = _lhs.get_ancestors( SX_NULLPTR );
 
-	Y_FOR( const composite_state* const ancestor, lhs_ancestors )
+	SX_FOR( const composite_state* const ancestor, lhs_ancestors )
 	{
 		if( ancestor == _rhs )
 		{
@@ -421,7 +421,7 @@ bool transition_impl::check_child_parent_relationship_of_source_target_of_transi
 
 	if( &target != &source )
 	{
-		raw_composite_states ancestors = target.get_ancestors( Y_NULLPTR );
+		raw_composite_states ancestors = target.get_ancestors( SX_NULLPTR );
 		raw_composite_states::const_iterator found_source_itr = std::find( ancestors.begin(), ancestors.end(), &source );
 		if( found_source_itr == ancestors.end() )
 		{
@@ -474,7 +474,7 @@ bool transition_impl::check_exit_point( state_machine_defects& _defects ) const
 	if( target_exit_point )
 	{
 		sxy::composite_state& parent_of_exit_point = target_exit_point->get_parent_state();
-		raw_composite_states ancestors = get_source().get_ancestors( Y_NULLPTR );
+		raw_composite_states ancestors = get_source().get_ancestors( SX_NULLPTR );
 		raw_composite_states::const_iterator found_source_itr = std::find( ancestors.begin(), ancestors.end(), &parent_of_exit_point );
 		if( found_source_itr == ancestors.end() )
 		{

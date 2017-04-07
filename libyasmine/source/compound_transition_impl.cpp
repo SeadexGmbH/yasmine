@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ compound_transition_impl::compound_transition_impl()
 }
 
 
-compound_transition_impl::~compound_transition_impl() Y_NOEXCEPT
+compound_transition_impl::~compound_transition_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -61,7 +61,7 @@ const compound_transitions& compound_transition_impl::get_sub_compound_transitio
 
 void compound_transition_impl::add_sub_compound_transition( compound_transition_uptr _sub_compound_transition )
 {
-	sub_compound_transitions_.push_back( sxy::move( _sub_compound_transition ) );
+	sub_compound_transitions_.push_back( sxe::move( _sub_compound_transition ) );
 }
 
 
@@ -105,7 +105,7 @@ bool compound_transition_impl::check_if_starts_with( const transition& _transiti
 		const transition_step_uptr& first_step = transition_steps.front();
 		const raw_transitions& transitions = first_step->get_transitions();
 
-		Y_FOR( const transition* const transition, transitions )
+		SX_FOR( const transition* const transition, transitions )
 		{
 			if( transition == &_transition )
 			{
@@ -124,7 +124,7 @@ bool compound_transition_impl::create_and_check_transition_path( transition& _st
 {
 	transition* current_transition = &_start_transition;
 	bool reached_end_of_transition = true;
-	while( current_transition != Y_NULLPTR )
+	while( current_transition != SX_NULLPTR )
 	{
 		const vertex& target = current_transition->get_target();
 		build_transition_steps_visitor build_transition_steps_visitor( *current_transition, transition_steps_, _event, 

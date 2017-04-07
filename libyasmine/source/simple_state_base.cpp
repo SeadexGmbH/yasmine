@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "simple_state_base.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "state_visitor.hpp"
@@ -26,14 +27,14 @@ namespace sxy
 
 simple_state_base::simple_state_base( const std::string& _name, behavior_uptr _entry_action,
 	behavior_uptr _exit_action, const event_ids& _deferred_events, event_sptr _error_event)
-	: complex_state_impl( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events ),
+	: complex_state_impl( _name, sxe::move( _entry_action ), sxe::move( _exit_action ), _deferred_events ),
 	error_event_( _error_event )
 {
 	// Nothing to do...
 }
 
 
-simple_state_base::~simple_state_base() Y_NOEXCEPT
+simple_state_base::~simple_state_base() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -79,7 +80,7 @@ void simple_state_base::accept_state_visitor( state_visitor& _visitor ) const
 
 bool simple_state_base::check( state_machine_defects& _defects ) const
 {
-	Y_UNUSED_PARAMETER( _defects );
+	SX_UNUSED_PARAMETER( _defects );
 	bool check_ok = true;
 
 	// 15.3.11 State -> Constraint [4]: A simple state is a state without any regions.

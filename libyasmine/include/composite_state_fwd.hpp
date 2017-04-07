@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -23,7 +23,7 @@ namespace sxy
 
 
 class composite_state;
-typedef Y_UNIQUE_PTR< composite_state > composite_state_uptr;
+typedef sxe::SX_UNIQUE_PTR< composite_state > composite_state_uptr;
 typedef std::vector< composite_state* > raw_composite_states;
 
 

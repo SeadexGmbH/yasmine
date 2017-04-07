@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,6 +12,8 @@
 #ifndef STATE_MACHINE_BASE_484EA235_EEDE_4C19_9C46_C0687D950A13
 #define STATE_MACHINE_BASE_484EA235_EEDE_4C19_9C46_C0687D950A13
 
+
+#include "essentials/compatibility/thread.hpp"
 
 #include "state_machine_introspection.hpp"
 #include "event_collector.hpp"
@@ -24,7 +26,6 @@
 #include "region_fwd.hpp"
 #include "event_id.hpp"
 #include "state_machine_defect_fwd.hpp"
-#include "thread.hpp"
 
 
 namespace sxy
@@ -50,9 +51,9 @@ namespace sxy
 		//!\param _event_processing_callback Event processing callback interface pointer. It can be a nullptr if no callback
 		//!interface should be used.
 		explicit state_machine_base( const std::string& _name,
-			event_processing_callback* const _event_processing_callback = Y_NULLPTR );
-		virtual ~state_machine_base() Y_NOEXCEPT Y_OVERRIDE;
-		Y_NO_COPY( state_machine_base )
+			event_processing_callback* const _event_processing_callback = SX_NULLPTR );
+		virtual ~state_machine_base() SX_NOEXCEPT SX_OVERRIDE;
+		SX_NO_COPY( state_machine_base )
 
 			//!\brief Returns the root state of the state machine. Commonly used to add regions to the root state and to create transitions
 			//!from and to the root state.
@@ -60,7 +61,7 @@ namespace sxy
 			composite_state& get_root_state() const;
 
 #ifdef Y_PROFILER		
-		sxy::uint32_t get_number_of_processed_events() const;
+		sxe::uint32_t get_number_of_processed_events() const;
 #endif
 
 		//!\brief Add a transition to the state machine. The state machine takes ownership of the transition.
@@ -70,7 +71,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
 		//! target and adds it to the state machine.
-		//!\param _event_id ID of the event for which the transition will be enabled.
+		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
 		//!\param _kind Transition kind. Default is EXTERNAL.
@@ -84,7 +85,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
 		//! target and adds it to the state machine.	
-		//!\param event_ids List of IDs of the events for which the transition will be enabled.
+		//!\param event_ids List of IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
 		//!\param _kind Transition kind. Default is EXTERNAL.
@@ -98,7 +99,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, event, guard between the given source and
 		//! target and adds it to the state machine. No behavior is provided.	
-		//!\param _event_id ID of the event for which the transition will be enabled.
+		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
 		//!\param _guard The guard of the transition.
@@ -109,7 +110,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, events, guard between the given source and
 		//! target and adds it to the state machine. No behavior is provided.	
-		//!\param _event_ids IDs of the events for which the transition will be enabled.
+		//!\param _event_ids IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
 		//!\param _guard The guard of the transition.
@@ -120,7 +121,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
 		//! target and adds it to the state machine.	
-		//!\param _event_id ID of the event for which the transition will be enabled.
+		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.	
 		//!\param _guard The guard of the transition.
@@ -133,7 +134,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, events, guard and behavior between the given source and
 		//! target and adds it to the state machine.	
-		//!\param _event_ids IDs of the events for which the transition will be enabled.
+		//!\param _event_ids IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.	
 		//!\param _guard The guard of the transition.
@@ -146,7 +147,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, event and behavior between the given source and
 		//! target and adds it to the state machine. No guard is provided. 	
-		//!\param _event_id ID of the event for which the transition will be enabled.
+		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
 		//!\param _behavior The behavior of the transition.
@@ -157,7 +158,7 @@ namespace sxy
 
 		//!\brief Creates a transition with the given name, kind, events and behavior between the given source and
 		//! target and adds it to the state machine. No guard is provided. 	
-		//!\param _event_ids IDs of the events for which the transition will be enabled.
+		//!\param _event_ids IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
 		//!\param _behavior The behavior of the transition.
@@ -185,7 +186,7 @@ namespace sxy
 		//!\brief Gets the internal flag of the state machine that specify if the run of state machine is	interrupted.
 		//!\return true if the internal flag is set to interrupt the state machine, false otherwise.
 		//!\sa interrupt
-		virtual bool is_interrupted() const Y_OVERRIDE;
+		virtual bool is_interrupted() const SX_OVERRIDE;
 
 
 	protected:
@@ -203,8 +204,8 @@ namespace sxy
 
 
 	private:
-		virtual const events& get_deferred_events() const Y_OVERRIDE;
-		virtual raw_const_states get_active_state_configuration() const Y_OVERRIDE;
+		virtual const events& get_deferred_events() const SX_OVERRIDE;
+		virtual raw_const_states get_active_state_configuration() const SX_OVERRIDE;
 		void get_active_states_from_region( raw_const_states& _active_state_configuration, const region& _region ) const;
 		void check_regions_for_active_states( raw_const_states& _active_state_configuration, const state& _state ) const;
 		void add_deferred_event( const event_sptr& _event_id );
@@ -217,10 +218,10 @@ namespace sxy
 		composite_state_uptr root_state_;
 		transitions transitions_;
 		events deferred_events_;
-		sxy::atomic<bool> state_machine_is_running_;
-		sxy::atomic<bool> interrupt_;
+		sxe::atomic<bool> state_machine_is_running_;
+		sxe::atomic<bool> interrupt_;
 #ifdef Y_PROFILER	
-		sxy::uint32_t processed_events_;
+		sxe::uint32_t processed_events_;
 #endif
 
 	};

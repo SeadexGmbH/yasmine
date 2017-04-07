@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@
 #define INTERRUPTIBLE_32EC8385_109D_4338_BA8D_A82356BDBAF2
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
 
 
 namespace sxy
@@ -27,13 +27,13 @@ namespace sxy
 			// Nothing to do...
 		}
 
-		virtual ~interruptible() Y_NOEXCEPT
+		virtual ~interruptible() SX_NOEXCEPT
 		{
 			// Nothing to do...
 		}
 
 
-		Y_NO_COPY( interruptible )
+		SX_NO_COPY( interruptible )
 		virtual bool is_interrupted() const = 0;
 	};
 

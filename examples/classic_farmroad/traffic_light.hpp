@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,12 +22,12 @@ namespace examples
 {
 
 
-class traffic_light Y_FINAL
+class traffic_light SX_FINAL
 {
 public:
 	traffic_light( const std::string& _name,	const std::string& _ascii_prefix );
-	~traffic_light() Y_NOEXCEPT;
-	Y_NO_COPY( traffic_light )
+	~traffic_light() SX_NOEXCEPT;
+	SX_NO_COPY( traffic_light )
 	void start();
 	void stop();
 	void switch_to_red_yellow();

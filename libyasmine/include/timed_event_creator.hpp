@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,9 +15,10 @@
 
 #include <set>
 
+#include "essentials/compatibility/thread.hpp"
+
 #include "event_creation_request_time_comparer.hpp"
 #include "event_creation_request.hpp"
-#include "thread.hpp"
 
 
 namespace sxy
@@ -32,21 +33,21 @@ typedef std::set< event_creation_request, event_creation_request_time_comparer >
 //!\class	timed_event_creator
 //!\brief Provides the possibility to create timed events. It uses the state machine passed into the constructor as
 //!target for the events.
-class timed_event_creator Y_FINAL
+class timed_event_creator SX_FINAL
 {
 public:
 	//!\brief Constructor of timed_event_creator.
 	//!\param _async_state_machine - state_machine the created events are sent to.
 	explicit timed_event_creator( async_state_machine& _async_state_machine );
-	~timed_event_creator() Y_NOEXCEPT;
-	Y_NO_COPY(timed_event_creator)
+	~timed_event_creator() SX_NOEXCEPT;
+	SX_NO_COPY(timed_event_creator)
 
 	//!\brief Creates an event creation request.
 	//!\param _time_till_event_is_fired The time point when the event should be fired.
 	//!\param _event The event that will be fired.
 	//!\return Handle of the new event creation request. The handle can be used for canceling the request.
 	//!\sa cancel()
-	handle_type create_event_creation_request( const sxy::time_point< sxy::system_clock >& _time_till_event_is_fired,	
+	handle_type create_event_creation_request( const sxe::time_point< sxe::system_clock >& _time_till_event_is_fired,	
 		const event_sptr _event );
 
 	//!\brief Creates an event creation request.
@@ -54,7 +55,7 @@ public:
 	//!\param _event The event that will be fired.
 	//!\return Handle of the new event creation request. The handle can be used for canceling the request.
 	//!\sa cancel()
-	handle_type create_event_creation_request( const sxy::milliseconds& _time,	const event_sptr& _event );
+	handle_type create_event_creation_request( const sxe::milliseconds& _time,	const event_sptr& _event );
 
 	//!\brief Cancels the event creation request with the given handle if the event is still in the queue of the event
 	//!creator.
@@ -69,7 +70,7 @@ public:
 	void run();
 
 	//!\brief Stops the event creator. The event creator needs to be stopped before it is destroyed (if it was started).
-	//!Else the internal thread will not be cleaned-up correctly.
+	//!Else the internal thread is not cleaned-up correctly.
 	//!\return void
 	//!\sa run(), join(), halt_and_join()
 	void halt();
@@ -80,7 +81,7 @@ public:
 	void join();
 
 	//!\brief Stops and joins the event creator thread. The event creator needs to be stopped before it is destroyed (if it was started).
-	//!Else the internal thread will not be cleaned-up correctly.
+	//!Else the internal thread is not cleaned-up correctly.
 	//!\return void
 	//!\sa run(), join(), halt()
 	void halt_and_join();
@@ -97,9 +98,9 @@ private:
 	
 	async_state_machine& state_machine_;
 	event_queue event_creation_requests_;
-	Y_UNIQUE_PTR< sxy::thread > worker_;
-	sxy::mutex mutex_;
-	sxy::condition_variable condition_variable_;
+	sxe::SX_UNIQUE_PTR< sxe::thread > worker_;
+	sxe::mutex mutex_;
+	sxe::condition_variable condition_variable_;
 	bool run_;
 
 	handle_type maximum_handle_;

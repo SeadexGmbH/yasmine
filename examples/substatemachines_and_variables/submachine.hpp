@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,8 +13,8 @@
 #define SUBMACHINE_731C5BC9_5AEA_4C88_BD3A_770355BF17D3
 
 
-#include "non_copyable.hpp"
-#include "compatibility.hpp"
+#include "essentials/non_copyable.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -29,7 +29,7 @@ namespace sxy
 }
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 namespace examples{ class event_5; }
 #else
 namespace sxy { class event; }
@@ -40,19 +40,19 @@ namespace examples
 {
 
 
-class submachine Y_FINAL
+class submachine SX_FINAL
 {
 public:
 	submachine( sxy::sync_state_machine& _parent_state_machine, sxy::region& _parent_region );
-	~submachine() Y_NOEXCEPT;
-	Y_NO_COPY( submachine )
+	~submachine() SX_NOEXCEPT;
+	SX_NO_COPY( submachine )
 	sxy::composite_state& get_submachine_root_state() const;
 
 
 private:
 	void reset_members();
 	void print_members() const;	
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	void change_members( const event_5& _event );
 #else
 	void change_members( const sxy::event& _event );

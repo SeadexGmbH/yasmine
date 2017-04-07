@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -26,7 +26,7 @@ namespace sxy
 class composite_state;
 
 
-class transition_impl Y_FINAL:
+class transition_impl SX_FINAL:
 	public virtual transition, public state_machine_element_impl
 {
 public:
@@ -36,21 +36,21 @@ public:
 	transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
 		const sxy::transition_kind _kind = transition_kind::EXTERNAL,
 		constraint_uptr _guard = constraint_uptr(), behavior_uptr _behavior = behavior_uptr());
-	virtual ~transition_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(transition_impl)
-	virtual const vertex& get_source() const Y_OVERRIDE;
-	virtual const vertex& get_target() const Y_OVERRIDE;
-	virtual vertex& get_target() Y_OVERRIDE;
-	virtual const constraint * get_guard() const Y_OVERRIDE;
-	virtual const behavior * get_behavior() const Y_OVERRIDE;
-	virtual uri get_uri() const Y_OVERRIDE;
-	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
-	virtual sxy::transition_kind get_kind() const Y_OVERRIDE;
-	virtual void add_ancestor_uri( uri& _uri ) const Y_OVERRIDE;
-	virtual void on_transition_behavior( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
-	virtual bool check_guard( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
-	virtual bool can_accept_event( const event_id _event ) const Y_OVERRIDE;
+	virtual ~transition_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(transition_impl)
+	virtual const vertex& get_source() const SX_OVERRIDE;
+	virtual const vertex& get_target() const SX_OVERRIDE;
+	virtual vertex& get_target() SX_OVERRIDE;
+	virtual const constraint * get_guard() const SX_OVERRIDE;
+	virtual const behavior * get_behavior() const SX_OVERRIDE;
+	virtual uri get_uri() const SX_OVERRIDE;
+	virtual const state_machine_element * get_parent() const SX_OVERRIDE;
+	virtual sxy::transition_kind get_kind() const SX_OVERRIDE;
+	virtual void add_ancestor_uri( uri& _uri ) const SX_OVERRIDE;
+	virtual void on_transition_behavior( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
+	virtual bool check_guard( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE;
+	virtual bool can_accept_event( const event_id _event ) const SX_OVERRIDE;
 
 
 private:

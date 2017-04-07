@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -28,11 +28,11 @@ class complex_state_impl:
 public:
 	explicit complex_state_impl(	const std::string& _name, behavior_uptr _entry_behavior, 
 		behavior_uptr _exit_behavior, const event_ids& _deferred_events = event_ids() );
-	virtual ~complex_state_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(complex_state_impl)	
-	virtual behavior * get_entry_behavior() const Y_OVERRIDE;
-	virtual behavior * get_exit_behavior() const Y_OVERRIDE;
-	virtual bool is_event_deferred( const event_id& _event_id ) const Y_OVERRIDE;
+	virtual ~complex_state_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(complex_state_impl)	
+	virtual behavior * get_entry_behavior() const SX_OVERRIDE;
+	virtual behavior * get_exit_behavior() const SX_OVERRIDE;
+	virtual bool is_event_deferred( const event_id& _event_id ) const SX_OVERRIDE;
 
 
 protected:

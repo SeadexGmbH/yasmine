@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,8 +13,8 @@
 #define STATE_MACHINE_DEFECT_B3B7FA9A_C6E8_496E_8A31_E00451C9B7AC
 
 
-#include "yprintf.hpp"
-#include "compatibility.hpp"
+#include "essentials/sxprintf.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 #include "state_machine_defect_fwd.hpp"
 
@@ -26,18 +26,18 @@ namespace sxy
 class state_machine_element;
 
 
-class state_machine_defect Y_FINAL
+class state_machine_defect SX_FINAL
 {	
 
 public:
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 
 
 	template< typename ... args >
 	state_machine_defect( const state_machine_element &_element, const std::string & _message, args ... _args ):
-		element_( &_element ), message_( yprintf( _message.c_str(), _args ... ) )
+		element_( &_element ), message_( sxe::sxprintf( _message.c_str(), _args ... ) )
 	{
 		// Nothing to do.
 	}
@@ -46,21 +46,21 @@ public:
 #else
 
 	state_machine_defect( const state_machine_element&_element, const std::string & _message );
-	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value );
-	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
-		const log_value &_value2 );
-	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
-		const log_value &_value2, const log_value&_value3 );
-	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
-		const log_value &_value2, const log_value &_value3, const log_value &_value4 );
-	state_machine_defect( const state_machine_element&_element, const std::string & _message, const log_value &_value1,
-		const log_value &_value2, const log_value &_value3, const log_value &_value4,
-		const log_value &_value5 );	
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const sxe::value_type &_value );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const sxe::value_type &_value1,
+		const sxe::value_type &_value2 );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const sxe::value_type &_value1,
+		const sxe::value_type &_value2, const sxe::value_type&_value3 );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const sxe::value_type &_value1,
+		const sxe::value_type &_value2, const sxe::value_type &_value3, const sxe::value_type &_value4 );
+	state_machine_defect( const state_machine_element&_element, const std::string & _message, const sxe::value_type &_value1,
+		const sxe::value_type &_value2, const sxe::value_type &_value3, const sxe::value_type &_value4,
+		const sxe::value_type &_value5 );
 
 #endif
 
 
-	~state_machine_defect() Y_NOEXCEPT;
+	~state_machine_defect() SX_NOEXCEPT;
 
 
 	const state_machine_element& get_element() const;

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,20 +24,20 @@ namespace examples
 {
 
 
-class intersection Y_FINAL:	private detector_callback
+class intersection SX_FINAL:	private detector_callback
 {
 public:
 	intersection();
-	~intersection() Y_NOEXCEPT;
-	Y_NO_COPY( intersection )
+	~intersection() SX_NOEXCEPT;
+	SX_NO_COPY( intersection )
 	bool start();
 	void stop();
 
 
 private:
-	virtual void detector_on() Y_OVERRIDE;
-	virtual void detector_off() Y_OVERRIDE;
-	int fire_timed_event(	const sxy::milliseconds _milliseconds, const sxy::event_sptr _event );
+	virtual void detector_on() SX_OVERRIDE;
+	virtual void detector_off() SX_OVERRIDE;
+	int fire_timed_event(	const sxe::milliseconds _milliseconds, const sxy::event_sptr _event );
 	void highway_open_entry();
 	void highway_open_exit() const;
 	void switching_to_farmroad_phase_1();

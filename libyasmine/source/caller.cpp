@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,18 +16,18 @@ namespace sxy
 
 // cppcheck-suppress unusedFunction
 void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<void()> _method )
+	sxe::function<void()> _method )
 {
-	Y_UNUSED_PARAMETER( _event );
-	Y_UNUSED_PARAMETER( _event_collector );
+	SX_UNUSED_PARAMETER( _event );
+	SX_UNUSED_PARAMETER( _event_collector );
 	_method();
 }
 
 
 void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<void( event_collector& )> _method )
+	sxe::function<void( event_collector& )> _method )
 {
-	Y_UNUSED_PARAMETER( _event );
+	SX_UNUSED_PARAMETER( _event );
 	_method( _event_collector );
 }
 

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 #define TRANSITION_EXECUTOR_H_2521E4B8_B89E_4CCE_9751_F5B6BD515AD5
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
+
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "behavior_exception_fwd.hpp"
@@ -39,12 +40,12 @@ class event_collector;
 class interruptible;
 
 
-class transition_executor Y_FINAL
+class transition_executor SX_FINAL
 {
 public:
 	transition_executor();
-	~transition_executor() Y_NOEXCEPT;
-	Y_NO_COPY(transition_executor)
+	~transition_executor() SX_NOEXCEPT;
+	SX_NO_COPY(transition_executor)
 	bool check_sort_and_execute_transitions( const compound_transitions& _compound_transitions, 
 		raw_const_choices& _verices,	event_processing_callback* const _event_processing_callback,	
 		const event& _event, events& _exception_events, async_event_handler* const _async_event_handler,

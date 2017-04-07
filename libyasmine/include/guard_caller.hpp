@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,33 +13,34 @@
 #define GUARD_CALLER_739F1B72_B584_4F9E_AD3B_56149B96F7BE
 
 
+#include "essentials/base.hpp"
+#include "essentials/exception.hpp"
+
 #include "event.hpp"
-#include "base.hpp"
 #include "caller_adapter.hpp"
 #include "event_adjuster.hpp"
 #include "event_collector.hpp"
-#include "exception.hpp"
 
 
 namespace sxy
 {
 
 bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool()> _method );
+	sxe::function<bool()> _method );
 
 
 bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( sxy::event_collector& _event_collector )> _method );
+	sxe::function<bool( sxy::event_collector& _event_collector )> _method );
 
 
 template< typename _event_type >
 bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( const _event_type& )> _method )
+	sxe::function<bool( const _event_type& )> _method )
 {
-	Y_UNUSED_PARAMETER( _event_collector );
+	SX_UNUSED_PARAMETER( _event_collector );
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type* specialized_event = dynamic_cast< const _event_type* >( &_event );
@@ -49,7 +50,7 @@ bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collec
 	}
 	else
 	{
-		throw sxy::exception( "Invalid event type!" );
+		throw sxe::exception( "Invalid event type!" );
 	}
 
 
@@ -69,11 +70,11 @@ bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collec
 
 template< typename _event_type >
 bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( const _event_type&, sxy::event_collector& _event_collector )> _method )
+	sxe::function<bool( const _event_type&, sxy::event_collector& _event_collector )> _method )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type* specialized_event = dynamic_cast< const _event_type* >( &_event );	
@@ -83,7 +84,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 	}
 	else
 	{
-		throw sxy::exception( "Invalid event type!" );
+		throw sxe::exception( "Invalid event type!" );
 	}
 
 
@@ -103,12 +104,12 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 
 template< typename _event_type1, typename _event_type2 >
 bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-	sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2 )
+	sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+	sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -125,7 +126,7 @@ bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collec
 		}
 		else
 		{
-			throw sxy::exception( "Invalid event type!" );
+			throw sxe::exception( "Invalid event type!" );
 		}
 	}
 
@@ -150,7 +151,7 @@ bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collec
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -162,13 +163,13 @@ bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collec
 
 template< typename _event_type1, typename _event_type2, typename _event_type3 >
 bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-	sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-	sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3 )
+	sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+	sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+	sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3 )
 {	
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -192,7 +193,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 			}
 			else
 			{
-				throw sxy::exception( "Invalid event type!" );
+				throw sxe::exception( "Invalid event type!" );
 			}
 		}
 	}
@@ -225,7 +226,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -237,14 +238,14 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 
 template< typename _event_type1, typename _event_type2, typename _event_type3, typename _event_type4 >
 bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-	sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-	sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-	sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4 )
+	sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+	sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+	sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+	sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -275,7 +276,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 				}
 				else
 				{
-					throw sxy::exception( "Invalid event type!" );
+					throw sxe::exception( "Invalid event type!" );
 				}
 			}
 		}
@@ -316,7 +317,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -329,15 +330,15 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 template< typename _event_type1, typename _event_type2, typename _event_type3, typename _event_type4,
 					typename _event_type5 >
 bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collector,
-	sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-	sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-	sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-	sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
-	sxy::function<bool( const _event_type5&, sxy::event_collector& )> _method5 )
+	sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+	sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+	sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+	sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
+	sxe::function<bool( const _event_type5&, sxy::event_collector& )> _method5 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -375,7 +376,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 					}
 					else
 					{
-						throw sxy::exception( "Invalid event type!" );
+						throw sxe::exception( "Invalid event type!" );
 					}
 				}
 			}
@@ -424,7 +425,7 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -437,16 +438,16 @@ bool guard_caller(	const sxy::event& _event, sxy::event_collector& _event_collec
 template< typename _event_type1, typename _event_type2, typename _event_type3, typename _event_type4,
 	typename _event_type5, typename _event_type6 >
 	bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-		sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-		sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-		sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-		sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
-		sxy::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
-		sxy::function<bool( const _event_type6&, sxy::event_collector& )> _method6 )
+		sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+		sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+		sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+		sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
+		sxe::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
+		sxe::function<bool( const _event_type6&, sxy::event_collector& )> _method6 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -491,7 +492,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 						}
 						else
 						{
-							throw sxy::exception( "Invalid event type!" );
+							throw sxe::exception( "Invalid event type!" );
 						}
 					}
 				}
@@ -548,7 +549,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -561,17 +562,17 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 template< typename _event_type1, typename _event_type2, typename _event_type3, typename _event_type4,
 	typename _event_type5, typename _event_type6, typename _event_type7 >
 	bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-		sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-		sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-		sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-		sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
-		sxy::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
-		sxy::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
-		sxy::function<bool( const _event_type7&, sxy::event_collector& )> _method7 )
+		sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+		sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+		sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+		sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
+		sxe::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
+		sxe::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
+		sxe::function<bool( const _event_type7&, sxy::event_collector& )> _method7 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -623,7 +624,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 							}
 							else
 							{
-								throw sxy::exception( "Invalid event type!" );
+								throw sxe::exception( "Invalid event type!" );
 							}
 						}
 					}
@@ -688,7 +689,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -701,18 +702,18 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 template< typename _event_type1, typename _event_type2, typename _event_type3, typename _event_type4,
 	typename _event_type5, typename _event_type6, typename _event_type7, typename _event_type8 >
 	bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-		sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-		sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-		sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-		sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
-		sxy::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
-		sxy::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
-		sxy::function<bool( const _event_type7&, sxy::event_collector& )> _method7,
-		sxy::function<bool( const _event_type8&, sxy::event_collector& )> _method8 )
+		sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+		sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+		sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+		sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
+		sxe::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
+		sxe::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
+		sxe::function<bool( const _event_type7&, sxy::event_collector& )> _method7,
+		sxe::function<bool( const _event_type8&, sxy::event_collector& )> _method8 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -771,7 +772,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 								}
 								else
 								{
-									throw sxy::exception( "Invalid event type!" );
+									throw sxe::exception( "Invalid event type!" );
 								}
 							}
 						}
@@ -844,7 +845,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -857,19 +858,19 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 template< typename _event_type1, typename _event_type2, typename _event_type3, typename _event_type4,
 	typename _event_type5, typename _event_type6, typename _event_type7, typename _event_type8, typename _event_type9 >
 	bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-		sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-		sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-		sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-		sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
-		sxy::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
-		sxy::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
-		sxy::function<bool( const _event_type7&, sxy::event_collector& )> _method7,
-		sxy::function<bool( const _event_type8&, sxy::event_collector& )> _method8,
-		sxy::function<bool( const _event_type9&, sxy::event_collector& )> _method9 )
+		sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+		sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+		sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+		sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
+		sxe::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
+		sxe::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
+		sxe::function<bool( const _event_type7&, sxy::event_collector& )> _method7,
+		sxe::function<bool( const _event_type8&, sxy::event_collector& )> _method8,
+		sxe::function<bool( const _event_type9&, sxy::event_collector& )> _method9 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -935,7 +936,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 									}
 									else
 									{
-										throw sxy::exception( "Invalid event type!" );
+										throw sxe::exception( "Invalid event type!" );
 									}
 								}
 							}
@@ -1016,7 +1017,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 
@@ -1030,20 +1031,20 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 	typename _event_type5, typename _event_type6, typename _event_type7, typename _event_type8, typename _event_type9, 
 	typename _event_type10 >
 	bool guard_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
-		sxy::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
-		sxy::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
-		sxy::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
-		sxy::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
-		sxy::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
-		sxy::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
-		sxy::function<bool( const _event_type7&, sxy::event_collector& )> _method7,
-		sxy::function<bool( const _event_type8&, sxy::event_collector& )> _method8,
-		sxy::function<bool( const _event_type9&, sxy::event_collector& )> _method9,
-		sxy::function<bool( const _event_type10&, sxy::event_collector& )> _method10 )
+		sxe::function<bool( const _event_type1&, sxy::event_collector& )> _method1,
+		sxe::function<bool( const _event_type2&, sxy::event_collector& )> _method2,
+		sxe::function<bool( const _event_type3&, sxy::event_collector& )> _method3,
+		sxe::function<bool( const _event_type4&, sxy::event_collector& )> _method4,
+		sxe::function<bool( const _event_type5&, sxy::event_collector& )> _method5,
+		sxe::function<bool( const _event_type6&, sxy::event_collector& )> _method6,
+		sxe::function<bool( const _event_type7&, sxy::event_collector& )> _method7,
+		sxe::function<bool( const _event_type8&, sxy::event_collector& )> _method8,
+		sxe::function<bool( const _event_type9&, sxy::event_collector& )> _method9,
+		sxe::function<bool( const _event_type10&, sxy::event_collector& )> _method10 )
 {
 	bool enabled = false;
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
 	const _event_type1* specialized_event = dynamic_cast< const _event_type1* >( &_event );
@@ -1116,7 +1117,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 										}
 										else
 										{
-											throw sxy::exception( "Invalid event type!" );
+											throw sxe::exception( "Invalid event type!" );
 										}
 									}
 								}
@@ -1205,7 +1206,7 @@ template< typename _event_type1, typename _event_type2, typename _event_type3, t
 	}
 
 	default:
-		Y_ASSERT( false, "Invalid event type!" );
+		SX_ASSERT( false, "Invalid event type!" );
 	}
 
 

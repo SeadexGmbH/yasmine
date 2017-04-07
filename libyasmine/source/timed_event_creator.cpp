@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,11 +13,12 @@
 
 #include <algorithm>
 
+#include "essentials/base.hpp"
+#include "hermes/log_and_throw.hpp"
+
 #include "event_creation_request.hpp"
 #include "async_state_machine.hpp"
-#include "base.hpp"
 #include "event_impl.hpp"
-#include "log_and_throw.hpp"
 
 
 namespace sxy
@@ -37,19 +38,19 @@ timed_event_creator::timed_event_creator( async_state_machine& _async_state_mach
 }
 
 
-timed_event_creator::~timed_event_creator() Y_NOEXCEPT
+timed_event_creator::~timed_event_creator() SX_NOEXCEPT
 {		
-	Y_ASSERT( !run_, "Thread is still running! It was not stopped." );
-	Y_ASSERT( !worker_, "The thread still exists!" );
+	SX_ASSERT( !run_, "Thread is still running! It was not stopped." );
+	SX_ASSERT( !worker_, "The thread still exists!" );
 }
 
 
 handle_type timed_event_creator::create_event_creation_request(
-	const sxy::time_point< sxy::system_clock >& _time, const event_sptr _event )
+	const sxe::time_point< sxe::system_clock >& _time, const event_sptr _event )
 {
 	handle_type handle = Y_DEFAULT_HANDLE;
 	{
-		sxy::unique_lock< sxy::mutex > lock( mutex_ );
+		sxe::unique_lock< sxe::mutex > lock( mutex_ );
 		if( run_ )
 		{
 			handle = generate_handle();			
@@ -57,7 +58,7 @@ handle_type timed_event_creator::create_event_creation_request(
 		}
 		else
 		{
-			LOG_AND_THROW( log_level::LL_FATAL,
+			LOG_AND_THROW( hermes::log_level::LL_FATAL,
 				"Time based event creator is not running. Event creation requests cannot be created!" );
 		}
 	}
@@ -67,10 +68,10 @@ handle_type timed_event_creator::create_event_creation_request(
 
 
 handle_type timed_event_creator::create_event_creation_request(
-	const sxy::milliseconds& _time_till_event_is_fired, const event_sptr& _event )
+	const sxe::milliseconds& _time_till_event_is_fired, const event_sptr& _event )
 {
 	const handle_type handle = create_event_creation_request(
-		sxy::system_clock::now() + _time_till_event_is_fired, _event );
+		sxe::system_clock::now() + _time_till_event_is_fired, _event );
 	return( handle );
 }
 
@@ -79,17 +80,17 @@ bool timed_event_creator::cancel( const handle_type _handle )
 {
 	bool cancelled = false;
 	{
-		sxy::unique_lock< sxy::mutex > lock( mutex_ );
+		sxe::unique_lock< sxe::mutex > lock( mutex_ );
 		const event_queue::iterator found_element_iterator = find_element_by_handle( _handle );
 		if( found_element_iterator != event_creation_requests_.end() )
 		{
 			event_creation_requests_.erase( found_element_iterator );
 			cancelled = true;
-			Y_LOG( log_level::LL_TRACE, "Event with handle '%' was cancelled.", _handle );
+			SX_LOG( hermes::log_level::LL_TRACE, "Event with handle '%' was cancelled.", _handle );
 		}
 		else
 		{
-			Y_LOG( log_level::LL_WARN, "Event with handle '%' was NOT found.", _handle );
+			SX_LOG( hermes::log_level::LL_WARN, "Event with handle '%' was NOT found.", _handle );
 		}
 	}
 	return( cancelled );
@@ -98,18 +99,18 @@ bool timed_event_creator::cancel( const handle_type _handle )
 
 void timed_event_creator::run()
 {
-	Y_LOG( log_level::LL_TRACE, "Event creator is starting." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Event creator is starting." );
 	run_ = true;
-	worker_ = Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &timed_event_creator::generate_event, this ) );
-	Y_LOG( log_level::LL_TRACE, "Event creator started." );
+	worker_ = SX_MAKE_UNIQUE< sxe::thread >( sxe::bind( &timed_event_creator::generate_event, this ) );
+	SX_LOG( hermes::log_level::LL_TRACE, "Event creator started." );
 }
 
 
 void timed_event_creator::halt()
 {
-	Y_LOG( log_level::LL_TRACE, "Event creator is stopping." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Event creator is stopping." );
 	{
-		sxy::lock_guard< sxy::mutex > lock( mutex_ );
+		sxe::lock_guard< sxe::mutex > lock( mutex_ );
 		run_ = false;
 	}
 	condition_variable_.notify_all();
@@ -118,25 +119,25 @@ void timed_event_creator::halt()
 
 void timed_event_creator::join()
 {
-	Y_ASSERT( worker_->joinable(), "Time event generator thread is not joinable!" );
+	SX_ASSERT( worker_->joinable(), "Time event generator thread is not joinable!" );
 	worker_->join();
 	worker_.reset();
-	Y_LOG( log_level::LL_TRACE, "Event creator stopped." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Event creator stopped." );
 }
 
 
 void timed_event_creator::halt_and_join()
 {
-	Y_LOG( log_level::LL_TRACE, "Event creator is stopping." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Event creator is stopping." );
 	{
-		sxy::lock_guard< sxy::mutex > lock( mutex_ );
+		sxe::lock_guard< sxe::mutex > lock( mutex_ );
 		run_ = false;
 	}
 	condition_variable_.notify_all();
-	Y_ASSERT( worker_->joinable(), "Time event generator thread is not joinable!" );
+	SX_ASSERT( worker_->joinable(), "Time event generator thread is not joinable!" );
 	worker_->join();
 	worker_.reset();
-	Y_LOG( log_level::LL_TRACE, "Event creator stopped." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Event creator stopped." );
 }
 
 
@@ -175,12 +176,12 @@ void timed_event_creator::generate_event()
 {
 	try
 	{
-		sxy::unique_lock< sxy::mutex > lock( mutex_ );
+		sxe::unique_lock< sxe::mutex > lock( mutex_ );
 		while( run_ )
 		{
 			if( event_creation_requests_.empty() )
 			{
-				condition_variable_.wait( lock, sxy::bind( &timed_event_creator::check_wait_condition, this ) );
+				condition_variable_.wait( lock, sxe::bind( &timed_event_creator::check_wait_condition, this ) );
 			}
 			else
 			{
@@ -191,22 +192,22 @@ void timed_event_creator::generate_event()
 					event_queue::const_iterator event_iterator = event_creation_requests_.begin();
 					while( event_iterator != event_creation_requests_.end() )
 					{
-						const sxy::time_point< sxy::system_clock > now = sxy::system_clock::now();						
-						Y_LOG( log_level::LL_TRACE, "Checking for event @ %.", now.time_since_epoch().count() );
+						const sxe::time_point< sxe::system_clock > now = sxe::system_clock::now();						
+						SX_LOG( hermes::log_level::LL_TRACE, "Checking for event @ %.", now.time_since_epoch().count() );
 						if( ( *event_iterator ).get_time() <= now )
 						{
 							const event_sptr event = ( *event_iterator ).get_event();
-							Y_LOG( log_level::LL_TRACE, "Try to fire event '%' (%) with handle '%'.", event->get_name(), event->get_id(),
+							SX_LOG( hermes::log_level::LL_TRACE, "Try to fire event '%' (%) with handle '%'.", event->get_name(), event->get_id(),
 								( *event_iterator ).get_handle() );
 							if( !state_machine_.fire_event( event ) )
 							{
-								Y_LOG( log_level::LL_ERROR, "Event '%' (%) and handle was not fired!", event->get_name(), event->get_id(),
+								SX_LOG( hermes::log_level::LL_ERROR, "Event '%' (%) and handle was not fired!", event->get_name(), event->get_id(),
 									( *event_iterator ).get_handle() );
 								run_ = false;
 								break;
 							}
 
-							Y_LOG( log_level::LL_DEBUG, "Event '%' (%) with handle '%' was fired.", event->get_name(), event->get_id(),
+							SX_LOG( hermes::log_level::LL_DEBUG, "Event '%' (%) with handle '%' was fired.", event->get_name(), event->get_id(),
 								( *event_iterator ).get_handle() );
 							event_creation_requests_.erase( event_iterator );
 							event_iterator = event_creation_requests_.begin();
@@ -222,11 +223,11 @@ void timed_event_creator::generate_event()
 	}
 	catch ( const std::exception& exception )
 	{
-		Y_LOG( log_level::LL_FATAL, "Unhandled std::exception when generating time based event: %", exception.what() );
+		SX_LOG( hermes::log_level::LL_FATAL, "Unhandled std::exception when generating time based event: %", exception.what() );
 	}
 	catch ( ... )
 	{
-		Y_LOG( log_level::LL_FATAL, "Unknown exception when generating time based event!" );
+		SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception when generating time based event!" );
 	}
 }
 
@@ -234,7 +235,7 @@ void timed_event_creator::generate_event()
 event_queue::const_iterator timed_event_creator::find_element_by_handle( const handle_type _handle ) const
 {
 	return( std::find_if(event_creation_requests_.begin(), event_creation_requests_.end(),
-		sxy::bind( &timed_event_creator::compare_handles, _handle, sxy::_1 ) ) );
+		sxe::bind( &timed_event_creator::compare_handles, _handle, sxe::_1 ) ) );
 }
 
 

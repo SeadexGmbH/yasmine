@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,18 +15,18 @@
 
 #include <deque>
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
 {
 
 
-class uri Y_FINAL
+class uri SX_FINAL
 {
 public:
 	explicit uri( const std::string& _uri = "" );
-	~uri() Y_NOEXCEPT;
+	~uri() SX_NOEXCEPT;
 	bool is_empty() const;
 	const std::string to_string() const;
 	const std::string& get_front() const;

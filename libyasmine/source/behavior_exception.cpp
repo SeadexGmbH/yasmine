@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ behavior_exception::behavior_exception( const event_sptr& _event )
 }
 
 
-behavior_exception::~behavior_exception() Y_NOEXCEPT
+behavior_exception::~behavior_exception() SX_NOEXCEPT
 {
 	// Nothing to do...
 }

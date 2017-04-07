@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,32 +29,32 @@ class state_impl:
 {
 public:
 	explicit state_impl( const std::string& _name );
-	virtual ~state_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(state_impl)
-	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
-	virtual void set_parent_region( region* const _parent_region ) Y_OVERRIDE;
-	virtual region * get_parent_region() const Y_OVERRIDE;
-	virtual size_t get_parent_region_index() const Y_OVERRIDE;
-	virtual region * get_region( const std::string& _region_name ) const Y_OVERRIDE;
-	virtual vertex * get_pseudostate( const std::string& _name_of_pseudostate ) const Y_OVERRIDE;
+	virtual ~state_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(state_impl)
+	virtual const state_machine_element * get_parent() const SX_OVERRIDE;
+	virtual void set_parent_region( region* const _parent_region ) SX_OVERRIDE;
+	virtual region * get_parent_region() const SX_OVERRIDE;
+	virtual size_t get_parent_region_index() const SX_OVERRIDE;
+	virtual region * get_region( const std::string& _region_name ) const SX_OVERRIDE;
+	virtual vertex * get_pseudostate( const std::string& _name_of_pseudostate ) const SX_OVERRIDE;
 	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor,
-		bool _include_final_ancestor = true ) const Y_OVERRIDE;
-	virtual raw_regions get_ancestors_as_regions() const Y_OVERRIDE;
-	virtual std::size_t get_nesting_level() const Y_OVERRIDE;
-	virtual void set_was_active() Y_OVERRIDE;
-	virtual bool was_active() const Y_OVERRIDE;
-	virtual void set_active() Y_OVERRIDE;
-	virtual void set_inactive() Y_OVERRIDE;
-	virtual bool is_active() const Y_OVERRIDE;
-	virtual bool is_complete() const Y_OVERRIDE;
+		bool _include_final_ancestor = true ) const SX_OVERRIDE;
+	virtual raw_regions get_ancestors_as_regions() const SX_OVERRIDE;
+	virtual std::size_t get_nesting_level() const SX_OVERRIDE;
+	virtual void set_was_active() SX_OVERRIDE;
+	virtual bool was_active() const SX_OVERRIDE;
+	virtual void set_active() SX_OVERRIDE;
+	virtual void set_inactive() SX_OVERRIDE;
+	virtual bool is_active() const SX_OVERRIDE;
+	virtual bool is_complete() const SX_OVERRIDE;
 	virtual void execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
-		event_collector& _event_collector ) const Y_OVERRIDE;
-	virtual void execute_enter_behavior( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
-	virtual void execute_exit_behavior( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
-	virtual void enter_state( const event& _event, event_collector& _event_collector ) Y_OVERRIDE;
-	virtual void exit_state( const event& _event, event_collector& _event_collector ) Y_OVERRIDE;
-	virtual bool has_error_event() const Y_OVERRIDE;
-	virtual event_sptr get_error_event() const Y_OVERRIDE;
+		event_collector& _event_collector ) const SX_OVERRIDE;
+	virtual void execute_enter_behavior( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
+	virtual void execute_exit_behavior( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
+	virtual void enter_state( const event& _event, event_collector& _event_collector ) SX_OVERRIDE;
+	virtual void exit_state( const event& _event, event_collector& _event_collector ) SX_OVERRIDE;
+	virtual bool has_error_event() const SX_OVERRIDE;
+	virtual event_sptr get_error_event() const SX_OVERRIDE;
 
 
 private:

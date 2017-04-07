@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -26,9 +26,9 @@ class pseudostate_impl:
 {
 public:
 	explicit pseudostate_impl( const std::string& _name );
-	virtual ~pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(pseudostate_impl)
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
+	virtual ~pseudostate_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(pseudostate_impl)
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE;
 };
 
 

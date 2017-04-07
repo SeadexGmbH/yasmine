@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -35,17 +35,17 @@ public:
 	}
 
 
-	virtual ~specialized_event() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~specialized_event() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do.
 	}
 
 
-	Y_NO_COPY(specialized_event)
+	SX_NO_COPY(specialized_event)
 
 	//!\brief Getter for event's name.
 	//!\return Name of the event.
-	virtual std::string get_name() const Y_OVERRIDE
+	virtual std::string get_name() const SX_OVERRIDE
 	{
 		const std::string name = name_.empty() ? event_impl::get_name() : name_;
 		return(name);
@@ -54,7 +54,7 @@ public:
 
 	//!\brief Getter for event's ID.
 	//!\return ID of the event.
-	virtual sxy::event_id get_id() const Y_OVERRIDE
+	virtual sxy::event_id get_id() const SX_OVERRIDE
 	{
 		return( _event_id );
 	}
@@ -62,57 +62,57 @@ public:
 	
 	//!\brief Static getter for event's ID.
 	//!\return ID of the event.Static method for creating an event
-	static Y_CONSTEXPR sxy::event_id get_event_id()
+	static SX_CONSTEXPR sxy::event_id get_event_id()
 	{
 		return( _event_id );
 	}
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	
 
 	//!\brief Method for creating an event with no parameters.
 	//!\return The created event.
-	static sxy::shared_ptr< _concrete_event > create()
+	static sxe::shared_ptr< _concrete_event > create()
 	{
-		return( Y_MAKE_SHARED< _concrete_event >() );
+		return( SX_MAKE_SHARED< _concrete_event >() );
 	}
 
 
 	//!\brief Method for creating an event with 1 parameter.
 	//!\return The created event.
 	template<typename _param_type1>
-	static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1 )
+	static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1 ) );
 	}
 
 
 	//!\brief Method for creating an event with 2 parameters.
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2>
-	static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2 )
+	static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2 ) );
 	}
 
 
 	//!\brief Method for creating an event with 3 parameters.
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3>
-	static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3 )
+	static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3 ) );
 	}
 
 
 	//!\brief Method for creating an event with 4 parameters.
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4>
-	static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+	static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 		const _param_type4& _p4 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4 ) );
 	}
 
 
@@ -120,10 +120,10 @@ public:
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4, 
 		typename _param_type5>
-	static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+	static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 		const _param_type4& _p4, const _param_type5& _p5 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5 ) );
 	}
 
 
@@ -131,10 +131,10 @@ public:
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4,
 		typename _param_type5, typename _param_type6>
-		static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+		static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 			const _param_type4& _p4, const _param_type5& _p5, const _param_type6& _p6 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6 ) );
 	}
 
 
@@ -142,10 +142,10 @@ public:
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4,
 		typename _param_type5, typename _param_type6, typename _param_type7>
-		static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+		static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 			const _param_type4& _p4, const _param_type5& _p5, const _param_type6& _p6, const _param_type7& _p7 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7 ) );
 	}
 
 
@@ -153,11 +153,11 @@ public:
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4,
 		typename _param_type5, typename _param_type6, typename _param_type7, typename _param_type8>
-		static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+		static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 			const _param_type4& _p4, const _param_type5& _p5, const _param_type6& _p6, const _param_type7& _p7, 
 			const _param_type8& _p8 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7, _p8 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7, _p8 ) );
 	}
 
 
@@ -165,11 +165,11 @@ public:
 	//!\return The created event.
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4,
 		typename _param_type5, typename _param_type6, typename _param_type7, typename _param_type8, typename _param_type9>
-		static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+		static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 			const _param_type4& _p4, const _param_type5& _p5, const _param_type6& _p6, const _param_type7& _p7,
 			const _param_type8& _p8, const _param_type9& _p9 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7, _p8, _p9 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7, _p8, _p9 ) );
 	}
 
 
@@ -178,11 +178,11 @@ public:
 	template<typename _param_type1, typename _param_type2, typename _param_type3, typename _param_type4,
 		typename _param_type5, typename _param_type6, typename _param_type7, typename _param_type8, typename _param_type9, 
 		typename _param_type10>
-		static sxy::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
+		static sxe::shared_ptr< _concrete_event > create( const _param_type1& _p1, const _param_type2& _p2, const _param_type3& _p3,
 			const _param_type4& _p4, const _param_type5& _p5, const _param_type6& _p6, const _param_type7& _p7,
 			const _param_type8& _p8, const _param_type9& _p9, const _param_type10& _p10 )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7, _p8, _p9, _p10 ) );
+		return( SX_MAKE_SHARED< _concrete_event >( _p1, _p2, _p3, _p4, _p5, _p6, _p7, _p8, _p9, _p10 ) );
 	}
 
 
@@ -190,9 +190,9 @@ public:
 	//!\brief Method for creating an event with its parameters.
 	//!\return The created event.
 	template<typename ... _param_types>
-	static sxy::shared_ptr< _concrete_event > create( _param_types... args )
+	static sxe::shared_ptr< _concrete_event > create( _param_types... args )
 	{
-		return( Y_MAKE_SHARED< _concrete_event >( args... ) );
+		return( SX_MAKE_SHARED< _concrete_event >( args... ) );
 	}
 
 

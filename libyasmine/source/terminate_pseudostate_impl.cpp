@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "terminate_pseudostate_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
@@ -29,7 +30,7 @@ terminate_pseudostate_impl::terminate_pseudostate_impl( const std::string& _name
 }
 
 
-terminate_pseudostate_impl::~terminate_pseudostate_impl() Y_NOEXCEPT
+terminate_pseudostate_impl::~terminate_pseudostate_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -37,7 +38,7 @@ terminate_pseudostate_impl::~terminate_pseudostate_impl() Y_NOEXCEPT
 
 bool terminate_pseudostate_impl::check( state_machine_defects& _defects ) const
 {
-	Y_UNUSED_PARAMETER( _defects );
+	SX_UNUSED_PARAMETER( _defects );
 	const bool check_ok = true;
 	return( check_ok );
 }
@@ -63,8 +64,8 @@ void terminate_pseudostate_impl::accept_pseudostate_visitor( pseudostate_visitor
 
 void terminate_pseudostate_impl::add_outgoing_transition( transition& _outgoing_transition )
 {
-	Y_UNUSED_PARAMETER( _outgoing_transition );
-	Y_ASSERT( vertex_impl::get_outgoing_transitions().empty(), "Terminate pseudostate cannot have outgoing transitions!" );
+	SX_UNUSED_PARAMETER( _outgoing_transition );
+	SX_ASSERT( vertex_impl::get_outgoing_transitions().empty(), "Terminate pseudostate cannot have outgoing transitions!" );
 }
 
 

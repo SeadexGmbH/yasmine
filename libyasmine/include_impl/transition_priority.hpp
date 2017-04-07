@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 
 #include <cstddef>
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -25,11 +25,11 @@ namespace sxy
 class compound_transition;
 
 
-class transition_priority Y_FINAL
+class transition_priority SX_FINAL
 {
 public:
 	explicit transition_priority( compound_transition& _compound_transition );
-	~transition_priority() Y_NOEXCEPT;
+	~transition_priority() SX_NOEXCEPT;
 	std::size_t get_priority() const;
 	compound_transition& get_compound_transition() const;
 	bool operator<( const transition_priority& _compare_member ) const;

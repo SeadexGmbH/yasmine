@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,18 +20,18 @@ namespace examples
 {
 
 
-typedef sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
+typedef sxe::SX_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
 
 
-class class_method_downcast Y_FINAL
+class class_method_downcast SX_FINAL
 {
 public:
 	class_method_downcast();
-	~class_method_downcast() Y_NOEXCEPT;
-	Y_NO_COPY( class_method_downcast )
+	~class_method_downcast() SX_NOEXCEPT;
+	SX_NO_COPY( class_method_downcast )
 
 private:
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	void do_something_event_2_parameters( const event_2& _event, sxy::event_collector& _event_collector );
 	void do_something_event_1_parameter( const event_1& _event, sxy::event_collector& _event_collector );
 	void do_something_event_0_parameters( const sxy::completion_event& _event, sxy::event_collector& _event_collector );

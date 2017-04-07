@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif 
 
-#ifndef Y_NO_WINDOWS_H
+#ifndef SX_NO_WINDOWS_H
 	#include <windows.h>
 #endif
 

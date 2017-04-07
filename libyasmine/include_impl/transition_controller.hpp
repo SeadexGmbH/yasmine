@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,11 +13,12 @@
 #define TRANSITION_CONTROLLER_FDB88C02_ECF6_4BB5_B99A_3F45813BF357
 
 
+#include "essentials/non_copyable.hpp"
+
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 #include "event_id.hpp"
 #include "behavior_exception_fwd.hpp"
-#include "non_copyable.hpp"
 #include "event_fwd.hpp"
 
 
@@ -32,12 +33,12 @@ class event_collector;
 class interruptible;
 
 
-class transition_controller Y_FINAL
+class transition_controller SX_FINAL
 {
 public:
 	transition_controller();
-	~transition_controller() Y_NOEXCEPT;
-	Y_NO_COPY(transition_controller)
+	~transition_controller() SX_NOEXCEPT;
+	SX_NO_COPY(transition_controller)
 	static bool process_event( const event& _event, const composite_state& _main_composite_state,
 		event_processing_callback* const _event_processing_callback, bool& _event_is_deferred, 
 		async_event_handler* const _async_event_handler, event_collector& _event_collector,
