@@ -61,7 +61,7 @@ void async_simple_state_impl::stop_do_behavior() const
 	const async_behavior* const behavior = do_.get();
 	if( behavior )
 	{
-		do_->halt_and_join();		
+		do_->halt_and_join();
 	}
 }
 

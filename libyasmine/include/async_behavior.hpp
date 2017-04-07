@@ -39,6 +39,7 @@ public:
 	SX_NO_COPY(async_behavior)
 	void run( const event& _event, event_collector& _event_collector, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
 	void halt_and_join();
+  
 											 
 protected:
 	bool should_stop() const;
