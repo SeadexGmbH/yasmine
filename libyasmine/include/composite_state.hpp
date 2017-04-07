@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -35,13 +35,13 @@ public:
 	}
 
 
-	virtual ~composite_state() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~composite_state() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(composite_state)
+	SX_NO_COPY(composite_state)
 	virtual region& add_region( region_uptr _region ) = 0;
 	virtual region& add_region( const std::string& _region_name ) = 0;
 	virtual const deep_history * get_deep_history() const = 0;

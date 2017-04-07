@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,7 +17,7 @@ namespace examples
 
 
 state_machine_with_submachines::state_machine_with_submachines()
-	: state_machine_( Y_MAKE_UNIQUE<sxy::sync_state_machine>( "sub state machines and variables" ) ),
+	: state_machine_( SX_MAKE_UNIQUE<sxy::sync_state_machine>( "sub state machines and variables" ) ),
 		submachine1_(),
 		submachine2_()
 {
@@ -25,7 +25,7 @@ state_machine_with_submachines::state_machine_with_submachines()
 }
 
 
-state_machine_with_submachines::~state_machine_with_submachines() Y_NOEXCEPT
+state_machine_with_submachines::~state_machine_with_submachines() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -39,8 +39,8 @@ void state_machine_with_submachines::create()
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial pseudostate" );
 	sxy::simple_state& simple_state_1 = main_region.add_simple_state( "simple_state_1" );
 
-	submachine1_ = Y_MAKE_UNIQUE<submachine>( sxy::ref( *state_machine_ ), sxy::ref( main_region ) );
-	submachine2_ = Y_MAKE_UNIQUE<submachine>( sxy::ref( *state_machine_ ), sxy::ref( main_region ) );
+	submachine1_ = SX_MAKE_UNIQUE<submachine>( sxe::ref( *state_machine_ ), sxe::ref( main_region ) );
+	submachine2_ = SX_MAKE_UNIQUE<submachine>( sxe::ref( *state_machine_ ), sxe::ref( main_region ) );
 
 	sxy::final_state& final_state = main_region.add_final_state( "final state" );
 

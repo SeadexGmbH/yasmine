@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@
 namespace examples
 {
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	Y_EVENT_WITH_ID( event_A, 1 )
 	Y_EVENT_WITH_ID( event_B, 2 )
 	Y_EVENT_WITH_ID( event_C, 3 )
@@ -67,17 +67,17 @@ namespace examples
 #endif
 
 
-forty_two::forty_two( const sxy::uint32_t _max_iterations )
+forty_two::forty_two( const sxe::uint32_t _max_iterations )
 	: state_machine_( build_state_machine() ),
 		iterations_( 0 ),
 		max_iterations_( _max_iterations )
 {
-	Y_ASSERT( check_state_machine(), "State machine has defects!" );
+	SX_ASSERT( check_state_machine(), "State machine has defects!" );
 	run();
 }
 
 
-forty_two::~forty_two() Y_NOEXCEPT
+forty_two::~forty_two() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -85,12 +85,12 @@ forty_two::~forty_two() Y_NOEXCEPT
 
 forty_two::state_machine_uptr forty_two::build_state_machine()
 {
-	sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > l_state_machine = 
-		Y_MAKE_UNIQUE< sxy::sync_state_machine >( "forty two state machine" );
+	sxe::SX_UNIQUE_PTR< sxy::sync_state_machine > l_state_machine = 
+		SX_MAKE_UNIQUE< sxy::sync_state_machine >( "forty two state machine" );
 	sxy::composite_state& root_state = l_state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& i1 = main_region.add_initial_pseudostate( "initial pseudostate 1" );
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	sxy::simple_state& s1 = 
 		main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( forty_two, increment_iterations ) );
 #else
@@ -272,7 +272,7 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, join1, s18 );
 	l_state_machine->add_transition( event_R::get_event_id(), s18, choice1 );
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, s19,
 		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_2 ) );
 #else
@@ -281,7 +281,7 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 #endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, junction1 );
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s20,
 		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_3 ) );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s21,
@@ -300,7 +300,7 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	l_state_machine->add_transition( event_T::get_event_id(), s23, s24 );
 	l_state_machine->add_transition( event_S::get_event_id(), s24, junction2 );
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, terminate_pseudostate_1,
 		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_exceded ) );
 #else
@@ -308,7 +308,7 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 		Y_GUARD_METHOD2( this, &forty_two::check_iterations_exceded ) );
 #endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, s1 );
-	return( sxy::move( l_state_machine ) );
+	return( sxe::move( l_state_machine ) );
 }
 
 
@@ -329,7 +329,7 @@ bool forty_two::check_state_machine() const
 void forty_two::increment_iterations()
 {
 	++iterations_;
-	Y_LOG( sxy::log_level::LL_DEBUG, "iterator incremented to %", iterations_ );
+	SX_LOG( hermes::log_level::LL_DEBUG, "iterator incremented to %", iterations_ );
 }
 
 
@@ -359,17 +359,17 @@ bool forty_two::check_iterations_exceded() const
 
 void forty_two::run()
 {
-#ifndef Y_NO_LOGGING
-	sxy::log_manager_template<sxy::std_timestamp_policy>& log_manager = sxy::log_manager::get_instance();
-	log_manager.set_log_level( sxy::log_level::LL_DEBUG );
-	log_manager.add_logger( Y_MAKE_UNIQUE< sxy::cout_logger >() );
+#ifndef SX_NO_LOGGING
+	hermes::log_manager_template<hermes::std_timestamp_policy>& log_manager = hermes::log_manager::get_instance();
+	log_manager.set_log_level( hermes::log_level::LL_DEBUG );
+	log_manager.add_logger( SX_MAKE_UNIQUE< hermes::cout_logger >() );
 	log_manager.run();
 #endif
 
-	sxy::system_clock::time_point start = sxy::system_clock::now();
+	sxe::system_clock::time_point start = sxe::system_clock::now();
 
 	bool starting_success = state_machine_->run();
-	Y_ASSERT( starting_success, "State machine was not started!" );
+	SX_ASSERT( starting_success, "State machine was not started!" );
 
 	for( uint32_t iteration = 0; iteration < max_iterations_; ++iteration )
 	{
@@ -395,19 +395,19 @@ void forty_two::run()
 		state_machine_->fire_event( event_T::create() );
 	}
 	
-	const sxy::system_clock::time_point stop = sxy::system_clock::now();
+	const sxe::system_clock::time_point stop = sxe::system_clock::now();
 
 #ifdef Y_PROFILER
-	Y_LOG( log_level::LL_INFO, "% events were fired.",
-		sxy::to_string( state_machine_->get_number_of_processed_events() ) );
+	SX_LOG( log_level::LL_INFO, "% events were fired.",
+		sxe::to_string( state_machine_->get_number_of_processed_events() ) );
 #endif
 
 	state_machine_->halt();
 
-	Y_LOG( sxy::log_level::LL_INFO, "Run time: % seconds",
-		sxy::duration_cast< sxy::seconds >(	stop - start ).count() );
+	SX_LOG( hermes::log_level::LL_INFO, "Run time: % seconds",
+		sxe::duration_cast< sxe::seconds >(	stop - start ).count() );
 
-#ifndef Y_NO_LOGGING
+#ifndef SX_NO_LOGGING
 	log_manager.halt_and_join();	
 #endif
 

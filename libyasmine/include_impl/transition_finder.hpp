@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 #define TRANSITION_FINDER_FDB88C02_ECF9_4BB5_B99C_3F45813BF357
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
+
 #include "choice_fwd.hpp"
 #include "compound_transition_fwd.hpp"
 
@@ -30,12 +31,12 @@ class event;
 class event_collector;
 
 
-class transition_finder Y_FINAL
+class transition_finder SX_FINAL
 {
 public:
 	transition_finder();
-	~transition_finder() Y_NOEXCEPT;
-	Y_NO_COPY(transition_finder)
+	~transition_finder() SX_NOEXCEPT;
+	SX_NO_COPY(transition_finder)
 	void search_for_enabled_transitions_in_all_regions(	const state& _current_state, const event& _event,
 		compound_transitions& _enabled_compound_transitions, bool& _event_is_deferred, 
 		event_collector& _event_collector ) const;

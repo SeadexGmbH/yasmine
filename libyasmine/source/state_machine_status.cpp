@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,9 +16,10 @@ namespace sxy
 {
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 
 
+	// cppcheck-suppress unusedFunction
 	bool operator==( const state_machine_status& _lhs, const state_machine_status::inner _rhs )
 	{
 		return( _lhs.value_ == _rhs );

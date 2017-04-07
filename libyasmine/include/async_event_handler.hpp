@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -30,13 +30,13 @@ public:
 	}
 
 
-	virtual ~async_event_handler() Y_NOEXCEPT
+	virtual ~async_event_handler() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(async_event_handler)
+	SX_NO_COPY(async_event_handler)
 	virtual void on_event( const event_sptr& _event ) = 0;
 
 

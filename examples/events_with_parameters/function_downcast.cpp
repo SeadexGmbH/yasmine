@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,14 +20,14 @@ namespace
 {
 
 
-typedef sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
+typedef sxe::SX_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 void do_something_event_0_parameters( const sxy::completion_event& _event, sxy::event_collector& _event_collector )
 {		
-	Y_UNUSED_PARAMETER( _event );
-	Y_UNUSED_PARAMETER( _event_collector );
+	SX_UNUSED_PARAMETER( _event );
+	SX_UNUSED_PARAMETER( _event_collector );
 	std::cout << "Completion event has no parameters." << std::endl;
 }
 #else
@@ -40,13 +40,13 @@ void do_something_event_0_parameters( const sxy::event& _event )
 	}
 	else
 	{
-		throw sxy::exception( "Invalid event type!" );
+		throw sxe::exception( "Invalid event type!" );
 	}
 }
 #endif
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 void do_something_event_1_parameter( const examples::event_1& _event )
 {		
 	std::cout << "Parameter of event " << _event.get_name() << " is: " << _event.get_param() << std::endl;
@@ -61,16 +61,16 @@ void do_something_event_1_parameter( const sxy::event& _event )
 	}
 	else
 	{
-		throw sxy::exception( "Invalid event type!" );
+		throw sxe::exception( "Invalid event type!" );
 	}
 }
 #endif
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 void do_something_event_2_parameters( const examples::event_2& _event, sxy::event_collector& _event_collector )
 {		
-	Y_UNUSED_PARAMETER( _event_collector );
+	SX_UNUSED_PARAMETER( _event_collector );
 	std::cout << "Parameters of event " << _event.get_name() << " are:\n" << _event.get_param_1() << "\n" <<
 		_event.get_param_2() << std::endl;
 }
@@ -92,7 +92,7 @@ void do_something_event_2_parameters( const sxy::event& _event )
 		}
 		else
 		{
-			throw sxy::exception( "Invalid event type!" );
+			throw sxe::exception( "Invalid event type!" );
 		}
 	}
 }
@@ -101,11 +101,11 @@ void do_something_event_2_parameters( const sxy::event& _event )
 
 state_machine_uptr setup_state_machine2( const std::string& _name )
 {
-	state_machine_uptr state_machine = Y_MAKE_UNIQUE< sxy::sync_state_machine >( _name );
+	state_machine_uptr state_machine = SX_MAKE_UNIQUE< sxy::sync_state_machine >( _name );
 	sxy::composite_state& root_state = state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	sxy::simple_state& simple_state_1 = main_region.add_simple_state( "1",
 		Y_BEHAVIOR_FUNCTION2( &do_something_event_0_parameters, &do_something_event_2_parameters ),
 		Y_BEHAVIOR_FUNCTION2( &do_something_event_0_parameters, &do_something_event_2_parameters ),
@@ -123,24 +123,24 @@ state_machine_uptr setup_state_machine2( const std::string& _name )
 		Y_BEHAVIOR_FUNCTION2( &do_something_event_2_parameters ) );
 #else
 	sxy::simple_state& simple_state_1 = main_region.add_simple_state( "1",
-		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ),
-		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ),
-		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ) );
+		sxy::behavior_function( sxe::bind( &do_something_event_2_parameters, sxe::_1 ) ),
+		sxy::behavior_function( sxe::bind( &do_something_event_2_parameters, sxe::_1 ) ),
+		sxy::behavior_function( sxe::bind( &do_something_event_1_parameter, sxe::_1 ) ) );
 	sxy::simple_state& simple_state_2 = main_region.add_simple_state( "2",
-		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ),
-		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ),
-		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ) );
+		sxy::behavior_function( sxe::bind( &do_something_event_1_parameter, sxe::_1 ) ),
+		sxy::behavior_function( sxe::bind( &do_something_event_1_parameter, sxe::_1 ) ),
+		sxy::behavior_function( sxe::bind( &do_something_event_2_parameters, sxe::_1 ) ) );
 
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, initial_pseudostate, simple_state_1,
-		sxy::behavior_function( sxy::bind( &do_something_event_0_parameters, sxy::_1 ) ) );
+		sxy::behavior_function( sxe::bind( &do_something_event_0_parameters, sxe::_1 ) ) );
 	state_machine->add_transition( EVENT_1, simple_state_1, simple_state_2,
-		sxy::behavior_function( sxy::bind( &do_something_event_1_parameter, sxy::_1 ) ) );
+		sxy::behavior_function( sxe::bind( &do_something_event_1_parameter, sxe::_1 ) ) );
 	state_machine->add_transition( EVENT_2, simple_state_2, simple_state_1,
-		sxy::behavior_function( sxy::bind( &do_something_event_2_parameters, sxy::_1 ) ) );
+		sxy::behavior_function( sxe::bind( &do_something_event_2_parameters, sxe::_1 ) ) );
 #endif
 
 	
-	return( sxy::move( state_machine ) );
+	return( sxe::move( state_machine ) );
 }
 
 

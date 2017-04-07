@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@ namespace examples
 
 submachine::submachine( sxy::sync_state_machine& _parent_state_machine, sxy::region& _parent_region )
 :	
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	submachine_( _parent_region.add_composite_state( "submachine", 
 		Y_BEHAVIOR_METHOD2( this, &submachine::reset_members ) ) ),
 #else
@@ -38,7 +38,7 @@ submachine::submachine( sxy::sync_state_machine& _parent_state_machine, sxy::reg
 	sxy::region& submachine_region = submachine_.add_region( "submachine region" );
 	sxy::initial_pseudostate& submachine_initial_pseudostate = submachine_region.add_initial_pseudostate(
 		"submachine_initial_pseudostate" );
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	sxy::simple_state& submachine_simple_state_1 = submachine_region.add_simple_state( "submachine simple_state_1",
 		Y_BEHAVIOR_METHOD2( this, &submachine::print_members ) );
 	sxy::simple_state& submachine_simple_state_2 = submachine_region.add_simple_state( "submachine simple_state_2",
@@ -56,7 +56,7 @@ submachine::submachine( sxy::sync_state_machine& _parent_state_machine, sxy::reg
 }
 
 
-submachine::~submachine() Y_NOEXCEPT
+submachine::~submachine() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -81,14 +81,14 @@ void submachine::print_members() const
 }
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 void submachine::change_members( const event_5& _event)
 #else
 void submachine::change_members( const sxy::event& _event )
 #endif 
 {	
 	++i_;
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	s_ = _event.get_param();		
 #else
 	const event_5* event_with_param = dynamic_cast< const event_5* >( &_event );

@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "async_behavior.hpp"
 
-#include "log.hpp"
+#include "hermes/log.hpp"
+
 #include "behavior_exception.hpp"
 #include "simple_state_base.hpp"
 #include "async_event_handler.hpp"
@@ -31,10 +32,10 @@ async_behavior::async_behavior()
 }
 
 
-async_behavior::~async_behavior() Y_NOEXCEPT
+async_behavior::~async_behavior() SX_NOEXCEPT
 {
-	Y_ASSERT( !run_, "Thread is still running! It was not stopped." );
-	Y_ASSERT( !worker_, "The thread still exists!" );
+	SX_ASSERT( !run_, "Thread is still running! It was not stopped." );
+	SX_ASSERT( !worker_, "The thread still exists!" );
 }
 
 
@@ -43,15 +44,15 @@ void async_behavior::run( const event& _event, event_collector& _event_collector
 {	
 	run_ = true;
 
-	worker_ = Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &async_behavior::work, this, sxy::ref( _event ), 
-		sxy::ref( _event_collector ), sxy::ref( _simple_state ), sxy::ref( _async_event_handler ) ) );
+	worker_ = SX_MAKE_UNIQUE< sxe::thread >( sxe::bind( &async_behavior::work, this, sxe::ref( _event ), 
+		sxe::ref( _event_collector ), sxe::ref( _simple_state ), sxe::ref( _async_event_handler ) ) );
 }
 
 
 void async_behavior::halt_and_join()
 {		
 	{
-		sxy::lock_guard< sxy::mutex > lock( mutex_ );
+		sxe::lock_guard< sxe::mutex > lock( mutex_ );
 		run_ = false;
 		notify_should_stop();		
 	}
@@ -62,7 +63,7 @@ void async_behavior::halt_and_join()
 
 bool async_behavior::should_stop() const 
 {
-	sxy::lock_guard< sxy::mutex > lock( mutex_ );
+	sxe::lock_guard< sxe::mutex > lock( mutex_ );
 	return( !run_ );
 }
 
@@ -82,25 +83,25 @@ void async_behavior::work( const event& _event, event_collector& _event_collecto
 	}
 	catch( const sxy::behavior_exception& exception )
 	{			
-		Y_LOG( log_level::LL_DEBUG, "behavior_exception while running async_behavior: %", exception.what() );
+		SX_LOG( hermes::log_level::LL_DEBUG, "behavior_exception while running async_behavior: %", exception.what() );
 		_async_event_handler.on_event( exception.get_error_event() );
 	}
 	catch( const std::exception& exception )
 	{
-		Y_LOG( log_level::LL_DEBUG, "std::exception while running async_behavior: %", exception.what() );	
+		SX_LOG( hermes::log_level::LL_DEBUG, "std::exception while running async_behavior: %", exception.what() );	
 		if( _simple_state.has_error_event() )
 		{						
 			_async_event_handler.on_event( _simple_state.get_error_event() );
 		}
 		else
 		{
-			Y_LOG( log_level::LL_FATAL, "Unknown exception while running async_behavior!" );
+			SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception while running async_behavior!" );
 			throw;
 		}
 	}
 	catch( ... )
 	{
-		Y_LOG( log_level::LL_FATAL, "Unknown exception while running async_behavior!" );
+		SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception while running async_behavior!" );
 		throw;
 	}
 }
@@ -108,7 +109,7 @@ void async_behavior::work( const event& _event, event_collector& _event_collecto
 
 void async_behavior::join()
 {
-	Y_ASSERT( worker_->joinable(), "Async behavior thread is not joinable!" );
+	SX_ASSERT( worker_->joinable(), "Async behavior thread is not joinable!" );
 	worker_->join();
 	worker_.reset();
 }

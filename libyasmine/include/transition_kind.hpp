@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@
 namespace sxy
 {
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 
 
 	enum class transition_kind
@@ -71,7 +71,7 @@ namespace sxy
 std::string to_string( const transition_kind _kind );
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 
 
 bool operator==( const sxy::transition_kind& _lhs, const sxy::transition_kind::inner _rhs );

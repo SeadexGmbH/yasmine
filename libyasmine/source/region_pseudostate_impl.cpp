@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,10 +13,11 @@
 
 #include <algorithm>
 
-#include "log.hpp"
+#include "essentials/exception.hpp"
+#include "hermes/log.hpp"
+
 #include "region.hpp"
 #include "composite_state.hpp"
-#include "exception.hpp"
 #include "algorithm_parameters.hpp"
 
 
@@ -39,7 +40,7 @@ region_pseudostate_impl::region_pseudostate_impl( const std::string& _name )
 }
 
 
-region_pseudostate_impl::~region_pseudostate_impl() Y_NOEXCEPT
+region_pseudostate_impl::~region_pseudostate_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -59,7 +60,7 @@ region* region_pseudostate_impl::get_parent_region() const
 
 void region_pseudostate_impl::set_parent_region( region* const _parent_region )
 {
-	Y_LOG( log_level::LL_SPAM, "Setting '%' as parent region of '%'.", _parent_region->get_name(), get_name() );
+	SX_LOG( hermes::log_level::LL_SPAM, "Setting '%' as parent region of '%'.", _parent_region->get_name(), get_name() );
 	parent_ = _parent_region;
 }
 
@@ -70,7 +71,7 @@ raw_composite_states region_pseudostate_impl::get_ancestors( composite_state* co
 #ifdef Y_OPTIMIZE_4_SPEED
 	if( ancestors_.empty() )
 	{
-		collect_ancestors( ancestors_, Y_NULLPTR );
+		collect_ancestors( ancestors_, SX_NULLPTR );
 	}
 
 	if( !_final_ancestor )
@@ -127,18 +128,18 @@ raw_regions region_pseudostate_impl::get_ancestors_as_regions() const
 void region_pseudostate_impl::collect_ancestors( raw_composite_states& _ancestors,
 	composite_state* const _final_ancestor ) const
 {
-	Y_LOG( log_level::LL_SPAM, "Getting parent region for '%'.", get_name() );
+	SX_LOG( hermes::log_level::LL_SPAM, "Getting parent region for '%'.", get_name() );
 	region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
-		Y_LOG( log_level::LL_SPAM, "Parent region '%' found for '%'.", parent_region->get_name(), get_name() );
+		SX_LOG( hermes::log_level::LL_SPAM, "Parent region '%' found for '%'.", parent_region->get_name(), get_name() );
 		composite_state& parent_state = parent_region->get_parent_state();
-		Y_LOG( log_level::LL_SPAM, "Found parent state '%' for region '%'.",
+		SX_LOG( hermes::log_level::LL_SPAM, "Found parent state '%' for region '%'.",
 					 parent_state.get_name(), parent_region->get_name() );
 		_ancestors.push_back( &parent_state );
-		Y_LOG( log_level::LL_SPAM, "Searching for ancestor(s) of '%'.", parent_state.get_name() );
+		SX_LOG( hermes::log_level::LL_SPAM, "Searching for ancestor(s) of '%'.", parent_state.get_name() );
 		const raw_composite_states& ancestors_of_parent_state = parent_state.get_ancestors( _final_ancestor );
-		Y_LOG( log_level::LL_SPAM, "Found % ancestor(s) of '%'.", ancestors_of_parent_state.size(),
+		SX_LOG( hermes::log_level::LL_SPAM, "Found % ancestor(s) of '%'.", ancestors_of_parent_state.size(),
 					 parent_state.get_name() );
 		_ancestors.insert( _ancestors.end(), ancestors_of_parent_state.begin(), ancestors_of_parent_state.end() );
 	}

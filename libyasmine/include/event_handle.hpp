@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,8 @@
 
 
 #include <algorithm>
-#include "compatibility.hpp"
+
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -22,9 +23,9 @@ namespace sxy
 
 
 	//!\brief The type alias for yasmine's event handle.
-	typedef sxy::uint32_t handle_type;
+	typedef sxe::uint32_t handle_type;
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	extern const handle_type Y_INVALID_EVENT_CREATION_REQUEST_HANDLE;
 #else
 	#define Y_INVALID_EVENT_CREATION_REQUEST_HANDLE UINT_MAX

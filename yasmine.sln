@@ -10,13 +10,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hello_yasmine", "examples\h
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "license", "license", "{FBC833F8-033B-4400-8CBA-C71A32CF62B4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "licenses", "licenses", "{FBC833F8-033B-4400-8CBA-C71A32CF62B4}"
 	ProjectSection(SolutionItems) = preProject
 		license\license.txt = license\license.txt
-		license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20160804.pdf = license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20160804.pdf
-		license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20160804_en.pdf = license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20160804_en.pdf
-		license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160804.pdf = license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160804.pdf
-		license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160804_en.pdf = license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20160804_en.pdf
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classic_farmroad", "examples\classic_farmroad\classic_farmroad.vcxproj", "{DDCFB59A-D19C-4382-ACFD-747105EB8D03}"
@@ -44,6 +40,34 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "event_collector_example", "examples\event_collector_example\event_collector_example.vcxproj", "{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "essentials", "essentials", "{9DE9E971-362C-4A08-91D5-56ABA346AC1C}"
+	ProjectSection(SolutionItems) = preProject
+		externals\essentials\license\essentials_Anhang_Appendix_20170406.pdf = externals\essentials\license\essentials_Anhang_Appendix_20170406.pdf
+		externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf = externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf
+		externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf = externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf
+		externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf = externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf
+		externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf = externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hermes", "hermes", "{47973C26-88C1-4C07-8B31-6D448D7BD387}"
+	ProjectSection(SolutionItems) = preProject
+		externals\hermes\license\hermes_Anhang_Appendix_20170406.pdf = externals\hermes\license\hermes_Anhang_Appendix_20170406.pdf
+		externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf = externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf
+		externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf = externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf
+		externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf = externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf
+		externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf = externals\hermes\license\hermes_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "yasmine", "yasmine", "{790287FF-8ECB-440C-8D3D-343AF0951E7B}"
+	ProjectSection(SolutionItems) = preProject
+		license\Anhang_Appendix_20170406.pdf = license\Anhang_Appendix_20170406.pdf
+		license\license.txt = license\license.txt
+		license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf = license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf
+		license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf = license\Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf
+		license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf = license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf
+		license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf = license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf
 	EndProjectSection
 EndProject
 Global
@@ -241,5 +265,8 @@ Global
 		{44767840-E79D-4049-B97B-867D32783090} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 		{E27E791D-29D2-4FAA-A683-D58228818F67} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
+		{9DE9E971-362C-4A08-91D5-56ABA346AC1C} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
+		{47973C26-88C1-4C07-8B31-6D448D7BD387} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
+		{790287FF-8ECB-440C-8D3D-343AF0951E7B} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
 	EndGlobalSection
 EndGlobal

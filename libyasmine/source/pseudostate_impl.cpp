@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "pseudostate_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "region.hpp"
 #include "transition.hpp"
 #include "state_machine_defect.hpp"
@@ -29,7 +30,7 @@ pseudostate_impl::pseudostate_impl( const std::string& _name )
 }
 
 
-pseudostate_impl::~pseudostate_impl() Y_NOEXCEPT
+pseudostate_impl::~pseudostate_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -39,7 +40,7 @@ bool pseudostate_impl::check( state_machine_defects& _defects ) const
 {
 	bool check_ok = true;
 
-	Y_FOR( const transition* const outgoing_transition, get_outgoing_transitions() )
+	SX_FOR( const transition* const outgoing_transition, get_outgoing_transitions() )
 	{
 		if( !outgoing_transition->can_accept_event( sxy::completion_event::get_event_id() ) )
 		{

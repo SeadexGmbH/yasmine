@@ -4,16 +4,17 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "detector.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+#include "essentials/compatibility/chrono.hpp"
+
 #include "detector_callback.hpp"
-#include "chrono.hpp"
 #include "random_generator.hpp"
 
 
@@ -56,18 +57,18 @@ void detector::start()
 {
 	run_ = true;
 	generate_random_detector_events_ =
-		Y_MAKE_UNIQUE< sxy::thread >( sxy::bind( &detector::generate_detector_events, this ) );
+		SX_MAKE_UNIQUE< sxe::thread >( sxe::bind( &detector::generate_detector_events, this ) );
 }
 
 
 void detector::stop()
 {
 	{
-		sxy::unique_lock< sxy::mutex > lock( mutex_ );
+		sxe::unique_lock< sxe::mutex > lock( mutex_ );
 		run_ = false;
 	}
 	condition_variable_.notify_all();
-	Y_ASSERT( generate_random_detector_events_->joinable(), "Event generator thread is not joinable!" );
+	SX_ASSERT( generate_random_detector_events_->joinable(), "Event generator thread is not joinable!" );
 	generate_random_detector_events_->join();
 	generate_random_detector_events_.reset();
 }
@@ -75,21 +76,21 @@ void detector::stop()
 
 bool detector::is_on()
 {
-	sxy::unique_lock< sxy::mutex > lock( mutex_ );
+	sxe::unique_lock< sxe::mutex > lock( mutex_ );
 	return( is_on_ );
 }
 
 
 void detector::generate_detector_events()
 {
-	sxy::unique_lock< sxy::mutex > lock( mutex_ );
+	sxe::unique_lock< sxe::mutex > lock( mutex_ );
 	while( run_ )
 	{
 		random_generator generator;
 		is_on_ = false;
 		{		
-			sxy::milliseconds time_to_wait =
-				sxy::milliseconds( generator.generate( DETECTOR_OFF_LOWER_EXTREMITY, DETECTOR_OFF_UPPER_EXTREMITY ) );
+			sxe::milliseconds time_to_wait =
+				sxe::milliseconds( generator.generate( DETECTOR_OFF_LOWER_EXTREMITY, DETECTOR_OFF_UPPER_EXTREMITY ) );
 			condition_variable_.wait_for( lock, time_to_wait );
 			detector_callback_.detector_off();
 		}
@@ -97,8 +98,8 @@ void detector::generate_detector_events()
 		{
 			is_on_ = true;
 			{			
-				sxy::milliseconds time_to_wait =
-					sxy::milliseconds( generator.generate( DETECTOR_ON_UPPER_EXTREMITY, DETECTOR_ON_UPPER_EXTREMITY ) );
+				sxe::milliseconds time_to_wait =
+					sxe::milliseconds( generator.generate( DETECTOR_ON_UPPER_EXTREMITY, DETECTOR_ON_UPPER_EXTREMITY ) );
 				condition_variable_.wait_for( lock, time_to_wait );
 
 				detector_callback_.detector_on();

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,14 +13,14 @@
 #define ACTION_DC893E1A_85B8_4181_AF46_91C00262AB2A
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
 
 
 namespace sxy
 {
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	class event;
 #endif
 
@@ -38,13 +38,13 @@ namespace examples
 class E4;
 
 
-class action Y_FINAL
+class action SX_FINAL
 {
 public:
 	action();
-	~action() Y_NOEXCEPT;
-	Y_NO_COPY( action )
-#ifndef Y_CPP03_BOOST		
+	~action() SX_NOEXCEPT;
+	SX_NO_COPY( action )
+#ifndef SX_CPP03_BOOST		
 	void fire_event_E3( sxy::event_collector& _event_collector );
 	void fire_event_E4( sxy::event_collector& _event_collector );
 	void print_message_from_event( const E4& _event );

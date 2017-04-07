@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "join_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
@@ -33,7 +34,7 @@ join_impl::join_impl( const std::string& _name )
 }
 
 
-join_impl::~join_impl() Y_NOEXCEPT
+join_impl::~join_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -44,11 +45,11 @@ bool join_impl::check_if_all_source_states_of_incoming_transitions_are_active() 
 	bool all_incoming_transitions_srouces_are_active = true;
 	const raw_transitions& incoming_transitions = get_incoming_transitions();
 
-	Y_FOR( const transition* const transition, incoming_transitions )
+	SX_FOR( const transition* const transition, incoming_transitions )
 	{
 		const vertex& source = transition->get_source();
 		const complex_state* const l_complex_state = dynamic_cast< const complex_state* >( &source );
-		Y_ASSERT( l_complex_state, "Incoming transitions into join must originate from complex_state!" );
+		SX_ASSERT( l_complex_state, "Incoming transitions into join must originate from complex_state!" );
 		check_if_all_incoming_transitions_sources_are_active_visitor check_if_all_incoming_transitions_sources_are_active_visitor;
 		l_complex_state->accept_complex_state_visitor( check_if_all_incoming_transitions_sources_are_active_visitor );
 		all_incoming_transitions_srouces_are_active =
@@ -126,7 +127,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	}
 
 	// 15.3.14 Transition -> Constraint [2]: A join segment must not have guards or triggers.
-	Y_FOR( const transition* const transition, get_incoming_transitions() )
+	SX_FOR( const transition* const transition, get_incoming_transitions() )
 	{
 		if( transition->get_guard() )
 		{
@@ -142,7 +143,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 	}
 
 	// 15.3.14 Transition -> Contraint [4]: A join segment must always originate from a state.
-	Y_FOR( const transition* const transition, get_incoming_transitions() )
+	SX_FOR( const transition* const transition, get_incoming_transitions() )
 	{
 		const state* const source_vertex = dynamic_cast< const state* >( &transition->get_source() );
 		if( !source_vertex )
@@ -163,7 +164,7 @@ bool join_impl::check( state_machine_defects& _defects ) const
 
 void join_impl::add_outgoing_transition( transition& _outgoing_transition )
 {
-	Y_ASSERT( vertex_impl::get_outgoing_transitions().size() < 1, "Join cannot have more than 1 outgoing transition!" );
+	SX_ASSERT( vertex_impl::get_outgoing_transitions().size() < 1, "Join cannot have more than 1 outgoing transition!" );
 	vertex_impl::add_outgoing_transition( _outgoing_transition );
 }
 

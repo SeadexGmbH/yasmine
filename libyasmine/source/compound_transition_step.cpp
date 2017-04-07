@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ compound_transition_step::compound_transition_step( const raw_transitions& _tran
 }
 
 
-compound_transition_step::~compound_transition_step() Y_NOEXCEPT
+compound_transition_step::~compound_transition_step() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -75,7 +75,7 @@ const raw_const_vertices compound_transition_step::get_target_vertices()
 	raw_const_vertices target_vertices;
 	target_vertices.reserve( transitions_.size() );
 
-	Y_FOR( const transition* const transition, transitions_ )
+	SX_FOR( const transition* const transition, transitions_ )
 	{
 		const vertex& target_vertex = transition->get_source();
 		target_vertices.push_back( &target_vertex );
@@ -87,7 +87,7 @@ const raw_const_vertices compound_transition_step::get_target_vertices()
 
 void compound_transition_step::execute_transition_behaviors( const event& _event, event_collector& _event_collector ) const
 {
-	Y_FOR( const transition* const transition, transitions_ )
+	SX_FOR( const transition* const transition, transitions_ )
 	{
 		transition->on_transition_behavior( _event, _event_collector );
 	}

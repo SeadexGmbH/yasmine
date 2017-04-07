@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,13 +31,13 @@ public:
 	}
 
 
-	virtual ~state_visitor() Y_NOEXCEPT
+	virtual ~state_visitor() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(state_visitor)
+	SX_NO_COPY(state_visitor)
 	virtual void visit( const composite_state& _composite_state ) = 0;
 	virtual void visit( const simple_state& _simple_state ) = 0;
 	virtual void visit( const final_state& _final_state ) = 0;

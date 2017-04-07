@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -30,13 +30,13 @@ public:
 	}
 
 
-	virtual ~history() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~history() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(history)
+	SX_NO_COPY(history)
 	virtual raw_transitions get_default_transitions() const = 0;
 	virtual void add_default_transition( transition& _default_transition ) = 0;
 	virtual bool check_if_state_was_active_before() const = 0;

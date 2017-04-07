@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,7 @@
 #define CONST_VERTEX_VISITOR_7EEF8936_8C47_401E_BE7D_997A1A245728
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
 
 
 namespace sxy
@@ -44,13 +44,13 @@ public:
 	}
 
 
-	virtual ~const_vertex_visitor() Y_NOEXCEPT
+	virtual ~const_vertex_visitor() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(const_vertex_visitor)
+	SX_NO_COPY(const_vertex_visitor)
 	virtual void visit( const composite_state& _composite_state ) = 0;
 	virtual void visit( const simple_state& _simple_state ) = 0;
 	virtual void visit( const final_state& _final_state ) = 0;

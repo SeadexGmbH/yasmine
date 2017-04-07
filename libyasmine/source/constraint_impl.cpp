@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ constraint_impl::constraint_impl( const constraint_function& _function )
 }
 
 
-constraint_impl::~constraint_impl() Y_NOEXCEPT
+constraint_impl::~constraint_impl() SX_NOEXCEPT
 {
 	// Nothing to do.
 }
@@ -38,7 +38,7 @@ bool constraint_impl::operator()( const event& _event, event_collector& _event_c
 
 constraint_uptr constraint_impl::create( const constraint_function& _function )
 {		
-	return( Y_MAKE_UNIQUE< sxy::constraint_impl >( _function ) );
+	return( SX_MAKE_UNIQUE< sxy::constraint_impl >( _function ) );
 }
 
 

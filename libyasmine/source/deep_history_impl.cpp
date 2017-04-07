@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ deep_history_impl::deep_history_impl( const std::string& _name )
 }
 
 
-deep_history_impl::~deep_history_impl() Y_NOEXCEPT
+deep_history_impl::~deep_history_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -44,7 +44,7 @@ bool deep_history_impl::check( state_machine_defects& _defects ) const
 	// check if all default transitions having target in distinct regions
 	std::set< const region* > target_regions;
 
-	Y_FOR( const transition* const default_transition, get_default_transitions() )
+	SX_FOR( const transition* const default_transition, get_default_transitions() )
 	{
 		const state_machine_element* const target_region = default_transition->get_target().get_parent();
 		const region* const l_region = dynamic_cast< const region* >( target_region );

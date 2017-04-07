@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,10 +13,11 @@
 #define EVENT_990555DD_B4D7_49E4_AC39_7448568164F0
 
 
+#include "essentials/non_copyable.hpp"
+
 #include "event_id.hpp"
 #include "event_priority.hpp"
 #include "event_fwd.hpp"
-#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -33,13 +34,13 @@ public:
 	}
 
 
-	virtual ~event() Y_NOEXCEPT
+	virtual ~event() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(event)
+	SX_NO_COPY(event)
 
 	//!\brief Getter of event's ID.
 	//!\return ID of event.
@@ -54,7 +55,7 @@ public:
 	virtual event_priority get_priority() const = 0;	
 
 	//!\brief Method for comparing the priorities between the current event and a given event.
-	//!\param _rhs Reference to an event whose priority will be compared with the current event's priority.
+	//!\param _rhs Reference to an event whose priority is compared with the current event's priority.
 	//!\return True if the current event has a greater priority, else false.
 	virtual bool operator>(const event& _rhs) const = 0;
 };

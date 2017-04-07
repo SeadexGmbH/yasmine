@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "execution_state_enter_step.hpp"
 
-#include "log.hpp"
+#include "hermes/log.hpp"
+
 #include "state.hpp"
 #include "event_processing_callback.hpp"
 #include "execution_step_visitor.hpp"
@@ -29,7 +30,7 @@ execution_state_enter_step::execution_state_enter_step( state& _state )
 }
 
 
-execution_state_enter_step::~execution_state_enter_step() Y_NOEXCEPT
+execution_state_enter_step::~execution_state_enter_step() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -39,9 +40,9 @@ bool execution_state_enter_step::execute_behavior( event_processing_callback* co
 	const event& _event, events& _exception_events, async_event_handler* const _async_event_handler, 
 	event_collector& _event_collector ) const
 {
-	Y_UNUSED_PARAMETER( _exception_events );
-	Y_UNUSED_PARAMETER( _async_event_handler );	
-	Y_LOG( sxy::log_level::LL_TRACE, "Entering state '%'.", state_.get_name() );
+	SX_UNUSED_PARAMETER( _exception_events );
+	SX_UNUSED_PARAMETER( _async_event_handler );	
+	SX_LOG( hermes::log_level::LL_TRACE, "Entering state '%'.", state_.get_name() );
 	if( _event_processing_callback )
 	{
 		_event_processing_callback->before_enter( state_ );
@@ -54,7 +55,7 @@ bool execution_state_enter_step::execute_behavior( event_processing_callback* co
 		_event_processing_callback->after_enter( state_ );
 	}
 
-	Y_LOG( sxy::log_level::LL_TRACE, "Entered state '%'.", state_.get_name() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Entered state '%'.", state_.get_name() );
 	return( false );
 }
 

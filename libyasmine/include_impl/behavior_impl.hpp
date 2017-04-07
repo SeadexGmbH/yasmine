@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,14 +23,14 @@ namespace sxy
 class event;
 
 
-class behavior_impl Y_FINAL:
+class behavior_impl SX_FINAL:
 	public virtual behavior
 {
 public:
 	explicit behavior_impl( const behavior_function& _function );
-	virtual ~behavior_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY( behavior_impl )
-	virtual void operator()( const event& _event, event_collector& _event_collector ) const Y_OVERRIDE;
+	virtual ~behavior_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY( behavior_impl )
+	virtual void operator()( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
 
 	//!\brief Creates a behavior with the given function that implements the behavior.
 	//!\param _function Function that implements the behavior.

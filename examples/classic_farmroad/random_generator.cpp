@@ -4,14 +4,14 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "random_generator.hpp"
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 #include <boost/random/uniform_int_distribution.hpp>
 #include <boost/random/mersenne_twister.hpp>
 #endif
@@ -38,7 +38,7 @@ const unsigned int random_generator::generate( const unsigned int _lower_extremi
 {
 	unsigned int number = 0;
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 	std::default_random_engine engine( random_device_() );
 	std::uniform_int_distribution< int > uniform_distribution( _lower_extremity, _upper_extremity );
 	number = uniform_distribution( engine );

@@ -4,15 +4,17 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "state_machine_base.hpp"
 
-#include "base.hpp"
-#include "log_and_throw.hpp"
+#include "essentials/base.hpp"
+#include "essentials/exception.hpp"
+#include "hermes/log_and_throw.hpp"
+
 #include "event_processing_callback.hpp"
 #include "composite_state_impl.hpp"
 #include "event_impl.hpp"
@@ -22,7 +24,6 @@
 #include "behavior_impl.hpp"
 #include "constraint_impl.hpp"
 #include "transition_impl.hpp"
-#include "exception.hpp"
 #include "async_simple_state_impl.hpp"
 #include "completion_event.hpp"
 
@@ -34,7 +35,7 @@ namespace sxy
 	state_machine_base::state_machine_base( const std::string& _name, event_processing_callback* const _event_processing_callback )
 		: name_( _name ),
 		event_processing_callback_( _event_processing_callback ),
-		root_state_( Y_MAKE_UNIQUE< composite_state_impl >( _name ) ),
+		root_state_( SX_MAKE_UNIQUE< composite_state_impl >( _name ) ),
 		transitions_(),
 		deferred_events_(),
 		state_machine_is_running_( false ),
@@ -43,38 +44,38 @@ namespace sxy
 		, processed_events_( 0 )
 #endif
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "Creating state_machine '%'.", _name );
+		SX_LOG( hermes::log_level::LL_TRACE, "Creating state_machine '%'.", _name );
 		if( event_processing_callback_ )
 		{
 			event_processing_callback_->add_state_machine_introspection( *this );
 		}
-		Y_LOG( sxy::log_level::LL_TRACE, "Created state_machine '%'.", _name );
+		SX_LOG( hermes::log_level::LL_TRACE, "Created state_machine '%'.", _name );
 	}
 
 
-	state_machine_base::~state_machine_base() Y_NOEXCEPT
+	state_machine_base::~state_machine_base() SX_NOEXCEPT
 	{
 #ifdef Y_PROFILER
-		Y_LOG( sxy::log_level::LL_TRACE, "events fired by '%': %.", name_, processed_events_ );
+		SX_LOG( hermes::log_level::LL_TRACE, "events fired by '%': %.", name_, processed_events_ );
 #endif
 
-		Y_LOG( sxy::log_level::LL_TRACE, "Destroying state_machine '%'.", name_ );
+		SX_LOG( hermes::log_level::LL_TRACE, "Destroying state_machine '%'.", name_ );
 
-		Y_ASSERT( !state_machine_is_running_, "State machine is still running!" );
+		SX_ASSERT( !state_machine_is_running_, "State machine is still running!" );
 
-		Y_LOG( sxy::log_level::LL_TRACE, "Destroyed state_machine '%'.", name_ );
+		SX_LOG( hermes::log_level::LL_TRACE, "Destroyed state_machine '%'.", name_ );
 	}
 
 
 	composite_state& state_machine_base::get_root_state() const
 	{
-		Y_ASSERT( root_state_, "No root state!" );
+		SX_ASSERT( root_state_, "No root state!" );
 		return( *root_state_ );
 	}
 
 
 #ifdef Y_PROFILER	
-	sxy::uint32_t state_machine_base::get_number_of_processed_events() const
+	sxe::uint32_t state_machine_base::get_number_of_processed_events() const
 	{
 		return( processed_events_ );
 	}
@@ -84,7 +85,7 @@ namespace sxy
 	transition& state_machine_base::add_transition( transition_uptr _transition )
 	{
 		transition& transition = *_transition;
-		transitions_.push_back( sxy::move( _transition ) );
+		transitions_.push_back( sxe::move( _transition ) );
 		return( transition );
 	}
 
@@ -92,12 +93,12 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_id _event_id, vertex& _source, vertex& _target,
 		const sxy::transition_kind _kind, const constraint_function& _guard, const behavior_function& _behavior )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxe::ref( _source ), sxe::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-				( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
+				( _behavior ? ( behavior_impl::create_behavior( sxe::ref( _behavior ) ) ) : behavior_uptr() ) );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -105,12 +106,12 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_ids& _event_ids, vertex& _source, vertex& _target,
 		const sxy::transition_kind _kind, const constraint_function& _guard, const behavior_function& _behavior )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxe::ref( _source ), sxe::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-				( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
+				( _behavior ? ( behavior_impl::create_behavior( sxe::ref( _behavior ) ) ) : behavior_uptr() ) );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -118,11 +119,11 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_id _event_id, vertex& _source, vertex& _target,
 		const constraint_function& _guard, const sxy::transition_kind _kind )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxe::ref( _source ), sxe::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ), behavior_uptr() );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -130,11 +131,11 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_ids& _event_ids, vertex& _source, vertex& _target,
 		const constraint_function& _guard, const sxy::transition_kind _kind )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxe::ref( _source ), sxe::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ), behavior_uptr() );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -142,12 +143,12 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_id _event_id, vertex& _source, vertex& _target,
 		const constraint_function& _guard, const behavior_function& _behavior, const sxy::transition_kind _kind )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxe::ref( _source ), sxe::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-				( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
+				( _behavior ? ( behavior_impl::create_behavior( sxe::ref( _behavior ) ) ) : behavior_uptr() ) );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -155,12 +156,12 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_ids& _event_ids, vertex& _source, vertex& _target,
 		const constraint_function& _guard, const behavior_function& _behavior, const sxy::transition_kind _kind )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxe::ref( _source ), sxe::ref( _target ), _kind,
 			( _guard ? ( constraint_impl::create( _guard ) ) : constraint_uptr() ),
-				( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
+				( _behavior ? ( behavior_impl::create_behavior( sxe::ref( _behavior ) ) ) : behavior_uptr() ) );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -168,12 +169,12 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_id _event_id, vertex& _source, vertex& _target,
 		const behavior_function& _behavior, const sxy::transition_kind _kind )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_id, sxe::ref( _source ), sxe::ref( _target ), _kind,
 				constraint_uptr(),
-				( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
+				( _behavior ? ( behavior_impl::create_behavior( sxe::ref( _behavior ) ) ) : behavior_uptr() ) );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -181,12 +182,12 @@ namespace sxy
 	transition& state_machine_base::add_transition( const event_ids& _event_ids, vertex& _source, vertex& _target,
 		const behavior_function& _behavior, const sxy::transition_kind _kind )
 	{
-		Y_UNIQUE_PTR< sxy::transition_impl > l_transition =
-			Y_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxy::ref( _source ), sxy::ref( _target ), _kind,
+		sxe::SX_UNIQUE_PTR< sxy::transition_impl > l_transition =
+			SX_MAKE_UNIQUE< sxy::transition_impl >( _event_ids, sxe::ref( _source ), sxe::ref( _target ), _kind,
 				constraint_uptr(),
-				( _behavior ? ( behavior_impl::create_behavior( sxy::ref( _behavior ) ) ) : behavior_uptr() ) );
+				( _behavior ? ( behavior_impl::create_behavior( sxe::ref( _behavior ) ) ) : behavior_uptr() ) );
 		transition_impl& transition = *l_transition;
-		transitions_.push_back( sxy::move( l_transition ) );
+		transitions_.push_back( sxe::move( l_transition ) );
 		return( transition );
 	}
 
@@ -197,7 +198,7 @@ namespace sxy
 		bool check_ok = root_state_->check( _defects );
 		if( check_ok )
 		{
-			Y_FOR( const transition_uptr& transition, transitions_ )
+			SX_FOR( const transition_uptr& transition, transitions_ )
 			{
 				if( !transition->check( _defects ) )
 				{
@@ -213,14 +214,14 @@ namespace sxy
 
 	void state_machine_base::halt()
 	{
-		Y_LOG( log_level::LL_INFO, "Stopping state machine '%'.", name_ );
+		SX_LOG( hermes::log_level::LL_INFO, "Stopping state machine '%'.", name_ );
 		if( state_machine_is_running_ )
 		{
 			stop_all_async_states( *root_state_ );
 			state_machine_is_running_ = false;
 		}
 
-		Y_LOG( log_level::LL_INFO, "Stopped state machine '%'.", name_ );
+		SX_LOG( hermes::log_level::LL_INFO, "Stopped state machine '%'.", name_ );
 	}
 
 
@@ -245,7 +246,7 @@ namespace sxy
 
 	bool state_machine_base::run( async_event_handler* const _async_event_handler )
 	{
-		Y_ASSERT( root_state_, "No root state!" );
+		SX_ASSERT( root_state_, "No root state!" );
 		bool state_machine_started = false;
 		state_machine_is_running_ = true;
 
@@ -267,19 +268,19 @@ namespace sxy
 
 			if( !state_machine_started )
 			{
-				Y_LOG( sxy::log_level::LL_INFO, "Terminate pseudostate reached. The state machine is stopping." );
+				SX_LOG( hermes::log_level::LL_INFO, "Terminate pseudostate reached. The state machine is stopping." );
 				state_machine_is_running_ = false;
 			}
 		}
 		catch( const std::exception& exception )
 		{
-			Y_LOG( sxy::log_level::LL_FATAL, "State machine cannot start: %.", exception.what() );
+			SX_LOG( hermes::log_level::LL_FATAL, "State machine cannot start: %.", exception.what() );
 			state_machine_is_running_ = false;
 			throw;
 		}
 		catch( ... )
 		{
-			Y_LOG( sxy::log_level::LL_FATAL, "State machine can not start: Unknown exception occurred." );
+			SX_LOG( hermes::log_level::LL_FATAL, "State machine can not start: Unknown exception occurred." );
 			state_machine_is_running_ = false;
 			throw;
 		}
@@ -294,12 +295,12 @@ namespace sxy
 		bool terminate_pseudostate_has_been_reached = true;
 		if( !interrupt_ )
 		{
-			Y_LOG( log_level::LL_INFO, "'%' is processing event '%' (%) with priority '%'.", get_name(), _event->get_name(),
-				_event->get_id(), static_cast< sxy::int16_t >( _event->get_priority() ) );
+			SX_LOG( hermes::log_level::LL_INFO, "'%' is processing event '%' (%) with priority '%'.", get_name(), _event->get_name(),
+				_event->get_id(), static_cast< sxe::int16_t >( _event->get_priority() ) );
 
-			Y_ASSERT( state_machine_is_running_, "State machine is not running!" );			
-			Y_LOG( log_level::LL_TRACE, "Starting processing of event '%' (%) with priority '%'.", _event->get_name(), _event->get_id(),
-				static_cast< sxy::int16_t >( _event->get_priority() ) );
+			SX_ASSERT( state_machine_is_running_, "State machine is not running!" );			
+			SX_LOG( hermes::log_level::LL_TRACE, "Starting processing of event '%' (%) with priority '%'.", _event->get_name(), _event->get_id(),
+				static_cast< sxe::int16_t >( _event->get_priority() ) );
 			try
 			{
 				if( event_processing_callback_ )
@@ -311,7 +312,7 @@ namespace sxy
 				bool event_is_deferred = false;
 				terminate_pseudostate_has_been_reached = transition_controller.process_event( *_event, *root_state_,
 					event_processing_callback_, event_is_deferred, _async_event_handler, *this, *this );
-				Y_LOG( log_level::LL_TRACE, "Event '%' (%) has been processed.", _event->get_name(), _event->get_id() );
+				SX_LOG( hermes::log_level::LL_TRACE, "Event '%' (%) has been processed.", _event->get_name(), _event->get_id() );
 				if( event_processing_callback_ )
 				{
 					event_processing_callback_->after_event( _event->get_id() );
@@ -319,7 +320,7 @@ namespace sxy
 
 				if( terminate_pseudostate_has_been_reached )
 				{
-					Y_LOG( sxy::log_level::LL_INFO, "Terminate pseudostate has been reached! The state machine '%' is stopping.", get_name() );
+					SX_LOG( hermes::log_level::LL_INFO, "Terminate pseudostate has been reached! The state machine '%' is stopping.", get_name() );
 					state_machine_is_running_ = false;
 				}
 				else
@@ -336,26 +337,26 @@ namespace sxy
 
 				if( terminate_pseudostate_has_been_reached )
 				{
-					Y_LOG( sxy::log_level::LL_INFO, "Terminate pseudostate has been reached! The state machine '%' is stopping.", get_name() );
+					SX_LOG( hermes::log_level::LL_INFO, "Terminate pseudostate has been reached! The state machine '%' is stopping.", get_name() );
 					state_machine_is_running_ = false;
 				}
 			}
 			catch( const std::exception& exception )
 			{
-				Y_LOG( sxy::log_level::LL_FATAL, "std::exception occurred during event processing in state machine '%': %", get_name(), exception.what() );
+				SX_LOG( hermes::log_level::LL_FATAL, "std::exception occurred during event processing in state machine '%': %", get_name(), exception.what() );
 				state_machine_is_running_ = false;
 				stop_all_async_states( *root_state_ );
 				throw;
 			}
 			catch( ... )
 			{
-				Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception occurred in state machine '%'!", get_name() );
+				SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception occurred in state machine '%'!", get_name() );
 				state_machine_is_running_ = false;
 				stop_all_async_states( *root_state_ );
 				throw;
 			}
 
-			Y_LOG( log_level::LL_INFO, "'%' processed event '%' (%).", get_name(), _event->get_name(), _event->get_id() );
+			SX_LOG( hermes::log_level::LL_INFO, "'%' processed event '%' (%).", get_name(), _event->get_name(), _event->get_id() );
 
 		}
 		else
@@ -403,7 +404,7 @@ namespace sxy
 	void state_machine_base::check_regions_for_active_states( raw_const_states& _active_state_configuration,
 		const state& _state ) const
 	{
-		Y_FOR( const region_uptr& region, _state.get_regions() )
+		SX_FOR( const region_uptr& region, _state.get_regions() )
 		{
 			get_active_states_from_region( _active_state_configuration, *region );
 		}
@@ -423,7 +424,7 @@ namespace sxy
 		bool terminate_pseudostate_has_been_reached = false;
 		transition_controller transition_controller;
 
-		Y_FOR( const event_sptr deferred_event, deferred_events )
+		SX_FOR( const event_sptr deferred_event, deferred_events )
 		{
 			if( event_processing_callback_ )
 			{
@@ -440,7 +441,7 @@ namespace sxy
 
 			if( terminate_pseudostate_has_been_reached )
 			{
-				Y_LOG( sxy::log_level::LL_INFO, "Terminate pseudostate has been reached! The state machine is stopping." );
+				SX_LOG( hermes::log_level::LL_INFO, "Terminate pseudostate has been reached! The state machine is stopping." );
 				break;
 			}
 			else
@@ -458,7 +459,7 @@ namespace sxy
 
 	void state_machine_base::stop_all_async_states( state& _state )
 	{
-		Y_FOR( region_uptr& region, _state.get_regions() )
+		SX_FOR( region_uptr& region, _state.get_regions() )
 		{
 			stop_all_async_states_from_region( region );
 		}

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 #define EVENT_COLLECTOR_B423B8BB_DC7E_4957_95F5_2B5ECB9DD689
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
+
 #include "event.hpp"
 
 
@@ -29,13 +30,13 @@ public:
 		// Nothing to do...
 	}
 
-	virtual ~event_collector() Y_NOEXCEPT
+	virtual ~event_collector() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY( event_collector )
+	SX_NO_COPY( event_collector )
 	virtual bool push( const event_sptr& _event ) = 0;
 
 

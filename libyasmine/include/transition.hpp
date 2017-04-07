@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -41,13 +41,13 @@ public:
 	}
 
 
-	virtual ~transition() Y_NOEXCEPT Y_OVERRIDE
+	virtual ~transition() SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(transition)
+	SX_NO_COPY(transition)
 	virtual const vertex& get_source() const = 0;
 	virtual const vertex& get_target() const = 0;
 	virtual vertex& get_target() = 0;
@@ -56,7 +56,7 @@ public:
 	virtual sxy::transition_kind get_kind() const = 0;
 	virtual void on_transition_behavior( const event& _event, event_collector& _event_collector ) const = 0;
 	virtual bool check_guard( const event& _event, event_collector& _event_collector ) const = 0;
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE = 0;
 	virtual bool can_accept_event( const event_id _event ) const = 0;
 };
 

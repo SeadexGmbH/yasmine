@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,8 +13,8 @@
 #define VERSION_53B7B4DC_2A8B_4736_B190_6348C9D8F8F2
 
 
-#include "base.hpp"
-#include "compatibility.hpp"
+#include "essentials/base.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -24,17 +24,17 @@ namespace sxy
 namespace version
 {
 
-#ifndef Y_NO_LOGGING
+#ifndef SX_NO_LOGGING
 
 void log_version();
 
 #endif
 
 
-sxy::uint16_t get_major_version();
-sxy::uint16_t get_minor_version();
-sxy::uint16_t get_patch_version();
-sxy::uint16_t get_build_number();
+sxe::uint16_t get_major_version();
+sxe::uint16_t get_minor_version();
+sxe::uint16_t get_patch_version();
+sxe::uint16_t get_build_number();
 
 
 }

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,7 @@
 #define EXECUTION_STEP_VISITOR_7AEFC8D8_8C36_4529_AC9E_F3A2B20622B4
 
 
-#include "non_copyable.hpp"
+#include "essentials/non_copyable.hpp"
 
 
 namespace sxy
@@ -35,13 +35,13 @@ public:
 	}
 
 
-	virtual ~execution_step_visitor() Y_NOEXCEPT
+	virtual ~execution_step_visitor() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(execution_step_visitor)	
+	SX_NO_COPY(execution_step_visitor)	
 	virtual void visit( const execution_state_enter_step& _execution_state_enter_step ) = 0;
 	virtual void visit( const execution_state_do_step& _execution_state_do_step ) = 0;
 	virtual void visit( const execution_state_exit_step& _execution_state_exit_step ) = 0;

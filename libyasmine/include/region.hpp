@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -48,13 +48,13 @@ public:
 	}
 
 
-	virtual ~region () Y_NOEXCEPT Y_OVERRIDE
+	virtual ~region () SX_NOEXCEPT SX_OVERRIDE
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(region)
+	SX_NO_COPY(region)
 	virtual void set_parent_state( composite_state* const _composite_state ) = 0;
 	virtual const composite_state& get_parent_state() const = 0;
 	virtual composite_state& get_parent_state() = 0;
@@ -107,7 +107,7 @@ public:
 	virtual const state* get_last_active_state() const = 0;
 	virtual state* get_last_active_state() = 0;
 	virtual bool is_active_state_final() const = 0;
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE = 0;
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE = 0;
 };
 
 

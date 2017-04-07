@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,15 +12,19 @@
 #ifndef ASSEMBLY_07A0176B_5967_4CDB_B7CF_624220170138
 #define ASSEMBLY_07A0176B_5967_4CDB_B7CF_624220170138
 
+#ifndef SX_CPP03_BOOST
+	#include <type_traits>
+#endif
 
-#include "macro_helpers.hpp"
+#include "essentials/macro_helpers.hpp"
+
 #include "behavior_fwd.hpp"
 #include "constraint_fwd.hpp"
 #include "caller.hpp"
 #include "guard_caller.hpp"
 										 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 		
 
 //!\deprecated Use Y_BEHAVIOR_METHOD2 instead.
@@ -45,78 +49,78 @@
 //!\brief Macro for using a class method as a behavior.
 //!\deprecated Use Y_BEHAVIOR_METHOD2 instead.
 #define Y_BEHAVIOR_METHOD_SELECT_1( _method_name ) \
-		sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ); } )
+		sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ); } )
 
 //!\brief Macro for using a class method as a behavior.
 //!\deprecated Use Y_BEHAVIOR_METHOD2 instead.
 #define Y_BEHAVIOR_METHOD_SELECT_2( _class_name, _method_name ) \
-		sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){  Y_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ); } )
+		sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){  SX_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ); } )
 
 //!\brief Macro for using any type of action as a behavior.
 #define Y_BEHAVIOR_ACTION_SELECT_1( _action ) \
-		sxy::behavior_function( [ this ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); _action } )
+		sxy::behavior_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
 
 //!\brief Macro for using any type of action as a behavior.
 #define Y_BEHAVIOR_ACTION_SELECT_2( _class_name, _action ) \
-		sxy::behavior_function( [ this ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); _action } )
+		sxy::behavior_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
 
 //!\brief Macro for using a class method as a behavior without an event.
 //!\deprecated Use Y_BEHAVIOR_METHOD2 instead.
 #define Y_BEHAVIOR_METHOD_NO_EVENT_SELECT_1( _method_name ) \
-    sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event); Y_UNUSED_PARAMETER(_event_collector); this->_method_name(); } )
+    sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER(_event_collector); this->_method_name(); } )
 
 //!\brief Macro for using a class method as a behavior without an event.
 //!\deprecated Use Y_BEHAVIOR_METHOD2 instead.
 #define Y_BEHAVIOR_METHOD_NO_EVENT_SELECT_2( _class_name, _method_name ) \
-		sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event); Y_UNUSED_PARAMETER(_event_collector); this->_method_name(); } )
+		sxy::behavior_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER(_event_collector); this->_method_name(); } )
 
 //!\brief Macro for using a class method as a guard.
 //!\deprecated USE Y_GUARD_METHOD2 instead.
 #define Y_GUARD_METHOD_SELECT_1( _method_name ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ return(  Y_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ) ); } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ return(  SX_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ) ); } )
 
 //!\brief Macro for using a class method as a guard.
 //!\deprecated USE Y_GUARD_METHOD2 instead.
 #define Y_GUARD_METHOD_SELECT_2( _class_name, _method_name ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ return(  Y_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ) ); } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ return(  SX_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ) ); } )
 
 //!\brief Macro for using any type of action returning bool as a guard.
 #define Y_GUARD_ACTION_SELECT_1( _action ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); _action } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
 
 //!\brief Macro for using any type of action returning bool as a guard.
 #define Y_GUARD_ACTION_SELECT_2( _class_name, _action ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event ){ Y_UNUSED_PARAMETER(_event); _action } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
 
 //!\brief Macro for using a class method as a guard without an event.
 //!\deprecated Use Y_GUARD_METHOD2 instead.
 #define Y_GUARD_METHOD_NO_EVENT_SELECT_1( _method_name ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event); Y_UNUSED_PARAMETER(_event_collector); return( this->_method_name() ); } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER(_event_collector); return( this->_method_name() ); } )
 
 //!\brief Macro for using a class method as a guard without an event.
 //!\deprecated Use Y_GUARD_METHOD2 instead.
 #define Y_GUARD_METHOD_NO_EVENT_SELECT_2( _class_name, _method_name ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event); Y_UNUSED_PARAMETER(_event_collector); return( this->_method_name() ); } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER(_event_collector); return( this->_method_name() ); } )
 
 //!\brief Macro for using a free function as a guard.
 //!\deprecated Use Y_GUARD_FUNCTION2 instead.
 #define Y_GUARD_FUNCTION( _function_name ) \
-    sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector )->bool { return( Y_UNUSED_PARAMETER(_event_collector); _function_name( _event ) ); } )
+    sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector )->bool { return( SX_UNUSED_PARAMETER(_event_collector); _function_name( _event ) ); } )
 
 //!\brief Macro for using a free function as a guard without an event.
 //!\deprecated Use Y_GUARD_FUNCTION2 instead.
 #define Y_GUARD_FUNCTION_NO_EVENT( _function_name ) \
-    sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector )->bool { Y_UNUSED_PARAMETER(_event); Y_UNUSED_PARAMETER(_event_collector); return( _function_name() ); } )
+    sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector )->bool { SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER(_event_collector); return( _function_name() ); } )
 
 //!\brief Macro for using a free function as a behavior.
 //!\deprecated Use Y_BEHAVIOR_FUNCTION2 instead.
 #define Y_BEHAVIOR_FUNCTION( _function_name ) \
-	sxy::behavior_function( []( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event_collector); _function_name( _event ); } )
+	sxy::behavior_function( []( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event_collector); _function_name( _event ); } )
 
 //!\brief Macro for using a free function as a behavior without an event.
 //!\deprecated Use Y_BEHAVIOR_FUNCTION2 instead.
 #define Y_BEHAVIOR_FUNCTION_NO_EVENT( _function_name ) \
-	sxy::behavior_function( []( const sxy::event& _event, sxy::event_collector& _event_collector ){ Y_UNUSED_PARAMETER(_event); Y_UNUSED_PARAMETER(_event_collector); _function_name(); } )\
+	sxy::behavior_function( []( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER(_event_collector); _function_name(); } )\
 
 
 #else
@@ -129,34 +133,34 @@
 
 //!\brief Macro for using a class method as a behavior.
 #define Y_BEHAVIOR_METHOD_SELECT_2( _class_name, _method_name ) \
-		sxy::behavior_function( sxy::bind( &_class_name::_method_name, this, sxy::_1 ) )
+		sxy::behavior_function( sxe::bind( &_class_name::_method_name, this, sxe::_1 ) )
 
 //!\brief Macro for using a class method as a behavior without an event.
 #define Y_BEHAVIOR_METHOD_NO_EVENT_SELECT_2( _class_name, _method_name ) \
-		sxy::behavior_function( sxy::bind( &_class_name::_method_name, this ) )         
+		sxy::behavior_function( sxe::bind( &_class_name::_method_name, this ) )         
 
 #define Y_GUARD_METHOD_SELECT_2( _class_name, _method_name ) \
-    sxy::constraint_function( sxy::bind( &_class_name::_method_name, this, sxy::_1 ) )
+    sxy::constraint_function( sxe::bind( &_class_name::_method_name, this, sxe::_1 ) )
 
 //!\brief Macro for using a class method as a guard without an event.
 #define Y_GUARD_METHOD_NO_EVENT_SELECT_2( _class_name, _method_name ) \
-    sxy::constraint_function( sxy::bind (&_class_name::_method_name, this ) )
+    sxy::constraint_function( sxe::bind (&_class_name::_method_name, this ) )
 
 //!\brief Macro for using a free function as a guard.
 #define Y_GUARD_FUNCTION( _function_name ) \
-    sxy::constraint_function( sxy::bind( &_function_name, sxy::_1 ) )
+    sxy::constraint_function( sxe::bind( &_function_name, sxe::_1 ) )
 
 //!\brief Macro for using a free function as a guard without an event.
 #define Y_GUARD_FUNCTION_NO_EVENT( _function_name ) \
-    sxy::constraint_function( sxy::bind( &_function_name ) )
+    sxy::constraint_function( sxe::bind( &_function_name ) )
 
 //!\brief Macro for using a free function as a behavior.
 #define Y_BEHAVIOR_FUNCTION( _function_name ) \
-		sxy::behavior_function( sxy::bind( &_function_name, sxy::_1 ) )
+		sxy::behavior_function( sxe::bind( &_function_name, sxe::_1 ) )
 
 //!\brief Macro for using a free function as a behavior without an event.
 #define Y_BEHAVIOR_FUNCTION_NO_EVENT( _function_name ) \
-    sxy::behavior_function( sxy::bind( &_function_name ) )
+    sxy::behavior_function( sxe::bind( &_function_name ) )
 
 
 #endif
@@ -170,7 +174,7 @@
 #define Y_EMPTY_GUARD sxy::constraint_function()
 
 
-#ifndef Y_CPP03_BOOST // C++11 only
+#ifndef SX_CPP03_BOOST // C++11 only
 	// Macros for passing handlers as behavior	
 	
 	//!\brief The macro creates a behavior_function for the specified method(s).
@@ -223,29 +227,28 @@ sxy::constraint_function create_guard_function( Args...args )
 {
 	return ( sxy::constraint_function( [args...]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, args... ) ); } ) );
 }
-	
 
-	#define Y_BEHAVIOR_METHOD2_SELECT_1( _class_instance, _method ) create_behavior_function( adapt( _class_instance, _method ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ), adapt( _class_instance, _method8 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ), adapt( _class_instance, _method8 ), adapt( _class_instance, _method9 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_behavior_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ), adapt( _class_instance, _method8 ), adapt( _class_instance, _method9 ), adapt( _class_instance, _method10 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_1( _class_instance, _method ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method10 ) )
 
-	#define Y_GUARD_METHOD2_SELECT_1( _class_instance, _method ) create_guard_function( adapt( _class_instance, _method ) )
-	#define Y_GUARD_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ) )
-	#define Y_GUARD_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ) )
-	#define Y_GUARD_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ) )
-	#define Y_GUARD_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ) )
-	#define Y_GUARD_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ) )
-	#define Y_GUARD_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ) )
-	#define Y_GUARD_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ), adapt( _class_instance, _method8 ) )
-	#define Y_GUARD_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ), adapt( _class_instance, _method8 ), adapt( _class_instance, _method9 ) )
-	#define Y_GUARD_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_guard_function( adapt( _class_instance, _method1 ), adapt( _class_instance, _method2 ), adapt( _class_instance, _method3 ), adapt( _class_instance, _method4 ), adapt( _class_instance, _method5 ), adapt( _class_instance, _method6 ), adapt( _class_instance, _method7 ), adapt( _class_instance, _method8 ), adapt( _class_instance, _method9 ), adapt( _class_instance, _method10 ) )
+	#define Y_GUARD_METHOD2_SELECT_1( _class_instance, _method ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method ) )
+	#define Y_GUARD_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ) )
+	#define Y_GUARD_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ) )
+	#define Y_GUARD_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ) )
+	#define Y_GUARD_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ) )
+	#define Y_GUARD_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ) )
+	#define Y_GUARD_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ) )
+	#define Y_GUARD_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ) )
+	#define Y_GUARD_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ) )
+	#define Y_GUARD_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method10 ) )
 	
 	#define Y_BEHAVIOR_FUNCTION2_SELECT_1( _function ) create_behavior_function( adapt_function( _function ) )
 	#define Y_BEHAVIOR_FUNCTION2_SELECT_2( _function1, _function2 ) create_behavior_function( adapt_function( _function1 ), adapt_function( _function2 ) )

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,17 +29,17 @@ class simple_state_base:
 public:
 	simple_state_base( const std::string& _name, behavior_uptr _entry_action,	behavior_uptr _exit_action, 
 		const event_ids& _deferred_events, event_sptr _error_event );
-	virtual ~simple_state_base() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(simple_state_base)
-	virtual const regions& get_regions() const Y_OVERRIDE;
-	virtual regions& get_regions() Y_OVERRIDE;
-	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const Y_OVERRIDE;
-	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) Y_OVERRIDE;
-	virtual void accept_complex_state_visitor( complex_state_visitor& _visitor ) const Y_OVERRIDE;
-	virtual void accept_state_visitor( state_visitor& _visitor ) const Y_OVERRIDE;	
-	virtual bool check( state_machine_defects& _defects ) const Y_OVERRIDE;
-	virtual bool has_error_event() const Y_OVERRIDE;
-	virtual event_sptr get_error_event() const Y_OVERRIDE;
+	virtual ~simple_state_base() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(simple_state_base)
+	virtual const regions& get_regions() const SX_OVERRIDE;
+	virtual regions& get_regions() SX_OVERRIDE;
+	virtual void accept_vertex_visitor( const_vertex_visitor& _visitor ) const SX_OVERRIDE;
+	virtual void accept_vertex_visitor( vertex_visitor& _visitor ) SX_OVERRIDE;
+	virtual void accept_complex_state_visitor( complex_state_visitor& _visitor ) const SX_OVERRIDE;
+	virtual void accept_state_visitor( state_visitor& _visitor ) const SX_OVERRIDE;	
+	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE;
+	virtual bool has_error_event() const SX_OVERRIDE;
+	virtual event_sptr get_error_event() const SX_OVERRIDE;
 
 
 private:

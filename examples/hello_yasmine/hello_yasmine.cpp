@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 
 
 const sxy::event_id HELLO_EVENT = 1;
-typedef sxy::Y_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
+typedef sxe::SX_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
 
 
 
@@ -33,11 +33,11 @@ void wait()
 
 state_machine_uptr setup_state_machine( const std::string& _name )
 {
-	state_machine_uptr state_machine = Y_MAKE_UNIQUE< sxy::sync_state_machine >( _name );	
+	state_machine_uptr state_machine = SX_MAKE_UNIQUE< sxy::sync_state_machine >( _name );	
 	sxy::composite_state& root_state = state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION_NO_EVENT( wait ) );
 	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION_NO_EVENT( reply ) );
 #else
@@ -48,7 +48,7 @@ state_machine_uptr setup_state_machine( const std::string& _name )
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, initial_pseudostate, simple_state_waiting );
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, simple_state_replying, simple_state_waiting );
 
-	return( sxy::move( state_machine ) );
+	return( sxe::move( state_machine ) );
 }
 
 
@@ -69,9 +69,9 @@ int main()
 {
 	int error_code = 0;
 
-	sxy::log_manager_template<sxy::std_timestamp_policy>& log_manager = sxy::log_manager::get_instance();
-	log_manager.set_log_level( sxy::log_level::LL_FATAL );
-	log_manager.add_logger( Y_MAKE_UNIQUE< sxy::cout_logger >() );
+	hermes::log_manager_template<hermes::std_timestamp_policy>& log_manager = hermes::log_manager::get_instance();
+	log_manager.set_log_level( hermes::log_level::LL_FATAL );
+	log_manager.add_logger( SX_MAKE_UNIQUE< hermes::cout_logger >() );
 	log_manager.run();
 	sxy::version::log_version();
 
@@ -88,12 +88,12 @@ int main()
 		}
 		catch( const std::exception& exception )
 		{
-			Y_LOG( sxy::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );
+			SX_LOG( hermes::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );
 			error_code = 1;
 		}
 		catch( ... )
 		{
-			Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception!" );
+			SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception!" );
 			error_code = 2;
 		}
 	}

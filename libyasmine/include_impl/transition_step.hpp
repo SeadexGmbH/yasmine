@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,10 +13,11 @@
 #define TRANSITION_STEP_6023D41F_1644_441E_8A49_E2BE433910AF
 
 
+#include "essentials/non_copyable.hpp"
+
 #include "vertex_fwd.hpp"
 #include "transition_fwd.hpp"
 #include "transition_step_fwd.hpp"
-#include "non_copyable.hpp"
 
 
 namespace sxy
@@ -38,13 +39,13 @@ public:
 	}
 
 
-	virtual ~transition_step() Y_NOEXCEPT
+	virtual ~transition_step() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-	Y_NO_COPY(transition_step)
+	SX_NO_COPY(transition_step)
 	virtual const raw_transitions& get_transitions() const = 0;
 	virtual const vertex& get_unique_source() const = 0;
 	virtual const vertex& get_unique_target() const = 0;

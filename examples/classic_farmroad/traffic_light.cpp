@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ namespace
 {
 
 
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_RED_YELLOW, 1 )
 	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_GREEN, 2 )
 	Y_EVENT_WITH_ID( EVENT_SWITCH_TO_YELLOW, 3 )
@@ -49,7 +49,7 @@ traffic_light::traffic_light(	const std::string& _name,	const std::string& _asci
 }
 
 
-traffic_light::~traffic_light() Y_NOEXCEPT
+traffic_light::~traffic_light() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -122,7 +122,7 @@ void traffic_light::build_traffic_light_state_machine()
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 
 	// states
-#ifdef Y_CPP03_BOOST
+#ifdef SX_CPP03_BOOST
 	sxy::simple_state& red_state =
 		main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red ) );
 	sxy::simple_state& red_yellow_state =

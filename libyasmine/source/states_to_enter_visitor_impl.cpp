@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "states_to_enter_visitor_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "simple_state.hpp"
 #include "composite_state.hpp"
 #include "final_state.hpp"
@@ -46,7 +47,7 @@ states_to_enter_visitor_impl::states_to_enter_visitor_impl( raw_states_by_nestin
 }
 
 
-states_to_enter_visitor_impl::~states_to_enter_visitor_impl() Y_NOEXCEPT
+states_to_enter_visitor_impl::~states_to_enter_visitor_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -72,8 +73,8 @@ void states_to_enter_visitor_impl::visit( final_state& _final_state )
 
 void states_to_enter_visitor_impl::visit( initial_pseudostate& _initial_pseudostate )
 {
-	Y_UNUSED_PARAMETER( _initial_pseudostate );
-	Y_ASSERT( false, "A pseudostate cannot be entered!" );
+	SX_UNUSED_PARAMETER( _initial_pseudostate );
+	SX_ASSERT( false, "A pseudostate cannot be entered!" );
 }
 
 
@@ -85,36 +86,36 @@ void states_to_enter_visitor_impl::visit( choice& _choice )
 
 void states_to_enter_visitor_impl::visit( junction& _junction )
 {
-	Y_UNUSED_PARAMETER( _junction );
-	Y_ASSERT( false, "A pseudostate cannot be entered!" );
+	SX_UNUSED_PARAMETER( _junction );
+	SX_ASSERT( false, "A pseudostate cannot be entered!" );
 }
 
 
 void states_to_enter_visitor_impl::visit( join& _join )
 {
-	Y_UNUSED_PARAMETER( _join );
-	Y_ASSERT( false, "A pseudostate cannot be entered!" );
+	SX_UNUSED_PARAMETER( _join );
+	SX_ASSERT( false, "A pseudostate cannot be entered!" );
 }
 
 
 void states_to_enter_visitor_impl::visit( fork& _fork )
 {
-	Y_UNUSED_PARAMETER( _fork );
-	Y_ASSERT( false, "A pseudostate cannot be entered!" );
+	SX_UNUSED_PARAMETER( _fork );
+	SX_ASSERT( false, "A pseudostate cannot be entered!" );
 }
 
 
 void states_to_enter_visitor_impl::visit( entry_point& _entry_point )
 {
-	Y_UNUSED_PARAMETER( _entry_point );
-	Y_ASSERT( false, "A pseudostate cannot be entered!" );
+	SX_UNUSED_PARAMETER( _entry_point );
+	SX_ASSERT( false, "A pseudostate cannot be entered!" );
 }
 
 
 void states_to_enter_visitor_impl::visit( exit_point& _exit_point )
 {
-	Y_UNUSED_PARAMETER( _exit_point );
-	Y_ASSERT( false, "A pseudostate cannot be entered!" );
+	SX_UNUSED_PARAMETER( _exit_point );
+	SX_ASSERT( false, "A pseudostate cannot be entered!" );
 }
 
 
@@ -131,7 +132,7 @@ void states_to_enter_visitor_impl::visit( shallow_history& _shallow_history )
 	composite_state& parent_state = _shallow_history.get_parent_state();
 	states_to_enter_.insert( &parent_state );
 
-	Y_FOR( const region_uptr& region, parent_state.get_regions() )
+	SX_FOR( const region_uptr& region, parent_state.get_regions() )
 	{
 		state* const last_active_state_of_region = region->get_last_active_state();
 		if( last_active_state_of_region )
@@ -146,7 +147,7 @@ void states_to_enter_visitor_impl::visit( shallow_history& _shallow_history )
 
 void states_to_enter_visitor_impl::visit( terminate_pseudostate& _terminate_pseudostate )
 {
-	Y_UNUSED_PARAMETER( _terminate_pseudostate );
+	SX_UNUSED_PARAMETER( _terminate_pseudostate );
 }
 
 
@@ -154,7 +155,7 @@ void states_to_enter_visitor_impl::get_states_up_to_LCA( state& _state )
 {
 	const raw_composite_states& ancestors = _state.get_ancestors( &LCA_of_compound_transition_ );
 
-	Y_FOR( composite_state* const ancestor, ancestors )
+	SX_FOR( composite_state* const ancestor, ancestors )
 	{
 		if( ancestor != &LCA_of_compound_transition_ )
 		{
@@ -170,7 +171,7 @@ void states_to_enter_visitor_impl::get_regions_up_to_LCA( const state& _state )
 {
 	const raw_regions& ancestors_as_regions = _state.get_ancestors_as_regions();
 
-	Y_FOR( region* const ancestor_as_region, ancestors_as_regions )
+	SX_FOR( region* const ancestor_as_region, ancestors_as_regions )
 	{
 		if( &ancestor_as_region->get_parent_state() != &LCA_of_compound_transition_ )
 		{
@@ -182,7 +183,7 @@ void states_to_enter_visitor_impl::get_regions_up_to_LCA( const state& _state )
 
 void states_to_enter_visitor_impl::add_last_active_child_states_to_enter( const state& _state )
 {
-	Y_FOR( const region_uptr& region, _state.get_regions() )
+	SX_FOR( const region_uptr& region, _state.get_regions() )
 	{
 		state* const state = region->get_last_active_state();
 		states_to_enter_.insert( state );
@@ -204,9 +205,9 @@ void states_to_enter_visitor_impl::insert_states_to_enter( state& _state )
 void states_to_enter_visitor_impl::get_all_parent_states_to_enter( choice& _choice )
 {
 	sxy::composite_state* lca = source_of_transition_.LCA_composite_state( _choice );	
-	Y_ASSERT( lca, "There is no last common ancestor for transitions's source and choice!" );
+	SX_ASSERT( lca, "There is no last common ancestor for transitions's source and choice!" );
 	raw_composite_states ancestors = _choice.get_ancestors( lca, false );
-	Y_FOR( composite_state* ancestor, ancestors )
+	SX_FOR( composite_state* ancestor, ancestors )
 	{
 		states_to_enter_.insert( ancestor );
 	}

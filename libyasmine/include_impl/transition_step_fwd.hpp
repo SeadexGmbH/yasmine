@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@
 #include <vector>
 #include <memory>
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -24,7 +24,7 @@ namespace sxy
 
 
 class transition_step;
-typedef sxy::Y_UNIQUE_PTR< transition_step > transition_step_uptr;
+typedef sxe::SX_UNIQUE_PTR< transition_step > transition_step_uptr;
 typedef std::vector< transition_step_uptr > transition_steps;
 
 

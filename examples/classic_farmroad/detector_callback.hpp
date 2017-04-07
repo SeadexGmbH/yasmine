@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,8 +13,8 @@
 #define DETECTOR_CALLBACK_0AF0AB58_4818_48B8_A10D_3894B6652355
 
 
-#include "non_copyable.hpp"
-#include "compatibility.hpp"
+#include "essentials/non_copyable.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace examples
@@ -28,12 +28,12 @@ public:
 	{
 		// Nothing to do...
 	}
-	virtual ~detector_callback() Y_NOEXCEPT
+	virtual ~detector_callback() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
-	Y_NO_COPY( detector_callback )
+	SX_NO_COPY( detector_callback )
 	virtual void detector_on() = 0;
 	virtual void detector_off() = 0;
 };

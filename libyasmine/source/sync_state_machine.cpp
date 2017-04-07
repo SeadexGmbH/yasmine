@@ -4,13 +4,14 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "sync_state_machine.hpp"
-#include "log.hpp"
+
+#include "hermes/log.hpp"
 
 
 namespace sxy
@@ -24,7 +25,7 @@ sync_state_machine::sync_state_machine( const std::string& _name,	event_processi
 }
 
 
-sync_state_machine::~sync_state_machine() Y_NOEXCEPT
+sync_state_machine::~sync_state_machine() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -39,21 +40,21 @@ bool sync_state_machine::push( const event_sptr& _event )
 
 bool sync_state_machine::fire_event( const event_sptr& _event )
 {
-	Y_LOG( log_level::LL_INFO, "Firing & processing event '%' (%) with priority '%'.", _event->get_name(),
-		_event->get_id(), static_cast< sxy::int16_t >( _event->get_priority() ) );
+	SX_LOG( hermes::log_level::LL_INFO, "Firing & processing event '%' (%) with priority '%'.", _event->get_name(),
+		_event->get_id(), static_cast< sxe::int16_t >( _event->get_priority() ) );
 	bool terminate_pseudostate_has_been_reached = true;
 	if( !is_interrupted() )
 	{
-		terminate_pseudostate_has_been_reached = process_event( _event, Y_NULLPTR );
+		terminate_pseudostate_has_been_reached = process_event( _event, SX_NULLPTR );
 		if( !terminate_pseudostate_has_been_reached )
 		{
 			terminate_pseudostate_has_been_reached = process_events_from_queue();
 		}
-		Y_LOG( log_level::LL_INFO, "Event '%' (%) has been fired & processed.", _event->get_name(), _event->get_id() );
+		SX_LOG( hermes::log_level::LL_INFO, "Event '%' (%) has been fired & processed.", _event->get_name(), _event->get_id() );
 	}
 	else
 	{
-		Y_LOG( log_level::LL_INFO, "State machine is interrupted and no event can be fired!" );
+		SX_LOG( hermes::log_level::LL_INFO, "State machine is interrupted and no event can be fired!" );
 	}
 	return( !terminate_pseudostate_has_been_reached );
 }
@@ -61,11 +62,11 @@ bool sync_state_machine::fire_event( const event_sptr& _event )
 
 bool sync_state_machine::run()
 {
-	Y_LOG( log_level::LL_INFO, "Starting state machine '%'.", get_name() );
+	SX_LOG( hermes::log_level::LL_INFO, "Starting state machine '%'.", get_name() );
 
-	const bool state_machine_started = state_machine_base::run( Y_NULLPTR );
+	const bool state_machine_started = state_machine_base::run( SX_NULLPTR );
 
-	Y_LOG( log_level::LL_INFO, "Started state machine '%'.", get_name() );
+	SX_LOG( hermes::log_level::LL_INFO, "Started state machine '%'.", get_name() );
 
 
 	return( state_machine_started );
@@ -79,7 +80,7 @@ bool sync_state_machine::process_events_from_queue()
 	{
 		event_sptr event_to_be_fired = event_list_.front();
 		event_list_.pop_front();
-		terminate_pseudostate_has_been_reached = process_event( event_to_be_fired, Y_NULLPTR );
+		terminate_pseudostate_has_been_reached = process_event( event_to_be_fired, SX_NULLPTR );
 	}
 	return( terminate_pseudostate_has_been_reached );
 }

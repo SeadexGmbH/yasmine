@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -74,9 +74,9 @@ int main()
 	sxy::utils::set_window_size( 250, 9999 );
 	sxy::utils::maximize_window();
 #endif	
-	sxy::log_manager_template<sxy::std_timestamp_policy>& log_manager = sxy::log_manager::get_instance();
-	log_manager.set_log_level( sxy::log_level::LL_DEBUG );
-	log_manager.add_logger( Y_MAKE_UNIQUE< sxy::cout_logger >() );
+	hermes::log_manager_template<hermes::std_timestamp_policy>& log_manager = hermes::log_manager::get_instance();
+	log_manager.set_log_level( hermes::log_level::LL_DEBUG );
+	log_manager.add_logger( SX_MAKE_UNIQUE< hermes::cout_logger >() );
 	log_manager.run();
 	sxy::version::log_version();
 
@@ -91,18 +91,18 @@ try
 	}
 	else
 	{
-		Y_LOG( sxy::log_level::LL_FATAL, "The intersection could not be started." );
+		SX_LOG( hermes::log_level::LL_FATAL, "The intersection could not be started." );
 		error_code = 1;
 	}
 }
 catch ( const std::exception& _exception )
 {
-	Y_LOG( sxy::log_level::LL_FATAL, "Unhandled exception: '%'.", _exception.what() );
+	SX_LOG( hermes::log_level::LL_FATAL, "Unhandled exception: '%'.", _exception.what() );
 	error_code = 2;
 }
 catch ( ... )
 {
-	Y_LOG( sxy::log_level::LL_FATAL, "Unknown exception!" );
+	SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception!" );
 	error_code = 3;
 }
 

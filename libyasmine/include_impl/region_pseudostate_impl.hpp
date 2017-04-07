@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,13 +27,13 @@ class region_pseudostate_impl:
 {
 public:
 	explicit region_pseudostate_impl( const std::string& _name );
-	virtual ~region_pseudostate_impl() Y_NOEXCEPT Y_OVERRIDE;
-	virtual const state_machine_element * get_parent() const Y_OVERRIDE;
-	virtual region * get_parent_region() const Y_OVERRIDE;
-	virtual void set_parent_region( region* const _parent_region ) Y_OVERRIDE;
+	virtual ~region_pseudostate_impl() SX_NOEXCEPT SX_OVERRIDE;
+	virtual const state_machine_element * get_parent() const SX_OVERRIDE;
+	virtual region * get_parent_region() const SX_OVERRIDE;
+	virtual void set_parent_region( region* const _parent_region ) SX_OVERRIDE;
 	virtual raw_composite_states get_ancestors( composite_state* const _final_ancestor,
-		bool _include_final_ancestor = true ) const Y_OVERRIDE;
-	virtual raw_regions get_ancestors_as_regions() const Y_OVERRIDE;
+		bool _include_final_ancestor = true ) const SX_OVERRIDE;
+	virtual raw_regions get_ancestors_as_regions() const SX_OVERRIDE;
 
 
 private:

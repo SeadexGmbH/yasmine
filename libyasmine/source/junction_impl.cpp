@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "junction_impl.hpp"
 
-#include "log.hpp"
+#include "hermes/log.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
@@ -30,7 +31,7 @@ junction_impl::junction_impl( const std::string& _name )
 }
 
 
-junction_impl::~junction_impl() Y_NOEXCEPT
+junction_impl::~junction_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -42,7 +43,7 @@ bool junction_impl::check( state_machine_defects& _defects ) const
 
 	// 15.3.8 Pseudostate -> Constraint [7]: A junction vertex must have at least one incoming and one outgoing
 	// transition.
-	Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has incoming transition(s).", get_name() );
+	SX_LOG( hermes::log_level::LL_SPAM, "Checking if junction '%' has incoming transition(s).", get_name() );
 	if( get_incoming_transitions().empty() )
 	{
 		_defects.push_back( state_machine_defect( *this,
@@ -50,9 +51,9 @@ bool junction_impl::check( state_machine_defects& _defects ) const
 		check_ok = false;
 	}
 
-	Y_LOG( log_level::LL_SPAM, "Junction '%' has % incoming transition(s).", get_name(),
+	SX_LOG( hermes::log_level::LL_SPAM, "Junction '%' has % incoming transition(s).", get_name(),
 		get_incoming_transitions().size() );
-	Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has outgoing transition(s).", get_name() );
+	SX_LOG( hermes::log_level::LL_SPAM, "Checking if junction '%' has outgoing transition(s).", get_name() );
 	if( get_outgoing_transitions().empty() )
 	{
 		_defects.push_back( state_machine_defect( *this,
@@ -61,13 +62,13 @@ bool junction_impl::check( state_machine_defects& _defects ) const
 	}
 	else
 	{
-		Y_LOG( log_level::LL_SPAM, "Junction '%' has % outgoing transition(s).", get_name(),
+		SX_LOG( hermes::log_level::LL_SPAM, "Junction '%' has % outgoing transition(s).", get_name(),
 			get_incoming_transitions().size() );
-		Y_LOG( log_level::LL_SPAM, "Checking if junction '%' has more than one outgoing transition with no guard.",
+		SX_LOG( hermes::log_level::LL_SPAM, "Checking if junction '%' has more than one outgoing transition with no guard.",
 			get_name() );
-		sxy::uint8_t number_of_transitions_with_no_guards = 0;
+		sxe::uint8_t number_of_transitions_with_no_guards = 0;
 
-		Y_FOR( const transition* const transition, get_outgoing_transitions() )
+		SX_FOR( const transition* const transition, get_outgoing_transitions() )
 		{
 			if( !transition->get_guard() )
 			{
@@ -83,7 +84,7 @@ bool junction_impl::check( state_machine_defects& _defects ) const
 			check_ok = false;
 		}
 
-		Y_LOG( log_level::LL_SPAM, "Junction '%' has % outgoing transition(s) with no guard.",	get_name(), 
+		SX_LOG( hermes::log_level::LL_SPAM, "Junction '%' has % outgoing transition(s) with no guard.",	get_name(), 
 			number_of_transitions_with_no_guards );
 	}
 

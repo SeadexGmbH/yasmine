@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ states_nesting_comparer::states_nesting_comparer()
 }
 
 
-states_nesting_comparer::~states_nesting_comparer() Y_NOEXCEPT
+states_nesting_comparer::~states_nesting_comparer() SX_NOEXCEPT
 {
 	// Nothing to do...
 }

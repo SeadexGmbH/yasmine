@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,13 +25,13 @@ namespace examples
 	}
 
 
-	action::~action() Y_NOEXCEPT
+	action::~action() SX_NOEXCEPT
 	{
 		// Nothing to do...
 	}
 
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 
 	void action::fire_event_E3( sxy::event_collector& _event_collector )
 	{			
@@ -53,14 +53,14 @@ namespace examples
 
 	void action::fire_event_E3( const sxy::event& _event, sxy::event_collector& _event_collector )
 	{
-		Y_UNUSED_PARAMETER( _event );
+		SX_UNUSED_PARAMETER( _event );
 		_event_collector.push( examples::E3::create() );
 	}
 
 
 	void action::fire_event_E4( const sxy::event& _event, sxy::event_collector& _event_collector )
 	{
-		Y_UNUSED_PARAMETER( _event );
+		SX_UNUSED_PARAMETER( _event );
 		_event_collector.push( examples::E4::create( "The transition from simple state 'S3' to the final state has been executed!" ) );
 	}
 
@@ -74,7 +74,7 @@ namespace examples
 		}
 		else
 		{
-			throw sxy::exception( "Invalid event type!" );
+			throw sxe::exception( "Invalid event type!" );
 		}
 	}
 

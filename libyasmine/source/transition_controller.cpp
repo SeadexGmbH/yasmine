@@ -4,23 +4,24 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "transition_controller.hpp"
 
-#include "log.hpp"
+#include "essentials/conversion.hpp"
+#include "hermes/log.hpp"
+#include "hermes/log_and_throw.hpp"
+
 #include "composite_state.hpp"
 #include "transition_finder.hpp"
 #include "transition_executor.hpp"
 #include "event_impl.hpp"
 #include "event_processing_callback.hpp"
 #include "compound_transition_impl.hpp"
-#include "log_and_throw.hpp"
 #include "behavior_exception.hpp"
-#include "conversion.hpp"
 #include "algorithm_parameters.hpp"
 #include "completion_event.hpp"
 #include "interruptible.hpp"
@@ -36,7 +37,7 @@ transition_controller::transition_controller()
 }
 
 
-transition_controller::~transition_controller() Y_NOEXCEPT
+transition_controller::~transition_controller() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -47,30 +48,30 @@ bool transition_controller::process_event( const event& _event, const composite_
 	async_event_handler* const _async_event_handler, event_collector& _event_collector,
 	const interruptible& _interruptible )
 {
-	Y_LOG( sxy::log_level::LL_TRACE, "Begin processing event '%'.", _event.get_id() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Begin processing event '%'.", _event.get_id() );
 	bool reached_terminate_pseudostate = false;
 	compound_transitions enabled_compound_transitions;
 	enabled_compound_transitions.reserve( COMPOUND_TRANSITIONS_VECTOR_SIZE );
-	Y_LOG( log_level::LL_SPAM, "Search for enabled transition(s) for event '%'.", _event.get_id() );
+	SX_LOG( hermes::log_level::LL_SPAM, "Search for enabled transition(s) for event '%'.", _event.get_id() );
 	transition_finder transition_finder;
 	transition_finder.search_for_enabled_transitions_in_all_regions( _main_composite_state, _event,
 		enabled_compound_transitions, _event_is_deferred, _event_collector );
 	if( enabled_compound_transitions.empty() )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "There are no compound transitions to execute for the event '%'.",
+		SX_LOG( hermes::log_level::LL_TRACE, "There are no compound transitions to execute for the event '%'.",
 			_event.get_id() );
 	}
 	else
 	{
-		Y_LOG( log_level::LL_TRACE, "Found % enabled transition(s) for event '%'.",
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % enabled transition(s) for event '%'.",
 			enabled_compound_transitions.size(), _event.get_id() );
-		Y_LOG( log_level::LL_SPAM, "Start executing transition(s) for event '%'.", _event.get_id() );
+		SX_LOG( hermes::log_level::LL_SPAM, "Start executing transition(s) for event '%'.", _event.get_id() );
 		reached_terminate_pseudostate = execute_transitions( _main_composite_state, enabled_compound_transitions,
 			_event_processing_callback, _event, _async_event_handler, _event_collector, _interruptible );
 		_event_is_deferred = false;
 	}
 
-	Y_LOG( sxy::log_level::LL_TRACE, "End of processing event '%'.", _event.get_id() );
+	SX_LOG( hermes::log_level::LL_TRACE, "End of processing event '%'.", _event.get_id() );
 	return( reached_terminate_pseudostate );
 }
 
@@ -83,21 +84,21 @@ bool transition_controller::start_state_machine( const composite_state& _main_co
 	compound_transitions enabled_compound_transitions;
 	enabled_compound_transitions.reserve( ENABLED_COMPOUND_TRANSITION_VECTOR_SIZE );
 	transition_finder transition_finder;
-	Y_LOG( log_level::LL_TRACE, "Searching for initial transitions on state machine start." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Searching for initial transitions on state machine start." );
 	transition_finder.search_initial_transitions( _main_composite_state, enabled_compound_transitions, _event_collector );
 	if( enabled_compound_transitions.empty() )
 	{
-		Y_LOG( sxy::log_level::LL_TRACE, "No initial transitions found." );
+		SX_LOG( hermes::log_level::LL_TRACE, "No initial transitions found." );
 	}
 	else
 	{
-		Y_LOG( log_level::LL_TRACE, "Found % compound transition(s) after searching for initial transitions.",
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % compound transition(s) after searching for initial transitions.",
 			enabled_compound_transitions.size() );		
-		Y_LOG( log_level::LL_TRACE, "Executing transitions." );		
+		SX_LOG( hermes::log_level::LL_TRACE, "Executing transitions." );
 		if( execute_transitions( _main_composite_state, enabled_compound_transitions, _event_processing_callback,
 					*completion_event::create(), _async_event_handler, _event_collector, _interruptible ) )
 		{
-			Y_LOG( log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
+			SX_LOG( hermes::log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
 			terminate_pseudostate_has_been_reached = true;
 		}
 	}
@@ -125,27 +126,27 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 			_event_processing_callback->before_event_processings_stage();
 		}
 
-		Y_LOG( log_level::LL_TRACE, "Check, sort and execute transitions." );
+		SX_LOG( hermes::log_level::LL_TRACE, "Check, sort and execute transitions." );
 		terminate_pseudostate_has_been_reached = transition_executor.check_sort_and_execute_transitions( 
 			compound_transitions, choices, _event_processing_callback, _event, exception_events, _async_event_handler, 
 			_event_collector, _interruptible );
 		if( terminate_pseudostate_has_been_reached )
 		{
-			Y_LOG( log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
+			SX_LOG( hermes::log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
 			break;
 		}
 
 		compound_transitions.clear();
-		Y_LOG( log_level::LL_SPAM, "Search for choice transitions." );
+		SX_LOG( hermes::log_level::LL_SPAM, "Search for choice transitions." );
 		search_choice_transitions( choices, compound_transitions, _event, _event_collector );	
-		Y_LOG( log_level::LL_TRACE, "Found % transition(s) after searched for choice transitions.",
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % transition(s) after searched for choice transitions.",
 			compound_transitions.size() );
 
 		if( compound_transitions.empty() )
 		{
 			if(!choices.empty() )
 			{
-				LOG_AND_THROW( sxy::log_level::LL_FATAL, "There are choices but no choice transitions!" );
+				LOG_AND_THROW( hermes::log_level::LL_FATAL, "There are choices but no choice transitions!" );
 			}
 
 			while(!exception_events.empty())
@@ -159,7 +160,7 @@ bool transition_controller::execute_transitions( const composite_state& _main_co
 					compound_transitions, _async_event_handler, _event_collector, _interruptible );
 			}
 
-			Y_LOG( log_level::LL_TRACE, "Searching for completion event transitions." );
+			SX_LOG( hermes::log_level::LL_TRACE, "Searching for completion event transitions." );
 			search_completion_event_transitions( _main_composite_state, compound_transitions, _event_collector );
 		}
 
@@ -216,7 +217,7 @@ void transition_controller::search_completion_event_transitions( const composite
 	transition_finder transition_finder;
 	transition_finder.search_for_enabled_completion_transitions_in_all_regions( _main_composite_state,	
 		compound_transitions,	event_is_deferred, _event_collector );
-	Y_ASSERT( !event_is_deferred, "An completion transition was deferred!" );
+	SX_ASSERT( !event_is_deferred, "An completion transition was deferred!" );
 }
 
 

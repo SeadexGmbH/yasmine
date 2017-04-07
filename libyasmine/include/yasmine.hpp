@@ -4,13 +4,20 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifndef YASMINE_2205A1D5_1962_477A_97DD_E8051B277A88
 #define YASMINE_2205A1D5_1962_477A_97DD_E8051B277A88
 
+
+#include "backward_compatibility.hpp"
+
+#include "essentials/compatibility/compatibility.hpp"
+#include "essentials/compatibility/chrono.hpp"
+#include "essentials/compatibility/thread.hpp"
+#include "essentials/non_copyable.hpp"
 
 #include "sync_state_machine.hpp"
 #include "async_state_machine.hpp"
@@ -36,10 +43,6 @@
 #include "logging.hpp"
 #include "utils.hpp"
 #include "assembly.hpp"
-#include "compatibility.hpp"
-#include "chrono.hpp"
-#include "thread.hpp"
-#include "non_copyable.hpp"
 #include "version.hpp"
 
 

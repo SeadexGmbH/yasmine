@@ -5,7 +5,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -14,6 +14,8 @@
 
 #include <algorithm>
 
+#include "essentials/base.hpp"
+
 #include "const_vertex_visitor.hpp"
 #include "vertex_visitor.hpp"
 #include "pseudostate_visitor.hpp"
@@ -21,7 +23,6 @@
 #include "state.hpp"
 #include "state_machine_defect.hpp"
 #include "region.hpp"
-#include "base.hpp"
 
 
 namespace sxy
@@ -35,7 +36,7 @@ fork_impl::fork_impl( const std::string& _name )
 }
 
 
-fork_impl::~fork_impl() Y_NOEXCEPT
+fork_impl::~fork_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -67,7 +68,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	// regions of an state.
 	// This check is not mandatory. The last LCA is the state machine itself. -> Jira[104] / Jira[103]
 	// 15.3.14 Transition -> Constraint [1]: A fork segment must not have guards or triggers.
-	Y_FOR( const transition * const transition, get_outgoing_transitions() )
+	SX_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
 		if( transition->get_guard() )
 		{
@@ -84,7 +85,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 	}
 
 	// 15.3.14 Transition -> Constraint [3]: A fork segment must always target a state.
-	Y_FOR( const transition * const transition, get_outgoing_transitions() )
+	SX_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
 		const state* const target_vertex = dynamic_cast< const state* >( &transition->get_target() );
 		if( !target_vertex )
@@ -102,7 +103,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 
 	// 2 outgoing transitions cannot enter the same region
 	std::set< const region* > target_regions;
-	Y_FOR( const transition * const transition, get_outgoing_transitions() )
+	SX_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
 		const state_machine_element* const target_region = transition->get_target().get_parent();
 		const region* const l_region = dynamic_cast< const region* >( target_region );
@@ -120,7 +121,7 @@ bool fork_impl::check( state_machine_defects& _defects ) const
 		}
 	}
 	const transition_kind transitions_kind = get_outgoing_transitions().front()->get_kind();
-	Y_FOR( const transition * const transition, get_outgoing_transitions() )
+	SX_FOR( const transition * const transition, get_outgoing_transitions() )
 	{
 		if( !(transitions_kind == transition->get_kind()) )
 		{
@@ -154,7 +155,7 @@ void fork_impl::accept_pseudostate_visitor( pseudostate_visitor& _visitor ) cons
 
 void fork_impl::add_incoming_transition( transition& _incoming_transition )
 {
-	Y_ASSERT( vertex_impl::get_incoming_transitions().size() < 1, "Fork cannot have more than 1 incoming transition!" );
+	SX_ASSERT( vertex_impl::get_incoming_transitions().size() < 1, "Fork cannot have more than 1 incoming transition!" );
 	vertex_impl::add_incoming_transition( _incoming_transition );
 }
 

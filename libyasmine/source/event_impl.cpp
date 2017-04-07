@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,8 @@
 
 #include <memory>
 
-#include "conversion.hpp"
+#include "essentials/exception.hpp"
+#include "essentials/conversion.hpp"
 
 
 namespace sxy
@@ -29,7 +30,7 @@ event_impl::event_impl( const event_id _event_id, const event_priority _event_pr
 }
 
 
-event_impl::~event_impl() Y_NOEXCEPT
+event_impl::~event_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -43,7 +44,7 @@ event_id event_impl::get_id() const
 
 std::string event_impl::get_name() const
 {
-	return ( sxy::to_string( event_id_ ) );
+	return ( sxe::to_string( event_id_ ) );
 }
 
 
@@ -61,7 +62,7 @@ bool event_impl::operator>(const event& _rhs) const
 
 event_sptr event_impl::create( const event_id _event_id, const event_priority _event_priority )
 {
-	return( Y_MAKE_SHARED< sxy::event_impl >( _event_id, _event_priority ) );
+	return( SX_MAKE_SHARED< sxy::event_impl >( _event_id, _event_priority ) );
 }
 
 

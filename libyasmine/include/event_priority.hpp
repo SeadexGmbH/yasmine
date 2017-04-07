@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -23,13 +23,13 @@ namespace sxy
 
 
 //!\brief The type alias for yasmine's event priorities.
-typedef sxy::int8_t event_priority;
+typedef sxe::int8_t event_priority;
 
 //!\brief The type alias for yasmine's event priority list.
 typedef std::vector< event_priority > event_prioritys;
 
 
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 #define STATE_MACHINE_INTERNAL_EVENT_PRIORITY 127u
 #define DEFAULT_EVENT_PRIORITY 0u

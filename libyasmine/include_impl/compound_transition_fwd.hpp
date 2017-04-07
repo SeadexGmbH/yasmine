@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -26,7 +26,7 @@ class compound_transition;
 class compound_transition_consumer;
 
 
-typedef sxy::Y_UNIQUE_PTR< compound_transition > compound_transition_uptr;
+typedef sxe::SX_UNIQUE_PTR< compound_transition > compound_transition_uptr;
 
 typedef std::vector< compound_transition* > raw_compound_transitions;
 typedef std::vector< compound_transition_uptr > compound_transitions;

@@ -4,14 +4,15 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "async_simple_state_impl.hpp"
 
-#include "base.hpp"
+#include "essentials/base.hpp"
+
 #include "async_behavior.hpp"
 
 
@@ -22,15 +23,15 @@ namespace sxy
 async_simple_state_impl::async_simple_state_impl( const std::string& _name, async_behavior_uptr _do_action,
 	behavior_uptr _entry_action, behavior_uptr _exit_action, const event_ids& _deferred_events,
 	event_sptr _error_event )
-	: simple_state_base( _name, sxy::move( _entry_action ), sxy::move( _exit_action ), _deferred_events, 
+	: simple_state_base( _name, sxe::move( _entry_action ), sxe::move( _exit_action ), _deferred_events, 
 			_error_event ),
-	do_( sxy::move( _do_action ) )
+	do_( sxe::move( _do_action ) )
 {		
-	Y_ASSERT( do_, "Async simple state must have an 'async do behavior' asigned!" );
+	SX_ASSERT( do_, "Async simple state must have an 'async do behavior' asigned!" );
 }
 
 
-async_simple_state_impl::~async_simple_state_impl() Y_NOEXCEPT
+async_simple_state_impl::~async_simple_state_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }

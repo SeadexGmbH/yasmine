@@ -4,16 +4,16 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifndef CALLER_ADAPTER_031DC27E_9A5F_4D54_A107_310F31977E26
 #define CALLER_ADAPTER_031DC27E_9A5F_4D54_A107_310F31977E26
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 
-#include "compatibility.hpp"
+#include "essentials/compatibility/compatibility.hpp"
 
 
 namespace sxy
@@ -27,7 +27,7 @@ class event_collector;
 
 
 template<typename T>
-sxy::function<void()> adapt( T* _class, void ( T::*method )() )
+sxe::function<void()> adapt( T* _class, void ( T::*method )() )
 {
 	return( [_class, method]()
 	{				
@@ -38,7 +38,7 @@ sxy::function<void()> adapt( T* _class, void ( T::*method )() )
 
 
 template<typename T>
-sxy::function<void()> adapt( T* _class, void ( T::*method )( ) const )
+sxe::function<void()> adapt( T* _class, void ( T::*method )( ) const )
 {
 	return( [_class, method]()
 	{
@@ -49,7 +49,7 @@ sxy::function<void()> adapt( T* _class, void ( T::*method )( ) const )
 
 
 template<typename T, typename _event_type>
-sxy::function<void( const _event_type& )> adapt( T* _class,
+sxe::function<void( const _event_type& )> adapt( T* _class,
 	void ( T::*method )( const _event_type& ) )
 {
 	return( [_class, method]( const _event_type& _event)
@@ -61,7 +61,7 @@ sxy::function<void( const _event_type& )> adapt( T* _class,
 
 
 template<typename T, typename _event_type>
-sxy::function<void( const _event_type&)> adapt( T* _class,
+sxe::function<void( const _event_type&)> adapt( T* _class,
 	void ( T::*method )( const _event_type& ) const )
 {
 	return( [_class, method]( const _event_type& _event )
@@ -73,7 +73,7 @@ sxy::function<void( const _event_type&)> adapt( T* _class,
 
 
 template<typename T>
-sxy::function<void( sxy::event_collector& )> adapt( T* _class,
+sxe::function<void( sxy::event_collector& )> adapt( T* _class,
 	void ( T::*method )( sxy::event_collector& ) )
 {
 	return( [_class, method]( sxy::event_collector& _event_collector )
@@ -85,7 +85,7 @@ sxy::function<void( sxy::event_collector& )> adapt( T* _class,
 
 
 template<typename T>
-sxy::function<void( sxy::event_collector& )> adapt( T* _class,
+sxe::function<void( sxy::event_collector& )> adapt( T* _class,
 	void ( T::*method )( sxy::event_collector& ) const )
 {
 	return( [_class, method]( sxy::event_collector& _event_collector )
@@ -97,7 +97,7 @@ sxy::function<void( sxy::event_collector& )> adapt( T* _class,
 
 
 template<typename T, typename _event_type>
-sxy::function<void( const _event_type&, sxy::event_collector& )> adapt( T* _class, 
+sxe::function<void( const _event_type&, sxy::event_collector& )> adapt( T* _class, 
 	void ( T::*method )( const _event_type&, sxy::event_collector& ) )
 {
 	return( [_class, method]( const _event_type& _event, sxy::event_collector& _event_collector )
@@ -109,7 +109,7 @@ sxy::function<void( const _event_type&, sxy::event_collector& )> adapt( T* _clas
 
 
 template<typename T, typename _event_type>
-sxy::function<void( const _event_type&, sxy::event_collector& )> adapt( T* _class,
+sxe::function<void( const _event_type&, sxy::event_collector& )> adapt( T* _class,
 	void ( T::*method )( const _event_type&, sxy::event_collector& ) const )
 {
 	return( [_class, method]( const _event_type& _event, sxy::event_collector& _event_collector )
@@ -120,11 +120,11 @@ sxy::function<void( const _event_type&, sxy::event_collector& )> adapt( T* _clas
 }
 
 
-sxy::function<void()> adapt_function( void( *_function )() );
+sxe::function<void()> adapt_function( void( *_function )() );
 
 
 template< typename _event_type >
-sxy::function<void( const _event_type& )> adapt_function( 
+sxe::function<void( const _event_type& )> adapt_function( 
 	void ( *_function )( const _event_type& ) )
 {
 	return( [ _function ]( const _event_type& _event )
@@ -135,11 +135,11 @@ sxy::function<void( const _event_type& )> adapt_function(
 }
 
 
-sxy::function<void( sxy::event_collector& )> adapt_function( void( *_function )( sxy::event_collector& ) );
+sxe::function<void( sxy::event_collector& )> adapt_function( void( *_function )( sxy::event_collector& ) );
 
 
 template< typename _event_type >
-sxy::function<void( const _event_type&, sxy::event_collector& )> adapt_function( 
+sxe::function<void( const _event_type&, sxy::event_collector& )> adapt_function( 
 	void( *_function )( const _event_type&, sxy::event_collector& ) )
 {
 	return( [ _function ]( const _event_type& _event, sxy::event_collector& _event_collector )
@@ -152,7 +152,7 @@ sxy::function<void( const _event_type&, sxy::event_collector& )> adapt_function(
 
 
 template<typename T>
-sxy::function<bool()> adapt( T* _class, bool ( T::*method )() )
+sxe::function<bool()> adapt( T* _class, bool ( T::*method )() )
 {
 	return( [_class, method]()
 	{
@@ -163,7 +163,7 @@ sxy::function<bool()> adapt( T* _class, bool ( T::*method )() )
 
 
 template<typename T>
-sxy::function<bool()> adapt( T* _class,	bool ( T::*method )() const )
+sxe::function<bool()> adapt( T* _class,	bool ( T::*method )() const )
 {
 	return( [_class, method]()
 	{		
@@ -174,7 +174,7 @@ sxy::function<bool()> adapt( T* _class,	bool ( T::*method )() const )
 
 
 template<typename T, typename _event_type>
-sxy::function<bool( const _event_type& )> adapt( T* _class,	bool ( T::*method )( const _event_type& ) )
+sxe::function<bool( const _event_type& )> adapt( T* _class,	bool ( T::*method )( const _event_type& ) )
 {
 	return( [_class, method]( const _event_type& _event )
 	{		
@@ -185,7 +185,7 @@ sxy::function<bool( const _event_type& )> adapt( T* _class,	bool ( T::*method )(
 
 
 template<typename T, typename _event_type>
-sxy::function<bool( const _event_type& )> adapt( T* _class,	bool ( T::*method )( const _event_type& ) const )
+sxe::function<bool( const _event_type& )> adapt( T* _class,	bool ( T::*method )( const _event_type& ) const )
 {
 	return( [_class, method]( const _event_type& _event )
 	{		
@@ -196,7 +196,7 @@ sxy::function<bool( const _event_type& )> adapt( T* _class,	bool ( T::*method )(
 
 
 template<typename T>
-sxy::function<bool( sxy::event_collector& )> adapt( T* _class,
+sxe::function<bool( sxy::event_collector& )> adapt( T* _class,
 	bool ( T::*method )( sxy::event_collector& ) )
 {
 	return( [_class, method]( sxy::event_collector& _event_collector )
@@ -208,7 +208,7 @@ sxy::function<bool( sxy::event_collector& )> adapt( T* _class,
 
 
 template<typename T>
-sxy::function<bool( sxy::event_collector& )> adapt( T* _class,
+sxe::function<bool( sxy::event_collector& )> adapt( T* _class,
 	bool ( T::*method )( sxy::event_collector& ) const )
 {
 	return( [_class, method]( sxy::event_collector& _event_collector )
@@ -220,7 +220,7 @@ sxy::function<bool( sxy::event_collector& )> adapt( T* _class,
 
 
 template<typename T, typename _event_type>
-sxy::function<bool( const _event_type&, sxy::event_collector& )> adapt( T* _class,
+sxe::function<bool( const _event_type&, sxy::event_collector& )> adapt( T* _class,
 	bool ( T::*method )( const _event_type&, sxy::event_collector& ) )
 {
 	return( [_class, method]( const _event_type& _event, sxy::event_collector& _event_collector )
@@ -232,7 +232,7 @@ sxy::function<bool( const _event_type&, sxy::event_collector& )> adapt( T* _clas
 
 
 template<typename T, typename _event_type>
-sxy::function<bool( const _event_type&, sxy::event_collector& )> adapt( T* _class,
+sxe::function<bool( const _event_type&, sxy::event_collector& )> adapt( T* _class,
 	bool ( T::*method )( const _event_type&, sxy::event_collector& ) const )
 {
 	return( [_class, method]( const _event_type& _event, sxy::event_collector& _event_collector )
@@ -243,11 +243,11 @@ sxy::function<bool( const _event_type&, sxy::event_collector& )> adapt( T* _clas
 }
 
 
-sxy::function<bool()> adapt_function( bool( *_function )() );
+sxe::function<bool()> adapt_function( bool( *_function )() );
 
 
 template< typename _event_type >
-sxy::function<bool( const _event_type& )> adapt_function( bool( *_function )( const _event_type& ) )
+sxe::function<bool( const _event_type& )> adapt_function( bool( *_function )( const _event_type& ) )
 {
 	return( [_function]( const _event_type& _event )
 	{
@@ -257,11 +257,11 @@ sxy::function<bool( const _event_type& )> adapt_function( bool( *_function )( co
 }
 
 
-sxy::function<bool( sxy::event_collector& )> adapt_function( bool( *_function )( sxy::event_collector& ) );
+sxe::function<bool( sxy::event_collector& )> adapt_function( bool( *_function )( sxy::event_collector& ) );
 
 
 template< typename _event_type >
-sxy::function<bool( const _event_type&, sxy::event_collector& )> adapt_function(
+sxe::function<bool( const _event_type&, sxy::event_collector& )> adapt_function(
 	bool( *_function )( const _event_type&, sxy::event_collector& ) )
 {
 	return( [_function]( const _event_type& _event, sxy::event_collector& _event_collector )

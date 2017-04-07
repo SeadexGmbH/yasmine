@@ -4,19 +4,18 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "build_transition_steps_visitor.hpp"
 
-#include "base.hpp"
-#include "log_and_throw.hpp"
+#include "essentials/base.hpp"
+#include "hermes/log_and_throw.hpp"
+
 #include "algorithm_parameters.hpp"
-
 #include "composite_state.hpp"
-
 #include "join.hpp"
 #include "fork.hpp"
 #include "shallow_history.hpp"
@@ -24,9 +23,7 @@
 #include "junction.hpp"
 #include "entry_point.hpp"
 #include "exit_point.hpp"
-
 #include "transition.hpp"
-
 #include "simple_transition_step.hpp"
 #include "compound_transition_step.hpp"
 #include "simple_state.hpp"
@@ -45,7 +42,7 @@ build_transition_steps_visitor::build_transition_steps_visitor( transition& _cur
 	: const_vertex_visitor(),
 		current_transition_( _current_transition ),
 		transition_steps_( _transitions_steps ),
-		next_transition_( Y_NULLPTR ),
+		next_transition_( SX_NULLPTR ),
 		reached_end_of_transition_( true ),
 		event_( _event ),
 		event_collector_ ( _event_collector )
@@ -54,7 +51,7 @@ build_transition_steps_visitor::build_transition_steps_visitor( transition& _cur
 }
 
 
-build_transition_steps_visitor::~build_transition_steps_visitor() Y_NOEXCEPT
+build_transition_steps_visitor::~build_transition_steps_visitor() SX_NOEXCEPT
 {
 	// Nothing to do
 }
@@ -62,35 +59,35 @@ build_transition_steps_visitor::~build_transition_steps_visitor() Y_NOEXCEPT
 
 void build_transition_steps_visitor::visit( const composite_state& _composite_state )
 {
-	Y_UNUSED_PARAMETER( _composite_state );
+	SX_UNUSED_PARAMETER( _composite_state );
 	create_simple_transition_step();
 }
 
 
 void build_transition_steps_visitor::visit( const simple_state& _simple_state )
 {
-	Y_UNUSED_PARAMETER( _simple_state );
+	SX_UNUSED_PARAMETER( _simple_state );
 	create_simple_transition_step();
 }
 
 
 void build_transition_steps_visitor::visit( const final_state& _final_state )
 {
-	Y_UNUSED_PARAMETER( _final_state );
+	SX_UNUSED_PARAMETER( _final_state );
 	create_simple_transition_step();
 }
 
 
 void build_transition_steps_visitor::visit( const initial_pseudostate& _initial_pseudostate )
 {
-	Y_UNUSED_PARAMETER( _initial_pseudostate );
-	Y_ASSERT( false, "An initial pseudo state cannot be the target of a transition!" );
+	SX_UNUSED_PARAMETER( _initial_pseudostate );
+	SX_ASSERT( false, "An initial pseudo state cannot be the target of a transition!" );
 }
 
 
 void build_transition_steps_visitor::visit( const choice& _choice )
 {
-	Y_UNUSED_PARAMETER( _choice );
+	SX_UNUSED_PARAMETER( _choice );
 	create_simple_transition_step();
 }
 
@@ -139,10 +136,10 @@ void build_transition_steps_visitor::visit( const shallow_history& _shallow_hist
 
 void build_transition_steps_visitor::visit( const terminate_pseudostate& _terminate_pseudostate )
 {
-	Y_UNUSED_PARAMETER( _terminate_pseudostate );
-	Y_UNIQUE_PTR< simple_transition_step > simple_step = 
-		Y_MAKE_UNIQUE< simple_transition_step >( sxy::ref( current_transition_ ) );
-	transition_steps_.push_back( sxy::move( simple_step ) );
+	SX_UNUSED_PARAMETER( _terminate_pseudostate );
+	sxe::SX_UNIQUE_PTR< simple_transition_step > simple_step = 
+		SX_MAKE_UNIQUE< simple_transition_step >( sxe::ref( current_transition_ ) );
+	transition_steps_.push_back( sxe::move( simple_step ) );
 }
 
 
@@ -161,10 +158,10 @@ bool build_transition_steps_visitor::reached_end_of_transition() const
 transition* build_transition_steps_visitor::find_next_transition( const pseudostate& _target_pseudostate,
 	const event& _event )
 {
-	transition* enabled_transition = Y_NULLPTR;
+	transition* enabled_transition = SX_NULLPTR;
 	const raw_transitions& transitions = _target_pseudostate.get_outgoing_transitions();
 
-	Y_FOR( transition* const transition, transitions )
+	SX_FOR( transition* const transition, transitions )
 	{
 		const bool guard_is_ok = transition->check_guard( _event, event_collector_ );
 		if( guard_is_ok )
@@ -174,7 +171,7 @@ transition* build_transition_steps_visitor::find_next_transition( const pseudost
 		}
 	}
 
-	if( Y_NULLPTR == enabled_transition )
+	if( SX_NULLPTR == enabled_transition )
 	{
 		reached_end_of_transition_ = false;
 	}
@@ -194,7 +191,7 @@ raw_transitions build_transition_steps_visitor::get_default_transition_if_state_
 		default_transitions = _history.get_default_transitions();
 		if( default_transitions.empty() )
 		{
-			LOG_AND_THROW( log_level::LL_FATAL, "History pseudostate '%' has no default transition!",
+			LOG_AND_THROW( hermes::log_level::LL_FATAL, "History pseudostate '%' has no default transition!",
 				_history.get_name() );
 		}
 	}
@@ -205,17 +202,17 @@ raw_transitions build_transition_steps_visitor::get_default_transition_if_state_
 
 void build_transition_steps_visitor::handle_history_pseudostate( const history& _history )
 {
-	Y_UNIQUE_PTR< simple_transition_step > simple_step = 
-		Y_MAKE_UNIQUE< simple_transition_step >(sxy::ref( current_transition_ ) );
-	transition_steps_.push_back( sxy::move( simple_step ) );
+	sxe::SX_UNIQUE_PTR< simple_transition_step > simple_step =
+		SX_MAKE_UNIQUE< simple_transition_step >(sxe::ref( current_transition_ ) );
+	transition_steps_.push_back( sxe::move( simple_step ) );
 	const raw_transitions& default_transitions = get_default_transition_if_state_was_not_active_before( _history );
 	if( !default_transitions.empty() )
 	{
-		Y_FOR( transition* const default_transition, default_transitions )
+		SX_FOR( transition* const default_transition, default_transitions )
 		{
-			Y_UNIQUE_PTR< simple_transition_step > default_step = 
-				Y_MAKE_UNIQUE< simple_transition_step >( sxy::ref( *default_transition) );
-			transition_steps_.push_back( sxy::move( default_step ) );
+			sxe::SX_UNIQUE_PTR< simple_transition_step > default_step =
+				SX_MAKE_UNIQUE< simple_transition_step >( sxe::ref( *default_transition) );
+			transition_steps_.push_back( sxe::move( default_step ) );
 		}
 	}
 }
@@ -223,13 +220,13 @@ void build_transition_steps_visitor::handle_history_pseudostate( const history& 
 
 void build_transition_steps_visitor::handle_as_junction( const pseudostate& _pseudostate )
 {
-	Y_UNIQUE_PTR< simple_transition_step > simple_step = 
-		Y_MAKE_UNIQUE< simple_transition_step >(sxy::ref( current_transition_ ) );
-	transition_steps_.push_back( sxy::move( simple_step ) );
+	sxe::SX_UNIQUE_PTR< simple_transition_step > simple_step =
+		SX_MAKE_UNIQUE< simple_transition_step >(sxe::ref( current_transition_ ) );
+	transition_steps_.push_back( sxe::move( simple_step ) );
 	next_transition_ = find_next_transition( _pseudostate, event_ );
 	if( !next_transition_ )
 	{
-		LOG_AND_THROW( log_level::LL_FATAL, "There is no enabled transition for the junction '%'!",
+		LOG_AND_THROW( hermes::log_level::LL_FATAL, "There is no enabled transition for the junction '%'!",
 			_pseudostate.get_name() );
 	}
 }
@@ -237,29 +234,29 @@ void build_transition_steps_visitor::handle_as_junction( const pseudostate& _pse
 
 void build_transition_steps_visitor::handle_as_fork( const pseudostate& _pseudostate ) const
 {
-	Y_UNIQUE_PTR< simple_transition_step > simple_step = 
-		Y_MAKE_UNIQUE< simple_transition_step >(sxy::ref( current_transition_ ) );
-	transition_steps_.push_back( sxy::move( simple_step ) );
+	sxe::SX_UNIQUE_PTR< simple_transition_step > simple_step =
+		SX_MAKE_UNIQUE< simple_transition_step >(sxe::ref( current_transition_ ) );
+	transition_steps_.push_back( sxe::move( simple_step ) );
 	const raw_transitions& exiting_transitions = _pseudostate.get_outgoing_transitions();
 	raw_transitions transitions_of_fork;
 	transitions_of_fork.reserve( exiting_transitions.size() );
 
-	Y_FOR( transition* const& transition, exiting_transitions )
+	SX_FOR( transition* const& transition, exiting_transitions )
 	{
 		transitions_of_fork.push_back( transition );
 	}
 
-	Y_UNIQUE_PTR< compound_transition_step > final_step =
-		Y_MAKE_UNIQUE< compound_transition_step >( transitions_of_fork );
-	transition_steps_.push_back( sxy::move( final_step ) );
+	sxe::SX_UNIQUE_PTR< compound_transition_step > final_step =
+		SX_MAKE_UNIQUE< compound_transition_step >( transitions_of_fork );
+	transition_steps_.push_back( sxe::move( final_step ) );
 }
 
 
 void build_transition_steps_visitor::handle_as_join( const pseudostate& _pseudostate )
 {
 	const raw_transitions& incoming_transitions = _pseudostate.get_incoming_transitions();
-	Y_UNIQUE_PTR< compound_transition_step > step = Y_MAKE_UNIQUE< compound_transition_step >( incoming_transitions );
-	transition_steps_.push_back( sxy::move( step ) );
+	sxe::SX_UNIQUE_PTR< compound_transition_step > step = SX_MAKE_UNIQUE< compound_transition_step >( incoming_transitions );
+	transition_steps_.push_back( sxe::move( step ) );
 	next_transition_ = find_next_transition( _pseudostate, event_ );
 }
 
@@ -296,9 +293,9 @@ void build_transition_steps_visitor::handle_exit_point( const exit_point& _exit_
 
 void build_transition_steps_visitor::create_simple_transition_step()
 {
-	Y_UNIQUE_PTR< simple_transition_step > simple_step = 
-		Y_MAKE_UNIQUE< simple_transition_step >(sxy::ref( current_transition_ ) );
-	transition_steps_.push_back( sxy::move( simple_step ) );
+	sxe::SX_UNIQUE_PTR< simple_transition_step > simple_step =
+		SX_MAKE_UNIQUE< simple_transition_step >(sxe::ref( current_transition_ ) );
+	transition_steps_.push_back( sxe::move( simple_step ) );
 }
 
 

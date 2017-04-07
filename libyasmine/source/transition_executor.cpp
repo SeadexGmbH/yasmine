@@ -4,14 +4,14 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "transition_executor.hpp"
 
-#include "log.hpp"
+#include "hermes/log.hpp"
 
 #include "transition_executor_impl.hpp"
 #include "choice_fwd.hpp"
@@ -35,7 +35,7 @@ transition_executor::transition_executor()
 }
 
 
-transition_executor::~transition_executor() Y_NOEXCEPT
+transition_executor::~transition_executor() SX_NOEXCEPT
 {	
 	// Nothing to do...
 }
@@ -47,15 +47,15 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 	event_collector& _event_collector, const interruptible& _interruptible )
 {
 	bool terminate_pseudostate_has_been_reached = false;
-	Y_LOG( log_level::LL_TRACE, "Check for transition conflicts." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Check for transition conflicts." );
 	transition_executor_impl_->conflict_check( _compound_transitions );
-	Y_LOG( log_level::LL_TRACE, "Sorting compound transitions." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Sorting compound transitions." );
 	const raw_compound_transitions& sorted_compound_transitions = 
 		transition_executor_impl_->sort_compound_transitions(	_compound_transitions );
-	Y_LOG( log_level::LL_TRACE, "Compound transitions sorted." );
-	Y_LOG( log_level::LL_TRACE, "Start calculating execution step(s) for all compound transitions." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Compound transitions sorted." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Start calculating execution step(s) for all compound transitions." );
 
-	Y_FOR( compound_transition* const compound_transition, sorted_compound_transitions )
+	SX_FOR( compound_transition* const compound_transition, sorted_compound_transitions )
 	{
 		if( _interruptible.is_interrupted() )
 		{
@@ -70,17 +70,17 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 		execution_steps execution_steps;
 		execution_steps.reserve( EXECUTION_STEPS_VECTOR_SIZE );
 		raw_const_region_set entered_regions;
-		Y_LOG( log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
+		SX_LOG( hermes::log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
 		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,
 			execution_steps, entered_regions,	_event, true, _event_collector );
-		Y_LOG( log_level::LL_TRACE, "Found % execution step(s).", execution_steps.size() );
-		Y_LOG( log_level::LL_TRACE, "Start running execution step(s)." );
+		SX_LOG( hermes::log_level::LL_TRACE, "Found % execution step(s).", execution_steps.size() );
+		SX_LOG( hermes::log_level::LL_TRACE, "Start running execution step(s)." );
 		terminate_pseudostate_has_been_reached = transition_executor_impl_->run_execution_steps( execution_steps,
 			_event_processing_callback,	_event, _exception_events, _async_event_handler, _event_collector );
-		Y_LOG( log_level::LL_TRACE, "Finished running execution step(s)." );
+		SX_LOG( hermes::log_level::LL_TRACE, "Finished running execution step(s)." );
 		if( terminate_pseudostate_has_been_reached )
 		{
-			Y_LOG( log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
+			SX_LOG( hermes::log_level::LL_DEBUG, "Terminate pseudostate has been reached." );
 			break;
 		}
 
@@ -90,10 +90,10 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 		}
 	}
 
-	Y_LOG( log_level::LL_TRACE, "Finished calculating execution step(s) for all compound transitions." );
-	Y_LOG( log_level::LL_TRACE, "Search for choices." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Finished calculating execution step(s) for all compound transitions." );
+	SX_LOG( hermes::log_level::LL_TRACE, "Search for choices." );
 	transition_executor_impl_->fill_vector_of_choices( _vertices, _compound_transitions );
-	Y_LOG( log_level::LL_TRACE, "Found % choice(s).", _vertices.size() );
+	SX_LOG( hermes::log_level::LL_TRACE, "Found % choice(s).", _vertices.size() );
 	return( terminate_pseudostate_has_been_reached );
 }
 

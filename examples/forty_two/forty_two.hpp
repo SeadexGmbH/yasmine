@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,15 +22,15 @@ namespace examples
 {
 
 
-class forty_two Y_FINAL
+class forty_two SX_FINAL
 {	
 public:
 
-	typedef sxy::Y_UNIQUE_PTR<sxy::sync_state_machine> state_machine_uptr;
+	typedef sxe::SX_UNIQUE_PTR<sxy::sync_state_machine> state_machine_uptr;
 
 		
-	explicit forty_two( const sxy::uint32_t _max_iterations );
-	~forty_two() Y_NOEXCEPT;
+	explicit forty_two( const sxe::uint32_t _max_iterations );
+	~forty_two() SX_NOEXCEPT;
 	
 private:
 	state_machine_uptr build_state_machine();

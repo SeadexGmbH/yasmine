@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,9 +27,9 @@ class state_machine_element_impl:
 {
 public:
 	explicit state_machine_element_impl( const std::string& _name );
-	virtual ~state_machine_element_impl() Y_NOEXCEPT Y_OVERRIDE;
-	Y_NO_COPY(state_machine_element_impl)	
-	virtual const std::string& get_name() const Y_OVERRIDE;
+	virtual ~state_machine_element_impl() SX_NOEXCEPT SX_OVERRIDE;
+	SX_NO_COPY(state_machine_element_impl)	
+	virtual const std::string& get_name() const SX_OVERRIDE;
 
 
 private:

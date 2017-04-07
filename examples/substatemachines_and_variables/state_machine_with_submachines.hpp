@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -21,18 +21,18 @@ namespace examples
 {
 
 
-class state_machine_with_submachines Y_FINAL
+class state_machine_with_submachines SX_FINAL
 {
 
 
-typedef sxy::Y_UNIQUE_PTR<sxy::sync_state_machine> state_machine_uptr;
-typedef sxy::Y_UNIQUE_PTR<submachine> submachine_uptr;
+typedef sxe::SX_UNIQUE_PTR<sxy::sync_state_machine> state_machine_uptr;
+typedef sxe::SX_UNIQUE_PTR<submachine> submachine_uptr;
 	
 
 public:
 	state_machine_with_submachines();
-	~state_machine_with_submachines() Y_NOEXCEPT;
-	Y_NO_COPY( state_machine_with_submachines )
+	~state_machine_with_submachines() SX_NOEXCEPT;
+	SX_NO_COPY( state_machine_with_submachines )
 	void create();
 	void run();
 

@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 
 #include "event_template.hpp"
 
-#ifndef Y_CPP03_BOOST
+#ifndef SX_CPP03_BOOST
 
 #include <limits>
 
@@ -27,7 +27,7 @@
 
 
 //!\brief yasmine's predefined internal event ID for the completion event.
-#if defined( Y_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
+#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 	#define Y_INTERNAL_COMPLETION_EVENT_ID UINT_MAX
 #endif
 

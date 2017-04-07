@@ -4,7 +4,7 @@
 // Copyright (C) 2016-2017 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
-// The same information is available on the www @ http://yasmine.seadex.de/License.html.            //
+// The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +35,7 @@ transition_priority::transition_priority( compound_transition& _compound_transit
 }
 
 
-transition_priority::~transition_priority() Y_NOEXCEPT
+transition_priority::~transition_priority() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
