@@ -53,7 +53,7 @@ public:
 
 	SX_NO_COPY(log_manager_template)	
 
-	//!\brief Gets the currently set log level.
+	//!\brief Get the currently set log level.
 	//!\return Current log level.
 	log_level get_log_level() const
 	{
@@ -61,7 +61,7 @@ public:
 	}
 
 
-	//!\brief Sets a new log level.
+	//!\brief Set a new log level.
 	//!\param _log_level Log level to be set.
 	//!\return void
 	void set_log_level( const log_level _log_level )
@@ -74,12 +74,12 @@ public:
 
 
 	//!\brief Add a message to the queue of messages that will be processed.
-	//!\param	_log_level Log level of the message.
-	//!\param	_time_stamp Date and time when the log message was created.
-	//!\param	_file The file from where the log was called.
-	//!\param	_line The line from where the log was called.
-	//!\param	_message The message text for the log.
-	//!\param	_args Parameters that are inserted in the message.
+	//!\param _log_level Log level of the message.
+	//!\param _time_stamp Date and time when the log message was created.
+	//!\param _file The file from where the log was called.
+	//!\param _line The line from where the log was called.
+	//!\param _message The message text for the log.
+	//!\param _args Parameters that are inserted in the message.
 	//!\return void
 	//!\sa log_and_wait, SX_LOG(), sxprintf
 	template< typename ... args > 
@@ -96,12 +96,12 @@ public:
 
 
 	//!\brief Add a message to the queue of messages and waits the message to be processed.
-	//!\param	_log_level Log level of the message.
-	//!\param	_time_stamp Date and time when the log message was created.
-	//!\param	_file The file from where the log was called.
-	//!\param	_line The line from where the log was called.
-	//!\param	_message The message text for the log.
-	//!\param	_args Parameters that are inserted in the message.
+	//!\param _log_level Log level of the message.
+	//!\param _time_stamp Date and time when the log message was created.
+	//!\param _file The file from where the log was called.
+	//!\param _line The line from where the log was called.
+	//!\param _message The message text for the log.
+	//!\param _args Parameters that are inserted in the message.
 	//!\return void
 	//!\sa log, SX_LOG(), sxprintf
 	template< typename ... args >
@@ -109,10 +109,10 @@ public:
 		const std::string& _message, args ... _args )
 	{
 		waiter waiter;
-		{			
+		{
 			log_message message( &waiter, _log_level, _time_stamp, _file, _line, sxe::sxprintf( _message.c_str(), _args ... ) );
 			sxe::lock_guard< sxe::mutex > lock( mutex_ );
-			messages_.push( message );			
+			messages_.push( message );
 		}
 		condition_.notify_one();
 		waiter.wait();
@@ -505,7 +505,7 @@ public:
 	}
 
 
-	//!\brief Gets the current date and time as a string.
+	//!\brief Get the current date and time as a string.
 	//!\return String containing the date and time.
 	static std::string get_timestamp()
 	{

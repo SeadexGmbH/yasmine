@@ -34,7 +34,7 @@ public:
 	//!\brief Alias for the map of log levels to colors.
 	typedef std::map< log_level, color > color_map;
 
-	//!\brief Constructor of the class.
+	//!\brief Constructor.
 	color_mapping();
 	~color_mapping() SX_NOEXCEPT;
 	SX_NO_COPY(color_mapping)

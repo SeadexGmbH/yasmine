@@ -19,9 +19,6 @@ namespace hermes
 //!\brief Constant for width of the log level block. The log level block has a fixed width for better readability.
 extern const int LOG_LEVEL_BLOCK_WIDTH;
 
-//!\brief Constant URI delimiter character
-extern const char URI_DELIMITER;
-
 
 }
 
