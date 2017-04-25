@@ -179,11 +179,11 @@ namespace sxy
 		//!\brief Stops the state machine. It checks for active asynchronous simple states and stops their do behaviors.
 		virtual void halt();
 
-		//!\brief Sets the internal flag of the state machine, to interrupt all processes inside the state machine and 
+		//!\brief Set the internal flag of the state machine, to interrupt all processes inside the state machine and 
 		//!to stop the state machine.
 		virtual void interrupt();
 
-		//!\brief Gets the internal flag of the state machine that specify if the run of state machine is	interrupted.
+		//!\brief Get the internal flag of the state machine that specify if the run of state machine is	interrupted.
 		//!\return true if the internal flag is set to interrupt the state machine, false otherwise.
 		//!\sa interrupt
 		virtual bool is_interrupted() const SX_OVERRIDE;

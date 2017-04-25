@@ -39,9 +39,9 @@ namespace utils
 #ifdef WIN32
 
 
-//!\brief Sets the size of the console.
-//!\param	_width Number of columns in Windows console.
-//!\param	_height Number of lines in Windows console.
+//!\brief Set the size of the console.
+//!\param _width Number of columns in Windows console.
+//!\param _height Number of lines in Windows console.
 //!\return void
 void set_window_size( const SHORT _width, const SHORT _height );
 

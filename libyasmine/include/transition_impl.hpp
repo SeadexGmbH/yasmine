@@ -43,10 +43,10 @@ public:
 	virtual vertex& get_target() SX_OVERRIDE;
 	virtual const constraint * get_guard() const SX_OVERRIDE;
 	virtual const behavior * get_behavior() const SX_OVERRIDE;
-	virtual uri get_uri() const SX_OVERRIDE;
+	virtual sxe::uri get_uri() const SX_OVERRIDE;
 	virtual const state_machine_element * get_parent() const SX_OVERRIDE;
 	virtual sxy::transition_kind get_kind() const SX_OVERRIDE;
-	virtual void add_ancestor_uri( uri& _uri ) const SX_OVERRIDE;
+	virtual void add_ancestor_uri( sxe::uri& _uri ) const SX_OVERRIDE;
 	virtual void on_transition_behavior( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
 	virtual bool check_guard( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
 	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE;

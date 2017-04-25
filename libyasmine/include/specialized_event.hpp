@@ -26,7 +26,7 @@ template<class _concrete_event, sxy::event_id _event_id, sxy::event_priority _ev
 class specialized_event: public event_impl
 {
 public:
-	//!\brief Constructor of the specialized_event class.
+	//!\brief Constructor.
 	explicit specialized_event(const std::string _name = std::string())
 		: event_impl( _event_id, _event_priority ),
 		  name_( _name )

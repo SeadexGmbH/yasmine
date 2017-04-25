@@ -36,7 +36,7 @@ typedef std::set< event_creation_request, event_creation_request_time_comparer >
 class timed_event_creator SX_FINAL
 {
 public:
-	//!\brief Constructor of timed_event_creator.
+	//!\brief Constructor.
 	//!\param _async_state_machine - state_machine the created events are sent to.
 	explicit timed_event_creator( async_state_machine& _async_state_machine );
 	~timed_event_creator() SX_NOEXCEPT;

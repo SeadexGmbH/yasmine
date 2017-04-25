@@ -38,14 +38,14 @@ public:
 	virtual void remove_incoming_transition( const transition& _incoming_transition ) SX_OVERRIDE;
 	virtual const raw_transitions& get_outgoing_transitions() const SX_OVERRIDE;
 	virtual const raw_transitions& get_incoming_transitions() const SX_OVERRIDE;
-	virtual uri get_uri() const SX_OVERRIDE;
+	virtual sxe::uri get_uri() const SX_OVERRIDE;
 	transition* search_transition( const event& _event, event_collector& _event_collector ) const SX_OVERRIDE;
 	virtual region* LCA_region( const vertex& _target_vertex ) const SX_OVERRIDE;
 	virtual composite_state* LCA_composite_state( const vertex& _rhs ) const SX_OVERRIDE;
 
 
 private:
-	void add_ancestor_uri( uri& _uri ) const SX_OVERRIDE;
+	void add_ancestor_uri( sxe::uri& _uri ) const SX_OVERRIDE;
 	raw_transitions::const_iterator find_first_transition_without_guard( const raw_transitions& _vector_of_transitions );
 	static bool has_no_guard( const transition* const _transition );
 

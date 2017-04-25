@@ -28,7 +28,7 @@ namespace sxy
 class state_machine_introspection
 {
 public:
-	//!\brief Constructor of state_machine_introspection.
+	//!\brief Constructor.
 	state_machine_introspection()
 	{
 		// Nothing to do...
@@ -43,7 +43,7 @@ public:
 
 	SX_NO_COPY(state_machine_introspection)
 
-	//!\brief Gets the active state configuration of the state machine.
+	//!\brief Get the active state configuration of the state machine.
 	//!\return A list of active states of the state machine at the moment when the function is called.
 	virtual raw_const_states get_active_state_configuration() const = 0;
 	virtual const events& get_deferred_events() const = 0;	

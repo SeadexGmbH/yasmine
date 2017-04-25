@@ -14,9 +14,9 @@
 
 
 #include "essentials/non_copyable.hpp"
+#include "essentials/uri.hpp"
 
 #include "state_machine_defect_fwd.hpp"
-#include "uri.hpp"
 
 
 namespace sxy
@@ -40,8 +40,8 @@ public:
 
 	SX_NO_COPY(state_machine_element)
 	virtual const std::string& get_name() const = 0;
-	virtual uri get_uri() const = 0;
-	virtual void add_ancestor_uri( uri& _uri ) const = 0;
+	virtual sxe::uri get_uri() const = 0;
+	virtual void add_ancestor_uri( sxe::uri& _uri ) const = 0;
 	virtual bool check( state_machine_defects& _defects ) const = 0;
 	virtual const state_machine_element * get_parent() const = 0;
 };
