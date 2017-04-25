@@ -15,27 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="logic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="submachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="state_machine_with_submachines.cpp">
+    <ClCompile Include="state_machine_creator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="submachine.hpp">
+    <ClInclude Include="logic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="events.hpp">
+    <ClInclude Include="state_machine_creator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="state_machine_with_submachines.hpp">
-      <Filter>Header Files</Filter>
-    </None>
   </ItemGroup>
 </Project>
