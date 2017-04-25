@@ -4,10 +4,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
   <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>yasmine_model.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile />
     <ClCompile>
-      <AdditionalIncludeDirectories>..\externals\hermes\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\yasmine_model\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Lib />
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

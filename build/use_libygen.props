@@ -6,9 +6,12 @@
   <ItemDefinitionGroup>
     <ClCompile />
     <Lib />
-    <ClCompile />
+    <Link>
+      <AdditionalLibraryDirectories>$(BOOST_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libygen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\externals\hermes\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libygen\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

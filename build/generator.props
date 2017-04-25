@@ -9,11 +9,11 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4127;4250</DisableSpecificWarnings>
-      <PreprocessorDefinitions>Y_OPTIMIZE_4_SPEED;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>None</DebugInformationFormat>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>include;include_impl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link />
     <Link>
