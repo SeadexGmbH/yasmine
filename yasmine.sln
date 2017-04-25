@@ -11,9 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hello_yasmine", "examples\h
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "licenses", "licenses", "{FBC833F8-033B-4400-8CBA-C71A32CF62B4}"
-	ProjectSection(SolutionItems) = preProject
-		license\license.txt = license\license.txt
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classic_farmroad", "examples\classic_farmroad\classic_farmroad.vcxproj", "{DDCFB59A-D19C-4382-ACFD-747105EB8D03}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -70,16 +67,62 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "yasmine", "yasmine", "{7902
 		license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf = license\Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code generator", "code generator", "{AF9A9587-13D2-4D16-9C3A-AB3061E3FEF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core library", "core library", "{ABDBC512-39DD-4625-A015-C23AA0690AD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "model", "model", "{68F3A738-05B2-48AE-AF75-B8E9FE63660E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yasmine_model", "yasmine_model\yasmine_model.vcxproj", "{2069AE83-AE26-484A-A6E7-E872E0045020}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "genesis", "genesis\genesis.vcxproj", "{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libygen", "libygen\libygen.vcxproj", "{CED23388-105D-46FA-9EC3-AD923C209AED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2069AE83-AE26-484A-A6E7-E872E0045020} = {2069AE83-AE26-484A-A6E7-E872E0045020}
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357} = {466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ygen", "ygen\ygen.vcxproj", "{E70CC0C5-256B-41E2-A852-B1904C2D84D3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CED23388-105D-46FA-9EC3-AD923C209AED} = {CED23388-105D-46FA-9EC3-AD923C209AED}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B883C29E-485C-4C8F-ACB1-A1602378BF5C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "generator_example", "examples\generator_example\generator_example.vcxproj", "{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {A728DDFB-BE51-49B5-8593-4E89E024A500}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "genesis", "genesis", "{A23DCF32-F7CB-450B-B4A0-59AD7BACFDD4}"
+	ProjectSection(SolutionItems) = preProject
+		genesis\license\genesis_Anhang_Appendix_20170406.pdf = genesis\license\genesis_Anhang_Appendix_20170406.pdf
+		genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf = genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf
+		genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf = genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf
+		genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf = genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf
+		genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf = genesis\license\genesis_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "version", "version", "{520EB861-9C31-49DB-B60A-0F5618BBAB53}"
+	ProjectSection(SolutionItems) = preProject
+		version.txt = version.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug - C++ 03|Win32 = Debug - C++ 03|Win32
 		Debug - C++ 03|x64 = Debug - C++ 03|x64
+		Debug - Clang|Win32 = Debug - Clang|Win32
+		Debug - Clang|x64 = Debug - Clang|x64
 		Debug - VS 2013|Win32 = Debug - VS 2013|Win32
 		Debug - VS 2013|x64 = Debug - VS 2013|x64
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
 		Release - C++ 03|Win32 = Release - C++ 03|Win32
 		Release - C++ 03|x64 = Release - C++ 03|x64
+		Release - Clang|Win32 = Release - Clang|Win32
+		Release - Clang|x64 = Release - Clang|x64
 		Release - VS 2013|Win32 = Release - VS 2013|Win32
 		Release - VS 2013|x64 = Release - VS 2013|x64
 		Release|Win32 = Release|Win32
@@ -90,6 +133,10 @@ Global
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - Clang|Win32.ActiveCfg = Debug - Clang|Win32
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - Clang|Win32.Build.0 = Debug - Clang|Win32
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - Clang|x64.ActiveCfg = Debug - Clang|x64
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - Clang|x64.Build.0 = Debug - Clang|x64
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
@@ -102,6 +149,10 @@ Global
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - Clang|Win32.ActiveCfg = Release - Clang|Win32
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - Clang|Win32.Build.0 = Release - Clang|Win32
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - Clang|x64.ActiveCfg = Release - Clang|x64
+		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - Clang|x64.Build.0 = Release - Clang|x64
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
 		{A728DDFB-BE51-49B5-8593-4E89E024A500}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
@@ -114,6 +165,10 @@ Global
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - Clang|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - Clang|Win32.Build.0 = Debug - C++ 03|Win32
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - Clang|x64.ActiveCfg = Debug - C++ 03|x64
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - Clang|x64.Build.0 = Debug - C++ 03|x64
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
@@ -126,6 +181,10 @@ Global
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
 		{C231C585-F237-4F08-8BF5-8DC7106599D4}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
@@ -138,6 +197,10 @@ Global
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - Clang|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - Clang|Win32.Build.0 = Debug - C++ 03|Win32
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - Clang|x64.ActiveCfg = Debug - C++ 03|x64
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - Clang|x64.Build.0 = Debug - C++ 03|x64
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
@@ -150,6 +213,10 @@ Global
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
@@ -162,6 +229,10 @@ Global
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - Clang|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - Clang|Win32.Build.0 = Debug - C++ 03|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - Clang|x64.ActiveCfg = Debug - C++ 03|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - Clang|x64.Build.0 = Debug - C++ 03|x64
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
@@ -174,6 +245,10 @@ Global
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
@@ -186,6 +261,10 @@ Global
 		{44767840-E79D-4049-B97B-867D32783090}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
 		{44767840-E79D-4049-B97B-867D32783090}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
 		{44767840-E79D-4049-B97B-867D32783090}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{44767840-E79D-4049-B97B-867D32783090}.Debug - Clang|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{44767840-E79D-4049-B97B-867D32783090}.Debug - Clang|Win32.Build.0 = Debug - C++ 03|Win32
+		{44767840-E79D-4049-B97B-867D32783090}.Debug - Clang|x64.ActiveCfg = Debug - C++ 03|x64
+		{44767840-E79D-4049-B97B-867D32783090}.Debug - Clang|x64.Build.0 = Debug - C++ 03|x64
 		{44767840-E79D-4049-B97B-867D32783090}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
 		{44767840-E79D-4049-B97B-867D32783090}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
 		{44767840-E79D-4049-B97B-867D32783090}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
@@ -198,6 +277,10 @@ Global
 		{44767840-E79D-4049-B97B-867D32783090}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
 		{44767840-E79D-4049-B97B-867D32783090}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
 		{44767840-E79D-4049-B97B-867D32783090}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{44767840-E79D-4049-B97B-867D32783090}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{44767840-E79D-4049-B97B-867D32783090}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{44767840-E79D-4049-B97B-867D32783090}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{44767840-E79D-4049-B97B-867D32783090}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
 		{44767840-E79D-4049-B97B-867D32783090}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
 		{44767840-E79D-4049-B97B-867D32783090}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
 		{44767840-E79D-4049-B97B-867D32783090}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
@@ -210,6 +293,10 @@ Global
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - Clang|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - Clang|Win32.Build.0 = Debug - C++ 03|Win32
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - Clang|x64.ActiveCfg = Debug - C++ 03|x64
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - Clang|x64.Build.0 = Debug - C++ 03|x64
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
@@ -222,6 +309,10 @@ Global
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
@@ -230,10 +321,14 @@ Global
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release|Win32.Build.0 = Release|Win32
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release|x64.ActiveCfg = Release|x64
 		{E27E791D-29D2-4FAA-A683-D58228818F67}.Release|x64.Build.0 = Release|x64
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|Win32.ActiveCfg = Debug|Win32
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|Win32.Build.0 = Debug|Win32
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|x64.ActiveCfg = Debug|x64
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|x64.Build.0 = Debug|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - Clang|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - Clang|Win32.Build.0 = Debug - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - Clang|x64.ActiveCfg = Debug - C++ 03|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - Clang|x64.Build.0 = Debug - C++ 03|x64
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - VS 2013|Win32.ActiveCfg = Debug|Win32
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - VS 2013|Win32.Build.0 = Debug|Win32
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug - VS 2013|x64.ActiveCfg = Debug|x64
@@ -242,10 +337,14 @@ Global
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug|Win32.Build.0 = Debug|Win32
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug|x64.ActiveCfg = Debug|x64
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Debug|x64.Build.0 = Debug|x64
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|Win32.ActiveCfg = Release|Win32
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|Win32.Build.0 = Release|Win32
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|x64.ActiveCfg = Release|x64
-		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|x64.Build.0 = Release|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|Win32.ActiveCfg = Release - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - VS 2013|Win32.ActiveCfg = Release|Win32
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - VS 2013|Win32.Build.0 = Release|Win32
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release - VS 2013|x64.ActiveCfg = Release|x64
@@ -254,13 +353,175 @@ Global
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release|Win32.Build.0 = Release|Win32
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release|x64.ActiveCfg = Release|x64
 		{B9D2ABFB-6CD3-4C8F-ACC3-5BE2D798552E}.Release|x64.Build.0 = Release|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - C++ 03|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - Clang|Win32.ActiveCfg = Debug - Clang|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - Clang|Win32.Build.0 = Debug - Clang|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - Clang|x64.ActiveCfg = Debug - Clang|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - Clang|x64.Build.0 = Debug - Clang|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - VS 2013|Win32.ActiveCfg = Debug - VS 2013|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - VS 2013|Win32.Build.0 = Debug - VS 2013|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - VS 2013|x64.ActiveCfg = Debug - VS 2013|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug - VS 2013|x64.Build.0 = Debug - VS 2013|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug|Win32.Build.0 = Debug|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug|x64.ActiveCfg = Debug|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Debug|x64.Build.0 = Debug|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - C++ 03|Win32.ActiveCfg = Release - C++ 03|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - Clang|Win32.ActiveCfg = Release - C++ 03|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - Clang|Win32.Build.0 = Release - C++ 03|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - Clang|x64.ActiveCfg = Release - C++ 03|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - Clang|x64.Build.0 = Release - C++ 03|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - VS 2013|Win32.ActiveCfg = Release - VS 2013|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - VS 2013|Win32.Build.0 = Release - VS 2013|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - VS 2013|x64.ActiveCfg = Release - VS 2013|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release - VS 2013|x64.Build.0 = Release - VS 2013|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release|Win32.ActiveCfg = Release|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release|Win32.Build.0 = Release|Win32
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release|x64.ActiveCfg = Release|x64
+		{2069AE83-AE26-484A-A6E7-E872E0045020}.Release|x64.Build.0 = Release|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - C++ 03|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - Clang|Win32.ActiveCfg = Debug|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - Clang|Win32.Build.0 = Debug|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - Clang|x64.ActiveCfg = Debug|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - Clang|x64.Build.0 = Debug|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - VS 2013|Win32.ActiveCfg = Debug|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - VS 2013|Win32.Build.0 = Debug|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - VS 2013|x64.ActiveCfg = Debug|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug - VS 2013|x64.Build.0 = Debug|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug|Win32.ActiveCfg = Debug|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug|Win32.Build.0 = Debug|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug|x64.ActiveCfg = Debug|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Debug|x64.Build.0 = Debug|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - C++ 03|Win32.ActiveCfg = Release - C++ 03|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - Clang|Win32.ActiveCfg = Release|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - Clang|Win32.Build.0 = Release|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - Clang|x64.ActiveCfg = Release|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - Clang|x64.Build.0 = Release|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - VS 2013|Win32.ActiveCfg = Release|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - VS 2013|Win32.Build.0 = Release|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - VS 2013|x64.ActiveCfg = Release|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release - VS 2013|x64.Build.0 = Release|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release|Win32.ActiveCfg = Release|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release|Win32.Build.0 = Release|Win32
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release|x64.ActiveCfg = Release|x64
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357}.Release|x64.Build.0 = Release|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - C++ 03|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - Clang|Win32.ActiveCfg = Debug|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - Clang|Win32.Build.0 = Debug|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - Clang|x64.ActiveCfg = Debug|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - Clang|x64.Build.0 = Debug|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - VS 2013|Win32.ActiveCfg = Debug|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - VS 2013|Win32.Build.0 = Debug|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - VS 2013|x64.ActiveCfg = Debug|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug - VS 2013|x64.Build.0 = Debug|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug|Win32.Build.0 = Debug|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug|x64.ActiveCfg = Debug|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Debug|x64.Build.0 = Debug|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - C++ 03|Win32.ActiveCfg = Release - C++ 03|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - Clang|Win32.ActiveCfg = Release|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - Clang|Win32.Build.0 = Release|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - Clang|x64.ActiveCfg = Release|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - Clang|x64.Build.0 = Release|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - VS 2013|Win32.ActiveCfg = Release|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - VS 2013|Win32.Build.0 = Release|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - VS 2013|x64.ActiveCfg = Release|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release - VS 2013|x64.Build.0 = Release|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release|Win32.ActiveCfg = Release|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release|Win32.Build.0 = Release|Win32
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release|x64.ActiveCfg = Release|x64
+		{CED23388-105D-46FA-9EC3-AD923C209AED}.Release|x64.Build.0 = Release|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - C++ 03|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - Clang|Win32.ActiveCfg = Debug|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - Clang|Win32.Build.0 = Debug|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - Clang|x64.ActiveCfg = Debug|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - Clang|x64.Build.0 = Debug|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - VS 2013|Win32.ActiveCfg = Debug|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - VS 2013|Win32.Build.0 = Debug|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - VS 2013|x64.ActiveCfg = Debug|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug - VS 2013|x64.Build.0 = Debug|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug|Win32.Build.0 = Debug|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug|x64.ActiveCfg = Debug|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Debug|x64.Build.0 = Debug|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - C++ 03|Win32.ActiveCfg = Release - C++ 03|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - Clang|Win32.ActiveCfg = Release|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - Clang|Win32.Build.0 = Release|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - Clang|x64.ActiveCfg = Release|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - Clang|x64.Build.0 = Release|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - VS 2013|Win32.ActiveCfg = Release|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - VS 2013|Win32.Build.0 = Release|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - VS 2013|x64.ActiveCfg = Release|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release - VS 2013|x64.Build.0 = Release|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release|Win32.ActiveCfg = Release|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release|Win32.Build.0 = Release|Win32
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release|x64.ActiveCfg = Release|x64
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3}.Release|x64.Build.0 = Release|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - C++ 03|Win32.ActiveCfg = Debug - C++ 03|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - C++ 03|Win32.Build.0 = Debug - C++ 03|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - C++ 03|x64.ActiveCfg = Debug - C++ 03|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - C++ 03|x64.Build.0 = Debug - C++ 03|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - Clang|Win32.ActiveCfg = Debug|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - Clang|Win32.Build.0 = Debug|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - Clang|x64.ActiveCfg = Debug|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - Clang|x64.Build.0 = Debug|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - VS 2013|Win32.ActiveCfg = Debug|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - VS 2013|Win32.Build.0 = Debug|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - VS 2013|x64.ActiveCfg = Debug|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug - VS 2013|x64.Build.0 = Debug|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug|Win32.Build.0 = Debug|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug|x64.ActiveCfg = Debug|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Debug|x64.Build.0 = Debug|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - C++ 03|Win32.ActiveCfg = Release - C++ 03|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - C++ 03|Win32.Build.0 = Release - C++ 03|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - C++ 03|x64.ActiveCfg = Release - C++ 03|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - C++ 03|x64.Build.0 = Release - C++ 03|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - Clang|Win32.ActiveCfg = Release|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - Clang|Win32.Build.0 = Release|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - Clang|x64.ActiveCfg = Release|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - Clang|x64.Build.0 = Release|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - VS 2013|Win32.ActiveCfg = Release|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - VS 2013|Win32.Build.0 = Release|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - VS 2013|x64.ActiveCfg = Release|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release - VS 2013|x64.Build.0 = Release|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release|Win32.ActiveCfg = Release|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release|Win32.Build.0 = Release|Win32
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release|x64.ActiveCfg = Release|x64
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{A728DDFB-BE51-49B5-8593-4E89E024A500} = {ABDBC512-39DD-4625-A015-C23AA0690AD1}
 		{C231C585-F237-4F08-8BF5-8DC7106599D4} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 		{DDCFB59A-D19C-4382-ACFD-747105EB8D03} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
+		{B7DF480E-DC38-410F-86E7-330696F7D5AB} = {ABDBC512-39DD-4625-A015-C23AA0690AD1}
 		{5FA6552A-6FFB-44DE-BEBA-49FD1F1701EA} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 		{44767840-E79D-4049-B97B-867D32783090} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
 		{E27E791D-29D2-4FAA-A683-D58228818F67} = {B7DF480E-DC38-410F-86E7-330696F7D5AB}
@@ -268,5 +529,12 @@ Global
 		{9DE9E971-362C-4A08-91D5-56ABA346AC1C} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
 		{47973C26-88C1-4C07-8B31-6D448D7BD387} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
 		{790287FF-8ECB-440C-8D3D-343AF0951E7B} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
+		{2069AE83-AE26-484A-A6E7-E872E0045020} = {68F3A738-05B2-48AE-AF75-B8E9FE63660E}
+		{466B53F7-FF2E-4A0D-94C1-48E1ACC7D357} = {AF9A9587-13D2-4D16-9C3A-AB3061E3FEF3}
+		{CED23388-105D-46FA-9EC3-AD923C209AED} = {AF9A9587-13D2-4D16-9C3A-AB3061E3FEF3}
+		{E70CC0C5-256B-41E2-A852-B1904C2D84D3} = {AF9A9587-13D2-4D16-9C3A-AB3061E3FEF3}
+		{B883C29E-485C-4C8F-ACB1-A1602378BF5C} = {AF9A9587-13D2-4D16-9C3A-AB3061E3FEF3}
+		{CA16ABEE-C6DE-4BD4-9DE4-5C2F1D149A68} = {B883C29E-485C-4C8F-ACB1-A1602378BF5C}
+		{A23DCF32-F7CB-450B-B4A0-59AD7BACFDD4} = {FBC833F8-033B-4400-8CBA-C71A32CF62B4}
 	EndGlobalSection
 EndGlobal

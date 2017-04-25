@@ -41,7 +41,7 @@
 #include <type_traits>
 #include <random>
 #endif
-				
+
 
 namespace sxe
 {
@@ -81,7 +81,6 @@ namespace sxe
 	using boost::uint16_t;
 	using boost::uint32_t;
 	using boost::uint64_t;
-	
 
 	using boost::bind;
 	using boost::ref;
@@ -94,7 +93,7 @@ namespace sxe
 	using boost::remove_reference;
 	using boost::remove_const;
 
-	using boost::random_device;	
+	using boost::random_device;
 
 
 #else // C++11 compatibility
@@ -142,7 +141,7 @@ namespace sxe
 
 	using std::shared_ptr;
 	template<typename _pointee>
-	using SX_UNIQUE_PTR = std::unique_ptr<_pointee>;	
+	using SX_UNIQUE_PTR = std::unique_ptr<_pointee>;
 
 	#define SX_MAKE_SHARED std::make_shared
 	#define SX_MAKE_UNIQUE sxe::make_unique
@@ -153,12 +152,11 @@ namespace sxe
 	using std::int8_t;
 	using std::int16_t;
 	using std::int32_t;
-	using std::int64_t;	
+	using std::int64_t;
 	using std::uint8_t;
 	using std::uint16_t;
 	using std::uint32_t;
 	using std::uint64_t;
-	
 
 	using std::bind;
 	using std::ref;
@@ -171,7 +169,7 @@ namespace sxe
 	using std::remove_reference;
 	using std::remove_const;
 
-	using std::random_device;	
+	using std::random_device;
 	
 
 #endif

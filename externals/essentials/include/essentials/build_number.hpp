@@ -23,7 +23,7 @@ namespace version
 {
 
 
-	const sxe::uint16_t BUILD_NUMBER( 56 );
+	const sxe::uint16_t BUILD_NUMBER( 60 );
 
 
 }

@@ -106,9 +106,9 @@ void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not
 {
 	SX_FOR( const state* const state, _states_to_enter )
 	{
-		SX_FOR( const region_uptr& region, state->get_regions() )		
+		SX_FOR( const region_uptr& region, state->get_regions() )
 		{
-			const std::pair<raw_const_region_set::const_iterator, bool>	inserted_region_iterator = 
+			const std::pair<raw_const_region_set::const_iterator, bool> inserted_region_iterator = 
 				_entered_regions.insert( region.get() );
 			if( false == inserted_region_iterator.second )
 			{
@@ -132,12 +132,12 @@ void transition_executor_impl::get_all_states_to_enter_from_regions_that_are_not
 					if( built_compound_transition )
 					{
 						SX_LOG( hermes::log_level::LL_TRACE, "Build sub compound transition for '%' transition.",
-							initial_pseudostate->get_name() );						
+							initial_pseudostate->get_name() );
 						find_already_entered_regions( *new_compound_transition, _entered_regions, _event, _event_collector );
 						compound_transition_impl* const compound_transition = 
 							dynamic_cast< compound_transition_impl* >( &_compound_transition );
 
-						compound_transition->add_sub_compound_transition( sxe::move( new_compound_transition ) );						
+						compound_transition->add_sub_compound_transition( sxe::move( new_compound_transition ) );
 						SX_LOG( hermes::log_level::LL_SPAM, 
 							"New compound transition added to compound transition as a sub compound transition." );
 					}
@@ -379,7 +379,7 @@ void transition_executor_impl::conflict_check( const compound_transitions& _comp
 			{
 				parent_state = l_state->get_root_state();
 			}
-			check_conflicts_from_source_state_to_LCA( *l_state, unique_exit_states, parent_state );			
+			check_conflicts_from_source_state_to_LCA( *l_state, unique_exit_states, parent_state );
 		}
 	}
 }
@@ -415,14 +415,14 @@ raw_compound_transitions transition_executor_impl::sort_compound_transitions(
 void transition_executor_impl::find_all_states_to_exit( compound_transition_consumer& _compound_transition,
 	raw_states_by_nesting_level_ascending& _states_to_exit )
 {
-	const transition_kind compound_transition_kind = _compound_transition.get_transition_kind();	
+	const transition_kind compound_transition_kind = _compound_transition.get_transition_kind();
 	if( !( transition_kind::INTERNAL == compound_transition_kind ) )
 	{
 		region* LCA_region = _compound_transition.get_LCA_region();
 		if( !LCA_region )
 		{
 			const composite_state* const root_state = _compound_transition.get_last_target().get_root_state();
-			LCA_region = root_state->get_regions().front().get();			
+			LCA_region = root_state->get_regions().front().get();
 		}
 		fill_vector_of_states_to_exit( LCA_region, _states_to_exit, compound_transition_kind );
 	}
@@ -448,15 +448,15 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 			SX_LOG( hermes::log_level::LL_SPAM, "Target of transition '%' is '%'.", transition->get_name(), vertex.get_name() );
 			if( transition_kind::LOCAL == compound_transition_kind )
 			{
-				region* LCA_region = _compound_transition.get_LCA_region();				
+				region* LCA_region = _compound_transition.get_LCA_region();
 				composite_state* active_state_as_composite_state = SX_NULLPTR;
 				if( LCA_region )
-				{					
-					active_state_as_composite_state = dynamic_cast< composite_state* >( LCA_region->get_active_state() );					
+				{
+					active_state_as_composite_state = dynamic_cast< composite_state* >( LCA_region->get_active_state() );
 				}
 				else
 				{
-					active_state_as_composite_state = vertex.get_root_state();					
+					active_state_as_composite_state = vertex.get_root_state();
 				}
 
 				if( active_state_as_composite_state )
@@ -465,10 +465,10 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 						transition->get_source() );
 					vertex.accept_vertex_visitor( visitor );
 					_states_to_enter.erase( active_state_as_composite_state );
-				}				
+				}
 			}
 			else
-			{					
+			{
 				region* LCA_region = _compound_transition.get_LCA_region();
 				composite_state* parent_state = SX_NULLPTR;
 				if( LCA_region )
@@ -481,7 +481,7 @@ void transition_executor_impl::find_all_states_to_enter( compound_transition_con
 				}
 				states_to_enter_visitor_impl visitor( _states_to_enter, _regions_to_enter, *parent_state, 
 					transition->get_source() );
-				vertex.accept_vertex_visitor( visitor );				
+				vertex.accept_vertex_visitor( visitor );
 			}
 		}
 
@@ -563,8 +563,8 @@ void transition_executor_impl::fill_vector_of_choices( raw_const_choices& _choic
 void transition_executor_impl::find_already_entered_regions( compound_transition& new_compound_transition,
 	raw_const_region_set& _entered_regions, const event& _event, event_collector& _event_collector )
 {	
-	raw_states_by_nesting_level states_to_enter;	
-	find_all_states_to_enter( new_compound_transition, states_to_enter, _entered_regions, _event, _event_collector );	
+	raw_states_by_nesting_level states_to_enter;
+	find_all_states_to_enter( new_compound_transition, states_to_enter, _entered_regions, _event, _event_collector );
 }
 
 
@@ -573,7 +573,7 @@ void transition_executor_impl::find_states_to_enter_and_to_exit_and_calculate_ex
 	raw_const_region_set& _entered_regions, const event& _event, bool _find_states_to_exit, 
 	event_collector& _event_collector )
 {
-	raw_states_by_nesting_level_ascending states_to_exit;	
+	raw_states_by_nesting_level_ascending states_to_exit;
 	SX_LOG( hermes::log_level::LL_TRACE, "Start searching states to exit." );
 		
 	if( _find_states_to_exit )

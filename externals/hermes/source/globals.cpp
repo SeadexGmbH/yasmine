@@ -16,7 +16,6 @@ namespace hermes
 
 
 const int LOG_LEVEL_BLOCK_WIDTH = 7;
-extern const char URI_DELIMITER = '/';
 
 
 }

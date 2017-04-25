@@ -80,6 +80,7 @@
     <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\build_number.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\color.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\color_mapping.hpp" />
@@ -268,7 +269,6 @@
     <ClInclude Include="include\transition_kind.hpp" />
     <ClInclude Include="include_impl\transition_priority.hpp" />
     <ClInclude Include="include_impl\try_to_build_compound_transition_visitor.hpp" />
-    <ClInclude Include="include\uri.hpp" />
     <ClInclude Include="include\vertex_impl.hpp" />
     <ClInclude Include="include\utils.hpp" />
   </ItemGroup>
@@ -277,6 +277,7 @@
     <ClCompile Include="..\externals\essentials\source\essentials_version.cpp" />
     <ClCompile Include="..\externals\essentials\source\format_settings.cpp" />
     <ClCompile Include="..\externals\essentials\source\sxprintf.cpp" />
+    <ClCompile Include="..\externals\essentials\source\uri.cpp" />
     <ClCompile Include="..\externals\hermes\source\color_mapping.cpp" />
     <ClCompile Include="..\externals\hermes\source\cout_logger.cpp" />
     <ClCompile Include="..\externals\hermes\source\file_logger.cpp" />
@@ -365,7 +366,6 @@
     <ClCompile Include="source\transition_finder.cpp" />
     <ClCompile Include="source\transition_priority.cpp" />
     <ClCompile Include="source\try_to_build_compound_transition_visitor.cpp" />
-    <ClCompile Include="source\uri.cpp" />
     <ClCompile Include="source\vertex_impl.cpp" />
     <ClCompile Include="source\utils.cpp" />
   </ItemGroup>

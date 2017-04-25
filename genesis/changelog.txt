@@ -1,0 +1,12 @@
+# Change log
+All notable changes to this project are documented in this file.
+
+##[0.2.0] - 2017-04-24
+
+### Added
+• C++03 compatibility
+
+
+##[0.1.0] - 2017-04-24
+
+• The very first release version of genesis

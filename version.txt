@@ -1,0 +1,12 @@
+Versions
+
+• yasmine 1.2.0 released 2017-04-25
+  • libyasmine 1.1.2
+  • essentials 1.2.0
+  • hermes 1.0.1
+  • genesis 0.2.0
+  • yasmine_model 0.1.0
+  • libygen 0.1.0
+  • ygen 0.1.0
+
+  

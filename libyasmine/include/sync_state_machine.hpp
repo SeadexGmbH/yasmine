@@ -28,7 +28,7 @@ class sync_state_machine:
 	public state_machine_base
 {
 public:
-	//!\brief Constructor of sync_state_machine.
+	//!\brief Constructor.
 	//!\param _name Name of the state machine.
 	//!\param _event_processing_callback Event processing callback interface pointer. It can be a nullptr if no callback
 	//!interface should be used.

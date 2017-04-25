@@ -14,12 +14,12 @@
 #include <algorithm>
 #include <iostream>
 
+#include "essentials/uri.hpp"
 #include "hermes/log.hpp"
 
 #include "composite_state.hpp"
 #include "region.hpp"
 #include "transition.hpp"
-#include "uri.hpp"
 #include "event.hpp"
 #include "constraint.hpp"
 
@@ -41,7 +41,7 @@ vertex_impl::~vertex_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
-	 
+
 
 composite_state* vertex_impl::get_root_state()
 {
@@ -54,7 +54,7 @@ composite_state* vertex_impl::get_root_state()
 	else
 	{
 		root = ancestors.back();
-	}	
+	}
 	return ( root );
 }
 
@@ -137,9 +137,9 @@ const raw_transitions& vertex_impl::get_incoming_transitions() const
 }
 
 
-uri vertex_impl::get_uri() const
+sxe::uri vertex_impl::get_uri() const
 {
-	uri uri( get_name() );
+	sxe::uri uri( get_name() );
 	add_ancestor_uri( uri );
 	return( uri );
 }
@@ -174,7 +174,7 @@ region* vertex_impl::LCA_region( const vertex& _rhs ) const
 	const raw_regions& ancestors_of_lhs = get_ancestors_as_regions();
 	const raw_regions& ancestors_of_rhs = _rhs.get_ancestors_as_regions();
 	if( ancestors_of_lhs.empty() || ancestors_of_rhs.empty() )
-	{ 
+	{
 		SX_LOG( hermes::log_level::LL_SPAM,
 			"LCA region not found. This means one of the elements is the root state. The root state has no parent region." );
 	}
@@ -192,7 +192,7 @@ region* vertex_impl::LCA_region( const vertex& _rhs ) const
 
 			--r_idx;
 			--l_idx;
-		}		
+		}
 		SX_LOG( hermes::log_level::LL_SPAM, "LCA region found: '%'.", lca->get_name() );
 	}
 	return( lca );
@@ -233,7 +233,7 @@ composite_state* vertex_impl::LCA_composite_state( const vertex& _rhs ) const
 }
 
 
-void vertex_impl::add_ancestor_uri( uri& _uri ) const
+void vertex_impl::add_ancestor_uri( sxe::uri& _uri ) const
 {
 	const state_machine_element* parent = get_parent();
 	while( parent )
@@ -247,7 +247,7 @@ void vertex_impl::add_ancestor_uri( uri& _uri ) const
 raw_transitions::const_iterator vertex_impl::find_first_transition_without_guard( const raw_transitions& _vector_of_transitions )
 {
 	raw_transitions::const_iterator found_position = std::find_if( _vector_of_transitions.begin(), _vector_of_transitions.end(),
-		( sxe::bind( &vertex_impl::has_no_guard, sxe::_1 ) ) );		
+		( sxe::bind( &vertex_impl::has_no_guard, sxe::_1 ) ) );
 	return( found_position );
 }
 

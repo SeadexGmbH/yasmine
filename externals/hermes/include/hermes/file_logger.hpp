@@ -33,11 +33,11 @@ public:
 	SX_EXCEPTION( exception )	
 
 	//!\brief Constructor
-	//!\param	_max_file_size_in_bytes Maximum size of a log file in bytes.
-	//!\param	_log_files_directory Folder where the log files are stored.
-	//!\param	_name_suffix The suffix for the log files.
-	//!\param	_name_extension The extension of the log files.
-	//!\param	_max_file_number The maximum number of log files.
+	//!\param _max_file_size_in_bytes Maximum size of a log file in bytes.
+	//!\param _log_files_directory Folder where the log files are stored.
+	//!\param _name_suffix The suffix for the log files.
+	//!\param _name_extension The extension of the log files.
+	//!\param _max_file_number The maximum number of log files.
 	//!\param _throw_on_error Flag for throwing an exception on error. Default is true.
 	explicit file_logger( const size_t _max_file_size_in_bytes,	const std::string& _log_files_directory,	
 		const std::string& _name_suffix,	const std::string& _name_extension, const unsigned _max_file_number,

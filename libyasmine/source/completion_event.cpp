@@ -22,7 +22,7 @@ namespace sxy
 #else
 	#ifdef _MSC_VER
 		#if _MSC_VER <= 1800
-															 
+
 
 #include "completion_event.hpp"
 

@@ -20,7 +20,7 @@ namespace sxy
 
 states_nesting_comparer::states_nesting_comparer()
 {
-		// Nothing to do...
+	// Nothing to do...
 }
 
 
