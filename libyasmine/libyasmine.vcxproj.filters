@@ -285,9 +285,6 @@
     <ClInclude Include="include\transition_kind.hpp">
       <Filter>Headerdateien\core\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="include\uri.hpp">
-      <Filter>Headerdateien\core\state machine\element</Filter>
-    </ClInclude>
     <ClInclude Include="include\event_creation_request.hpp">
       <Filter>Headerdateien\core\state machine\timed event</Filter>
     </ClInclude>
@@ -693,6 +690,9 @@
     <ClInclude Include="..\externals\hermes\include\hermes\hermes_version.hpp">
       <Filter>Headerdateien\external\hermes</Filter>
     </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp">
+      <Filter>Headerdateien\external\essentials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\utils.cpp">
@@ -759,9 +759,6 @@
       <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
     <ClCompile Include="source\transition_kind.cpp">
-      <Filter>Quelldateien\core\state machine\element</Filter>
-    </ClCompile>
-    <ClCompile Include="source\uri.cpp">
       <Filter>Quelldateien\core\state machine\element</Filter>
     </ClCompile>
     <ClCompile Include="source\event_creation_request.cpp">
@@ -943,6 +940,9 @@
     </ClCompile>
     <ClCompile Include="..\externals\hermes\source\hermes_version.cpp">
       <Filter>Quelldateien\external\hermes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\essentials\source\uri.cpp">
+      <Filter>Quelldateien\external\essentials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
