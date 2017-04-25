@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\state machine">
+      <UniqueIdentifier>{c3bbb7bf-6be7-4b08-9649-68f33d2b1c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\state machine\vertex">
+      <UniqueIdentifier>{0f24761a-34a9-47c1-9a75-f7da343ac7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\state machine\element">
+      <UniqueIdentifier>{227af17c-9201-4134-a623-f5328b7a77e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\state machine\vertex\pseudostate">
+      <UniqueIdentifier>{b8ca1ed4-350c-4658-9a25-f149801bd666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\state machine\vertex\state">
+      <UniqueIdentifier>{430aef14-bee7-415a-ada6-b7c565ab3ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\state machine">
+      <UniqueIdentifier>{3ab6d0d7-0575-40a0-a8a3-f003057ee42b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\state machine\element">
+      <UniqueIdentifier>{afab9df9-960e-4aa1-8b7d-1180eb86b6f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\state machine\vertex">
+      <UniqueIdentifier>{0ea77ccc-7630-482b-b806-a768eb1aef10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\state machine\vertex\state">
+      <UniqueIdentifier>{705cfaa2-4dcb-4f51-adb7-d933f3e04b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\state machine\vertex\pseudostate">
+      <UniqueIdentifier>{2e1a6e0c-5702-405d-8463-ed0b33ae2590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\state machine\visitors">
+      <UniqueIdentifier>{0d3bb0a8-094f-4df0-a304-9da09fca10f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\json">
+      <UniqueIdentifier>{2671d936-3fbd-4e64-aa50-15d64d43b457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\json">
+      <UniqueIdentifier>{f23a6b72-fd79-4e80-94f0-df764a94a2fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\externals">
+      <UniqueIdentifier>{31e6d6f0-beef-4573-a2ee-45bb97e3972d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\externals\essentials">
+      <UniqueIdentifier>{f3585f15-06be-4a13-8b57-021f06f33586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\externals\essentials\compatibility">
+      <UniqueIdentifier>{c435bfdf-a901-42bf-8149-b5b498bd573f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\extenals">
+      <UniqueIdentifier>{ca791aac-15dc-4770-82a2-4af4749309bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\extenals\essentials">
+      <UniqueIdentifier>{558aca08-79e1-4822-82f2-d4294f22c133}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\consts.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\json_writer.cpp">
+      <Filter>Quelldateien\json</Filter>
+    </ClCompile>
+    <ClCompile Include="source\json_reader.cpp">
+      <Filter>Quelldateien\json</Filter>
+    </ClCompile>
+    <ClCompile Include="source\json_parser_helper.cpp">
+      <Filter>Quelldateien\json</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_model_impl.cpp">
+      <Filter>Quelldateien\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\model_element_type.cpp">
+      <Filter>Quelldateien\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_element_model_impl.cpp">
+      <Filter>Quelldateien\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_model.cpp">
+      <Filter>Quelldateien\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\composite_state_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\simple_state_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\region_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\final_state_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\state</Filter>
+    </ClCompile>
+    <ClCompile Include="source\choice_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\deep_history_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\entry_point_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\exit_point_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fork_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\initial_pseudostate_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\join_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\junction_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\pseudostate_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\terminate_pseudostate_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\shallow_history_model_impl.cpp">
+      <Filter>Quelldateien\state machine\vertex\pseudostate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\model_version.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\event_model.cpp">
+      <Filter>Quelldateien\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\essentials\source\conversion.cpp">
+      <Filter>Quelldateien\extenals\essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\essentials\source\essentials_version.cpp">
+      <Filter>Quelldateien\extenals\essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\essentials\source\format_settings.cpp">
+      <Filter>Quelldateien\extenals\essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\essentials\source\sxprintf.cpp">
+      <Filter>Quelldateien\extenals\essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\externals\essentials\source\uri.cpp">
+      <Filter>Quelldateien\extenals\essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transition_model_kind.cpp">
+      <Filter>Quelldateien\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\event_model_id.cpp">
+      <Filter>Quelldateien\state machine\element</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\consts.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model_element_type.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model_exception.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\json_parser_helper.hpp">
+      <Filter>Headerdateien\json</Filter>
+    </ClInclude>
+    <ClInclude Include="include\json_reader.hpp">
+      <Filter>Headerdateien\json</Filter>
+    </ClInclude>
+    <ClInclude Include="include\json_writer.hpp">
+      <Filter>Headerdateien\json</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_element_model.hpp">
+      <Filter>Headerdateien\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_element_model_impl.hpp">
+      <Filter>Headerdateien\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_model.hpp">
+      <Filter>Headerdateien\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_model_fwd.hpp">
+      <Filter>Headerdateien\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_model.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_model_impl.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model_vertex_visitor.hpp">
+      <Filter>Headerdateien\state machine\visitors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\composite_state_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\composite_state_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\composite_state_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\final_state_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\final_state_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\final_state_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\region_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\simple_state_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\simple_state_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\simple_state_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\state</Filter>
+    </ClInclude>
+    <ClInclude Include="include\choice_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\choice_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\choice_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\deep_history_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\deep_history_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\deep_history_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\entry_point_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\entry_point_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\entry_point_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exit_point_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exit_point_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exit_point_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fork_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fork_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fork_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\initial_pseudostate_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\initial_pseudostate_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\initial_pseudostate_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\join_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\join_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\join_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\junction_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\junction_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\junction_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\terminate_pseudostate_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\terminate_pseudostate_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\terminate_pseudostate_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shallow_history_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shallow_history_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shallow_history_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pseudostate_model_impl.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pseudostate_model_fwd.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pseudostate_model.hpp">
+      <Filter>Headerdateien\state machine\vertex\pseudostate</Filter>
+    </ClInclude>
+    <ClInclude Include="include\build_number.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model_version.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_model.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp">
+      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp">
+      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp">
+      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\base.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\exception_template.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\format_settings.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp">
+      <Filter>Headerdateien\externals\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transition_model_kind.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_model_id.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_model_priority.hpp">
+      <Filter>Headerdateien\state machine\element</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="changelog.txt" />
+  </ItemGroup>
+</Project>
