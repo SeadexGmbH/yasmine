@@ -98,7 +98,7 @@ vertex* state_impl::get_pseudostate( const std::string& _name_of_pseudostate ) c
 }
 
 
-// Gets ancestors in ascending order (from child to parent) up to the given composite state.
+// Get ancestors in ascending order (from child to parent) up to the given composite state.
 raw_composite_states state_impl::get_ancestors( composite_state* const _final_ancestor, 
 	bool _include_final_ancestor ) const
 {

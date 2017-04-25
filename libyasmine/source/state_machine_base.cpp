@@ -13,13 +13,13 @@
 
 #include "essentials/base.hpp"
 #include "essentials/exception.hpp"
+#include "essentials/uri.hpp"
 #include "hermes/log_and_throw.hpp"
 
 #include "event_processing_callback.hpp"
 #include "composite_state_impl.hpp"
 #include "event_impl.hpp"
 #include "transition_controller.hpp"
-#include "uri.hpp"
 #include "region.hpp"
 #include "behavior_impl.hpp"
 #include "constraint_impl.hpp"

@@ -13,6 +13,7 @@
 
 #include <algorithm>
 
+#include "essentials/uri.hpp"
 #include "hermes/log_and_throw.hpp"
 
 #include "const_vertex_visitor.hpp"
@@ -26,7 +27,6 @@
 #include "entry_point_impl.hpp"
 #include "behavior.hpp"
 #include "state_machine_defect.hpp"
-#include "uri.hpp"
 
 
 namespace sxy

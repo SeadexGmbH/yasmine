@@ -13,13 +13,13 @@
 
 #include <algorithm>
 
+#include "essentials/uri.hpp"
 #include "hermes/log.hpp"
 
 #include "vertex.hpp"
 #include "behavior.hpp"
 #include "constraint.hpp"
 #include "event.hpp"
-#include "uri.hpp"
 #include "state_machine_defect.hpp"
 #include "region.hpp"
 #include "state.hpp"
@@ -153,9 +153,9 @@ const behavior* transition_impl::get_behavior() const
 }
 
 
-uri transition_impl::get_uri() const
+sxe::uri transition_impl::get_uri() const
 {
-	uri uri( get_name() );
+	sxe::uri uri( get_name() );
 	add_ancestor_uri( uri );
 	return( uri );
 }
@@ -173,7 +173,7 @@ sxy::transition_kind transition_impl::get_kind() const
 }
 
 
-void transition_impl::add_ancestor_uri( uri& _uri ) const
+void transition_impl::add_ancestor_uri( sxe::uri& _uri ) const
 {
 	SX_UNUSED_PARAMETER( _uri );
 }

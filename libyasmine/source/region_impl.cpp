@@ -11,6 +11,8 @@
 
 #include "region_impl.hpp"
 
+#include "essentials/uri.hpp"
+
 #include "y_assert.hpp"
 #include "state.hpp"
 #include "initial_pseudostate_impl.hpp"
@@ -27,7 +29,6 @@
 #include "async_behavior.hpp"
 
 #include "state_machine_defect.hpp"
-#include "uri.hpp"
 
 
 
@@ -465,15 +466,15 @@ terminate_pseudostate& region_impl::add_terminate_pseudostate( const std::string
 }
 
 
-uri region_impl::get_uri() const
+sxe::uri region_impl::get_uri() const
 {
-	uri uri( get_name() );
+	sxe::uri uri( get_name() );
 	add_ancestor_uri( uri );
 	return( uri );
 }
 
 
-void region_impl::add_ancestor_uri( uri& _uri ) const
+void region_impl::add_ancestor_uri( sxe::uri& _uri ) const
 {
 	const composite_state& parent = get_parent_state();
 	_uri.push_front( parent.get_name() );
