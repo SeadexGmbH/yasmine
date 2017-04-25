@@ -24,7 +24,7 @@ namespace version
 {
 
 
-const sxe::uint16_t BUILD_NUMBER( 616 );
+const sxe::uint16_t BUILD_NUMBER( 656 );
 
 
 }

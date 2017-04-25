@@ -105,8 +105,8 @@ public:
  //!\return A reference to the newly created terminate pseudostate.
 	virtual terminate_pseudostate& add_terminate_pseudostate( 
 		const std::string& _terminate_pseudostate_name ) SX_OVERRIDE;
-	uri get_uri() const SX_OVERRIDE;
-	void add_ancestor_uri ( uri& _uri ) const SX_OVERRIDE;
+	sxe::uri get_uri() const SX_OVERRIDE;
+	void add_ancestor_uri ( sxe::uri& _uri ) const SX_OVERRIDE;
 	virtual bool is_active_state_final () const SX_OVERRIDE;
 	virtual bool check( state_machine_defects& _defects ) const SX_OVERRIDE;
 	virtual const state_machine_element * get_parent() const SX_OVERRIDE;

@@ -35,7 +35,7 @@ public:
 	bool operator<( const transition_priority& _compare_member ) const;
 
 
-private:
+private:	
 	// Objects of this class have to be copied, so we cannot have a reference member.
 	compound_transition* compound_transition_;
 	std::size_t priority_;
