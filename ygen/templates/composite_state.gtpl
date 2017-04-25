@@ -1,0 +1,2 @@
+$loop(regions)	sxy::region& $var(region_name) = $var(current_state_name).add_region("$var(region_name)");
+$template(region.gtpl)$pool$if(is_state)$if(is_composite_state)$loop(state_pseudostates)	sxy::$var(state_pseudostate_type)& $var(state_pseudostate_name) = $var(current_state_name).add_$var(state_pseudostate_type)("$var(state_pseudostate_name)");$pool$fi$fi
