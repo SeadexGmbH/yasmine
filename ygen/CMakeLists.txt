@@ -15,7 +15,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 	if( "${CMAKE_CXX_FLAGS}" STREQUAL "-m64" )
 		set(extra_flags "${extra_flags} -m64")
 		message(STATUS "setting platform x64")
-	else()
+	elseif( "${CMAKE_CXX_FLAGS}" STREQUAL "-m32")
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
 	endif()
@@ -75,20 +75,20 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	#Marks an executable as verified to be compatible with the Windows Data Execution Prevention feature.
 	set(extra_flags "${extra_flags} /NXCOMPAT")
 	
-endif()
+	# for release
+	if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )
+		#Creates fast code.
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+		
+		#Controls LINK optimizations.
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
+		
+	# for debug
+	elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
+		#Creates a program database (PDB) file.
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
+	endif()
 
-# for release
-if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )
-	#Creates fast code.
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
-	
-	#Controls LINK optimizations.
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
-	
-# for debug
-elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
-	#Creates a program database (PDB) file.
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
 endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
@@ -109,13 +109,13 @@ endif()
 
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	SET(Boost_USE_STATIC_LIBS ON)		
+	#SET(Boost_USE_STATIC_LIBS ON)		
 	SET(BOOST_ROOT "${SX_BOOST_LIB_INCLUDE}")		
 	SET(Boost_INCLUDE_DIRS "${SX_BOOST_LIB_INCLUDE}")
 	include_directories(${Boost_INCLUDE_DIRS})		
 	target_link_libraries(ygen LINK_PUBLIC ${Boost_LIBRARIES})
-	target_link_libraries(ygen LINK_PUBLIC "boost_program_options.a")
-	target_link_libraries(ygen LINK_PUBLIC "boost_filesystem.a")
+	target_link_libraries(ygen LINK_PUBLIC "boost_program_options")
+	target_link_libraries(ygen LINK_PUBLIC "boost_filesystem")
 	target_link_libraries (ygen LINK_PUBLIC libygen)
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	target_link_libraries (ygen LINK_PUBLIC libygen)	
