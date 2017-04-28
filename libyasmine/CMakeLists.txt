@@ -14,7 +14,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 	if( "${CMAKE_CXX_FLAGS}" STREQUAL "-m64" )
 		set(extra_flags "${extra_flags} -m64")
 		message(STATUS "setting platform x64")
-	else()
+	elseif("${CMAKE_CXX_FLAGS}" STREQUAL "-m32")
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
 	endif()
@@ -152,26 +152,25 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"Y_PROFILER\"")
 		message(STATUS "Y_PROFILER is defined.")
 	endif()
+
+	# for release
+	if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	
+		#Creates fast code.
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /PDB-")
+		
+		#Controls LINK optimizations.
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
+		
+	# for debug
+	elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )	
+		#Creates a program database (PDB) file.
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
+	endif()
 		
 endif()
 
 include_directories("./include" "./include_impl" "../externals/essentials/include" "../externals/hermes/include")
-
-# for release
-if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	
-	#Creates fast code.
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /PDB-")
-	
-	#Controls LINK optimizations.
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
-	
-# for debug
-elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )	
-	#Creates a program database (PDB) file.
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
-endif()
-
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
@@ -182,7 +181,19 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	add_library(libyasmine STATIC ${yasmine_SRC})
 endif()
 
+SET_TARGET_PROPERTIES ( libyasmine PROPERTIES
+  VERSION 1.1.2
+  SOVERSION 1.1 )
 
 install(TARGETS libyasmine DESTINATION lib)
-install(FILES *.hpp DESTINATION include)
+file(GLOB yasmine_hpp "include/*.hpp")
+file(GLOB yasmine_hpp_impl "include_impl/*.hpp")
+file(GLOB essentials_hpp "../externals/essentials/include/essentials/*.hpp" "../externals/essentials/include/essentials/compatibility/*.hpp")
+file(GLOB essentials_compatibility_hpp "../externals/essentials/include/essentials/compatibility/*.hpp")
+file(GLOB hermes_hpp "../externals/hermes/include/hermes/*.hpp")
+install(FILES ${yasmine_hpp} DESTINATION include/yasmine/include)
+install(FILES ${yasmine_hpp_impl} DESTINATION include/yasmine/include_impl)
+install(FILES ${essentials_hpp} DESTINATION include/yasmine/essentials/include/essentials)
+install(FILES ${essentials_compatibility_hpp} DESTINATION include/yasmine/essentials/include/essentials/compatibility)
+install(FILES ${hermes_hpp} DESTINATION include/yasmine/hermes/include)
 set_target_properties(libyasmine PROPERTIES PREFIX "")

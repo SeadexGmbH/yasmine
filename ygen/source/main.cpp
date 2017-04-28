@@ -30,7 +30,7 @@ bool parse_program_options( int argc, char** argv, boost::program_options::varia
 		( "header_template,e", value<std::string>( &_config.header_template_file )->default_value( HEADER_TEMPLATE_FILE_DEFAULT ), HEADER_TEMPLATE_FILE_TEXT )
 		( "out_file,o", value<std::string>( &_config.source_output_file ), SOURCE_OUT_FILE_TEXT )
 		( "namespace,n", value< std::vector<std::string> >( &_config.namespaces ), NAMESPACES_TEXT )
-		( "behavior_classe,b", value< std::vector<std::string> >( &_config.behavior_classes ), BEHAVIOR_CLASSES_TEXT )
+		( "behavior_class,b", value< std::vector<std::string> >( &_config.behavior_classes ), BEHAVIOR_CLASSES_TEXT )
 		( "model,m", value<std::string>( &_config.model_file ), MODEL_FILE_TEXT )
 		( "state_machine_name,i", value<std::string>( &_config.state_machine_name ), STATE_MACHINE_NAME_TEXT )
 		( "state_machine_type,y", value<sxy::state_machine_type>( &_config.sm_type )->default_value(sxy::state_machine_type::SMT_SYNC, STATE_MACHINE_TYPE_SYNC ), STATE_MACHINE_TYPE_TEXT)
