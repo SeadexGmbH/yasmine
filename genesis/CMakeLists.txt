@@ -14,7 +14,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 	if( "${CMAKE_CXX_FLAGS}" STREQUAL "-m64" )
 		set(extra_flags "${extra_flags} -m64")
 		message(STATUS "setting platform x64")
-	else()
+	elseif("${CMAKE_CXX_FLAGS}" STREQUAL "-m32")
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
 	endif()
@@ -121,38 +121,38 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"SX_NO_STD_MAKE_UNIQUE\"")
 		message(STATUS "SX_NO_STD_MAKE_UNIQUE is defined.")
 	endif()
+
+	# for release
+	if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	
+		#Creates fast code.
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /PDB-")
+		
+		#Controls LINK optimizations.
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
+		
+	# for debug
+	elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )	
+		#Creates a program database (PDB) file.
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
+	endif()
 		
 endif()
 
 include_directories("./include")
 include_directories("./../externals/essentials/include")
 
-# for release
-if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	
-	#Creates fast code.
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /PDB-")
-	
-	#Controls LINK optimizations.
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
-	
-# for debug
-elseif( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )	
-	#Creates a program database (PDB) file.
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /PDB")
-endif()
-
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	add_library(genesis SHARED ${genesis_SRC})
+	add_library(libgenesis SHARED ${genesis_SRC})
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	add_library(genesis STATIC ${genesis_SRC})
 endif()
 
 
-install(TARGETS genesis DESTINATION lib)
-install(FILES *.hpp DESTINATION include)
-set_target_properties(genesis PROPERTIES PREFIX "")
+install(TARGETS libgenesis DESTINATION lib)
+file(GLOB genesis_hpp "include/*.hpp")
+install(FILES ${genesis_hpp} DESTINATION include/genesis/include)
+set_target_properties(libgenesis PROPERTIES PREFIX "")
