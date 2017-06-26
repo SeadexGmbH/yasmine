@@ -184,7 +184,7 @@
     <Import Project="..\..\build\yasmine.props" />
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
     <Import Project="..\..\build\use_essentials_examples.props" />
     <Import Project="..\..\build\use_hermes_examples.props" />
     <Import Project="..\..\build\debug_info.props" />
@@ -208,7 +208,7 @@
     <Import Project="..\..\build\yasmine.props" />
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
     <Import Project="..\..\build\use_essentials_examples.props" />
     <Import Project="..\..\build\use_hermes_examples.props" />
   </ImportGroup>
@@ -233,7 +233,7 @@
     <Import Project="..\..\build\yasmine.props" />
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
     <Import Project="..\..\build\use_essentials_examples.props" />
     <Import Project="..\..\build\use_hermes_examples.props" />
     <Import Project="..\..\build\debug_info.props" />
@@ -257,7 +257,7 @@
     <Import Project="..\..\build\yasmine.props" />
     <Import Project="..\..\build\use_yasmine.props" />
     <Import Project="..\..\build\c++03.props" />
-    <Import Project="..\..\build\c++03_examples.props" />
+    <Import Project="..\..\build\use_c++03.props" />
     <Import Project="..\..\build\use_essentials_examples.props" />
     <Import Project="..\..\build\use_hermes_examples.props" />
   </ImportGroup>
