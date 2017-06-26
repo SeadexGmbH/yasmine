@@ -1,6 +1,11 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[1.2.0] - 2017-06-26
+
+### Added
+• state machine handler for unhandled events
+
 
 ##[1.1.2] - 2017-04-25
 

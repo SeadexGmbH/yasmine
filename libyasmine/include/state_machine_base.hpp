@@ -60,7 +60,7 @@ namespace sxy
 			//!\return Reference to the root state of the state machine.
 			composite_state& get_root_state() const;
 
-#ifdef Y_PROFILER		
+#ifdef Y_PROFILER
 		sxe::uint32_t get_number_of_processed_events() const;
 #endif
 
@@ -84,7 +84,7 @@ namespace sxy
 			const behavior_function& _behavior = behavior_function() );
 
 		//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
-		//! target and adds it to the state machine.	
+		//! target and adds it to the state machine.
 		//!\param event_ids List of IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
@@ -98,7 +98,7 @@ namespace sxy
 			const behavior_function& _behavior = behavior_function() );
 
 		//!\brief Creates a transition with the given name, kind, event, guard between the given source and
-		//! target and adds it to the state machine. No behavior is provided.	
+		//! target and adds it to the state machine. No behavior is provided.
 		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
@@ -109,7 +109,7 @@ namespace sxy
 			const constraint_function& _guard, const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
 		//!\brief Creates a transition with the given name, kind, events, guard between the given source and
-		//! target and adds it to the state machine. No behavior is provided.	
+		//! target and adds it to the state machine. No behavior is provided.
 		//!\param _event_ids IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
@@ -120,10 +120,10 @@ namespace sxy
 			const constraint_function& _guard, const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
 		//!\brief Creates a transition with the given name, kind, event, guard and behavior between the given source and
-		//! target and adds it to the state machine.	
+		//! target and adds it to the state machine.
 		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
-		//!\param _target The target vertex.	
+		//!\param _target The target vertex.
 		//!\param _guard The guard of the transition.
 		//!\param _behavior The behavior of the transition.
 		//!\param _kind Transition kind. Default is EXTERNAL.
@@ -133,10 +133,10 @@ namespace sxy
 			const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
 		//!\brief Creates a transition with the given name, kind, events, guard and behavior between the given source and
-		//! target and adds it to the state machine.	
+		//! target and adds it to the state machine.
 		//!\param _event_ids IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
-		//!\param _target The target vertex.	
+		//!\param _target The target vertex.
 		//!\param _guard The guard of the transition.
 		//!\param _behavior The behavior of the transition.
 		//!\param _kind Transition kind. Default is EXTERNAL.
@@ -146,7 +146,7 @@ namespace sxy
 			const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
 		//!\brief Creates a transition with the given name, kind, event and behavior between the given source and
-		//! target and adds it to the state machine. No guard is provided. 	
+		//! target and adds it to the state machine. No guard is provided.
 		//!\param _event_id ID of the event for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
@@ -157,7 +157,7 @@ namespace sxy
 			const behavior_function& _behavior, const sxy::transition_kind _kind = transition_kind::EXTERNAL );
 
 		//!\brief Creates a transition with the given name, kind, events and behavior between the given source and
-		//! target and adds it to the state machine. No guard is provided. 	
+		//! target and adds it to the state machine. No guard is provided.
 		//!\param _event_ids IDs of the events for which the transition is enabled.
 		//!\param _source The source vertex.
 		//!\param _target The target vertex.
@@ -183,10 +183,14 @@ namespace sxy
 		//!to stop the state machine.
 		virtual void interrupt();
 
-		//!\brief Get the internal flag of the state machine that specify if the run of state machine is	interrupted.
+		//!\brief Get the internal flag of the state machine that specify if the run of state machine is interrupted.
 		//!\return true if the internal flag is set to interrupt the state machine, false otherwise.
 		//!\sa interrupt
 		virtual bool is_interrupted() const SX_OVERRIDE;
+
+		//!\brief Sets the behavior for handler of unhandled events.
+		//!\param _behavior
+		virtual void set_behavior_of_unhandled_event_handler( const behavior_function& _behavior );
 
 
 	protected:
@@ -197,7 +201,7 @@ namespace sxy
 		//!the asynchronous state machine if it has to process asynchronous errors that occur in the 
 		//!asynchronous behavior of asynchronous simple states.
 		//!\return bool true if state machine can be started, else false what means that a terminate pseudostate has been
-		//!reached and the state machine is stopped.		
+		//!reached and the state machine is stopped.
 		bool run( async_event_handler* const _async_event_handler );
 		bool process_event( const event_sptr& _event, async_event_handler* const _async_event_handler );
 		static void stop_all_async_states( state& _state );
@@ -212,6 +216,7 @@ namespace sxy
 		bool process_deferred_events( async_event_handler* const _async_event_handler );
 		static void stop_all_async_states_from_region( region_uptr& _region );
 		virtual void interrupt_impl();
+		void handle_unhandled_event( const event_sptr& _event );
 
 		const std::string name_;
 		event_processing_callback* event_processing_callback_;
@@ -220,9 +225,10 @@ namespace sxy
 		events deferred_events_;
 		sxe::atomic<bool> state_machine_is_running_;
 		sxe::atomic<bool> interrupt_;
-#ifdef Y_PROFILER	
+#ifdef Y_PROFILER
 		sxe::uint32_t processed_events_;
 #endif
+		behavior_uptr event_handler_behavior_;
 
 	};
 
