@@ -39,7 +39,7 @@ namespace sxy
 		transitions_(),
 		deferred_events_(),
 		state_machine_is_running_( false ),
-		interrupt_(false)
+		interrupt_( false )
 #ifdef Y_PROFILER
 		, processed_events_( 0 )
 #endif
@@ -210,7 +210,7 @@ namespace sxy
 
 		return( check_ok );
 	}
- 
+
 
 	void state_machine_base::halt()
 	{
@@ -235,6 +235,12 @@ namespace sxy
 	bool state_machine_base::is_interrupted() const
 	{
 		return( interrupt_ );
+	}
+
+
+	void state_machine_base::set_behavior_of_unhandled_event_handler( const behavior_function& _behavior )
+	{
+		event_handler_behavior_ = behavior_impl::create_behavior( _behavior );
 	}
 
 
@@ -298,7 +304,7 @@ namespace sxy
 			SX_LOG( hermes::log_level::LL_INFO, "'%' is processing event '%' (%) with priority '%'.", get_name(), _event->get_name(),
 				_event->get_id(), static_cast< sxe::int16_t >( _event->get_priority() ) );
 
-			SX_ASSERT( state_machine_is_running_, "State machine is not running!" );			
+			SX_ASSERT( state_machine_is_running_, "State machine is not running!" );
 			SX_LOG( hermes::log_level::LL_TRACE, "Starting processing of event '%' (%) with priority '%'.", _event->get_name(), _event->get_id(),
 				static_cast< sxe::int16_t >( _event->get_priority() ) );
 			try
@@ -310,8 +316,9 @@ namespace sxy
 
 				transition_controller transition_controller;
 				bool event_is_deferred = false;
+				bool event_was_unhandled = false;
 				terminate_pseudostate_has_been_reached = transition_controller.process_event( *_event, *root_state_,
-					event_processing_callback_, event_is_deferred, _async_event_handler, *this, *this );
+					event_processing_callback_, event_is_deferred, _async_event_handler, *this, *this, event_was_unhandled );
 				SX_LOG( hermes::log_level::LL_TRACE, "Event '%' (%) has been processed.", _event->get_name(), _event->get_id() );
 				if( event_processing_callback_ )
 				{
@@ -327,10 +334,15 @@ namespace sxy
 				{
 					if( event_is_deferred )
 					{
+						SX_ASSERT( !event_was_unhandled, "Event is deferred AND is handled!" );
 						add_deferred_event( _event );
 					}
 					else
 					{
+						if( !event_was_unhandled ) //event_was_unhandled
+						{
+							handle_unhandled_event( _event );
+						}
 						terminate_pseudostate_has_been_reached = process_deferred_events( _async_event_handler );
 					}
 				}
@@ -360,7 +372,7 @@ namespace sxy
 
 		}
 		else
-		{			
+		{
 			terminate_pseudostate_has_been_reached = true;
 			halt();
 		}
@@ -411,9 +423,10 @@ namespace sxy
 	}
 
 
-	void state_machine_base::add_deferred_event( const event_sptr& _event_id )
+	void state_machine_base::add_deferred_event( const event_sptr& _event )
 	{
-		deferred_events_.push_back( _event_id );
+		deferred_events_.push_back( _event );
+		SX_LOG( hermes::log_level::LL_DEBUG, "Event '%' was deferred!", _event->get_name() );
 	}
 
 
@@ -432,8 +445,9 @@ namespace sxy
 			}
 
 			bool event_is_deferred = false;
+			bool event_was_unhandled = false;
 			terminate_pseudostate_has_been_reached = transition_controller.process_event( *deferred_event, *root_state_,
-				event_processing_callback_, event_is_deferred, _async_event_handler, *this, *this );
+				event_processing_callback_, event_is_deferred, _async_event_handler, *this, *this, event_was_unhandled );
 			if( event_processing_callback_ )
 			{
 				event_processing_callback_->after_event( deferred_event->get_id() );
@@ -449,6 +463,13 @@ namespace sxy
 				if( event_is_deferred )
 				{
 					deferred_events_.push_back( deferred_event );
+				}
+				else
+				{
+					if( !event_was_unhandled )
+					{
+						handle_unhandled_event( deferred_event );
+					}
 				}
 			}
 		}
@@ -487,6 +508,17 @@ namespace sxy
 	void state_machine_base::interrupt_impl()
 	{
 		// Nothing to do...
+	}
+
+
+	void state_machine_base::handle_unhandled_event( const event_sptr& _event )
+	{
+		SX_LOG( hermes::log_level::LL_DEBUG, "Event '%' was not handled!", _event->get_name() );
+		if( event_handler_behavior_ )
+		{
+			SX_LOG( hermes::log_level::LL_TRACE, "Executing unhandled event handler's behavior." );
+			( *event_handler_behavior_ )( *_event, *this );
+		}
 	}
 
 }
