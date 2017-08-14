@@ -19,9 +19,13 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 	elseif( "${CMAKE_CXX_FLAGS}" STREQUAL "-m32" )
 		set(extra_flags "${extra_flags} -m32")
 		message(STATUS "setting platform x86")
-	endif()		
+	endif()			
 	
-	set(extra_flags "${extra_flags} -std=c++14 -Wall -Wpedantic -g")	
+	if("${CPP_VERSION}" STREQUAL "14")
+		set(extra_flags "${extra_flags} -std=c++14 -Wall -Wpedantic -g")
+	else()
+		set(extra_flags "${extra_flags} -std=c++11 -Wall -Wpedantic -g -D \"SX_NO_STD_MAKE_UNIQUE\"")
+	endif()	
 	
 	# yasmine's preprocessor definitions
 	set(Y_OPTIMIZE "SPEED" CACHE STRING "Sets the optimize type. Supported values: SPEED and SIZE. Default value is SPEED.")
