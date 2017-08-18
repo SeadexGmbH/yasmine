@@ -46,7 +46,7 @@ public:
 
 private:
 	void add_ancestor_uri( sxe::uri& _uri ) const SX_OVERRIDE;
-	raw_transitions::const_iterator find_first_transition_without_guard( const raw_transitions& _vector_of_transitions );
+	raw_transitions::iterator find_first_transition_without_guard( raw_transitions& _vector_of_transitions );
 	static bool has_no_guard( const transition* const _transition );
 
 
