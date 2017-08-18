@@ -48,7 +48,7 @@ namespace hermes
 
 //!\def LOG_AND_THROW( _level, ... )
 //!\brief Log a message and then throw an exception with the same message.
-#define LOG_AND_THROW( _level, ... ) HEMRES_EXPAND( HERMES_VA_SELECT( LOG_AND_THROW_PARAM, _level, __VA_ARGS__ ) )
+#define LOG_AND_THROW( _level, ... ) EXPAND( HERMES_VA_SELECT( LOG_AND_THROW_PARAM, _level, __VA_ARGS__ ) )
 
 
 #define LOG_AND_THROW_PARAM_1( _log_level, _what ) \
