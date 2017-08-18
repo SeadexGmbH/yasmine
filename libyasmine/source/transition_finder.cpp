@@ -108,7 +108,7 @@ void transition_finder::search_choice_transitions( const raw_const_choices& _cho
 				if( !try_to_build_compound_transition( *transition, _compound_transitions, _event, _event_collector ) )
 				{
 					LOG_AND_THROW( hermes::log_level::LL_FATAL, 
-						"Transition following choice '%' could not be built in compound transition!",	choice->get_name() );
+						"Transition following choice '%' could not be built in compound transition!", choice->get_name() );
 				}
 				else
 				{

@@ -21,8 +21,10 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 			
 	if("${CPP_VERSION}" STREQUAL "03")		
 		set(extra_flags "${extra_flags} -std=c++03 -Wall -Wpedantic -g -Wno-unknown-pragmas -D \"SX_CPP03_BOOST\" -D \"SX_NO_VARIADIC_MACRO\"")
-	else()
+	elseif("${CPP_VERSION}" STREQUAL "14")
 		set(extra_flags "${extra_flags} -std=c++14 -Wall -Wpedantic -g")
+	else()
+		set(extra_flags "${extra_flags} -std=c++11 -Wall -Wpedantic -g -D \"SX_NO_STD_MAKE_UNIQUE\"")
 	endif()
 	
 # yasmine's preprocessor definitions
@@ -182,8 +184,8 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif()
 
 SET_TARGET_PROPERTIES ( libyasmine PROPERTIES
-  VERSION 1.1.2
-  SOVERSION 1.1 )
+  VERSION 1.2.1
+  SOVERSION 1.2 )
 
 install(TARGETS libyasmine DESTINATION lib)
 file(GLOB yasmine_hpp "include/*.hpp")

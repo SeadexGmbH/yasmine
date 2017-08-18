@@ -1,6 +1,20 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[1.2.2] - 2017-08-18
+
+### Fix
+• changed const_iterator to iterator in methods vertex_impl::add_outgoing_transition and 
+vertex_impl::find_first_transition_without_guard for compilers with incomplete C++11 support
+• fixed incorrect use of logging macro when compiling C++03 code
+
+
+##[1.2.1] - 2017-08-14
+
+### Changed
+• CMake file improvements: Set C++-standard version (when using gcc) using CPP_VERSION with values '03' for C++03, '14' for C++14. Default is C++11.
+
+
 ##[1.2.0] - 2017-06-26
 
 ### Added

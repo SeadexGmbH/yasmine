@@ -30,7 +30,7 @@ namespace
 
 
 const sxe::uint16_t VERSION_MAJOR( 1 );
-const sxe::uint16_t VERSION_MINOR( 0 );
+const sxe::uint16_t VERSION_MINOR( 1 );
 const sxe::uint16_t VERSION_PATCH( 2 );
 
 

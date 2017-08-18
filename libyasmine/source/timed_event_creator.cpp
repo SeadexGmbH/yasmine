@@ -53,7 +53,7 @@ handle_type timed_event_creator::create_event_creation_request(
 		sxe::unique_lock< sxe::mutex > lock( mutex_ );
 		if( run_ )
 		{
-			handle = generate_handle();			
+			handle = generate_handle();
 			event_creation_requests_.insert( event_creation_request( _time, _event, handle ) );
 		}
 		else
