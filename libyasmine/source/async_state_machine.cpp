@@ -87,8 +87,8 @@ void async_state_machine::halt_and_join()
 {	
 	SX_LOG( hermes::log_level::LL_INFO, "Stopping and joining async state machine '%'.", get_name() );
 
-	halt();	
-	join();		
+	halt();
+	join();
 
 	SX_LOG( hermes::log_level::LL_INFO, "Stopped and joined async state machine '%'.", get_name() );
 }
@@ -104,7 +104,7 @@ void async_state_machine::halt()
 			"Status is not 'STARTED' or 'TERMINATED' on stop!" );
 		status_ = state_machine_status::STOP_REQUESTED;
 	}
-	run_and_event_condition_.notify_one();	
+	run_and_event_condition_.notify_one();
 
 	SX_LOG( hermes::log_level::LL_TRACE, "Stopped state machine '%'.", get_name() );
 }
@@ -121,7 +121,7 @@ void async_state_machine::join()
 	}
 		
 	worker_thread_->join();
-	worker_thread_.reset();	
+	worker_thread_.reset();
 	status_ = state_machine_status::STOPPED;
 	state_machine_base::halt();
 
@@ -169,10 +169,10 @@ bool async_state_machine::push( const event_sptr& _event )
 void async_state_machine::start_state_machine()
 {
 	SX_ASSERT( ( state_machine_status::NEW == status_ ) || ( state_machine_status::STOPPED == status_ ),
-		"Status is neither 'NEW' nor 'STOPPED' on start!" );	
+		"Status is neither 'NEW' nor 'STOPPED' on start!" );
 	
-	status_ = state_machine_status::STARTED;	
-	worker_thread_ = SX_MAKE_UNIQUE< sxe::thread >( &async_state_machine::work, this );	
+	status_ = state_machine_status::STARTED;
+	worker_thread_ = SX_MAKE_UNIQUE< sxe::thread >( &async_state_machine::work, this );
 }
 
 
@@ -182,16 +182,16 @@ bool async_state_machine::insert( const event_sptr& _event )
 
 	bool event_added = false;
 	{
-		sxe::lock_guard< sxe::mutex > lock( run_and_event_mutex_ );		
+		sxe::lock_guard< sxe::mutex > lock( run_and_event_mutex_ );
 		if( status_  == state_machine_status::STARTED )
-		{				
+		{
 			insert_impl( _event );
 			event_added = true;
 		}
 		else
 		{
 			SX_LOG( hermes::log_level::LL_WARN, "Event '%' was not inserted in the queue of events! State machine is not running.", _event->get_name() );
-		}		
+		}
 	}
 	if( event_added )
 	{
@@ -214,7 +214,7 @@ void async_state_machine::insert_impl( const event_sptr& _event )
 			event_list_.push_back( _event );
 		}
 		else
-		{				
+		{
 			std::list< event_sptr >::iterator position = event_list_.begin();
 			while( position != event_list_.end() )
 			{					
@@ -225,13 +225,13 @@ void async_state_machine::insert_impl( const event_sptr& _event )
 				++position;
 			}
 			SX_ASSERT( position != event_list_.end(), "No element found before which to insert!" );
-			event_list_.insert( position, _event );			
+			event_list_.insert( position, _event );
 		}
 }
-	 
+
 
 bool async_state_machine::wait_predicate() const
-{	
+{
 	return( !( status_ == state_machine_status::STARTED ) || !event_list_.empty() );	
 }
 

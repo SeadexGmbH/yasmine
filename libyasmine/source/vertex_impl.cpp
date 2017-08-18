@@ -79,21 +79,14 @@ void vertex_impl::add_outgoing_transition( transition& _outgoing_transition )
 {	
 	if( has_no_guard( &_outgoing_transition ) )
 	{
-		outgoing_transitions_.push_back( &_outgoing_transition );		
+		outgoing_transitions_.push_back( &_outgoing_transition );
 	}
 	else
 	{
-		raw_transitions::const_iterator insert_position = find_first_transition_without_guard( outgoing_transitions_ );
-		if( insert_position != outgoing_transitions_.end() )		
+		raw_transitions::iterator insert_position = find_first_transition_without_guard( outgoing_transitions_ );
+		if( insert_position != outgoing_transitions_.end() )
 		{
-#ifdef SX_CPP03_BOOST
-			raw_transitions::iterator insert_position_03 = 
-				outgoing_transitions_.begin() + 
-				std::distance( const_cast<const raw_transitions&>(outgoing_transitions_).begin(), insert_position );
-			outgoing_transitions_.insert( insert_position_03, &_outgoing_transition );
-#else
 			outgoing_transitions_.insert( insert_position, &_outgoing_transition );
-#endif
 		}
 		else
 		{
@@ -244,9 +237,9 @@ void vertex_impl::add_ancestor_uri( sxe::uri& _uri ) const
 }
 
 
-raw_transitions::const_iterator vertex_impl::find_first_transition_without_guard( const raw_transitions& _vector_of_transitions )
+raw_transitions::iterator vertex_impl::find_first_transition_without_guard( raw_transitions& _vector_of_transitions )
 {
-	raw_transitions::const_iterator found_position = std::find_if( _vector_of_transitions.begin(), _vector_of_transitions.end(),
+	raw_transitions::iterator found_position = std::find_if( _vector_of_transitions.begin(), _vector_of_transitions.end(),
 		( sxe::bind( &vertex_impl::has_no_guard, sxe::_1 ) ) );
 	return( found_position );
 }
