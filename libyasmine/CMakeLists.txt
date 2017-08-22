@@ -63,6 +63,12 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		message(STATUS "Y_PROFILER is defined.")
 	endif()
 	
+	option("SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG" "Sets to use a workaround for bug in GCC with expansion of template parameter pack that appears in a lambda-expression (bug reported for GCC 4.8.4)")	
+	if( "${SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG}" )
+		set(extra_flags "${extra_flags} -D \"SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG\"")
+		message(STATUS "SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG is defined.")
+	endif()
+	
 	
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	# Checks buffer security.
@@ -154,6 +160,12 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"Y_PROFILER\"")
 		message(STATUS "Y_PROFILER is defined.")
 	endif()
+	
+	option("SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG" "Sets to use a workaround for bug in GCC with expansion of template parameter pack that appears in a lambda-expression (bug reported for GCC 4.8.4)")	
+	if( "${SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG}" )
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG\"")
+		message(STATUS "SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG is defined.")
+	endif()
 
 	# for release
 	if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	
@@ -184,7 +196,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif()
 
 SET_TARGET_PROPERTIES ( libyasmine PROPERTIES
-  VERSION 1.2.1
+  VERSION 1.2.3
   SOVERSION 1.2 )
 
 install(TARGETS libyasmine DESTINATION lib)
