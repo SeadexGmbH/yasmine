@@ -589,7 +589,9 @@ std::string recipe_callback_impl::get_event_property( const std::string& _proper
 	std::string result( "" );
 	if( event_index_ < state_machine_model_.get_events().size() )
 	{
-		sxy::model::event_model& event = state_machine_model_.get_events()[event_index_];
+		//const sxy::model::state_machine_model::events& events_ = state_machine_model_.get_events();
+		//const auto ev = events_[event_index_];
+		sxy::model::event_model event = state_machine_model_.get_events()[event_index_];
 		if( _property == VARIABLE_EVENT_ID )
 		{
 			result = sxe::to_string( event.id );
