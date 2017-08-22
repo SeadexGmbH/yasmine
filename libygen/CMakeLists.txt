@@ -4,6 +4,18 @@ project(libygen)
 
 set(CMAKE_VERBOSE_MAKEFILE, 1)
 
+if(SX_RAPIDJSON)
+	message("SX_RAPIDJSON is set by user.")
+else()
+	message("SX_RAPIDJSON is not set by user. Setting default value.")
+	if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+		set(SX_RAPIDJSON "/usr/include/rapidjson")
+	elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+		set(SX_RAPIDJSON "C:\Program Files\rapidjson")
+	endif()
+endif()
+message(STATUS ${SX_RAPIDJSON})
+
 file(GLOB libygen_SRC "include/*.hpp" "source/*.cpp")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -50,7 +62,7 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
 include_directories("./include")
-include_directories("/usr/include/rapidjson")
+include_directories(${SX_RAPIDJSON})
 include_directories("./../libyasmine" "./../genesis" "./../yasmine_model")
 include_directories("./../libyasmine/include" "./../genesis/include" "./../yasmine_model/include")
 include_directories("./../externals/essentials/include")

@@ -22,10 +22,10 @@
 #include "constraint_fwd.hpp"
 #include "caller.hpp"
 #include "guard_caller.hpp"
-										 
+
 
 #ifndef SX_CPP03_BOOST
-		
+
 
 //!\deprecated Use Y_BEHAVIOR_METHOD2 instead.
 #define Y_BEHAVIOR_METHOD( ... ) EXPAND( VA_SELECT( Y_BEHAVIOR_METHOD_SELECT, __VA_ARGS__ ) )
@@ -215,10 +215,156 @@
 #define Y_GUARD_FUNCTION_EVENT( ... ) EXPAND( VA_SELECT( Y_GUARD_FUNCTION_EVENT_SELECT, __VA_ARGS__ ) )
 
 
+#ifdef SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG
+
+
+template< typename method1 >
+sxy::behavior_function create_behavior_function( method1 _method1 )
+{
+	return ( sxy::behavior_function( [_method1]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1 ); } ) );
+}
+
+
+template< typename method1, typename method2 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2 )
+{
+	return ( sxy::behavior_function( [_method1, _method2]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4, _method5]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4, _method5, _method6]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7, typename method8 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7, method8 _method8 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7, typename method8, typename method9 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7, method8 _method8, method9 _method9 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7, typename method8, typename method9, typename method10 >
+sxy::behavior_function create_behavior_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7, method8 _method8, method9 _method9, method10 _method10 )
+{
+	return ( sxy::behavior_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ); } ) );
+}
+
+
+template< typename method1 >
+sxy::constraint_function create_guard_function( method1 _method1 )
+{
+	return ( sxy::constraint_function( [_method1]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1 ) ); } ) );
+}
+
+
+template< typename method1, typename method2 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2 )
+{
+	return ( sxy::constraint_function( [_method1, _method2]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4, _method5]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4, _method5, _method6]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7, typename method8 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7, method8 _method8 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7, typename method8, typename method9 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7, method8 _method8, method9 _method9 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) ); } ) );
+}
+
+
+template< typename method1, typename method2, typename method3, typename method4, typename method5, typename method6, typename method7, typename method8, typename method9, typename method10 >
+sxy::constraint_function create_guard_function( method1 _method1, method2 _method2, method3 _method3, method4 _method4, method5 _method5, method6 _method6, method7 _method7, method8 _method8, method9 _method9, method10 _method10 )
+{
+	return ( sxy::constraint_function( [_method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) ); } ) );
+}
+
+
+#else
+
+
 template< typename ... Args >
 sxy::behavior_function create_behavior_function( Args...args )
 {
-	return ( sxy::behavior_function( [ args... ]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, args... ); } ) );
+	return ( sxy::behavior_function( [args...]( const sxy::event& _event, sxy::event_collector& _event_collector ) { behavior_caller( _event, _event_collector, args... ); } ) );
 }
 
 
@@ -228,27 +374,30 @@ sxy::constraint_function create_guard_function( Args...args )
 	return ( sxy::constraint_function( [args...]( const sxy::event& _event, sxy::event_collector& _event_collector ) { return( guard_caller( _event, _event_collector, args... ) ); } ) );
 }
 
-	#define Y_BEHAVIOR_METHOD2_SELECT_1( _class_instance, _method ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ) )
-	#define Y_BEHAVIOR_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_behavior_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method10 ) )
 
-	#define Y_GUARD_METHOD2_SELECT_1( _class_instance, _method ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method ) )
-	#define Y_GUARD_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ) )
-	#define Y_GUARD_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ) )
-	#define Y_GUARD_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ) )
-	#define Y_GUARD_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ) )
-	#define Y_GUARD_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ) )
-	#define Y_GUARD_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ) )
-	#define Y_GUARD_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ) )
-	#define Y_GUARD_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ) )
-	#define Y_GUARD_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_guard_function( adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method1 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method2 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method3 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method4 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method5 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method6 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method7 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method8 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method9 ), adapt<std::remove_pointer<decltype(_class_instance)>::type>( _class_instance, _method10 ) )
+#endif
+
+	#define Y_BEHAVIOR_METHOD2_SELECT_1( _class_instance, _method ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method8 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method8 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method9 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_behavior_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method8 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method9 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method10 ) )
+
+	#define Y_GUARD_METHOD2_SELECT_1( _class_instance, _method ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method ) )
+	#define Y_GUARD_METHOD2_SELECT_2( _class_instance, _method1, _method2 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ) )
+	#define Y_GUARD_METHOD2_SELECT_3( _class_instance, _method1, _method2, _method3 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ) )
+	#define Y_GUARD_METHOD2_SELECT_4( _class_instance, _method1, _method2, _method3, _method4 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ) )
+	#define Y_GUARD_METHOD2_SELECT_5( _class_instance, _method1, _method2, _method3, _method4, _method5 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ) )
+	#define Y_GUARD_METHOD2_SELECT_6( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ) )
+	#define Y_GUARD_METHOD2_SELECT_7( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ) )
+	#define Y_GUARD_METHOD2_SELECT_8( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method8 ) )
+	#define Y_GUARD_METHOD2_SELECT_9( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method8 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method9 ) )
+	#define Y_GUARD_METHOD2_SELECT_10( _class_instance, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) create_guard_function( adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method1 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method2 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method3 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method4 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method5 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method6 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method7 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method8 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method9 ), adapt< typename std::remove_pointer< decltype(_class_instance)>::type >( _class_instance, _method10 ) )
 	
 	#define Y_BEHAVIOR_FUNCTION2_SELECT_1( _function ) create_behavior_function( adapt_function( _function ) )
 	#define Y_BEHAVIOR_FUNCTION2_SELECT_2( _function1, _function2 ) create_behavior_function( adapt_function( _function1 ), adapt_function( _function2 ) )

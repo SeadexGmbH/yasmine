@@ -1,6 +1,16 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[1.2.3] - 2017-08-22
+
+### Changed
+• CMake: setting rapidJSON path by setting the SX_RAPIDJSON variable
+
+### Fixed
+• SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG: workaround for bug in GCC with expansion of template parameter pack that appears in a lambda-expression (reported for GCC 4.8.4)
+• bug when passing template class member function to Y_BEHAVIOR_METHOD2 and Y_GUARD_METHOD2 (reported for GCC 5.0.4)
+
+
 ##[1.2.2] - 2017-08-18
 
 ### Fix

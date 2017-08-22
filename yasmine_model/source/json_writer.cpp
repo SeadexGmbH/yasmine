@@ -50,7 +50,7 @@ void json_writer::write_json_to_file( const std::string& _json_file, const model
 	rapidjson::Document doc;
 	doc.SetObject();
 	add_version( doc, doc.GetAllocator() );
-	rapidjson::Value json_state_machine( rapidjson::kObjectType );	
+	rapidjson::Value json_state_machine( rapidjson::kObjectType );
 	
 	rapidjson::Value json_events( rapidjson::kArrayType );
 	add_events_from_model( _state_machine_model, json_events, doc.GetAllocator() );

@@ -68,7 +68,7 @@ model::state_machine_model_ptr json_reader::get_model_ptr()
 
 void json_reader::read_json_file( const std::string& _file )
 {
-	
+
 #ifndef SX_CPP03_BOOST
 	std::ifstream infile( _file, std::ios::in );
 #else

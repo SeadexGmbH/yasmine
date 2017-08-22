@@ -38,8 +38,7 @@ state_machine_type sm_type_from_string( const std::string& _type )
 	}
 	else
 	{
-		throw sxe::exception( "State machine type is '%' and it should be '%' or '%'", string_type, VARIABLE_SM_SYNC, 
-			VARIABLE_SM_ASYNC );
+		// Default value will be set as 'sync'
 	}
 
 	return( type );
