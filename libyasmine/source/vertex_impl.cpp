@@ -83,6 +83,7 @@ void vertex_impl::add_outgoing_transition( transition& _outgoing_transition )
 	}
 	else
 	{
+		// this is a iterator and not a const_iterator because the gcc 4.8.4 have no C++11 support for const_iterators
 		raw_transitions::iterator insert_position = find_first_transition_without_guard( outgoing_transitions_ );
 		if( insert_position != outgoing_transitions_.end() )
 		{
