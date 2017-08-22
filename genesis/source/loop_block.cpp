@@ -41,7 +41,7 @@ void loop_block::create( recipe_callback& _recipe_callback, std::stringstream& _
 	while( _recipe_callback.check_loop_condition( loop_name_ ) )
 	{
 		_recipe_callback.before_loop_iteration( loop_name_ );
-		create_children( _recipe_callback, _ostream );				
+		create_children( _recipe_callback, _ostream );
 		_recipe_callback.after_loop_iteration( loop_name_ );
 	}
 	_recipe_callback.after_loop( loop_name_ );

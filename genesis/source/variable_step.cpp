@@ -33,7 +33,7 @@ variable_step::~variable_step() SX_NOEXCEPT
 	// Nothing to do...
 }
 
-			
+
 void variable_step::create( recipe_callback& _recipe_callback, std::stringstream& _ostream )
 {
 	_ostream << _recipe_callback.get_variable_content( variable_name_ );
