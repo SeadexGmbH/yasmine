@@ -109,7 +109,7 @@ void print_superfluous_parameters( std::ostream& _os,
 #endif
 
 
-void sxprintf(	std::ostream& _os,	const char* _format );
+void sxprintf(	std::ostream& _os, const char* _format );
 
 #ifndef SX_CPP03_BOOST
 template< typename value, typename ... args >
