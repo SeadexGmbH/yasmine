@@ -24,7 +24,7 @@
 
 
 namespace sxy
-{	
+{
 
 
 void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
@@ -46,8 +46,8 @@ void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_col
 
 	const _event_type* specialized_event = dynamic_cast< const _event_type* >( &_event );
 	if( specialized_event )
-	{		
-			_method( specialized_event );		
+	{
+			_method( specialized_event );
 	}
 	else
 	{
@@ -75,8 +75,8 @@ void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_col
 
 	const _event_type* specialized_event = dynamic_cast< const _event_type* >( &_event );
 	if( specialized_event )
-	{		
-		_method( specialized_event, _event_collector );		
+	{
+		_method( specialized_event, _event_collector );
 	}
 	else
 	{
@@ -85,11 +85,11 @@ void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_col
 
 
 #else
-	
+
 
 	auto& specialized_event = sxy::adjust_event_type< _event_type >( _event );	
-	_method( specialized_event, _event_collector );	
-	
+	_method( specialized_event, _event_collector );
+
 
 #endif
 }
@@ -157,11 +157,11 @@ void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_col
 
 
 template< typename _event_type1, typename _event_type2, typename _event_type3 >
-void behavior_caller(	const sxy::event& _event, sxy::event_collector& _event_collector,
+void behavior_caller( const sxy::event& _event, sxy::event_collector& _event_collector,
 	sxe::function<void( const _event_type1&, sxy::event_collector& )> _method1,
 	sxe::function<void( const _event_type2&, sxy::event_collector& )> _method2,
 	sxe::function<void( const _event_type3&, sxy::event_collector& )> _method3 )
-{	
+{
 #if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 
 
