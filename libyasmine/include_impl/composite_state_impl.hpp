@@ -29,7 +29,7 @@ class composite_state_impl SX_FINAL:
 	public virtual composite_state, public complex_state_impl
 {
 public:
-	explicit composite_state_impl(	const std::string& _name, behavior_uptr _entry_action = behavior_uptr(),
+	explicit composite_state_impl( const std::string& _name, behavior_uptr _entry_action = behavior_uptr(),
 		behavior_uptr _exit_action = behavior_uptr(), const event_ids& _deferred_events = event_ids() );
 	virtual ~composite_state_impl() SX_NOEXCEPT SX_OVERRIDE;
 	SX_NO_COPY(composite_state_impl)
