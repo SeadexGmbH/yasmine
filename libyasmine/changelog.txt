@@ -1,6 +1,23 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+
+##[1.3.0] - 2017-09-21
+
+### Changed
+• get_name is now a public method of the state_machine class
+
+### Added
+• Support for Visual Studio 2017 builds
+• complex states (root state of the state machine, simple states and composite states) now have a method called add_deferred_event.
+This method adds an event ID to the list of the deferred events IDs. This method is not thread-safe a must only be used before 
+starting the state machine.
+
+### Fixed
+• On start of the state machine, the root state becomes active and on stop it becomes inactive.
+• bug with ::std::toupper and ::std::tolower (reported for VS2017 compiler, version 15.3.4)
+
+
 ##[1.2.3] - 2017-08-22
 
 ### Changed

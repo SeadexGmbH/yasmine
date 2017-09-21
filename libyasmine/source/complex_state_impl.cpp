@@ -14,6 +14,7 @@
 #include <algorithm>
 
 #include "essentials/base.hpp"
+#include "hermes/log.hpp"
 
 #include "transition.hpp"
 
@@ -56,6 +57,22 @@ bool complex_state_impl::is_event_deferred( const event_id& _event_id ) const
 	const bool found =
 		std::find( deferred_events_.begin(), deferred_events_.end(), _event_id ) != deferred_events_.end();
 	return( found );
+}
+
+
+void complex_state_impl::add_deferred_event( const event_id& _event_id )
+{
+	if( std::find( deferred_events_.begin(), deferred_events_.end(), _event_id ) == deferred_events_.end() )
+	{
+		deferred_events_.push_back( _event_id );
+		SX_LOG( hermes::log_level::LL_TRACE, "Event with ID '%' is now deferred by the state '%'.",
+			_event_id, get_name() );
+	}
+	else
+	{
+		SX_LOG( hermes::log_level::LL_TRACE, "Event with ID '%' is already deferred by the state '%'.", 
+			_event_id, get_name() );
+	}
 }
 
 

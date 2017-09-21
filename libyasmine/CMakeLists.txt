@@ -196,8 +196,8 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif()
 
 SET_TARGET_PROPERTIES ( libyasmine PROPERTIES
-  VERSION 1.2.3
-  SOVERSION 1.2 )
+  VERSION 1.3.0
+  SOVERSION 1.3 )
 
 install(TARGETS libyasmine DESTINATION lib)
 file(GLOB yasmine_hpp "include/*.hpp")

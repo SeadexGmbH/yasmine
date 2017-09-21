@@ -218,6 +218,7 @@ namespace sxy
 		if( state_machine_is_running_ )
 		{
 			stop_all_async_states( *root_state_ );
+			root_state_->set_inactive();
 			state_machine_is_running_ = false;
 		}
 
@@ -255,6 +256,7 @@ namespace sxy
 		SX_ASSERT( root_state_, "No root state!" );
 		bool state_machine_started = false;
 		state_machine_is_running_ = true;
+		root_state_->set_active();
 
 		interrupt_ = false;
 		try

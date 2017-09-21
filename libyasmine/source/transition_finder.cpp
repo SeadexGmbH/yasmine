@@ -40,15 +40,15 @@ transition_finder::~transition_finder() SX_NOEXCEPT
 
 
 void transition_finder::search_for_enabled_transitions_in_all_regions( const state& _current_state, 
-	const event& _event, compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred, 
+	const event& _event, compound_transitions& _enabled_compound_transitions, bool& _event_is_deferred, 
 	event_collector& _event_collector ) const
 {
 	search_for_transition( _current_state, _enabled_compound_transitions, _event, _event_is_deferred, _event_collector );
 }
 
 
-void transition_finder::search_for_enabled_completion_transitions_in_all_regions(	const state& _current_state,
-	compound_transitions& _enabled_compound_transitions,	bool& _event_is_deferred, 
+void transition_finder::search_for_enabled_completion_transitions_in_all_regions( const state& _current_state,
+	compound_transitions& _enabled_compound_transitions, bool& _event_is_deferred, 
 	event_collector& _event_collector ) const
 {
 	search_for_transition( _current_state, _enabled_compound_transitions, *sxy::completion_event::create(), 
@@ -56,7 +56,7 @@ void transition_finder::search_for_enabled_completion_transitions_in_all_regions
 }
 
 
-void transition_finder::search_initial_transitions(	const composite_state& _state,	
+void transition_finder::search_initial_transitions( const composite_state& _state,
 	compound_transitions& _compound_transitions, event_collector& _event_collector )
 {
 	SX_FOR( const region_uptr& region, _state.get_regions() )
@@ -165,7 +165,7 @@ bool transition_finder::search_for_transition( const state& _current_state,
 			const bool l_found = search_for_transition( *active_state, _enabled_compound_transitions, _event, 
 				_event_is_deferred, _event_collector );
 			if( l_found )
-			{					
+			{
 				SX_LOG( hermes::log_level::LL_SPAM, "Transition found in active state '%'.", active_state->get_name() );
 				found = l_found;
 			}
