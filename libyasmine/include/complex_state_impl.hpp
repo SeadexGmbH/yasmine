@@ -26,13 +26,14 @@ class complex_state_impl:
 	public virtual complex_state, public state_impl
 {
 public:
-	explicit complex_state_impl(	const std::string& _name, behavior_uptr _entry_behavior, 
+	explicit complex_state_impl( const std::string& _name, behavior_uptr _entry_behavior,
 		behavior_uptr _exit_behavior, const event_ids& _deferred_events = event_ids() );
 	virtual ~complex_state_impl() SX_NOEXCEPT SX_OVERRIDE;
-	SX_NO_COPY(complex_state_impl)	
+	SX_NO_COPY(complex_state_impl)
 	virtual behavior * get_entry_behavior() const SX_OVERRIDE;
 	virtual behavior * get_exit_behavior() const SX_OVERRIDE;
 	virtual bool is_event_deferred( const event_id& _event_id ) const SX_OVERRIDE;
+	virtual void add_deferred_event( const event_id& _event_id ) SX_OVERRIDE;
 
 
 protected:
