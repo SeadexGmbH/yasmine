@@ -2,7 +2,16 @@
 All notable changes to this project are documented in this file.
 
 
-##[1.0.0] - 2017-04-24
+##[0.1.2] - 2017-09-21
+
+### Fixed
+• removed declaration of 'get_enter_behavior' from the interface composite_state_model because it is already declared in the inherited state_model interface
+• removed declaration of 'set_enter_behavior' from the interface composite_state_model because it is already declared in the inherited state_model interface
+• removed declaration of 'get_exit_behavior' from the interface composite_state_model because it is already declared in the inherited state_model interface
+• removed declaration of 'set_exit_behavior' from the interface composite_state_model because it is already declared in the inherited state_model interface
+
+
+##[0.1.0] - 2017-04-24
 
 • The very first released version of yasmine_model
 
