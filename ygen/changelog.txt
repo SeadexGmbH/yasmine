@@ -1,6 +1,14 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[0.1.3] - 2017-09-21
+
+### Fixed
+• bug in template header.gtpl: behavior classes includes onthe same line
+
+### Changed
+• removed unused include from template source.gtpl
+
 
 ##[0.1.1] - 2017-04-28
 

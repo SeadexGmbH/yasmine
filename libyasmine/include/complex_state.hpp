@@ -41,6 +41,7 @@ public:
 
 	SX_NO_COPY(complex_state)
 	virtual void accept_complex_state_visitor( complex_state_visitor& _visitor ) const = 0;
+	virtual void add_deferred_event( const event_id& _event_id ) = 0;
 };
 
 

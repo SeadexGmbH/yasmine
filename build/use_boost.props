@@ -2,8 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <BOOST_PATH>..\..\..\..\..\3rd party\boost\Content\boost_1_60_0</BOOST_PATH>
-    <BOOST_LIB_PATH>..\..\..\..\..\3rd party\boost\Content\boost_1_60_0\stage\VS2015\$(Platform)\lib</BOOST_LIB_PATH>
+    <BOOST_PATH>..\..\..\..\..\3rd party\boost\Content\boost_1_65_1</BOOST_PATH>
+    <BOOST_LIB_PATH>..\..\..\..\..\3rd party\boost\Content\boost_1_65_1\stage\$(PlatformToolsetVersion)\$(Platform)\lib</BOOST_LIB_PATH>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup>

@@ -192,10 +192,12 @@ namespace sxy
 		//!\param _behavior
 		virtual void set_behavior_of_unhandled_event_handler( const behavior_function& _behavior );
 
+		//!\brief Get the name of the state machine.
+		//!\return name of the state machine
+		virtual std::string get_name() const;
+
 
 	protected:
-		std::string get_name() const;
-
 		//!\brief Starts the state machine.
 		//!\param _async_event_handler Pointer to an asynchronous event handler. It's used by
 		//!the asynchronous state machine if it has to process asynchronous errors that occur in the 
@@ -209,7 +211,9 @@ namespace sxy
 
 	private:
 		virtual const events& get_deferred_events() const SX_OVERRIDE;
+	public:
 		virtual raw_const_states get_active_state_configuration() const SX_OVERRIDE;
+	private:
 		void get_active_states_from_region( raw_const_states& _active_state_configuration, const region& _region ) const;
 		void check_regions_for_active_states( raw_const_states& _active_state_configuration, const state& _state ) const;
 		void add_deferred_event( const event_sptr& _event_id );

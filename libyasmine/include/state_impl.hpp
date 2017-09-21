@@ -62,6 +62,7 @@ private:
 	void collect_ancestors_as_regions( raw_regions& _ancestors_as_regions ) const;
 
 	bool was_active_;
+	bool is_active_;
 	region* parent_;
 
 #ifdef Y_OPTIMIZE_4_SPEED

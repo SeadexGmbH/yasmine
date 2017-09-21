@@ -47,10 +47,6 @@ public:
 
 
 	SX_NO_COPY( composite_state_model )
-	virtual const std::string& get_enter_behavior() const = 0;
-	virtual void set_enter_behavior( const std::string& _enter_behavior ) = 0;
-	virtual const std::string& get_exit_behavior() const = 0;
-	virtual void set_exit_behavior( const std::string& _exit_behavior ) = 0;
 	virtual void add_region( region_model_uptr _region ) = 0;
 	virtual raw_const_pseduostate_models get_state_pseudostates() const = 0;
 	virtual void add_state_pseudostate( pseudostate_model_uptr _pseudostate ) = 0;

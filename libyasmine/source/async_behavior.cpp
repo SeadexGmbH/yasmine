@@ -26,7 +26,7 @@ namespace sxy
 async_behavior::async_behavior()
 	: worker_(),
 		mutex_(),
-		run_(false)	
+		run_(false)
 {
 	// Nothing to do...
 }
@@ -41,7 +41,7 @@ async_behavior::~async_behavior() SX_NOEXCEPT
 
 void async_behavior::run( const event& _event, event_collector& _event_collector, 
 	const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
-{	
+{
 	run_ = true;
 
 	worker_ = SX_MAKE_UNIQUE< sxe::thread >( sxe::bind( &async_behavior::work, this, sxe::ref( _event ), 
@@ -50,14 +50,14 @@ void async_behavior::run( const event& _event, event_collector& _event_collector
 
 
 void async_behavior::halt_and_join()
-{		
+{
 	{
 		sxe::lock_guard< sxe::mutex > lock( mutex_ );
 		run_ = false;
-		notify_should_stop();		
+		notify_should_stop();
 	}
 	
-	join();	
+	join();
 }
 
 
@@ -76,21 +76,21 @@ void async_behavior::notify_should_stop()
 
 void async_behavior::work( const event& _event, event_collector& _event_collector, 
 	const simple_state_base& _simple_state, async_event_handler& _async_event_handler )
-{		
+{
 	try
-	{																					 				
+	{
 		run_impl( _event, _event_collector, _async_event_handler );
 	}
 	catch( const sxy::behavior_exception& exception )
-	{			
+	{
 		SX_LOG( hermes::log_level::LL_DEBUG, "behavior_exception while running async_behavior: %", exception.what() );
 		_async_event_handler.on_event( exception.get_error_event() );
 	}
 	catch( const std::exception& exception )
 	{
-		SX_LOG( hermes::log_level::LL_DEBUG, "std::exception while running async_behavior: %", exception.what() );	
+		SX_LOG( hermes::log_level::LL_DEBUG, "std::exception while running async_behavior: %", exception.what() );
 		if( _simple_state.has_error_event() )
-		{						
+		{
 			_async_event_handler.on_event( _simple_state.get_error_event() );
 		}
 		else

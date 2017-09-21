@@ -8,7 +8,8 @@
 #define $var(state_machine_name_caps)_HPP_
 
 #include "yasmine.hpp"
-$loop(behavior_classes)#include "$var(behavior_class_name).hpp"$pool$@
+$loop(behavior_classes)#include "$var(behavior_class_name).hpp"
+$pool$@
 $loop(namespace_open)namespace $var(namespace_name) 
 {$@$@$pool
 $loop(events)$@Y_EVENT_CREATE($var(event_name), $var(event_id))$pool

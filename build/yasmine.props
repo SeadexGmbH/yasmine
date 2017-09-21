@@ -14,6 +14,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>include;include_impl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D "_STL_WARNING_LEVEL=3" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link />
     <Link>

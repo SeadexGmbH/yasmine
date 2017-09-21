@@ -33,16 +33,17 @@ namespace sxy
 state_impl::state_impl( const std::string& _name )
 	: vertex_impl( _name ),
 		was_active_( false ),
+		is_active_( false ),
 		parent_()
 #ifdef Y_OPTIMIZE_4_SPEED
 		, ancestors_(),
 			ancestors_as_regions_()
-#endif 												
+#endif
 {
 #ifdef Y_OPTIMIZE_4_SPEED
 	ancestors_as_regions_.reserve( ANCESTORS_VECTOR_SIZE );
 	ancestors_.reserve( ANCESTORS_VECTOR_SIZE );
-#endif	
+#endif
 }
 
 
@@ -119,10 +120,10 @@ raw_composite_states state_impl::get_ancestors( composite_state* const _final_an
 
 		if( final_ancestor != ancestors_.end() )
 		{
-			raw_composite_states ancestors( ancestors_.begin(), final_ancestor + 1 );			
+			raw_composite_states ancestors( ancestors_.begin(), final_ancestor + 1 );
 			if( !_include_final_ancestor )
-			{		
-				ancestors.erase( final_ancestor );				
+			{
+				ancestors.erase( final_ancestor );
 			}
 			return( ancestors );
 		}
@@ -132,12 +133,12 @@ raw_composite_states state_impl::get_ancestors( composite_state* const _final_an
 			return( ancestors );
 		}
 	}
-#else	
+#else
 	raw_composite_states ancestors;
-	collect_ancestors( ancestors, _final_ancestor );	
+	collect_ancestors( ancestors, _final_ancestor );
 	if( !_include_final_ancestor )
-	{			
-		ancestors.erase( std::remove( ancestors.begin(), ancestors.end(), _final_ancestor ), ancestors.end() );		
+	{
+		ancestors.erase( std::remove( ancestors.begin(), ancestors.end(), _final_ancestor ), ancestors.end() );
 	}
 	return( ancestors );
 #endif
@@ -145,7 +146,7 @@ raw_composite_states state_impl::get_ancestors( composite_state* const _final_an
 
 
 raw_regions state_impl::get_ancestors_as_regions() const
-{																	 	
+{
 #ifdef Y_OPTIMIZE_4_SPEED
 	if( ancestors_as_regions_.empty() )
 	{
@@ -183,6 +184,7 @@ bool state_impl::was_active() const
 
 void state_impl::set_active()
 {
+	is_active_ = true;
 	region* const parent_region = get_parent_region();
 	if( parent_region )
 	{
@@ -198,6 +200,7 @@ void state_impl::set_active()
 		{
 			SX_ASSERT( parent_region, "State has no parent region!" );
 		}
+		root_state->set_was_active();
 	}
 }
 
@@ -205,8 +208,12 @@ void state_impl::set_active()
 void state_impl::set_inactive()
 {
 	region* const parent_region = get_parent_region();
-	parent_region->set_active_state( SX_NULLPTR );
+	if( parent_region )
+	{
+		parent_region->set_active_state( SX_NULLPTR );
+	}
 	set_was_active();
+	is_active_ = false;
 	SX_LOG( hermes::log_level::LL_DEBUG, "State '%' is now inactive.", get_uri().to_string() );
 }
 
@@ -221,7 +228,7 @@ bool state_impl::is_active() const
 	}
 	else
 	{
-		is_active = true;
+		is_active = is_active_;
 	}
 
 	return( is_active );
@@ -302,7 +309,7 @@ void state_impl::collect_ancestors( raw_composite_states& _ancestors, composite_
 			region* const parent_region = current_vertex->get_parent_region();
 			if( parent_region != SX_NULLPTR )
 			{
-				composite_state& parent_state = parent_region->get_parent_state();				
+				composite_state& parent_state = parent_region->get_parent_state();
 				_ancestors.push_back( &parent_state );
 				current_vertex = &parent_state;
 			}
