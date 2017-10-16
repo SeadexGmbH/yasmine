@@ -672,9 +672,6 @@
     <ClInclude Include="..\externals\hermes\include\hermes\waiter.hpp">
       <Filter>Headerdateien\external\hermes</Filter>
     </ClInclude>
-    <ClInclude Include="include\backward_compatibility.hpp">
-      <Filter>Headerdateien\infrastructure</Filter>
-    </ClInclude>
     <ClInclude Include="include\logging.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
@@ -692,6 +689,15 @@
     </ClInclude>
     <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp">
       <Filter>Headerdateien\external\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp">
+      <Filter>Headerdateien\external\essentials\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\externals\hermes\include\hermes\hermes_backward_compatibility.hpp">
+      <Filter>Headerdateien\external\hermes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libyasmine_backward_compatibility.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
