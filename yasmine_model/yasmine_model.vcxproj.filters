@@ -419,6 +419,9 @@
     <ClInclude Include="include\event_model_priority.hpp">
       <Filter>Headerdateien\state machine\element</Filter>
     </ClInclude>
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp">
+      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="changelog.txt" />

@@ -303,13 +303,13 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - C++ 03|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\generator.props" />
+    <Import Project="..\build\use_genesis.props" />
     <Import Project="..\build\use_essentials.props" />
     <Import Project="..\build\use_yasmine_model.props" />
     <Import Project="..\build\rapidjson.props" />
-    <Import Project="..\build\use_genesis.props" />
     <Import Project="..\build\use_boost.props" />
-    <Import Project="..\build\c++03.props" />
     <Import Project="..\build\use_libygen.props" />
+    <Import Project="..\build\c++03.props" />
     <Import Project="..\build\debug_info.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

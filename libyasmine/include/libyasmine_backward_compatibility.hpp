@@ -9,20 +9,35 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef YGEN_BUILD_NUMBER_6A03477D_693F_4384_A67F_DA4DE8B81CA2
-#define YGEN_BUILD_NUMBER_6A03477D_693F_4384_A67F_DA4DE8B81CA2
+#ifndef LIBYASMINE_BACKWARD_COMPATIBILITY_25EFEF99_3357_4F3D_843D_AEB2C56E19DD
+#define LIBYASMINE_BACKWARD_COMPATIBILITY_25EFEF99_3357_4F3D_843D_AEB2C56E19DD
 
 
 #include "essentials/compatibility/compatibility.hpp"
 
 
-namespace version
+#ifdef Y_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG
+#define SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG
+#endif
+
+
+
+// TODO add to log as removed?
+//#define Y_ASSERT SX_ASSERT
+//#define Y_NULLPTR SX_NULLPTR
+//#define Y_FOR SX_FOR
+//#define Y_CONSTEXPR SX_CONSTEXPR
+//#define Y_FINAL SX_FINAL
+//#define Y_NOEXCEPT SX_NOEXCEPT
+//#define Y_OVERRIDE SX_OVERRIDE
+//#define Y_NO_COPY SX_NO_COPY
+//#define Y_NO_COPY_OPERATOR_EQUAL SX_NO_ASSIGNMENT_OPERATOR
+
+
+
+namespace sxy
 {
-
-
-	const sxe::uint16_t BUILD_NUMBER( 770 );
-
-
+	using sxe::shared_ptr;
 }
 
 

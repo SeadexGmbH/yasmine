@@ -34,7 +34,7 @@ waiter::~waiter() SX_NOEXCEPT
 
 void waiter::wait()
 {
-	sxe::unique_lock<sxe::mutex> lock( done_mutex_ );	
+	sxe::unique_lock<sxe::mutex> lock( done_mutex_ );
 	done_condition_variable_.wait( lock, sxe::bind( &waiter::is_done, this ) );
 }
 

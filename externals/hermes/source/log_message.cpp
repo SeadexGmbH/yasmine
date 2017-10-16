@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifndef SX_NO_LOGGING
-						
+
 
 #include "hermes/log_message.hpp"
 #include "hermes/log_callback.hpp"
@@ -31,7 +31,7 @@ log_message::log_message()
 
 
 log_message::log_message( log_callback* _log_callback, const log_level _log_level, const std::string& _time_stamp,
-	const std::string&  _file, const int _line,	const std::string& _message )
+	const std::string&  _file, const int _line, const std::string& _message )
 	: log_level_( _log_level ),
 		time_stamp_( _time_stamp ),
 		file_( _file ),

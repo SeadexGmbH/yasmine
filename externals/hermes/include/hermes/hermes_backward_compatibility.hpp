@@ -8,37 +8,22 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef LOGGER_FWD_9F0DC46E_91EC_44AB_ADE0_7F223D30DE83
-#define LOGGER_FWD_9F0DC46E_91EC_44AB_ADE0_7F223D30DE83
-
-#include "hermes_backward_compatibility.hpp"
+#ifndef HERMES_BACKWARD_COMPATIBILITY_0C85D23F_60F8_43E6_A0AE_ABB9F0365630
+#define HERMES_BACKWARD_COMPATIBILITY_0C85D23F_60F8_43E6_A0AE_ABB9F0365630
 
 
-#ifndef SX_NO_LOGGING
-
-
-#include <vector>
-
-#include "essentials/compatibility/compatibility.hpp"
-
-
-namespace hermes
-{
-
-
-class logger;
-
-//!\typedef Alias for logger smart pointer.
-typedef sxe::SX_UNIQUE_PTR< logger > logger_uptr;
-
-//!\typedef Alias for vector of logger smart pointers.
-typedef std::vector< logger_uptr > loggers;
-
-
-}
-
-
+#ifdef Y_NO_LOGGING
+#define SX_NO_LOGGING
 #endif
+
+
+#ifdef Y_NO_WINDOWS_H
+#define SX_NO_WINDOWS_H
+#endif
+
+
+#define Y_LOG SX_LOG
+#define Y_LOG_HEX SX_LOG_HEX
 
 
 #endif

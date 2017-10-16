@@ -2,6 +2,12 @@
 All notable changes to this project are documented in this file.
 
 
+##[0.1.3] - 2017-10-16
+
+### Fixed
+• include path of prettywriter header
+• fixed integer conversion warnings
+
 ##[0.1.2] - 2017-09-21
 
 ### Fixed

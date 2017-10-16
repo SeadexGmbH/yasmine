@@ -8,11 +8,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef SX_NO_LOGGING
-
-
 #ifndef LOG_LEVEL_5059A1FA_DC2D_4C94_AA8B_49B750B30F07
 #define LOG_LEVEL_5059A1FA_DC2D_4C94_AA8B_49B750B30F07
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include <string>
@@ -49,7 +51,7 @@ struct log_level
 
 
 	//!\brief Constructor
-	//!\param _value Given log level value that is represented by the structure.	
+	//!\param _value Given log level value that is represented by the structure.
 	log_level( inner _value ) : value_( _value )
 	{
 		// Nothing to do...
@@ -64,7 +66,7 @@ struct log_level
 
 
 	//!\brief Constructor
-	//!\param _color Given log level structure containing the log level value that is represented by the structure.	
+	//!\param _color Given log level structure containing the log level value that is represented by the structure.
 	log_level(const log_level& _log_level) : value_(_log_level.value_)
 	{
 		// Nothing to do...
@@ -91,18 +93,17 @@ struct log_level
 //!\brief Convert the given log level to a string.
 //!\param _log_level The log level.
 //!\return The log level as string.
-std::string log_level_to_string( const log_level _log_level );	
+std::string log_level_to_string( const log_level _log_level );
 
 
 
 #ifdef SX_CPP03_BOOST
-																																							
+
 
 bool operator==( const hermes::log_level& _lhs, const hermes::log_level::inner _rhs );
 bool operator==( const hermes::log_level::inner _lhs, const hermes::log_level& _rhs );
 bool operator<(const hermes::log_level _lhs, const hermes::log_level _rhs);
 bool operator<=( const hermes::log_level _lhs, const hermes::log_level _rhs );
-							
 
 
 #endif

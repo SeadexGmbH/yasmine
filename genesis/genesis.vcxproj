@@ -699,6 +699,7 @@
     <ClInclude Include="..\externals\essentials\include\essentials\base.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp" />

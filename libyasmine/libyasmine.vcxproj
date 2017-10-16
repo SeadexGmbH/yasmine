@@ -87,6 +87,7 @@
     <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp" />
+    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp" />
     <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="..\externals\hermes\include\hermes\file_logger.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\file_system.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\globals.hpp" />
+    <ClInclude Include="..\externals\hermes\include\hermes\hermes_backward_compatibility.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\hermes_version.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\log.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\logger.hpp" />
@@ -129,7 +131,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="include\async_simple_state_impl.hpp" />
-    <ClInclude Include="include\backward_compatibility.hpp" />
+    <ClInclude Include="include\libyasmine_backward_compatibility.hpp" />
     <ClInclude Include="include\y_assert.hpp" />
     <ClInclude Include="include\behavior_exception_fwd.hpp" />
     <ClInclude Include="include\caller_adapter.hpp" />

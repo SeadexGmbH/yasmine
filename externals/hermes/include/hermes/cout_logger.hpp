@@ -6,12 +6,15 @@
 // The same information is available on the www @ http://hermes.seadex.de/License.html.             //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-				 
-#ifndef SX_NO_LOGGING		
 
 
 #ifndef COUT_LOGGER_170B8470_DB09_43CF_A547_D6C928D5121F
 #define COUT_LOGGER_170B8470_DB09_43CF_A547_D6C928D5121F
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include "logger.hpp"

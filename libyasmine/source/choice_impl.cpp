@@ -66,7 +66,7 @@ bool choice_impl::check( state_machine_defects& _defects ) const
 			get_outgoing_transitions().size() );
 		SX_LOG( hermes::log_level::LL_SPAM, "Checking if choice '%' has more than one outgoing transition with no guard.",
 			get_name() );
-		uint8_t number_of_transitions_with_no_guard = 0;
+		sxe::uint8_t number_of_transitions_with_no_guard = 0;
 
 		SX_FOR( const transition* const transition, get_outgoing_transitions() )
 		{

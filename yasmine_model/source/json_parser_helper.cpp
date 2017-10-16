@@ -39,7 +39,7 @@ std::string get_object_member_string( const rapidjson::Value& _obj, const char* 
 
 sxe::int64_t get_object_member_int( const rapidjson::Value& _obj, const char* const _name_of_member )
 {
-	int found_value = 0;
+	sxe::int64_t found_value = 0;
 	if( _obj.IsObject() )
 	{
 		const rapidjson::Value& found_member = find_member( _obj, _name_of_member );

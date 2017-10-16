@@ -7,11 +7,14 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef SX_NO_LOGGING			 
-
 
 #ifndef COLOR_MAPPING_A8F877D1_966B_463B_AE26_BD54CB2FEC35
 #define COLOR_MAPPING_A8F877D1_966B_463B_AE26_BD54CB2FEC35
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include <map>
@@ -30,7 +33,7 @@ namespace hermes
 class color_mapping SX_FINAL
 {
 public:
-	//!\typedef	color_map
+	//!\typedef color_map
 	//!\brief Alias for the map of log levels to colors.
 	typedef std::map< log_level, color > color_map;
 

@@ -12,7 +12,7 @@
 #define YASMINE_2205A1D5_1962_477A_97DD_E8051B277A88
 
 
-#include "backward_compatibility.hpp"
+#include "libyasmine_backward_compatibility.hpp"
 
 #include "essentials/compatibility/compatibility.hpp"
 #include "essentials/compatibility/chrono.hpp"

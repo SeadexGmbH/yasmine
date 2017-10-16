@@ -13,6 +13,9 @@
 #define UTILS_50FAC970_4B2B_46F8_91B8_16F5A7DC3D9B
 
 
+#include "hermes/hermes_backward_compatibility.hpp"
+
+
 #ifdef WIN32
 
 

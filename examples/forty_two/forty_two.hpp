@@ -23,15 +23,15 @@ namespace examples
 
 
 class forty_two SX_FINAL
-{	
+{
 public:
 
 	typedef sxe::SX_UNIQUE_PTR<sxy::sync_state_machine> state_machine_uptr;
 
-		
+
 	explicit forty_two( const sxe::uint32_t _max_iterations );
 	~forty_two() SX_NOEXCEPT;
-	
+
 private:
 	state_machine_uptr build_state_machine();
 	bool check_state_machine() const;
@@ -46,7 +46,7 @@ private:
 	state_machine_uptr state_machine_;
 	uint32_t iterations_;
 	uint32_t max_iterations_;
-	
+
 
 };
 

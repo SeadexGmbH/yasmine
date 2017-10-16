@@ -82,9 +82,9 @@ private:
 	model::entry_point_model_uptr read_entry_point( const rapidjson::Value& _pseudostate );
 	model::exit_point_model_uptr read_exit_point( const rapidjson::Value& _pseudostate );
 	model::transition_model_uptr read_transition( const rapidjson::Value& _transition );
-	static sxy::model::transition_model_kind get_transition_kind( unsigned int _kind );
-	sxe::int64_t get_event_id_by_name( const std::string& _name ) const;
-	sxe::int64_t get_event_priority_by_name( const std::string& _name ) const;
+	static sxy::model::transition_model_kind get_transition_kind( sxe::int64_t _kind );
+	sxe::int32_t get_event_id_by_name( const std::string& _name ) const;
+	sxe::int8_t get_event_priority_by_name( const std::string& _name ) const;
 	void get_event_list( model::state_machine_model_ptr& _model );
 	void check_document() const;
 	

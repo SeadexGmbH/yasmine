@@ -361,7 +361,7 @@ void sxprintf( std::ostream& _os, const char* const _format, const value_type& _
 
 
 void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4 )
+	const value_type& _value3, const value_type& _value4 )
 {
 	value_types values;
 	values.push_back( _value1 );
@@ -372,8 +372,8 @@ void sxprintf( std::ostream& _os, const char* const _format, const value_type& _
 }
 
 
-void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _value1,	const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4,	const value_type& _value5 )
+void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
+	const value_type& _value3, const value_type& _value4, const value_type& _value5 )
 {
 	value_types values;
 	values.push_back( _value1 );
@@ -385,8 +385,8 @@ void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _
 }
 
 
-void sxprintf(	std::ostream& _os, const char* const _format,	const value_type& _value1,	const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4,	const value_type& _value5,	const value_type& _value6 )
+void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
+	const value_type& _value3, const value_type& _value4, const value_type& _value5, const value_type& _value6 )
 {
 	value_types values;
 	values.push_back( _value1 );
@@ -399,8 +399,8 @@ void sxprintf(	std::ostream& _os, const char* const _format,	const value_type& _
 }
 
 
-void sxprintf(	std::ostream& _os, const char* const _format,	const value_type& _value1,	const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4,	const value_type& _value5,	const value_type& _value6,
+void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
+	const value_type& _value3, const value_type& _value4, const value_type& _value5, const value_type& _value6,
 	const value_type& _value7 )
 {
 	value_types values;
@@ -415,9 +415,9 @@ void sxprintf(	std::ostream& _os, const char* const _format,	const value_type& _
 }
 
 
-void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _value1,	const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4,	const value_type& _value5,	const value_type& _value6,
-	const value_type& _value7,	const value_type& _value8 )
+void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
+	const value_type& _value3, const value_type& _value4, const value_type& _value5, const value_type& _value6,
+	const value_type& _value7, const value_type& _value8 )
 {
 	value_types values;
 	values.push_back( _value1 );
@@ -432,9 +432,9 @@ void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _
 }
 
 
-void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _value1,	const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4,	const value_type& _value5,	const value_type& _value6,
-	const value_type& _value7,	const value_type& _value8,	const value_type& _value9 )
+void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
+	const value_type& _value3, const value_type& _value4, const value_type& _value5, const value_type& _value6,
+	const value_type& _value7, const value_type& _value8, const value_type& _value9 )
 {
 	value_types values;
 	values.push_back( _value1 );
@@ -450,9 +450,9 @@ void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _
 }
 
 
-void sxprintf( std::ostream& _os, const char* const _format,	const value_type& _value1,	const value_type& _value2,
-	const value_type& _value3,	const value_type& _value4,	const value_type& _value5,	const value_type& _value6,
-	const value_type& _value7,	const value_type& _value8,	const value_type& _value9,	const value_type& _value10 )
+void sxprintf( std::ostream& _os, const char* const _format, const value_type& _value1, const value_type& _value2,
+	const value_type& _value3, const value_type& _value4, const value_type& _value5, const value_type& _value6,
+	const value_type& _value7, const value_type& _value8, const value_type& _value9, const value_type& _value10 )
 {
 	value_types values;
 	values.push_back( _value1 );
@@ -489,16 +489,16 @@ const char* sxprintf_impl( std::ostream& _os, const char* _format, value_types::
 					const sxe::format_settings format_settings = sxe::parse_format_string(&_format);
 					const std::ios_base::fmtflags stream_flags = _os.flags();
 					const char streafill_ = _os.fill();
-					_os << format_settings;					
+					_os << format_settings;
 					print_value_type_value( _os, *_position );
 					_os.flags(stream_flags);
-					_os.fill(streafill_);										
+					_os.fill(streafill_);
 					printed = true;
 					if( !format_settings.missing_closing_bracket_ )
-					{							
+					{
 						if( CLOSING_SQUARE_BRACKET == *( _format ) )
 						{
-							++_format;							
+							++_format;
 						}
 					}
 					else
@@ -510,22 +510,22 @@ const char* sxprintf_impl( std::ostream& _os, const char* _format, value_types::
 					}
 				}
 				else
-				{				
+				{
 					print_value_type_value( _os, *_position );
 					printed = true;
 					++_format;
 					break;
-				}			
+				}
 				
 				if( _position + 1 != _end )
-				{						
+				{
 					if( *_format != '\0' )
 					{
 						++_position;
 						_format = sxprintf_impl( _os, _format, _position, _end, printed );
 					}
-				}				
-				return( _format );				
+				}
+				return( _format );
 			}
 		}
 		else
@@ -538,14 +538,14 @@ const char* sxprintf_impl( std::ostream& _os, const char* _format, value_types::
 
 
 void sxprintf( std::ostream& _os, const char * const _format,	const value_types& _values )
-{		
+{
 	SX_ASSERT( _format, "No format string to parse was passed!" );
 	const char* current_position = _format;
 
 	value_types::const_iterator _end = _values.end();
-	value_types::const_iterator _position = _values.begin();			
+	value_types::const_iterator _position = _values.begin();
 	while( _position != _end )
-	{	 	
+	{
 		bool printed = false;
 		current_position = sxprintf_impl( _os, current_position, _position, _end, printed );
 		if( printed )
@@ -553,9 +553,9 @@ void sxprintf( std::ostream& _os, const char * const _format,	const value_types&
 			++_position;
 		}
 		if( current_position[0] == '\0' )
-		{					
+		{
 			break;
-		}				
+		}
 	}
 	
 	sxprintf( _os, current_position );
@@ -569,7 +569,7 @@ void sxprintf( std::ostream& _os, const char * const _format,	const value_types&
 
 void print_value_type_value( std::ostream& _os, const value_type& _value )
 {
-	const std::type_info& type_info = _value.type();	
+	const std::type_info& type_info = _value.type();
 
 	if( type_info == typeid ( bool ) )
 	{
@@ -611,9 +611,9 @@ void print_value_type_value( std::ostream& _os, const value_type& _value )
 	{
 		stream_writer< const char* >::print( _os, boost::get< const char* >( _value ) );
 	}
-	else if( type_info == typeid ( int_least64_t ) )
+	else if( type_info == typeid ( boost::int_least64_t ) )
 	{
-		stream_writer< int_least64_t >::print( _os, boost::get< int_least64_t >( _value ) );
+		stream_writer< boost::int_least64_t >::print( _os, boost::get< boost::int_least64_t >( _value ) );
 	}
 	else if( type_info == typeid ( double ) )
 	{

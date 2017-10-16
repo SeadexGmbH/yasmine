@@ -12,7 +12,7 @@
 
 #include <fstream>
 
-#include "rapidjson/prettywriter.h"
+#include "prettywriter.h"
 
 #include "essentials/exception.hpp"
 #include "essentials/base.hpp"

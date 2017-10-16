@@ -12,6 +12,9 @@
 #define COMPATIBILITY_63A35CFD_26BC_42BE_9F09_D559349FFE63
 
 
+#include "essentials_backward_compatibility.hpp"
+
+
 #ifdef SX_CPP03_BOOST
 #ifdef _MSC_VER
 #pragma warning( push )
@@ -170,7 +173,7 @@ namespace sxe
 	using std::remove_const;
 
 	using std::random_device;
-	
+
 
 #endif
 

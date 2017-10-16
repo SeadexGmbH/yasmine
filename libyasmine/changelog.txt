@@ -2,6 +2,25 @@
 All notable changes to this project are documented in this file.
 
 
+##[1.3.1] - 2017-10-16
+
+// TODO add te split of backward_compatibility.hpp
+
+### Added
+• CMake: SX_STATIC flag to toggle library generation between static and shared.
+• CMake: SX_PEDANTIC flag to turn off pedantic flag for gcc/clang compilers.
+• SX_BOOST_LIB_INCLUDE and SX_BOOST_LIB_PATH for setting Boost headers and libraries paths.
+
+### Changed
+• Use pragma warning just for Microsoft Visual Studio compiler. Removed -Wunknown-pragmas from CMake file.
+• Y_BOOST_LIB_INCLUDE and Y_BOOST_LIB_PATH are deprecated. Use SX_BOOST_LIB_INCLUDE and SX_BOOST_LIB_PATH instead.
+Y_BOOST_LIB_INCLUDE and Y_BOOST_LIB_PATH will still work.
+
+### Fixed
+• sxprintf: added missing boost namespace
+• bug: SX_UNUSED_PARAMETER incorrectly appearing in return of functions in assembly.hpp
+
+
 ##[1.3.0] - 2017-09-21
 
 ### Changed

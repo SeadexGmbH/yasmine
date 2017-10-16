@@ -11,6 +11,8 @@
 #ifndef LOG_5AD3F1F5_0FC9_4D0E_8101_D9D70B8B1486
 #define LOG_5AD3F1F5_0FC9_4D0E_8101_D9D70B8B1486
 
+#include "hermes_backward_compatibility.hpp"
+
 
 #ifdef SX_NO_LOGGING
 
@@ -33,7 +35,7 @@ void parameter_muncher( T, args ... _args )
 //!\sa sxprintf
 #define SX_LOG( _dummy, ... ) \
 	do \
-	{	\
+	{\
 		parameter_muncher( __VA_ARGS__ ); \
 	} \
 	while( false )
@@ -44,7 +46,7 @@ void parameter_muncher( T, args ... _args )
 //!\sa sxprintf
 #define SX_LOG_HEX( _dummy, ... ) \
 	do \
-	{	\
+	{\
 		parameter_muncher( __VA_ARGS__ ); \
 	} \
 	while( false )

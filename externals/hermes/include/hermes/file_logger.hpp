@@ -7,11 +7,15 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef SX_NO_LOGGING
-
 
 #ifndef FILE_LOGGER_0EE18DBE_D91D_407D_BF95_0EBC8A84EBD4
 #define FILE_LOGGER_0EE18DBE_D91D_407D_BF95_0EBC8A84EBD4
+
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include "logger.hpp"
@@ -30,7 +34,7 @@ class file_logger:
 {
 public:
 	//!\brief Exception class of the file_logger.
-	SX_EXCEPTION( exception )	
+	SX_EXCEPTION( exception )
 
 	//!\brief Constructor
 	//!\param _max_file_size_in_bytes Maximum size of a log file in bytes.
@@ -39,8 +43,8 @@ public:
 	//!\param _name_extension The extension of the log files.
 	//!\param _max_file_number The maximum number of log files.
 	//!\param _throw_on_error Flag for throwing an exception on error. Default is true.
-	explicit file_logger( const size_t _max_file_size_in_bytes,	const std::string& _log_files_directory,	
-		const std::string& _name_suffix,	const std::string& _name_extension, const unsigned _max_file_number,
+	explicit file_logger( const size_t _max_file_size_in_bytes, const std::string& _log_files_directory,
+		const std::string& _name_suffix, const std::string& _name_extension, const unsigned _max_file_number,
 		const bool _throw_on_error = true );
 	virtual ~file_logger() SX_NOEXCEPT SX_OVERRIDE;
 	SX_NO_COPY(file_logger)
