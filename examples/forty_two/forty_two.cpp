@@ -12,7 +12,6 @@
 #include "forty_two.hpp"
 
 #include <iostream>
-#include <iomanip>
 #include <ctime>
 
 #ifdef Y_PROFILER
@@ -405,10 +404,10 @@ void forty_two::run()
 	state_machine_->halt();
 
 	SX_LOG( hermes::log_level::LL_INFO, "Run time: % seconds",
-		sxe::duration_cast< sxe::seconds >(	stop - start ).count() );
+		sxe::duration_cast< sxe::seconds >( stop - start ).count() );
 
 #ifndef SX_NO_LOGGING
-	log_manager.halt_and_join();	
+	log_manager.halt_and_join();
 #endif
 
 	std::cin.get();
