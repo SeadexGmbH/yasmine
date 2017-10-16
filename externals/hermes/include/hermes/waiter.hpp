@@ -8,11 +8,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef SX_NO_LOGGING
-
-
 #ifndef WAITER_5E57D733_02DD_413D_A906_5047979A5DFD
 #define WAITER_5E57D733_02DD_413D_A906_5047979A5DFD
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include "log_callback.hpp"

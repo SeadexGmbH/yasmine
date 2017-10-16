@@ -31,7 +31,7 @@ namespace sxe
 
 #ifdef SX_CPP03_BOOST
 	typedef boost::variant< bool, int, unsigned int, sxe::int8_t, sxe::uint8_t, sxe::uint16_t, sxe::uint32_t,
-		std::string, std::size_t, const char*, int_least64_t, double > value_type;
+		std::string, std::size_t, const char*, boost::int_least64_t, double > value_type;
 	typedef std::vector< value_type > value_types;
 #endif
 
@@ -82,7 +82,7 @@ void print_superfluous_parameters( std::ostream& _os, const value& _value )
 	_os << SUPERFLUOUS_PARAMETER_START;
 #ifndef SX_CPP03_BOOST
 	stream_writer< value >::print( _os, _value );
-#else	
+#else
 	print_value_type_value( _os, _value );
 #endif
 	_os << SUPERFLUOUS_PARAMETER_END;
@@ -109,11 +109,11 @@ void print_superfluous_parameters( std::ostream& _os,
 #endif
 
 
-void sxprintf(	std::ostream& _os, const char* _format );
+void sxprintf( std::ostream& _os, const char* _format );
 
 #ifndef SX_CPP03_BOOST
 template< typename value, typename ... args >
-void sxprintf(	std::ostream& _os,	const char* _format, const value& _value, args ... _args )
+void sxprintf( std::ostream& _os, const char* _format, const value& _value, args ... _args )
 {
 	while( *_format )
 	{
@@ -135,7 +135,7 @@ void sxprintf(	std::ostream& _os,	const char* _format, const value& _value, args
 					if( format_settings.correct_ )
 					{
 						_os << format_settings;
-						stream_writer< value >::print( _os, _value );						
+						stream_writer< value >::print( _os, _value );
 					}
 					else
 					{
@@ -235,7 +235,7 @@ void sxprintf(std::ostream& _os, const char* const _format, const value_type& _v
 	void sxprintf(std::ostream& _os, const char* const _format, const value_types& _values);
 
 #endif
-		 
+
 
 }
 

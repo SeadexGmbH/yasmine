@@ -7,11 +7,14 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef SX_NO_LOGGING
-
 
 #ifndef STD_TIMESTAMP_POLICY_A0D64C16_D7D3_4E06_B647_F949D14BBBAB
 #define STD_TIMESTAMP_POLICY_A0D64C16_D7D3_4E06_B647_F949D14BBBAB
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include <string>

@@ -42,11 +42,11 @@ std::string std_timestamp_policy::get_timestamp()
 {
 	std::stringstream date_time_stream;
 	time_t rawtime;
-	time( &rawtime );	
-	tm timeinfo = *localtime( &rawtime );	
+	time( &rawtime );
+	tm timeinfo = *localtime( &rawtime );
 	date_time_stream << std::setfill( FILL_VALUE ) << std::setw( WIDTH_YEAR ) << ( YEAR_1900 + timeinfo.tm_year ) <<
 		DATE_DELIMITER << std::setfill( FILL_VALUE ) << std::setw( WIDTH_CLOCK ) << ++timeinfo.tm_mon << DATE_DELIMITER <<
-		std::setfill(	FILL_VALUE ) << std::setw( WIDTH_CLOCK ) << timeinfo.tm_mday << SPACE_SEPARATOR << std::setfill( FILL_VALUE ) <<
+		std::setfill( FILL_VALUE ) << std::setw( WIDTH_CLOCK ) << timeinfo.tm_mday << SPACE_SEPARATOR << std::setfill( FILL_VALUE ) <<
 		std::setw( WIDTH_CLOCK ) << timeinfo.tm_hour << TIME_DELIMITER << std::setfill( FILL_VALUE ) <<
 		std::setw( WIDTH_CLOCK ) << timeinfo.tm_min << TIME_DELIMITER << std::setfill( FILL_VALUE ) <<
 		std::setw( WIDTH_CLOCK ) << timeinfo.tm_sec;

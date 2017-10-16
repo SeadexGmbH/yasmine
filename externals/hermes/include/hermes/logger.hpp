@@ -7,11 +7,14 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef SX_NO_LOGGING
-
 
 #ifndef LOGGER_4207DA98_D8C1_41B4_B5B1_29E8C5A22DF3
 #define LOGGER_4207DA98_D8C1_41B4_B5B1_29E8C5A22DF3
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include "logger_fwd.hpp"
@@ -43,7 +46,7 @@ public:
 	}
 
 
-	SX_NO_COPY(logger)	
+	SX_NO_COPY(logger)
 
 	//!\brief Log the message to the target medium.
 	//!\param _log_message Message to be logged.

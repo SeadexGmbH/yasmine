@@ -6,13 +6,14 @@
 // The same information is available on the www @ http://hermes.seadex.de/License.html.             //
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-					
-#ifndef SX_NO_LOGGING
 
 
 #ifndef COLOR_63B5B1DB_D383_404D_93EF_AB2BC3A0D286
 #define COLOR_63B5B1DB_D383_404D_93EF_AB2BC3A0D286
 
+#include "hermes_backward_compatibility.hpp"
+
+#ifndef SX_NO_LOGGING
 
 namespace hermes
 {
@@ -54,7 +55,7 @@ namespace hermes
 
 
 		//!\brief Constructor
-		//!\param _value Given color value that is represented by the structure.		
+		//!\param _value Given color value that is represented by the structure.
 		color( const inner _value ) : value_( _value )
 		{
 			// Nothing to do...
@@ -62,14 +63,14 @@ namespace hermes
 
 
 		//!\brief Constructor
-		//!\param _color Given color structure containing the color that is represented by the structure.		
+		//!\param _color Given color structure containing the color that is represented by the structure.
 		color( const color& _color ) : value_( _color.value_ )
 		{
 			// Nothing to do...
 		}
 
 
-		//!\brief Get the color value represented by the structure.		
+		//!\brief Get the color value represented by the structure.
 		operator inner() const
 		{
 			return ( value_ );

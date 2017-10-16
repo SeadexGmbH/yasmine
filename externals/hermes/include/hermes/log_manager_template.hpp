@@ -7,11 +7,14 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef SX_NO_LOGGING
-
 
 #ifndef LOG_MANAGER_TEMPLATE_F6D33798_A43A_4C29_86F1_0FC821B92F9B
 #define LOG_MANAGER_TEMPLATE_F6D33798_A43A_4C29_86F1_0FC821B92F9B
+
+#include "hermes_backward_compatibility.hpp"
+
+
+#ifndef SX_NO_LOGGING
 
 
 #include <queue>
@@ -51,7 +54,7 @@ public:
 	}
 
 
-	SX_NO_COPY(log_manager_template)	
+	SX_NO_COPY(log_manager_template)
 
 	//!\brief Get the currently set log level.
 	//!\return Current log level.
@@ -86,8 +89,8 @@ public:
 	void log( const log_level _log_level, const std::string& _time_stamp,	const std::string& _file,	const int _line,
 		const std::string& _message, args ... _args )
 	{
-		{				
-			log_message message( SX_NULLPTR, _log_level, _time_stamp, _file, _line, sxe::sxprintf( _message.c_str(), _args ... ) );			
+		{
+			log_message message( SX_NULLPTR, _log_level, _time_stamp, _file, _line, sxe::sxprintf( _message.c_str(), _args ... ) );
 			sxe::lock_guard< sxe::mutex > lock( mutex_ );
 			messages_.push( message );
 		}
@@ -241,31 +244,31 @@ public:
 	}
 
 
-	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+	void log( const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
 		const std::string& _message, const sxe::value_type& _value1, const sxe::value_type& _value2, const sxe::value_type& _value3,
 		const sxe::value_type& _value4, const sxe::value_type& _value5, const sxe::value_type& _value6, const sxe::value_type& _value7,
-		const sxe::value_type& _value8, const sxe::value_type& _value9)
+		const sxe::value_type& _value8, const sxe::value_type& _value9 )
 	{
 		{
-			log_message message( SX_NULLPTR, _log_level, _time_stamp, _file, _line, sxe::sxprintf(_message.c_str(), _value1, _value2,
-				_value3, _value4, _value5, _value6, _value7, _value8, _value9) );
-			sxe::lock_guard< sxe::mutex > lock(mutex_);
-			messages_.push(message);
+			log_message message( SX_NULLPTR, _log_level, _time_stamp, _file, _line, sxe::sxprintf( _message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6, _value7, _value8, _value9 ) );
+			sxe::lock_guard< sxe::mutex > lock( mutex_ );
+			messages_.push( message );
 		}
 		condition_.notify_one();
-	}			
+	}
 
 
-	void log(const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
+	void log( const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
 		const std::string& _message, const sxe::value_type& _value1, const sxe::value_type& _value2, const sxe::value_type& _value3,
 		const sxe::value_type& _value4, const sxe::value_type& _value5, const sxe::value_type& _value6, const sxe::value_type& _value7,
-		const sxe::value_type& _value8, const sxe::value_type& _value9, const sxe::value_type&  _value10)
+		const sxe::value_type& _value8, const sxe::value_type& _value9, const sxe::value_type&  _value10 )
 	{
 		{
-			log_message message( SX_NULLPTR, _log_level, _time_stamp, _file, _line, sxe::sxprintf(_message.c_str(), _value1, _value2,
-				_value3, _value4, _value5, _value6, _value7, _value8, _value9, _value10) );
-			sxe::lock_guard< sxe::mutex > lock(mutex_);
-			messages_.push(message);
+			log_message message( SX_NULLPTR, _log_level, _time_stamp, _file, _line, sxe::sxprintf( _message.c_str(), _value1, _value2,
+				_value3, _value4, _value5, _value6, _value7, _value8, _value9, _value10 ) );
+			sxe::lock_guard< sxe::mutex > lock( mutex_ );
+			messages_.push( message );
 		}
 		condition_.notify_one();
 	}
@@ -426,7 +429,7 @@ public:
 		}
 		condition_.notify_one();
 		waiter.wait();
-	}			
+	}
 
 
 	void log_and_wait( const log_level _log_level, const std::string& _time_stamp, const std::string& _file, const int _line,
@@ -462,7 +465,7 @@ public:
 
 
 	//!\brief Starts the logging. On starting, a new thread is created which processes the enqueued log message by
-	//!sending them to each logger. The thread has to be stopped and joined before the	log manager is destroyed!
+	//!sending them to each logger. The thread has to be stopped and joined before the log manager is destroyed!
 	//!\return void
 	//!\sa halt, join
 	void run()
