@@ -12,7 +12,6 @@
 
 #include <iostream>
 
-#include "essentials/compatibility/compatibility.hpp"
 #include "essentials/sxprintf.hpp"
 
 #include "ygen_build_number.hpp"
