@@ -12,7 +12,6 @@
 
 #include <iostream>
 
-#include "essentials/compatibility/compatibility.hpp"
 #include "essentials/sxprintf.hpp"
 
 #include "build_number.hpp"
@@ -31,8 +30,8 @@ namespace
 
 
 const sxe::uint16_t VERSION_MAJOR( 0 );
-const sxe::uint16_t VERSION_MINOR( 1 );
-const sxe::uint16_t VERSION_PATCH( 1 );
+const sxe::uint16_t VERSION_MINOR( 2 );
+const sxe::uint16_t VERSION_PATCH( 0 );
 
 
 }

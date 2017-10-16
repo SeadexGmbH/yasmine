@@ -450,7 +450,7 @@ model::transition_model_uptr json_reader::read_transition( const rapidjson::Valu
 		if( one_event->IsObject() )
 		{
 			const std::string event_name = get_object_member_string( sxe::ref( *one_event ), model::JSON_EVENT_NAME );
-			sxe::int64_t event_id = get_event_id_by_name( event_name );
+			sxe::int32_t event_id = get_event_id_by_name( event_name );
 			events.push_back( event_id );
 		}
 		else
@@ -468,7 +468,7 @@ model::transition_model_uptr json_reader::read_transition( const rapidjson::Valu
 }
 
 
-sxy::model::transition_model_kind json_reader::get_transition_kind( unsigned int _kind )
+sxy::model::transition_model_kind json_reader::get_transition_kind( sxe::int64_t _kind )
 {
 	sxy::model::transition_model_kind kind( sxy::model::transition_model_kind::EXTERNAL );
 	switch( _kind )
@@ -494,9 +494,9 @@ sxy::model::transition_model_kind json_reader::get_transition_kind( unsigned int
 }
 
 
-sxe::int64_t json_reader::get_event_id_by_name( const std::string& _name ) const
+sxe::int32_t json_reader::get_event_id_by_name( const std::string& _name ) const
 {
-	sxe::int64_t event_id = sxy::model::Y_MODEL_COMPLETION_EVENT_ID;
+	sxe::int32_t event_id = sxy::model::Y_MODEL_COMPLETION_EVENT_ID;
 	std::vector<const rapidjson::Value*> event_list =
 		extract_members_from_array( get_object_member_array( document_, model::JSON_EVENT_LIST_NODE ) );
 
@@ -505,7 +505,8 @@ sxe::int64_t json_reader::get_event_id_by_name( const std::string& _name ) const
 		const std::string event_name = get_object_member_string( sxe::ref( *an_event ), model::JSON_EVENT_NAME );
 		if( event_name == _name )
 		{
-			event_id = get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_ID );
+			// FixME: safe cast
+			event_id = static_cast< sxe::int32_t >( get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_ID ) );
 			break;
 		}
 	}
@@ -514,12 +515,12 @@ sxe::int64_t json_reader::get_event_id_by_name( const std::string& _name ) const
 }
 
 
-sxe::int64_t json_reader::get_event_priority_by_name( const std::string& _name ) const
+sxe::int8_t json_reader::get_event_priority_by_name( const std::string& _name ) const
 {
 #ifdef SX_CPP03_BOOST
-	sxe::int64_t priority ( DEFAULT_EVENT_PRIORITY);
+	sxe::int8_t priority ( DEFAULT_EVENT_PRIORITY);
 #else
-	sxe::int64_t priority( sxy::model::DEFAULT_EVENT_PRIORITY );
+	sxe::int8_t priority( sxy::model::DEFAULT_EVENT_PRIORITY );
 #endif
 	std::vector<const rapidjson::Value*> event_list =
 		extract_members_from_array( get_object_member_array( document_, model::JSON_EVENT_LIST_NODE ) );
@@ -531,7 +532,8 @@ sxe::int64_t json_reader::get_event_priority_by_name( const std::string& _name )
 		{
 			try
 			{
-				priority = get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_PRIORITY );
+				// FixME: safe cast
+				priority = static_cast< sxe::int8_t > ( get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_PRIORITY ) );
 			}
 			catch( ... )
 			{
@@ -558,7 +560,9 @@ void json_reader::get_event_list( model::state_machine_model_ptr& _model )
 	SX_FOR( const rapidjson::Value* const an_event, event_list )
 	{
 		const std::string event_name = get_object_member_string( sxe::ref( *an_event ), model::JSON_EVENT_NAME );
-		sxy::model::event_id event_id = get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_ID );
+		// FixME: safe cast
+		sxy::model::event_id event_id = static_cast< sxy::model::event_id >( get_object_member_int( sxe::ref( *an_event ), 
+			model::JSON_EVENT_ID ) );
 #ifdef SX_CPP03_BOOST
 		sxy::model::event_priority priority = DEFAULT_EVENT_PRIORITY;
 #else
@@ -569,7 +573,9 @@ void json_reader::get_event_list( model::state_machine_model_ptr& _model )
 			const std::string json_version = get_object_member_string( document_, model::JSON_VERSION );
 			if( json_version != model::JSON_VERSION_1 )
 			{
-				priority = get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_PRIORITY );
+				// FixME: safe cast
+				priority = static_cast<sxy::model::event_priority >( get_object_member_int( sxe::ref( *an_event ), 
+					model::JSON_EVENT_PRIORITY ) );
 			}
 		}
 		_model->add_event( event_name, event_id, priority );
