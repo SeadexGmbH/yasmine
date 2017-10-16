@@ -34,8 +34,10 @@ namespace sxy
 
 
 #ifdef SX_CPP03_BOOST
-#pragma warning( push )
-#pragma warning( disable : 4100 )
+	#ifdef _MSC_VER
+		#pragma warning( push )
+		#pragma warning( disable : 4100 )
+#endif
 #endif
 
 
@@ -97,12 +99,14 @@ transition_impl::transition_impl( const event_id _event_id, vertex& _source, ver
 
 
 #ifdef SX_CPP03_BOOST
-#pragma warning( pop )
+	#ifdef _MSC_VER
+		#pragma warning( pop )
+	#endif
 #endif
 
 
 transition_impl::transition_impl( const event_ids _event_ids, vertex& _source, vertex& _target, 
-	const sxy::transition_kind _kind,	constraint_uptr _guard, behavior_uptr _behavior )
+	const sxy::transition_kind _kind, constraint_uptr _guard, behavior_uptr _behavior )
 	: state_machine_element_impl( get_transition_name( _source, _target, _event_ids ) ),
 		event_ids_( _event_ids ),
 		source_( _source ),
@@ -207,7 +211,7 @@ bool transition_impl::check_guard( const event& _event, event_collector& _event_
 
 
 bool transition_impl::check( state_machine_defects& _defects ) const
-{		
+{
 	bool check_ok = check_for_cross_region_transition( _defects );
 
 	if( sxy::transition_kind::INTERNAL == get_kind() )
@@ -371,7 +375,7 @@ bool transition_impl::check_for_cross_region_transition( state_machine_defects& 
 	const vertex& target = get_target();
 	const region* const lca_of_source_target = source.LCA_region( target );
 	if( lca_of_source_target )
-	{		
+	{
 		const raw_regions& source_ancestors = source.get_ancestors_as_regions();
 		raw_regions::const_iterator found_source_itr =
 			std::find( source_ancestors.begin(), source_ancestors.end(), lca_of_source_target );
@@ -469,7 +473,7 @@ bool transition_impl::check_initial_pseudostate( state_machine_defects& _defects
 // Transition's source is a child of target's parent state or the parent state itself, when the target is an exit point.
 bool transition_impl::check_exit_point( state_machine_defects& _defects ) const
 {
-	bool check_ok = true;	
+	bool check_ok = true;
 	const exit_point* const target_exit_point = dynamic_cast< const exit_point* const >( &get_target() );
 	if( target_exit_point )
 	{
