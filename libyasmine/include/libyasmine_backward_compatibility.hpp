@@ -8,52 +8,37 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef YASMINE_2205A1D5_1962_477A_97DD_E8051B277A88
-#define YASMINE_2205A1D5_1962_477A_97DD_E8051B277A88
 
+#ifndef LIBYASMINE_BACKWARD_COMPATIBILITY_25EFEF99_3357_4F3D_843D_AEB2C56E19DD
+#define LIBYASMINE_BACKWARD_COMPATIBILITY_25EFEF99_3357_4F3D_843D_AEB2C56E19DD
 
-#include "libyasmine_backward_compatibility.hpp"
 
 #include "essentials/compatibility/compatibility.hpp"
-#include "essentials/compatibility/chrono.hpp"
-#include "essentials/compatibility/thread.hpp"
-#include "essentials/non_copyable.hpp"
-
-#include "sync_state_machine.hpp"
-#include "async_state_machine.hpp"
-#include "timed_event_creator.hpp"
-
-#include "state_machine_defect.hpp"
-#include "state_machine_introspection.hpp"
-
-#include "states.hpp"
-#include "region.hpp"
-#include "region_pseudostates.hpp"
-
-#include "transition.hpp"
-#include "transition_impl.hpp"
-#include "behavior.hpp"
-#include "behavior_exception.hpp"
-#include "event_impl.hpp"
-
-#include "event_template.hpp"
-#include "constraint.hpp"
-#include "completion_event.hpp"
-
-#include "logging.hpp"
-#include "utils.hpp"
-#include "assembly.hpp"
-#include "version.hpp"
 
 
-#ifndef Y_LEAN_AND_MEAN
-
-
-#include "state_pseudostates.hpp"
-#include "async_behavior.hpp"
-
-
+#ifdef Y_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG
+#define SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG
 #endif
+
+
+
+// TODO add to log as removed?
+//#define Y_ASSERT SX_ASSERT
+//#define Y_NULLPTR SX_NULLPTR
+//#define Y_FOR SX_FOR
+//#define Y_CONSTEXPR SX_CONSTEXPR
+//#define Y_FINAL SX_FINAL
+//#define Y_NOEXCEPT SX_NOEXCEPT
+//#define Y_OVERRIDE SX_OVERRIDE
+//#define Y_NO_COPY SX_NO_COPY
+//#define Y_NO_COPY_OPERATOR_EQUAL SX_NO_ASSIGNMENT_OPERATOR
+
+
+
+namespace sxy
+{
+	using sxe::shared_ptr;
+}
 
 
 #endif

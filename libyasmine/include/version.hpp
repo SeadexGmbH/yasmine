@@ -15,6 +15,7 @@
 
 #include "essentials/base.hpp"
 #include "essentials/compatibility/compatibility.hpp"
+#include "hermes/hermes_backward_compatibility.hpp"
 
 
 namespace sxy

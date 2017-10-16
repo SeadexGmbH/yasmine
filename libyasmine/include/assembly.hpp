@@ -77,12 +77,12 @@
 //!\brief Macro for using a class method as a guard.
 //!\deprecated USE Y_GUARD_METHOD2 instead.
 #define Y_GUARD_METHOD_SELECT_1( _method_name ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ return(  SX_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ) ); } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event_collector); return( this->_method_name( _event ) ); } )
 
 //!\brief Macro for using a class method as a guard.
 //!\deprecated USE Y_GUARD_METHOD2 instead.
 #define Y_GUARD_METHOD_SELECT_2( _class_name, _method_name ) \
-    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ return(  SX_UNUSED_PARAMETER(_event_collector); this->_method_name( _event ) ); } )
+    sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event_collector); return( this->_method_name( _event ) ); } )
 
 //!\brief Macro for using any type of action returning bool as a guard.
 #define Y_GUARD_ACTION_SELECT_1( _action ) \
@@ -105,7 +105,7 @@
 //!\brief Macro for using a free function as a guard.
 //!\deprecated Use Y_GUARD_FUNCTION2 instead.
 #define Y_GUARD_FUNCTION( _function_name ) \
-    sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector )->bool { return( SX_UNUSED_PARAMETER(_event_collector); _function_name( _event ) ); } )
+    sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector )->bool { SX_UNUSED_PARAMETER(_event_collector); return( _function_name( _event ) ); } )
 
 //!\brief Macro for using a free function as a guard without an event.
 //!\deprecated Use Y_GUARD_FUNCTION2 instead.
@@ -137,7 +137,7 @@
 
 //!\brief Macro for using a class method as a behavior without an event.
 #define Y_BEHAVIOR_METHOD_NO_EVENT_SELECT_2( _class_name, _method_name ) \
-		sxy::behavior_function( sxe::bind( &_class_name::_method_name, this ) )         
+		sxy::behavior_function( sxe::bind( &_class_name::_method_name, this ) )
 
 #define Y_GUARD_METHOD_SELECT_2( _class_name, _method_name ) \
     sxy::constraint_function( sxe::bind( &_class_name::_method_name, this, sxe::_1 ) )
@@ -175,13 +175,13 @@
 
 
 #ifndef SX_CPP03_BOOST // C++11 only
-	// Macros for passing handlers as behavior	
+	// Macros for passing handlers as behavior
 	
 	//!\brief The macro creates a behavior_function for the specified method(s).
 	//!\ The macro is variadic and can take up to 10 class methods pointers as parameters.
 	//#define Y_BEHAVIOR_METHOD_EVENT(...) EXPAND( VA_SELECT( Y_BEHAVIOR_METHOD_EVENT_SELECT, __VA_ARGS__ ) )
 	#define Y_BEHAVIOR_METHOD_EVENT(...) EXPAND( Y_BEHAVIOR_METHOD2( this, __VA_ARGS__ ) )
-		
+
 	//!\brief The macro creates a behavior_function for the specified function(s). 
 	//!\ The macro is variadic and can take up to 10 function pointers as parameters.
 	#define Y_BEHAVIOR_FUNCTION_EVENT( ... ) EXPAND( Y_BEHAVIOR_FUNCTION2( __VA_ARGS__ ) )
