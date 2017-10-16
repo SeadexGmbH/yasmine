@@ -21,20 +21,6 @@
 #endif
 
 
-
-// TODO add to log as removed?
-//#define Y_ASSERT SX_ASSERT
-//#define Y_NULLPTR SX_NULLPTR
-//#define Y_FOR SX_FOR
-//#define Y_CONSTEXPR SX_CONSTEXPR
-//#define Y_FINAL SX_FINAL
-//#define Y_NOEXCEPT SX_NOEXCEPT
-//#define Y_OVERRIDE SX_OVERRIDE
-//#define Y_NO_COPY SX_NO_COPY
-//#define Y_NO_COPY_OPERATOR_EQUAL SX_NO_ASSIGNMENT_OPERATOR
-
-
-
 namespace sxy
 {
 	using sxe::shared_ptr;
