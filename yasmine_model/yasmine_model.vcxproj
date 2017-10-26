@@ -179,6 +179,7 @@
     <ClInclude Include="include\pseudostate_model.hpp" />
     <ClInclude Include="include\pseudostate_model_fwd.hpp" />
     <ClInclude Include="include\pseudostate_model_impl.hpp" />
+    <ClInclude Include="include\rapidjson_document.hpp" />
     <ClInclude Include="include\region_model.hpp" />
     <ClInclude Include="include\region_model_fwd.hpp" />
     <ClInclude Include="include\region_model_impl.hpp" />
