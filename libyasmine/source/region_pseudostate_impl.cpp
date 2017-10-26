@@ -35,8 +35,8 @@ region_pseudostate_impl::region_pseudostate_impl( const std::string& _name )
 {
 #ifdef Y_OPTIMIZE_4_SPEED
 	ancestors_.reserve( ANCESTORS_VECTOR_SIZE );
-	ancestors_as_regions_.reserve( ANCESTORS_VECTOR_SIZE );	
-#endif	
+	ancestors_as_regions_.reserve( ANCESTORS_VECTOR_SIZE );
+#endif
 }
 
 
@@ -44,7 +44,7 @@ region_pseudostate_impl::~region_pseudostate_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
-			
+
 
 const state_machine_element* region_pseudostate_impl::get_parent() const
 {
@@ -84,9 +84,9 @@ raw_composite_states region_pseudostate_impl::get_ancestors( composite_state* co
 
 		if( final_ancestor != ancestors_.end() )
 		{
-			raw_composite_states ancestors( ancestors_.begin(), final_ancestor + 1 );			
+			raw_composite_states ancestors( ancestors_.begin(), final_ancestor + 1 );
 			if( !_include_final_ancestor )
-			{					
+			{
 				ancestors.erase( std::remove( ancestors.begin(), ancestors.end(), _final_ancestor ), ancestors.end() );
 			}
 			return ( ancestors );
@@ -99,7 +99,7 @@ raw_composite_states region_pseudostate_impl::get_ancestors( composite_state* co
 	}
 #else
 	raw_composite_states ancestors;
-	collect_ancestors( ancestors, _final_ancestor );	
+	collect_ancestors( ancestors, _final_ancestor );
 	if( !_include_final_ancestor )
 	{
 		ancestors.erase( std::remove( ancestors.begin(), ancestors.end(), _final_ancestor ), ancestors.end() );
@@ -116,7 +116,7 @@ raw_regions region_pseudostate_impl::get_ancestors_as_regions() const
 	{
 		collect_ancestors_as_regions( ancestors_as_regions_ );
 	}
-	return ( ancestors_as_regions_ );	
+	return ( ancestors_as_regions_ );
 #else
 	raw_regions ancestor_regions;
 	collect_ancestors_as_regions( ancestor_regions );

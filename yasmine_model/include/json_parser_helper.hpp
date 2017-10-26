@@ -14,9 +14,9 @@
 
 #include <vector>
 
-#include <document.h>
-
 #include "essentials/compatibility/compatibility.hpp"
+
+#include "rapidjson_document.hpp"
 
 
 namespace sxy

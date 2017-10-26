@@ -11,12 +11,10 @@
 #ifndef JSON_READER_B84EDCFB_85B6_4060_971F_96D6FB6D87B7
 #define JSON_READER_B84EDCFB_85B6_4060_971F_96D6FB6D87B7
 
-
-#include <document.h>
-
 #include "essentials/non_copyable.hpp"
 #include "essentials/uri.hpp"
 
+#include "rapidjson_document.hpp"
 #include "transition_model_kind.hpp"
 #include "region_model_fwd.hpp"
 #include "pseudostate_model_fwd.hpp"

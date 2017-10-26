@@ -17,7 +17,7 @@ namespace sxy
 {
 
 
-	behavior_impl::behavior_impl( const behavior_function& _function )	
+	behavior_impl::behavior_impl( const behavior_function& _function )
 	: function_( _function )
 {
 	// Nothing to do...

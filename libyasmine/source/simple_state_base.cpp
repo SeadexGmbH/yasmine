@@ -98,7 +98,7 @@ bool simple_state_base::check( state_machine_defects& _defects ) const
 
 
 bool simple_state_base::has_error_event() const
-{		
+{
 	const bool state_has_error_event = !!error_event_;
 	return( state_has_error_event );
 }

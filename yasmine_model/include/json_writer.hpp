@@ -26,9 +26,10 @@ typedef std::size_t SizeType;
 
 }
 
-#include <document.h>
 
 #include "state_machine_model.hpp"
+
+#include "rapidjson_document.hpp"
 
 
 namespace sxy

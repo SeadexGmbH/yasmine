@@ -39,7 +39,7 @@ execution_state_do_step::~execution_state_do_step() SX_NOEXCEPT
 
 
 bool execution_state_do_step::execute_behavior( event_processing_callback* const _event_processing_callback,
-	const event& _event, events& _exception_events,	async_event_handler* const _async_event_handler, event_collector& _event_collector ) const
+	const event& _event, events& _exception_events, async_event_handler* const _async_event_handler, event_collector& _event_collector ) const
 {
 	SX_LOG( hermes::log_level::LL_TRACE, "Executing do behavior of state '%'.", state_.get_name() );
 	if( _event_processing_callback )
