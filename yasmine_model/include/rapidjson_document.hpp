@@ -8,29 +8,24 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-#ifndef BUILD_NUMBER_BEA27738_6D7E_43AE_A958_052FA6C308CF
-#define BUILD_NUMBER_BEA27738_6D7E_43AE_A958_052FA6C308CF
-
-
-#include "essentials/compatibility/compatibility.hpp"
+#ifndef RAPIDJSON_DOCUMENT_ED907436_BE54_4D3D_9FDA_5C83FCBCBDF2
+#define RAPIDJSON_DOCUMENT_ED907436_BE54_4D3D_9FDA_5C83FCBCBDF2
 
 
-namespace sxy
+#define RAPIDJSON_NO_SIZETYPEDEFINE
+
+
+namespace rapidjson
 {
 
 
-namespace version
-{
-
-
-	const sxe::uint16_t BUILD_NUMBER( 790 );
+typedef std::size_t SizeType;
 
 
 }
 
 
-}
+#include <rapidjson/document.h>
 
 
 #endif
