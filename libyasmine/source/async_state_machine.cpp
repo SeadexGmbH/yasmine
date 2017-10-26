@@ -31,7 +31,7 @@ async_state_machine::async_state_machine( const std::string& _name,
 		run_and_event_mutex_(),
 		run_and_event_condition_(),
 		terminated_condition_(),
-		worker_thread_(),		
+		worker_thread_(),
 		event_list_()
 {
 	SX_LOG( hermes::log_level::LL_TRACE, "Creating async state_machine '%'.", _name );
@@ -66,6 +66,10 @@ bool async_state_machine::run()
 {
 	SX_LOG( hermes::log_level::LL_INFO, "Starting async state machine '%'.", get_name() );
 
+	SX_ASSERT( ( state_machine_status::NEW == status_ ) || ( state_machine_status::STOPPED == status_ ),
+		"Status is neither 'NEW' nor 'STOPPED' on start!" );
+
+	status_ = state_machine_status::STARTED;
 	const bool state_machine_started = state_machine_base::run( this );
 	if( state_machine_started )
 	{
@@ -74,7 +78,7 @@ bool async_state_machine::run()
 	else
 	{
 		SX_LOG( hermes::log_level::LL_INFO, "Terminate pseudostate was reached in %.", get_name() );
-		status_ = state_machine_status::STOPPED;		
+		status_ = state_machine_status::STOPPED;
 	}
 
 	SX_LOG( hermes::log_level::LL_INFO, "Started async state machine '%'.", get_name() );
@@ -84,7 +88,7 @@ bool async_state_machine::run()
 
 
 void async_state_machine::halt_and_join()
-{	
+{
 	SX_LOG( hermes::log_level::LL_INFO, "Stopping and joining async state machine '%'.", get_name() );
 
 	halt();
@@ -168,10 +172,6 @@ bool async_state_machine::push( const event_sptr& _event )
 
 void async_state_machine::start_state_machine()
 {
-	SX_ASSERT( ( state_machine_status::NEW == status_ ) || ( state_machine_status::STOPPED == status_ ),
-		"Status is neither 'NEW' nor 'STOPPED' on start!" );
-	
-	status_ = state_machine_status::STARTED;
 	worker_thread_ = SX_MAKE_UNIQUE< sxe::thread >( &async_state_machine::work, this );
 }
 
@@ -206,7 +206,7 @@ void async_state_machine::insert_impl( const event_sptr& _event )
 {
 	if( event_list_.empty() )
 	{
-		event_list_.push_back( _event );	
+		event_list_.push_back( _event );
 	}
 	else
 		if( event_list_.back()->get_priority() >= _event->get_priority() )
@@ -217,7 +217,7 @@ void async_state_machine::insert_impl( const event_sptr& _event )
 		{
 			std::list< event_sptr >::iterator position = event_list_.begin();
 			while( position != event_list_.end() )
-			{					
+			{
 				if (_event->operator>(**position))
 				{
 						break;
@@ -232,7 +232,7 @@ void async_state_machine::insert_impl( const event_sptr& _event )
 
 bool async_state_machine::wait_predicate() const
 {
-	return( !( status_ == state_machine_status::STARTED ) || !event_list_.empty() );	
+	return( !( status_ == state_machine_status::STARTED ) || !event_list_.empty() );
 }
 
 
@@ -251,7 +251,7 @@ void async_state_machine::work()
 			event_sptr event;
 			{
 				sxe::unique_lock< sxe::mutex > lock( run_and_event_mutex_ );
-				run_and_event_condition_.wait( lock, sxe::bind( &async_state_machine::wait_predicate, this ) );				
+				run_and_event_condition_.wait( lock, sxe::bind( &async_state_machine::wait_predicate, this ) );
 				if( !( status_ == state_machine_status::STARTED ) && ( event_list_.empty() || is_interrupted() ) )
 				{
 					break;
@@ -268,12 +268,12 @@ void async_state_machine::work()
 	}
 	catch ( const std::exception& exception )
 	{
-		SX_LOG( hermes::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );		
+		SX_LOG( hermes::log_level::LL_FATAL, "Unhandled exception: '%'.", exception.what() );
 		status_ = state_machine_status::STOPPED;
 	}
 	catch ( ... )
 	{
-		SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception!" );		
+		SX_LOG( hermes::log_level::LL_FATAL, "Unknown exception!" );
 		status_ = state_machine_status::STOPPED;
 	}
 

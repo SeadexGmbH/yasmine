@@ -74,7 +74,7 @@ namespace sxy
 	}
 
 
-#ifdef Y_PROFILER	
+#ifdef Y_PROFILER
 	sxe::uint32_t state_machine_base::get_number_of_processed_events() const
 	{
 		return( processed_events_ );
@@ -295,6 +295,7 @@ namespace sxy
 		return( state_machine_started );
 	}
 
+
 	bool state_machine_base::process_event( const event_sptr& _event, async_event_handler* const _async_event_handler )
 	{
 #ifdef Y_PROFILER
@@ -341,7 +342,7 @@ namespace sxy
 					}
 					else
 					{
-						if( !event_was_unhandled ) //event_was_unhandled
+						if( !event_was_unhandled )
 						{
 							handle_unhandled_event( _event );
 						}

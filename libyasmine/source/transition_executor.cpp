@@ -51,7 +51,7 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 	transition_executor_impl_->conflict_check( _compound_transitions );
 	SX_LOG( hermes::log_level::LL_TRACE, "Sorting compound transitions." );
 	const raw_compound_transitions& sorted_compound_transitions = 
-		transition_executor_impl_->sort_compound_transitions(	_compound_transitions );
+		transition_executor_impl_->sort_compound_transitions( _compound_transitions );
 	SX_LOG( hermes::log_level::LL_TRACE, "Compound transitions sorted." );
 	SX_LOG( hermes::log_level::LL_TRACE, "Start calculating execution step(s) for all compound transitions." );
 
@@ -72,11 +72,11 @@ bool transition_executor::check_sort_and_execute_transitions( const compound_tra
 		raw_const_region_set entered_regions;
 		SX_LOG( hermes::log_level::LL_TRACE, "Calculate execution step(s) for one compound transition." );
 		transition_executor_impl_->find_states_to_enter_and_to_exit_and_calculate_execution_steps( *compound_transition,
-			execution_steps, entered_regions,	_event, true, _event_collector );
+			execution_steps, entered_regions, _event, true, _event_collector );
 		SX_LOG( hermes::log_level::LL_TRACE, "Found % execution step(s).", execution_steps.size() );
 		SX_LOG( hermes::log_level::LL_TRACE, "Start running execution step(s)." );
 		terminate_pseudostate_has_been_reached = transition_executor_impl_->run_execution_steps( execution_steps,
-			_event_processing_callback,	_event, _exception_events, _async_event_handler, _event_collector );
+			_event_processing_callback, _event, _exception_events, _async_event_handler, _event_collector );
 		SX_LOG( hermes::log_level::LL_TRACE, "Finished running execution step(s)." );
 		if( terminate_pseudostate_has_been_reached )
 		{
