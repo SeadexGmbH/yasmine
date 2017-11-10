@@ -52,7 +52,7 @@ bool try_to_build_compound_transition( transition& _enabled_transition,
 compound_transition_uptr build_compound_transition( transition& _first_transition,	const event& _event, 
 	event_collector& _event_collector )
 {
-	sxe::SX_UNIQUE_PTR< compound_transition_impl > new_compound_transition = SX_MAKE_UNIQUE< compound_transition_impl >();
+	compound_transition_uptr new_compound_transition = SX_MAKE_UNIQUE< compound_transition_impl >();
 
 	SX_LOG( hermes::log_level::LL_SPAM, "Create and check transition path for transition '%'.", _first_transition.get_name() );
 	const bool built_compound_transition = new_compound_transition->create_and_check_transition_path( _first_transition,
@@ -69,7 +69,7 @@ compound_transition_uptr build_compound_transition( transition& _first_transitio
 			_first_transition.get_name() );
 	}
 
-	return( sxe::move( new_compound_transition ) );
+	return( new_compound_transition );
 }
 
 

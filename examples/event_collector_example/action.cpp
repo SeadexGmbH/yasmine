@@ -31,56 +31,21 @@ namespace examples
 	}
 
 
-#ifndef SX_CPP03_BOOST
-
 	void action::fire_event_E3( sxy::event_collector& _event_collector )
-	{			
+	{
 		_event_collector.push( examples::E3::create() );
 	}
 
 
 	void action::fire_event_E4( sxy::event_collector& _event_collector )
-	{			
-		_event_collector.push( examples::E4::create( "The transition from simple state 'S3' to the final state has been executed!" ) );																									    
+	{
+		_event_collector.push( examples::E4::create( "The transition from simple state 'S3' to the final state has been executed!" ) );
 	}
 
 	void action::print_message_from_event( const E4& _event )
 	{
 		std::cout << _event.get_message() << std::endl;
 	}
-
-#else
-
-	void action::fire_event_E3( const sxy::event& _event, sxy::event_collector& _event_collector )
-	{
-		SX_UNUSED_PARAMETER( _event );
-		_event_collector.push( examples::E3::create() );
-	}
-
-
-	void action::fire_event_E4( const sxy::event& _event, sxy::event_collector& _event_collector )
-	{
-		SX_UNUSED_PARAMETER( _event );
-		_event_collector.push( examples::E4::create( "The transition from simple state 'S3' to the final state has been executed!" ) );
-	}
-
-
-	void action::print_message_from_event( const sxy::event& _event )
-	{
-		const E4* specialized_event = dynamic_cast< const E4* >( &_event );
-		if( specialized_event )
-		{
-			std::cout << specialized_event->get_message() << std::endl;			
-		}
-		else
-		{
-			throw sxe::exception( "Invalid event type!" );
-		}
-	}
-
-#endif
-
-
 
 
 }

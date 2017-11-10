@@ -63,21 +63,15 @@ namespace examples
 
 
 	state_machine_uptr machine::setup_state_machine( const std::string& _name )
-	{		
+	{
 		state_machine_uptr state_machine = SX_MAKE_UNIQUE< sxy::sync_state_machine >( _name );
 		sxy::composite_state& root_state = state_machine->get_root_state();
 		sxy::region& main_region = root_state.add_region( "main region" );
 		sxy::initial_pseudostate& initial = main_region.add_initial_pseudostate( "initial" );
-		sxy::simple_state& s1 = main_region.add_simple_state( "S1" );		
+		sxy::simple_state& s1 = main_region.add_simple_state( "S1" );
 		action* action_ptr = &action_;
-#ifndef SX_CPP03_BOOST		
-		sxy::simple_state& s2 = main_region.add_simple_state( "S2", 		
-			Y_BEHAVIOR_METHOD2( action_ptr, &examples::action::fire_event_E3 ), Y_EMPTY_BEHAVIOR, Y_EMPTY_BEHAVIOR );
-#else
-		sxy::simple_state& s2 = main_region.add_simple_state( "S2",			
-			sxy::behavior_function( sxe::bind( &action::fire_event_E3, action_ptr, sxe::_1, sxe::_2 ) ),
-			Y_EMPTY_BEHAVIOR, Y_EMPTY_BEHAVIOR );
-#endif
+		sxy::simple_state& s2 = main_region.add_simple_state( "S2",
+			Y_BEHAVIOR_METHOD2( action_ptr, &action::fire_event_E3 ), Y_EMPTY_BEHAVIOR, Y_EMPTY_BEHAVIOR );
 		sxy::simple_state& s3 = main_region.add_simple_state( "S3" );
 		sxy::simple_state& s4 = main_region.add_simple_state( "S4" );
 		sxy::final_state& final = main_region.add_final_state( "final" );
@@ -85,21 +79,13 @@ namespace examples
 		state_machine->add_transition( examples::E1::get_event_id(), s1, s2 );
 		state_machine->add_transition( examples::E2::get_event_id(), s2, s3 );
 		state_machine->add_transition( examples::E3::get_event_id(), s2, s4 );
-#ifndef SX_CPP03_BOOST
 		state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s4, s3, 
 			Y_BEHAVIOR_METHOD2( action_ptr, &examples::action::fire_event_E4 ) );
 		state_machine->add_transition( examples::E4::get_event_id(), s3, final,
 			Y_BEHAVIOR_METHOD2( action_ptr, &examples::action::print_message_from_event ) );
-#else
-		state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s4, s3,			
-			sxy::behavior_function( sxe::bind( &action::fire_event_E4, action_ptr, sxe::_1, sxe::_2 ) ) );
-		state_machine->add_transition( examples::E4::get_event_id(), s3, final,			
-			sxy::behavior_function( sxe::bind( &action::print_message_from_event, action_ptr, sxe::_1 ) )
-		);
-#endif
 		state_machine->add_transition( examples::E1::get_event_id(), s3, s2 );
 
-		return( sxe::move( state_machine ) );
+		return( state_machine );
 	}
 
 

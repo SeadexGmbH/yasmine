@@ -106,7 +106,7 @@ model::state_machine_model_ptr json_reader::read_into_model()
 
 	get_event_list( sm_model );
 
-	return( sxe::move( sm_model ) );
+	return( sm_model );
 }
 
 
@@ -152,7 +152,7 @@ model::composite_state_model_uptr json_reader::read_composite_state( const rapid
 		one_composite_state->add_state_pseudostate( sxe::move( state_pseudostate ) );
 	}
 
-	return( sxe::move( one_composite_state ) );
+	return( one_composite_state );
 }
 
 
@@ -182,7 +182,7 @@ model::simple_state_model_uptr json_reader::read_simple_state( const rapidjson::
 	sxe::SX_UNIQUE_PTR< model::simple_state_model_impl > simple_state =
 		SX_MAKE_UNIQUE< model::simple_state_model_impl >( name, enter_behavior,
 		do_behavior, exit_behavior, read_deferred_events( _state ), error_event, _is_async );
-	return( sxe::move( simple_state ) );
+	return( simple_state );
 }
 
 
@@ -191,7 +191,7 @@ model::final_state_model_uptr json_reader::read_final_state( const rapidjson::Va
 	std::string name = get_object_member_string( sxe::ref( _state), model::JSON_NAME_NODE );
 	sxe::SX_UNIQUE_PTR< model::final_state_model_impl > final_state =
 		SX_MAKE_UNIQUE< model::final_state_model_impl >( name );
-	return( sxe::move( final_state ) );
+	return( final_state );
 }
 
 
@@ -223,7 +223,7 @@ model::region_model_impl_uptr json_reader::read_region( const rapidjson::Value& 
 		}
 	}
 
-	return( sxe::move( region ) );
+	return( region );
 }
 
 
@@ -364,7 +364,7 @@ model::pseudostate_model_uptr json_reader::read_pseudostate( const rapidjson::Va
 	}
 	}
 
-	return( sxe::move( pseudostate ) );
+	return( pseudostate );
 }
 
 
@@ -464,7 +464,7 @@ model::transition_model_uptr json_reader::read_transition( const rapidjson::Valu
 	sxe::SX_UNIQUE_PTR< model::transition_model_impl > transition = 
 		SX_MAKE_UNIQUE< model::transition_model_impl >( name, sxe::uri( source_vertex ), sxe::uri( target_vertex ),
 			kind, transition_behavior, transition_guard, events );
-	return( sxe::move( transition ) );
+	return( transition );
 }
 
 

@@ -89,13 +89,8 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	sxy::composite_state& root_state = l_state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& i1 = main_region.add_initial_pseudostate( "initial pseudostate 1" );
-#ifdef SX_CPP03_BOOST
-	sxy::simple_state& s1 = 
-		main_region.add_simple_state( "s1", Y_BEHAVIOR_METHOD_NO_EVENT( forty_two, increment_iterations ) );
-#else
 	sxy::simple_state& s1 = main_region.add_simple_state( "s1", 
 		Y_BEHAVIOR_METHOD2( this, &forty_two::increment_iterations ) );
-#endif
 	sxy::simple_state& s2 = main_region.add_simple_state( "s2" );
 	sxy::composite_state& s3 = main_region.add_composite_state( "s3" );
 	sxy::region& r3_1 = s3.add_region( "s3_r1" );
@@ -270,27 +265,13 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	l_state_machine->add_transition( event_B::get_event_id(), s16, s17 );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, join1, s18 );
 	l_state_machine->add_transition( event_R::get_event_id(), s18, choice1 );
-
-#ifdef SX_CPP03_BOOST
-	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, s19,
-		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_2 ) );
-#else
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, s19,
 		Y_GUARD_METHOD2( this, &forty_two::check_iterations_divided_by_2 ) );
-#endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, choice1, junction1 );
-
-#ifdef SX_CPP03_BOOST
-	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s20,
-		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_3 ) );
-	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s21,
-		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_divided_by_5 ) );
-#else
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s20,
 		Y_GUARD_METHOD2( this, &forty_two::check_iterations_divided_by_3 ) );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s21,
 		Y_GUARD_METHOD2( this, &forty_two::check_iterations_divided_by_5 ) );
-#endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction1, s22 );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s19, s23 );
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s20, s23 );
@@ -298,16 +279,10 @@ forty_two::state_machine_uptr forty_two::build_state_machine()
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, s22, s23 );
 	l_state_machine->add_transition( event_T::get_event_id(), s23, s24 );
 	l_state_machine->add_transition( event_S::get_event_id(), s24, junction2 );
-
-#ifdef SX_CPP03_BOOST
-	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, terminate_pseudostate_1,
-		Y_GUARD_METHOD_NO_EVENT( forty_two, check_iterations_exceded ) );
-#else
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, terminate_pseudostate_1,
 		Y_GUARD_METHOD2( this, &forty_two::check_iterations_exceded ) );
-#endif
 	l_state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, junction2, s1 );
-	return( sxe::move( l_state_machine ) );
+	return( l_state_machine );
 }
 
 
@@ -367,8 +342,9 @@ void forty_two::run()
 
 	sxe::system_clock::time_point start = sxe::system_clock::now();
 
-	bool starting_success = state_machine_->run();
+	const bool starting_success = state_machine_->run();
 	SX_ASSERT( starting_success, "State machine was not started!" );
+	SX_UNUSED_VARIABLE( starting_success );
 
 	for( uint32_t iteration = 0; iteration < max_iterations_; ++iteration )
 	{
@@ -393,7 +369,7 @@ void forty_two::run()
 		state_machine_->fire_event( event_S::create() );
 		state_machine_->fire_event( event_T::create() );
 	}
-	
+
 	const sxe::system_clock::time_point stop = sxe::system_clock::now();
 
 #ifdef Y_PROFILER

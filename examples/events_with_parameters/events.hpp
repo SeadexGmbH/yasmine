@@ -17,9 +17,9 @@
 
 
 #if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
-	#define	EVENT_1 1
-	#define	EVENT_2 2
-#else	
+	#define EVENT_1 1
+	#define EVENT_2 2
+#else
 constexpr sxy::event_id EVENT_1 = 1;
 constexpr sxy::event_id EVENT_2 = 2;
 #endif

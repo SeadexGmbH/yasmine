@@ -33,7 +33,7 @@ state_machine_with_submachines::~state_machine_with_submachines() SX_NOEXCEPT
 
 	
 void state_machine_with_submachines::create()
-{	
+{
 	sxy::composite_state& root_state = state_machine_->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial pseudostate" );

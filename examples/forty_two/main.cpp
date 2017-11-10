@@ -13,6 +13,6 @@
 
 
 int main()
-{		
+{
 	examples::forty_two _42( 100000 );
 }

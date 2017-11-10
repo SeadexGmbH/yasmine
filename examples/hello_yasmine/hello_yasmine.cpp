@@ -37,18 +37,13 @@ state_machine_uptr setup_state_machine( const std::string& _name )
 	sxy::composite_state& root_state = state_machine->get_root_state();
 	sxy::region& main_region = root_state.add_region( "main region" );
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
-#ifdef SX_CPP03_BOOST
-	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION_NO_EVENT( wait ) );
-	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION_NO_EVENT( reply ) );
-#else
 	sxy::simple_state& simple_state_waiting = main_region.add_simple_state( "waiting", Y_BEHAVIOR_FUNCTION2( wait ) );
 	sxy::simple_state& simple_state_replying = main_region.add_simple_state( "replying", Y_BEHAVIOR_FUNCTION2( reply ) );
-#endif
 	state_machine->add_transition( HELLO_EVENT, simple_state_waiting, simple_state_replying );
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, initial_pseudostate, simple_state_waiting );
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, simple_state_replying, simple_state_waiting );
 
-	return( sxe::move( state_machine ) );
+	return( state_machine );
 }
 
 
@@ -83,7 +78,7 @@ int main()
 		{
 			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );
 			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );
-			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );			
+			hello_yasmine_state_machine->fire_event( sxy::event_impl::create( HELLO_EVENT ) );
 			hello_yasmine_state_machine->halt();
 		}
 		catch( const std::exception& exception )

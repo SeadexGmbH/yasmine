@@ -54,7 +54,12 @@ public:
 	virtual void enter_state( const event& _event, event_collector& _event_collector ) SX_OVERRIDE;
 	virtual void exit_state( const event& _event, event_collector& _event_collector ) SX_OVERRIDE;
 	virtual bool has_error_event() const SX_OVERRIDE;
-	virtual event_sptr get_error_event() const SX_OVERRIDE;
+	virtual event_sptr get_error_event() const SX_OVERRIDE
+	// HACK clang
+	// Implementation has to be here to avoid linker error under clang.
+	{
+		return( event_sptr() );
+	}
 
 
 private:

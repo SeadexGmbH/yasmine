@@ -31,15 +31,9 @@ public:
 	SX_NO_COPY( class_method_downcast )
 
 private:
-#ifndef SX_CPP03_BOOST
 	void do_something_event_2_parameters( const event_2& _event, sxy::event_collector& _event_collector );
 	void do_something_event_1_parameter( const event_1& _event, sxy::event_collector& _event_collector );
 	void do_something_event_0_parameters( const sxy::completion_event& _event, sxy::event_collector& _event_collector );
-#else
-	void do_something_event_2_parameters( const sxy::event& _event );
-	void do_something_event_1_parameter( const sxy::event& _event );
-	void do_something_event_0_parameters( const sxy::event& _event );
-#endif		
 	state_machine_uptr setup_state_machine( const std::string& _name );
 };
 

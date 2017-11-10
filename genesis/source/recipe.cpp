@@ -39,7 +39,7 @@ recipe::~recipe() SX_NOEXCEPT
 
 void recipe::generate()
 {
-	create( recipe_callback_ );
+	create_impl( recipe_callback_ );
 }
 
 
@@ -49,7 +49,7 @@ void recipe::write_to_file( const std::string& _file_path ) const
 }
 
 
-void recipe::create( recipe_callback& _recipe_callback )
+void recipe::create_impl( recipe_callback& _recipe_callback )
 {
 	template_block::create( _recipe_callback, stream_ );
 }

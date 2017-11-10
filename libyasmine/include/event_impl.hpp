@@ -21,7 +21,7 @@ namespace sxy
 
 //!\class event_impl
 //!\brief Events that are processed by the state machine. 
-//!\An event can have an ID, a name and a priority (for processing by the async state machine).
+//! An event can have an ID, a name and a priority (for processing by the async state machine).
 class event_impl:
 	public event
 {

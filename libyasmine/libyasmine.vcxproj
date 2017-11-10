@@ -119,8 +119,13 @@
     <ClInclude Include="..\externals\hermes\include\hermes\log_message.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\std_timestamp_policy.hpp" />
     <ClInclude Include="..\externals\hermes\include\hermes\waiter.hpp" />
+    <ClInclude Include="include\adapter_cpp03.hpp" />
+    <ClInclude Include="include\adapter_cpp11.hpp" />
     <ClInclude Include="include\algorithm_parameters.hpp" />
     <ClInclude Include="include\assembly.hpp" />
+    <ClInclude Include="include\assembly_common.hpp" />
+    <ClInclude Include="include\assembly_cpp03.hpp" />
+    <ClInclude Include="include\assembly_cpp11.hpp" />
     <ClInclude Include="include\async_behavior_fwd.hpp" />
     <ClInclude Include="include\async_behavior.hpp">
       <SubType>
@@ -131,10 +136,12 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="include\async_simple_state_impl.hpp" />
+    <ClInclude Include="include\create_behavior_function.hpp" />
+    <ClInclude Include="include\create_guard_function.hpp" />
     <ClInclude Include="include\libyasmine_backward_compatibility.hpp" />
     <ClInclude Include="include\y_assert.hpp" />
     <ClInclude Include="include\behavior_exception_fwd.hpp" />
-    <ClInclude Include="include\caller_adapter.hpp" />
+    <ClInclude Include="include\adapter.hpp" />
     <ClInclude Include="include\caller_helper.hpp" />
     <ClInclude Include="include\event_collector.hpp" />
     <ClInclude Include="include\event_adjuster.hpp" />
@@ -142,7 +149,7 @@
     <ClInclude Include="include\interruptible.hpp" />
     <ClInclude Include="include\state_machine_base.hpp" />
     <ClInclude Include="include_impl\build_number.hpp" />
-    <ClInclude Include="include\caller.hpp" />
+    <ClInclude Include="include\behavior_caller.hpp" />
     <ClInclude Include="include\completion_event.hpp" />
     <ClInclude Include="include\entry_point_fwd.hpp">
       <SubType>
@@ -308,15 +315,18 @@
     <ClCompile Include="..\externals\hermes\source\log_message.cpp" />
     <ClCompile Include="..\externals\hermes\source\std_timestamp_policy.cpp" />
     <ClCompile Include="..\externals\hermes\source\waiter.cpp" />
+    <ClCompile Include="source\adapter_cpp03.cpp" />
     <ClCompile Include="source\algorithm_parameters.cpp" />
+    <ClCompile Include="source\create_behavior_function.cpp" />
     <ClCompile Include="source\async_behavior.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="source\async_simple_state_impl.cpp" />
-    <ClCompile Include="source\caller.cpp" />
-    <ClCompile Include="source\caller_adapter.cpp" />
+    <ClCompile Include="source\behavior_caller.cpp" />
+    <ClCompile Include="source\adapter_cpp11.cpp" />
     <ClCompile Include="source\completion_event.cpp" />
+    <ClCompile Include="source\create_guard_function.cpp" />
     <ClCompile Include="source\event_creation_request.cpp" />
     <ClCompile Include="source\behavior_exception.cpp">
       <SubType>

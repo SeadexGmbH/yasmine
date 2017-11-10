@@ -15,10 +15,10 @@
 
 namespace examples
 {
-		 
+
 	void downcast_event();
 
 }
 
-			
+
 #endif

@@ -142,6 +142,9 @@
     <Filter Include="Quelldateien\external\hermes">
       <UniqueIdentifier>{fc016843-b9e5-4795-bd00-2638aa1487cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\core\state machine\caller">
+      <UniqueIdentifier>{313d08d9-3c57-469d-918d-6dd8155e00e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\event.hpp">
@@ -567,12 +570,6 @@
     <ClInclude Include="include\interruptible.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
     </ClInclude>
-    <ClInclude Include="include\caller.hpp">
-      <Filter>Headerdateien\core\state machine\caller</Filter>
-    </ClInclude>
-    <ClInclude Include="include\caller_adapter.hpp">
-      <Filter>Headerdateien\core\state machine\caller</Filter>
-    </ClInclude>
     <ClInclude Include="include\guard_caller.hpp">
       <Filter>Headerdateien\core\state machine\caller</Filter>
     </ClInclude>
@@ -698,6 +695,33 @@
     </ClInclude>
     <ClInclude Include="include\libyasmine_backward_compatibility.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\create_behavior_function.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\create_guard_function.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\assembly_cpp03.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\behavior_caller.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\adapter.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\assembly_common.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\assembly_cpp11.hpp">
+      <Filter>Headerdateien\core\state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\adapter_cpp03.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\adapter_cpp11.hpp">
+      <Filter>Headerdateien\core\state machine\caller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -890,15 +914,6 @@
     <ClCompile Include="source\state_machine_base.cpp">
       <Filter>Quelldateien\core\state machine</Filter>
     </ClCompile>
-    <ClCompile Include="source\caller_adapter.cpp">
-      <Filter>Quelldateien\core\state machine</Filter>
-    </ClCompile>
-    <ClCompile Include="source\caller.cpp">
-      <Filter>Quelldateien\core\state machine</Filter>
-    </ClCompile>
-    <ClCompile Include="source\guard_caller.cpp">
-      <Filter>Quelldateien\core\state machine</Filter>
-    </ClCompile>
     <ClCompile Include="..\externals\essentials\source\conversion.cpp">
       <Filter>Quelldateien\external\essentials</Filter>
     </ClCompile>
@@ -949,6 +964,24 @@
     </ClCompile>
     <ClCompile Include="..\externals\essentials\source\uri.cpp">
       <Filter>Quelldateien\external\essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="source\create_behavior_function.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\create_guard_function.cpp">
+      <Filter>Quelldateien\core\state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\behavior_caller.cpp">
+      <Filter>Quelldateien\core\state machine\caller</Filter>
+    </ClCompile>
+    <ClCompile Include="source\guard_caller.cpp">
+      <Filter>Quelldateien\core\state machine\caller</Filter>
+    </ClCompile>
+    <ClCompile Include="source\adapter_cpp03.cpp">
+      <Filter>Quelldateien\core\state machine\caller</Filter>
+    </ClCompile>
+    <ClCompile Include="source\adapter_cpp11.cpp">
+      <Filter>Quelldateien\core\state machine\caller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

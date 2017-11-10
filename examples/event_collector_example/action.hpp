@@ -44,16 +44,9 @@ public:
 	action();
 	~action() SX_NOEXCEPT;
 	SX_NO_COPY( action )
-#ifndef SX_CPP03_BOOST		
 	void fire_event_E3( sxy::event_collector& _event_collector );
 	void fire_event_E4( sxy::event_collector& _event_collector );
 	void print_message_from_event( const E4& _event );
-#else
-	void fire_event_E3( const sxy::event& _event, sxy::event_collector& _event_collector );
-	void fire_event_E4( const sxy::event& _event, sxy::event_collector& _event_collector );
-	void print_message_from_event( const sxy::event& _event );
-#endif
-	
 };
 
 

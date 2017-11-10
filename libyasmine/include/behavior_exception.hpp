@@ -11,7 +11,7 @@
 
 #ifndef BEHAVIOR_EXCEPTION_626C2339_34D7_4BC1_A01A_DB4C0914AA6C
 #define BEHAVIOR_EXCEPTION_626C2339_34D7_4BC1_A01A_DB4C0914AA6C
-		 
+
 
 #include "essentials/exception.hpp"
 #include "essentials/non_copyable.hpp"
@@ -32,9 +32,9 @@ class behavior_exception SX_FINAL:
 
 public:
 	explicit behavior_exception( const event_sptr& _event );
-	virtual ~behavior_exception() SX_NOEXCEPT SX_OVERRIDE;	
+	virtual ~behavior_exception() SX_NOEXCEPT SX_OVERRIDE;
 	SX_NO_ASSIGNMENT_OPERATOR( behavior_exception )
-	const event_sptr get_error_event() const;									
+	const event_sptr get_error_event() const;
 
 
 private:

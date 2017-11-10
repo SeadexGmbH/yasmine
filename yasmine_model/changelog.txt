@@ -2,6 +2,12 @@
 All notable changes to this project are documented in this file.
 
 
+##[0.1.5] - 2017-11-10
+
+### Fixed
+• removed move operation from return where a local created unique pointer is returned
+
+
 ##[0.1.4] - 2017-10-26
 
 ### Added
