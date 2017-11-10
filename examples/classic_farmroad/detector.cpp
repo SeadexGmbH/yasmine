@@ -25,7 +25,7 @@ namespace
 	const unsigned int DETECTOR_OFF_LOWER_EXTREMITY(1);
 	const unsigned int DETECTOR_OFF_UPPER_EXTREMITY(12);
 	const unsigned int DETECTOR_ON_UPPER_EXTREMITY(3);
-	const unsigned int DETECTOR_ON_LOWER_RXTREMITY(1);
+	const unsigned int DETECTOR_ON_LOWER_EXTREMITY(1);
 
 
 }
@@ -88,7 +88,7 @@ void detector::generate_detector_events()
 	{
 		random_generator generator;
 		is_on_ = false;
-		{		
+		{
 			sxe::milliseconds time_to_wait =
 				sxe::milliseconds( generator.generate( DETECTOR_OFF_LOWER_EXTREMITY, DETECTOR_OFF_UPPER_EXTREMITY ) );
 			condition_variable_.wait_for( lock, time_to_wait );
@@ -97,9 +97,9 @@ void detector::generate_detector_events()
 		if( run_ )
 		{
 			is_on_ = true;
-			{			
+			{
 				sxe::milliseconds time_to_wait =
-					sxe::milliseconds( generator.generate( DETECTOR_ON_UPPER_EXTREMITY, DETECTOR_ON_UPPER_EXTREMITY ) );
+					sxe::milliseconds( generator.generate( DETECTOR_ON_LOWER_EXTREMITY, DETECTOR_ON_UPPER_EXTREMITY ) );
 				condition_variable_.wait_for( lock, time_to_wait );
 
 				detector_callback_.detector_on();

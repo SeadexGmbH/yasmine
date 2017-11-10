@@ -15,7 +15,7 @@
 
 
 namespace sx
-{	 
+{
 
 
 namespace genesis
@@ -48,10 +48,10 @@ public:
 
 
 private:
-	void create( recipe_callback& _recipe_callback );
+	void create_impl( recipe_callback& _recipe_callback );
 
 	recipe_callback& recipe_callback_;
-	std::stringstream stream_;			
+	std::stringstream stream_;
 };
 
 

@@ -293,10 +293,12 @@ bool state_impl::has_error_event() const
 }
 
 
-event_sptr state_impl::get_error_event() const
-{
-	return( event_sptr() );
-}
+// HACK clang
+// This is commented because of clang linker error.
+//event_sptr state_impl::get_error_event() const
+//{
+//	return( event_sptr() );
+//}
 
 
 void state_impl::collect_ancestors( raw_composite_states& _ancestors, composite_state* const _final_ancestor ) const

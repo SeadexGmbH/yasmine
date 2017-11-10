@@ -16,29 +16,29 @@
 #include "essentials/non_copyable.hpp"
 
 #include "action.hpp"
-		 		 
+
 
 namespace sxy
 {
 
 
-class sync_state_machine;	
+class sync_state_machine;
 
 
 }
 
 
 namespace examples
-{	
+{
 
 
 typedef sxe::SX_UNIQUE_PTR< sxy::sync_state_machine > state_machine_uptr;
 
 
 class machine SX_FINAL
-{	
-	
-public:		
+{
+
+public:
 	machine();
 	~machine() SX_NOEXCEPT;
 	SX_NO_COPY( machine )

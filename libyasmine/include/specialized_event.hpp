@@ -59,17 +59,21 @@ public:
 		return( _event_id );
 	}
 
-	
+
 	//!\brief Static getter for event's ID.
 	//!\return ID of the event.Static method for creating an event
-	static SX_CONSTEXPR sxy::event_id get_event_id()
+	static
+#ifndef SX_CPP03_BOOST
+	constexpr
+#endif
+	sxy::event_id get_event_id()
 	{
 		return( _event_id );
 	}
 
 
 #ifdef SX_CPP03_BOOST
-	
+
 
 	//!\brief Method for creating an event with no parameters.
 	//!\return The created event.

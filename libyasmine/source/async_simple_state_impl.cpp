@@ -35,7 +35,7 @@ async_simple_state_impl::~async_simple_state_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
-																												 
+
 
 void async_simple_state_impl::execute_do_behavior( const event& _event, async_event_handler* const _async_event_handler,
 	event_collector& _event_collector ) const
@@ -61,7 +61,7 @@ void async_simple_state_impl::stop_do_behavior() const
 	const async_behavior* const behavior = do_.get();
 	if( behavior )
 	{
-		do_->halt_and_join();		
+		do_->halt_and_join();
 	}
 }
 

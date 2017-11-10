@@ -38,7 +38,7 @@ composite_state_impl::composite_state_impl( const std::string& _name, behavior_u
 	: complex_state_impl( _name, sxe::move( _entry_action ), sxe::move( _exit_action ), _deferred_events ),
 		regions_(),
 		deep_history_(deep_history_uptr()),
-		shallow_history_(shallow_history_uptr()),	
+		shallow_history_(shallow_history_uptr()),
 		entry_points_(),
 		exit_points_()
 {
@@ -203,7 +203,7 @@ entry_point& composite_state_impl::add_entry_point( entry_point_uptr _entry_poin
 	_entry_point->set_parent_state( this );
 	entry_points_.push_back( sxe::move( _entry_point ) );
 	SX_LOG( hermes::log_level::LL_TRACE, "Entry point '%' was added to composite state'%'.", _entry_point->get_name(), get_name() );
-	return( *entry_points_.back() );	
+	return( *entry_points_.back() );
 }
 
 
@@ -422,7 +422,7 @@ bool composite_state_impl::is_orthogonal() const
 
 bool composite_state_impl::check_if_regions_are_completed() const
 {
-	bool regions_are_completed = true;	
+	bool regions_are_completed = true;
 
 	SX_FOR( const region_uptr& region, get_regions() )
 	{

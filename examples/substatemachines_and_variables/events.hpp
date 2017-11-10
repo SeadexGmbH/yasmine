@@ -33,8 +33,8 @@ namespace
 	constexpr sxy::event_id EVENT_4 = 4;
 	constexpr sxy::event_id EVENT_5 = 5;
 #endif
- 	
-		
+
+
 }
 
 

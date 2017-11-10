@@ -36,11 +36,7 @@ state_machine_uptr setup_state_machine( const std::string& _name )
 	sxy::simple_state& S2 = main_region.add_simple_state( "S2" );
 	state_machine->add_transition( sxy::Y_COMPLETION_EVENT_ID, initial_pseudostate, S1 );
 	state_machine->add_transition( E2, S1, S2 );
-#ifndef SX_CPP03_BOOST
 	state_machine->set_behavior_of_unhandled_event_handler( Y_BEHAVIOR_FUNCTION2( handle_unhandled_event ) );
-#else
-	state_machine->set_behavior_of_unhandled_event_handler( sxy::behavior_function( sxe::bind( &handle_unhandled_event, sxe::_1 ) ) );
-#endif
 	return( state_machine );
 }
 

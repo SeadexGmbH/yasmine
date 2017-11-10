@@ -122,17 +122,6 @@ void traffic_light::build_traffic_light_state_machine()
 	sxy::initial_pseudostate& initial_pseudostate = main_region.add_initial_pseudostate( "initial" );
 
 	// states
-#ifdef SX_CPP03_BOOST
-	sxy::simple_state& red_state =
-		main_region.add_simple_state( "Red", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red ) );
-	sxy::simple_state& red_yellow_state =
-		main_region.add_simple_state( "Red-Yellow",
-			Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_red_yellow ) );
-	sxy::simple_state& green_state =
-		main_region.add_simple_state( "Green", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_green ) );
-	sxy::simple_state& yellow_state =
-		main_region.add_simple_state( "Yellow", Y_BEHAVIOR_METHOD_NO_EVENT( traffic_light, on_traffic_light_yellow ) );
-#else
 	sxy::simple_state& red_state = main_region.add_simple_state( "Red", 
 		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_red ) );
 	sxy::simple_state& red_yellow_state = main_region.add_simple_state( "Red-Yellow", 
@@ -141,7 +130,6 @@ void traffic_light::build_traffic_light_state_machine()
 		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_green ) );
 	sxy::simple_state& yellow_state = main_region.add_simple_state( "Yellow", 
 		Y_BEHAVIOR_METHOD2( this, &traffic_light::on_traffic_light_yellow ) );
-#endif
 
 	// transitions
 	traffic_light_state_machine_.add_transition( sxy::Y_COMPLETION_EVENT_ID, initial_pseudostate, red_state );

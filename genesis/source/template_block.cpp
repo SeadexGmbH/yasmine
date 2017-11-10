@@ -138,6 +138,7 @@ void template_block::get_text( std::string &_file_buffer )
 			_file_buffer.erase( 0, position );
 			const bool is_delimiter_char = _file_buffer[0] == DELIMITER_CHAR;
 			SX_ASSERT( is_delimiter_char, "First char in the buffer is not the delimiter char!" );
+			SX_UNUSED_VARIABLE( is_delimiter_char );
 			if( _file_buffer.length() > 2 )
 			{
 				if( _file_buffer[1] == DELIMITER_CHAR )
@@ -168,7 +169,7 @@ void template_block::get_text( std::string &_file_buffer )
 		{
 			more_text = false;
 			sxe::SX_UNIQUE_PTR<text_step> new_text_step = SX_MAKE_UNIQUE<text_step>( buffer.str() + _file_buffer );
-			buffer.str( std::string() );					
+			buffer.str( std::string() );
 			if( is_any_recipe_open() )
 			{
 				throw sx::genesis::genesis_exception( "A condition/loop not closed in file '%'!", template_file_ );

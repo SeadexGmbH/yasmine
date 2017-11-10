@@ -27,7 +27,7 @@ class state_machine_with_submachines SX_FINAL
 
 typedef sxe::SX_UNIQUE_PTR<sxy::sync_state_machine> state_machine_uptr;
 typedef sxe::SX_UNIQUE_PTR<submachine> submachine_uptr;
-	
+
 
 public:
 	state_machine_with_submachines();
@@ -41,7 +41,6 @@ private:
 	state_machine_uptr state_machine_;
 	submachine_uptr submachine1_;
 	submachine_uptr submachine2_;
-	
 };
 
 

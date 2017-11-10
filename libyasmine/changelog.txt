@@ -1,6 +1,23 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[1.3.3] - 2017-11-10
+
+### Added
+• Y_USE_DEPRECATED to make deprecated features available
+• essentials: SX_UNUSED_VARIABLE macro for suppressing warnings for unreferenced variable.
+
+### Changed
+• split assembly header in two files: one for C++11 and up and one for C++03
+• caller.hpp become behavior_caller.hpp
+• caller_adapter.hpp become adapter.hpp
+• major improvements for C++03 support
+
+### Fixed
+• create_behavior_function and create_guard_function (internally used in assembly.hpp) are now in namespace sxy
+• bug with missing get_error_event implementation in composite_state_impl
+• bug with missing dereference operator in behavior_caller and guard_caller
+
 
 ##[1.3.2] - 2017-10-26
 

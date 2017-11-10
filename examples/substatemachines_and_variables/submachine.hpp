@@ -29,11 +29,7 @@ namespace sxy
 }
 
 
-#ifndef SX_CPP03_BOOST
 namespace examples{ class event_5; }
-#else
-namespace sxy { class event; }
-#endif
 
 
 namespace examples
@@ -51,12 +47,9 @@ public:
 
 private:
 	void reset_members();
-	void print_members() const;	
-#ifndef SX_CPP03_BOOST
+	void print_members() const;
 	void change_members( const event_5& _event );
-#else
-	void change_members( const sxy::event& _event );
-#endif 
+
 
 	sxy::composite_state& submachine_;
 	int i_;

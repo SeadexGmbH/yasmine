@@ -26,8 +26,8 @@ namespace sxy
 	{
 	private:
 		template<typename T>
-		static constexpr auto check( T* )	-> typename
-			std::is_same<	decltype( T::get_event_id() ), sxy::event_id >::type;
+		static constexpr auto check( T* ) -> typename
+			std::is_same< decltype( T::get_event_id() ), sxy::event_id >::type;
 
 		template<typename>
 		static constexpr std::false_type check( ... );
