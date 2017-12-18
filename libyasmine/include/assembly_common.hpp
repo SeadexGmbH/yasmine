@@ -34,9 +34,18 @@
 #define Y_BEHAVIOR_METHOD2_SELECT_5( _object, _method1, _method2, _method3, _method4, _method5 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ) )
 #define Y_BEHAVIOR_METHOD2_SELECT_6( _object, _method1, _method2, _method3, _method4, _method5, _method6 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ) )
 #define Y_BEHAVIOR_METHOD2_SELECT_7( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ) )
-#define Y_BEHAVIOR_METHOD2_SELECT_8( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ) )
-#define Y_BEHAVIOR_METHOD2_SELECT_9( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ) )
-#define Y_BEHAVIOR_METHOD2_SELECT_10( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ), sxy::adapt( _object, _method10 ) )
+
+#ifndef SX_CPP03_BOOST
+	#define Y_BEHAVIOR_METHOD2_SELECT_8( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_9( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ) )
+	#define Y_BEHAVIOR_METHOD2_SELECT_10( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ), sxy::adapt( _object, _method10 ) )
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_BEHAVIOR_METHOD2_SELECT_8( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ) )
+		#define Y_BEHAVIOR_METHOD2_SELECT_9( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ) )
+		#define Y_BEHAVIOR_METHOD2_SELECT_10( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) sxy::create_behavior_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ), sxy::adapt( _object, _method10 ) )
+	#endif
+#endif
 
 
 #define Y_GUARD_METHOD2_SELECT_1( _object, _method ) sxy::create_guard_function( sxy::adapt( _object, _method ) )
@@ -46,9 +55,17 @@
 #define Y_GUARD_METHOD2_SELECT_5( _object, _method1, _method2, _method3, _method4, _method5 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ) )
 #define Y_GUARD_METHOD2_SELECT_6( _object, _method1, _method2, _method3, _method4, _method5, _method6 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ) )
 #define Y_GUARD_METHOD2_SELECT_7( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ) )
-#define Y_GUARD_METHOD2_SELECT_8( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ) )
-#define Y_GUARD_METHOD2_SELECT_9( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ) )
-#define Y_GUARD_METHOD2_SELECT_10( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ), sxy::adapt( _object, _method10 ) )
+#ifndef SX_CPP03_BOOST
+	#define Y_GUARD_METHOD2_SELECT_8( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ) )
+	#define Y_GUARD_METHOD2_SELECT_9( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ) )
+	#define Y_GUARD_METHOD2_SELECT_10( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ), sxy::adapt( _object, _method10 ) )
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_GUARD_METHOD2_SELECT_8( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ) )
+		#define Y_GUARD_METHOD2_SELECT_9( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ) )
+		#define Y_GUARD_METHOD2_SELECT_10( _object, _method1, _method2, _method3, _method4, _method5, _method6, _method7, _method8, _method9, _method10 ) sxy::create_guard_function( sxy::adapt( _object, _method1 ), sxy::adapt( _object, _method2 ), sxy::adapt( _object, _method3 ), sxy::adapt( _object, _method4 ), sxy::adapt( _object, _method5 ), sxy::adapt( _object, _method6 ), sxy::adapt( _object, _method7 ), sxy::adapt( _object, _method8 ), sxy::adapt( _object, _method9 ), sxy::adapt( _object, _method10 ) )
+	#endif
+#endif
 
 
 #define Y_BEHAVIOR_FUNCTION2_SELECT_1( _function ) sxy::create_behavior_function( sxy::adapt_function( _function ) )
@@ -58,9 +75,17 @@
 #define Y_BEHAVIOR_FUNCTION2_SELECT_5( _function1, _function2, _function3, _function4, _function5 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ) )
 #define Y_BEHAVIOR_FUNCTION2_SELECT_6( _function1, _function2, _function3, _function4, _function5, _function6 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ) )
 #define Y_BEHAVIOR_FUNCTION2_SELECT_7( _function1, _function2, _function3, _function4, _function5, _function6, _function7 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ) )
-#define Y_BEHAVIOR_FUNCTION2_SELECT_8( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ) )
-#define Y_BEHAVIOR_FUNCTION2_SELECT_9( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ) )
-#define Y_BEHAVIOR_FUNCTION2_SELECT_10( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9, _function10 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ), sxy::adapt_function( _function10 ) )
+#ifndef SX_CPP03_BOOST
+	#define Y_BEHAVIOR_FUNCTION2_SELECT_8( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ) )
+	#define Y_BEHAVIOR_FUNCTION2_SELECT_9( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ) )
+	#define Y_BEHAVIOR_FUNCTION2_SELECT_10( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9, _function10 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ), sxy::adapt_function( _function10 ) )
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_BEHAVIOR_FUNCTION2_SELECT_8( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ) )
+		#define Y_BEHAVIOR_FUNCTION2_SELECT_9( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ) )
+		#define Y_BEHAVIOR_FUNCTION2_SELECT_10( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9, _function10 ) sxy::create_behavior_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ), sxy::adapt_function( _function10 ) )
+	#endif
+#endif
 
 
 #define Y_GUARD_FUNCTION2_SELECT_1( _function ) sxy::create_guard_function( sxy::adapt_function( _function ) )
@@ -70,9 +95,17 @@
 #define Y_GUARD_FUNCTION2_SELECT_5( _function1, _function2, _function3, _function4, _function5 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ) )
 #define Y_GUARD_FUNCTION2_SELECT_6( _function1, _function2, _function3, _function4, _function5, _function6 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ) )
 #define Y_GUARD_FUNCTION2_SELECT_7( _function1, _function2, _function3, _function4, _function5, _function6, _function7 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ) )
-#define Y_GUARD_FUNCTION2_SELECT_8( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ) )
-#define Y_GUARD_FUNCTION2_SELECT_9( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ) )
-#define Y_GUARD_FUNCTION2_SELECT_10( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9, _function10 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ), sxy::adapt_function( _function10 ) )
+#ifndef SX_CPP03_BOOST
+	#define Y_GUARD_FUNCTION2_SELECT_8( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ) )
+	#define Y_GUARD_FUNCTION2_SELECT_9( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ) )
+	#define Y_GUARD_FUNCTION2_SELECT_10( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9, _function10 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ), sxy::adapt_function( _function10 ) )
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_GUARD_FUNCTION2_SELECT_8( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ) )
+		#define Y_GUARD_FUNCTION2_SELECT_9( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ) )
+		#define Y_GUARD_FUNCTION2_SELECT_10( _function1, _function2, _function3, _function4, _function5, _function6, _function7, _function8, _function9, _function10 ) sxy::create_guard_function( sxy::adapt_function( _function1 ), sxy::adapt_function( _function2 ), sxy::adapt_function( _function3 ), sxy::adapt_function( _function4 ), sxy::adapt_function( _function5 ), sxy::adapt_function( _function6 ), sxy::adapt_function( _function7 ), sxy::adapt_function( _function8 ), sxy::adapt_function( _function9 ), sxy::adapt_function( _function10 ) )
+	#endif
+#endif
 
 
 #define Y_BEHAVIOR_METHOD2_1 Y_BEHAVIOR_METHOD2_SELECT_1
@@ -82,9 +115,17 @@
 #define Y_BEHAVIOR_METHOD2_5 Y_BEHAVIOR_METHOD2_SELECT_5
 #define Y_BEHAVIOR_METHOD2_6 Y_BEHAVIOR_METHOD2_SELECT_6
 #define Y_BEHAVIOR_METHOD2_7 Y_BEHAVIOR_METHOD2_SELECT_7
-#define Y_BEHAVIOR_METHOD2_8 Y_BEHAVIOR_METHOD2_SELECT_8
-#define Y_BEHAVIOR_METHOD2_9 Y_BEHAVIOR_METHOD2_SELECT_9
-#define Y_BEHAVIOR_METHOD2_10 Y_BEHAVIOR_METHOD2_SELECT_10
+#ifndef SX_CPP03_BOOST
+	#define Y_BEHAVIOR_METHOD2_8 Y_BEHAVIOR_METHOD2_SELECT_8
+	#define Y_BEHAVIOR_METHOD2_9 Y_BEHAVIOR_METHOD2_SELECT_9
+	#define Y_BEHAVIOR_METHOD2_10 Y_BEHAVIOR_METHOD2_SELECT_10
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_BEHAVIOR_METHOD2_8 Y_BEHAVIOR_METHOD2_SELECT_8
+		#define Y_BEHAVIOR_METHOD2_9 Y_BEHAVIOR_METHOD2_SELECT_9
+		#define Y_BEHAVIOR_METHOD2_10 Y_BEHAVIOR_METHOD2_SELECT_10
+	#endif
+#endif
 
 
 #define Y_GUARD_METHOD2_1 Y_GUARD_METHOD2_SELECT_1
@@ -94,9 +135,17 @@
 #define Y_GUARD_METHOD2_5 Y_GUARD_METHOD2_SELECT_5
 #define Y_GUARD_METHOD2_6 Y_GUARD_METHOD2_SELECT_6
 #define Y_GUARD_METHOD2_7 Y_GUARD_METHOD2_SELECT_7
-#define Y_GUARD_METHOD2_8 Y_GUARD_METHOD2_SELECT_8
-#define Y_GUARD_METHOD2_9 Y_GUARD_METHOD2_SELECT_9
-#define Y_GUARD_METHOD2_10 Y_GUARD_METHOD2_SELECT_10
+#ifndef SX_CPP03_BOOST
+	#define Y_GUARD_METHOD2_8 Y_GUARD_METHOD2_SELECT_8
+	#define Y_GUARD_METHOD2_9 Y_GUARD_METHOD2_SELECT_9
+	#define Y_GUARD_METHOD2_10 Y_GUARD_METHOD2_SELECT_10
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_GUARD_METHOD2_8 Y_GUARD_METHOD2_SELECT_8
+		#define Y_GUARD_METHOD2_9 Y_GUARD_METHOD2_SELECT_9
+		#define Y_GUARD_METHOD2_10 Y_GUARD_METHOD2_SELECT_10
+	#endif
+#endif
 
 
 #define Y_BEHAVIOR_FUNCTION2_1 Y_BEHAVIOR_FUNCTION2_SELECT_1
@@ -106,9 +155,17 @@
 #define Y_BEHAVIOR_FUNCTION2_5 Y_BEHAVIOR_FUNCTION2_SELECT_5
 #define Y_BEHAVIOR_FUNCTION2_6 Y_BEHAVIOR_FUNCTION2_SELECT_6
 #define Y_BEHAVIOR_FUNCTION2_7 Y_BEHAVIOR_FUNCTION2_SELECT_7
-#define Y_BEHAVIOR_FUNCTION2_8 Y_BEHAVIOR_FUNCTION2_SELECT_8
-#define Y_BEHAVIOR_FUNCTION2_9 Y_BEHAVIOR_FUNCTION2_SELECT_9
-#define Y_BEHAVIOR_FUNCTION2_10 Y_BEHAVIOR_FUNCTION2_SELECT_10
+#ifndef SX_CPP03_BOOST
+	#define Y_BEHAVIOR_FUNCTION2_8 Y_BEHAVIOR_FUNCTION2_SELECT_8
+	#define Y_BEHAVIOR_FUNCTION2_9 Y_BEHAVIOR_FUNCTION2_SELECT_9
+	#define Y_BEHAVIOR_FUNCTION2_10 Y_BEHAVIOR_FUNCTION2_SELECT_10
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_BEHAVIOR_FUNCTION2_8 Y_BEHAVIOR_FUNCTION2_SELECT_8
+		#define Y_BEHAVIOR_FUNCTION2_9 Y_BEHAVIOR_FUNCTION2_SELECT_9
+		#define Y_BEHAVIOR_FUNCTION2_10 Y_BEHAVIOR_FUNCTION2_SELECT_10
+	#endif
+#endif
 
 
 #define Y_GUARD_FUNCTION2_1 Y_GUARD_FUNCTION2_SELECT_1
@@ -118,9 +175,17 @@
 #define Y_GUARD_FUNCTION2_5 Y_GUARD_FUNCTION2_SELECT_5
 #define Y_GUARD_FUNCTION2_6 Y_GUARD_FUNCTION2_SELECT_6
 #define Y_GUARD_FUNCTION2_7 Y_GUARD_FUNCTION2_SELECT_7
-#define Y_GUARD_FUNCTION2_8 Y_GUARD_FUNCTION2_SELECT_8
-#define Y_GUARD_FUNCTION2_9 Y_GUARD_FUNCTION2_SELECT_9
-#define Y_GUARD_FUNCTION2_10 Y_GUARD_FUNCTION2_SELECT_10
+#ifndef SX_CPP03_BOOST
+	#define Y_GUARD_FUNCTION2_8 Y_GUARD_FUNCTION2_SELECT_8
+	#define Y_GUARD_FUNCTION2_9 Y_GUARD_FUNCTION2_SELECT_9
+	#define Y_GUARD_FUNCTION2_10 Y_GUARD_FUNCTION2_SELECT_10
+#else
+	#ifdef BOOST_BIND_OVER_9
+		#define Y_GUARD_FUNCTION2_8 Y_GUARD_FUNCTION2_SELECT_8
+		#define Y_GUARD_FUNCTION2_9 Y_GUARD_FUNCTION2_SELECT_9
+		#define Y_GUARD_FUNCTION2_10 Y_GUARD_FUNCTION2_SELECT_10
+	#endif
+#endif
 
 
 #endif // include guard

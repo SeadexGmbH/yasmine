@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class entry_point_model;
+class entry_point_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<entry_point_model> entry_point_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<entry_point_model_impl> entry_point_model_uptr;
 
 
 }

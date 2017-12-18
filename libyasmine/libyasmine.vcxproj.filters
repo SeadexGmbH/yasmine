@@ -121,27 +121,6 @@
     <Filter Include="Headerdateien\core\state machine\caller">
       <UniqueIdentifier>{300a4103-75a9-433d-8fb0-a35791d8b2f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien\external">
-      <UniqueIdentifier>{89ff470c-dd9c-4284-bc52-275caa35c0d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\external\essentials">
-      <UniqueIdentifier>{0dc53fda-1061-474b-8825-e13872f8ddca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\external\hermes">
-      <UniqueIdentifier>{913833e0-01d4-48dd-8653-e64e51a760ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\external\essentials\compatibility">
-      <UniqueIdentifier>{19cda7e2-3e79-406b-b75f-5317e322840d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\external">
-      <UniqueIdentifier>{545fa18b-8716-46ed-a927-815ac91d2529}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\external\essentials">
-      <UniqueIdentifier>{7ac2a40a-81b8-48a6-aeca-8d3c40566748}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\external\hermes">
-      <UniqueIdentifier>{fc016843-b9e5-4795-bd00-2638aa1487cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quelldateien\core\state machine\caller">
       <UniqueIdentifier>{313d08d9-3c57-469d-918d-6dd8155e00e9}</UniqueIdentifier>
     </Filter>
@@ -582,116 +561,8 @@
     <ClInclude Include="include\y_assert.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp">
-      <Filter>Headerdateien\external\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp">
-      <Filter>Headerdateien\external\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp">
-      <Filter>Headerdateien\external\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\base.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\exception_template.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\format_settings.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\color.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\color_mapping.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\cout_logger.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\file_logger.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\file_system.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\globals.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_and_throw.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_and_throw_helper.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_callback.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_helper.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_level.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_manager_template.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\log_message.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\logger.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\logger_fwd.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\std_timestamp_policy.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\waiter.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
     <ClInclude Include="include\logging.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\build_number.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\hermes_version.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp">
-      <Filter>Headerdateien\external\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp">
-      <Filter>Headerdateien\external\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\hermes\include\hermes\hermes_backward_compatibility.hpp">
-      <Filter>Headerdateien\external\hermes</Filter>
     </ClInclude>
     <ClInclude Include="include\libyasmine_backward_compatibility.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
@@ -913,57 +784,6 @@
     </ClCompile>
     <ClCompile Include="source\state_machine_base.cpp">
       <Filter>Quelldateien\core\state machine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\conversion.cpp">
-      <Filter>Quelldateien\external\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\format_settings.cpp">
-      <Filter>Quelldateien\external\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\sxprintf.cpp">
-      <Filter>Quelldateien\external\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\color_mapping.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\cout_logger.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\file_logger.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\file_system.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\globals.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\log_and_throw_helper.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\log_helper.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\log_level.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\log_message.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\std_timestamp_policy.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\waiter.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\essentials_version.cpp">
-      <Filter>Quelldateien\external\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\hermes\source\hermes_version.cpp">
-      <Filter>Quelldateien\external\hermes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\uri.cpp">
-      <Filter>Quelldateien\external\essentials</Filter>
     </ClCompile>
     <ClCompile Include="source\create_behavior_function.cpp">
       <Filter>Quelldateien\core\state machine</Filter>

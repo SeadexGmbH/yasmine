@@ -46,9 +46,15 @@ public:
 
 	SX_NO_COPY( region_model )
 	virtual row_const_state_models get_states() const = 0;
+	virtual const size_t get_states_count() const = 0;
+	virtual state_model& get_state( const size_t _index ) = 0;
 	virtual void add_state( state_model_uptr _state ) = 0;
+	virtual void remove_state( const size_t _index ) = 0;
 	virtual raw_const_pseduostate_models get_pseudostates() const = 0;
+	virtual const size_t get_pseudostates_count() const = 0;
+	virtual pseudostate_model& get_pseudostate( const size_t _index ) = 0;
 	virtual void add_pseudostate( pseudostate_model_uptr _region_pseudostate ) = 0;
+	virtual void remove_pseudostate( const size_t _index ) = 0;
 };
 
 

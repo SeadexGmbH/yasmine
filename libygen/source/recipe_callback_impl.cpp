@@ -24,7 +24,7 @@
 #include "composite_state_model_impl.hpp"
 #include "region_model.hpp"
 #include "state_model_impl.hpp"
-#include "pseudostate_model.hpp"
+#include "pseudostate_model_impl.hpp"
 
 
 namespace sxy
@@ -534,7 +534,7 @@ std::string recipe_callback_impl::get_pseudostate_property( const std::string& _
 {
 	std::string result( "" );
 	const sxy::model::region_model* region_to_check = regions_stack_.top();
-	const sxy::model::pseudostate_model* pseudostate = region_to_check->get_pseudostates()[pseudostate_index_];
+	const sxy::model::pseudostate_model_impl* pseudostate = region_to_check->get_pseudostates()[pseudostate_index_];
 	if( pseudostate_index_ < region_to_check->get_pseudostates().size() )
 	{
 		if( _property == VARIABLE_PSEUDOSTATE_NAME )
@@ -589,20 +589,18 @@ std::string recipe_callback_impl::get_event_property( const std::string& _proper
 	std::string result( "" );
 	if( event_index_ < state_machine_model_.get_events().size() )
 	{
-		//const sxy::model::state_machine_model::events& events_ = state_machine_model_.get_events();
-		//const auto ev = events_[event_index_];
-		sxy::model::event_model event = state_machine_model_.get_events()[event_index_];
+		sxy::model::event_sptr event = state_machine_model_.get_events()[event_index_];
 		if( _property == VARIABLE_EVENT_ID )
 		{
-			result = sxe::to_string( event.id );
+			result = sxe::to_string( event->get_id() );
 		}
 		else if( _property == VARIABLE_EVENT_NAME )
 		{
-			result = event.name;
+			result = event->get_name();
 		}
 		else if( _property == VARIABLE_EVENT_PRIORITY )
 		{
-			result = sxe::to_string( event.priority );
+			result = sxe::to_string( event->get_priority() );
 		}
 		else
 		{

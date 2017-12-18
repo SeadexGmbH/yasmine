@@ -83,42 +83,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\externals\essentials\include\essentials\base.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\exception_template.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\format_settings.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\build_number.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\color.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\color_mapping.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\cout_logger.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\file_logger.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\file_system.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\globals.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\hermes_backward_compatibility.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\hermes_version.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\logger.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\logger_fwd.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_and_throw.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_and_throw_helper.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_callback.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_helper.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_level.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_manager_template.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\log_message.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\std_timestamp_policy.hpp" />
-    <ClInclude Include="..\externals\hermes\include\hermes\waiter.hpp" />
     <ClInclude Include="include\adapter_cpp03.hpp" />
     <ClInclude Include="include\adapter_cpp11.hpp" />
     <ClInclude Include="include\algorithm_parameters.hpp" />
@@ -298,23 +262,6 @@
     <ClInclude Include="include\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\externals\essentials\source\conversion.cpp" />
-    <ClCompile Include="..\externals\essentials\source\essentials_version.cpp" />
-    <ClCompile Include="..\externals\essentials\source\format_settings.cpp" />
-    <ClCompile Include="..\externals\essentials\source\sxprintf.cpp" />
-    <ClCompile Include="..\externals\essentials\source\uri.cpp" />
-    <ClCompile Include="..\externals\hermes\source\color_mapping.cpp" />
-    <ClCompile Include="..\externals\hermes\source\cout_logger.cpp" />
-    <ClCompile Include="..\externals\hermes\source\file_logger.cpp" />
-    <ClCompile Include="..\externals\hermes\source\file_system.cpp" />
-    <ClCompile Include="..\externals\hermes\source\globals.cpp" />
-    <ClCompile Include="..\externals\hermes\source\hermes_version.cpp" />
-    <ClCompile Include="..\externals\hermes\source\log_and_throw_helper.cpp" />
-    <ClCompile Include="..\externals\hermes\source\log_helper.cpp" />
-    <ClCompile Include="..\externals\hermes\source\log_level.cpp" />
-    <ClCompile Include="..\externals\hermes\source\log_message.cpp" />
-    <ClCompile Include="..\externals\hermes\source\std_timestamp_policy.cpp" />
-    <ClCompile Include="..\externals\hermes\source\waiter.cpp" />
     <ClCompile Include="source\adapter_cpp03.cpp" />
     <ClCompile Include="source\algorithm_parameters.cpp" />
     <ClCompile Include="source\create_behavior_function.cpp" />

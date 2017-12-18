@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class simple_state_model;
+class simple_state_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR< simple_state_model > simple_state_model_uptr;
+typedef sxe::SX_UNIQUE_PTR< simple_state_model_impl > simple_state_model_uptr;
 
 
 }

@@ -21,27 +21,21 @@
 #include "essentials/macro_helpers.hpp"
 
 
-//!\brief Macro for using any type of action as a behavior.
-#define Y_BEHAVIOR_ACTION( ... ) EXPAND( VA_SELECT( Y_BEHAVIOR_ACTION_SELECT, __VA_ARGS__ ) )
+//!\brief Macro for using a method as a behavior.
+#define Y_BEHAVIOR_ACTION( _action ) \
+			sxy::behavior_function( [this]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER( _event ); SX_UNUSED_PARAMETER( _event_collector ); _action } )
 
-//!\brief Macro for using any type of action returning bool as a guard.
-#define Y_GUARD_ACTION( ... ) EXPAND( VA_SELECT( Y_GUARD_ACTION_SELECT, __VA_ARGS__ ) )
+//!\brief Macro for using a free function as a behavior.
+#define Y_BEHAVIOR_FREE_ACTION( _action ) \
+			sxy::behavior_function( []( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER( _event ); SX_UNUSED_PARAMETER( _event_collector ); _action } )
 
-//!\brief Macro for using any type of action as a behavior.
-#define Y_BEHAVIOR_ACTION_SELECT_1( _action ) \
-			sxy::behavior_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
+//!\brief Macro for using a method as a guard.
+#define Y_GUARD_ACTION( _action ) \
+		sxy::constraint_function( [ this ]( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER( _event_collector ); _action } )
 
-//!\brief Macro for using any type of action as a behavior.
-#define Y_BEHAVIOR_ACTION_SELECT_2( _class_name, _action ) \
-			sxy::behavior_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
-
-//!\brief Macro for using any type of action returning bool as a guard.
-#define Y_GUARD_ACTION_SELECT_1( _action ) \
-		sxy::constraint_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
-
-//!\brief Macro for using any type of action returning bool as a guard.
-#define Y_GUARD_ACTION_SELECT_2( _class_name, _action ) \
-		sxy::constraint_function( [ this ]( const sxy::event& _event ){ SX_UNUSED_PARAMETER(_event); _action } )
+//!\brief Macro for using a free function as a guard.
+#define Y_GUARD_FREE_ACTION( _action ) \
+		sxy::constraint_function( []( const sxy::event& _event, sxy::event_collector& _event_collector ){ SX_UNUSED_PARAMETER(_event); SX_UNUSED_PARAMETER( _event_collector ); _action } )
 
 
 // Macros for passing handlers as behavior

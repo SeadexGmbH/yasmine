@@ -26,16 +26,16 @@
 #include "state_machine_model.hpp"
 #include "region_model_impl.hpp"
 #include "pseudostate_model_impl.hpp"
+#include "initial_pseudostate_model_impl.hpp"
+#include "terminate_pseudostate_model_impl.hpp"
+#include "join_model_impl.hpp"
+#include "fork_model_impl.hpp"
+#include "choice_model_impl.hpp"
+#include "junction_model_impl.hpp"
 #include "entry_point_model_impl.hpp"
 #include "exit_point_model_impl.hpp"
 #include "deep_history_model_impl.hpp"
 #include "shallow_history_model_impl.hpp"
-#include "initial_pseudostate_model_impl.hpp"
-#include "join_model_impl.hpp"
-#include "junction_model_impl.hpp"
-#include "fork_model_impl.hpp"
-#include "terminate_pseudostate_model_impl.hpp"
-#include "choice_model_impl.hpp"
 #include "transition_model_impl.hpp"
 #include "model_exception.hpp"
 
@@ -46,11 +46,12 @@ namespace sxy
 
 json_reader::json_reader( const std::string& _file )
 	: document_(),
-		model_()
+	model_()
 {
 	read_json_file( _file );
 	check_document();
 	model_ = read_into_model();
+	read_externals();
 }
 
 
@@ -66,9 +67,38 @@ model::state_machine_model_ptr json_reader::get_model_ptr()
 }
 
 
+const model::external_vertices& json_reader::get_external_vertices()
+{
+	return( model_->get_externals() );
+}
+
+
+void json_reader::read_externals()
+{
+	try{
+		std::vector<const rapidjson::Value*> externals_list =
+			extract_members_from_array( get_object_member_array( document_, model::JSON_EXTERNALS ) );
+
+		SX_FOR( const rapidjson::Value* json_external, externals_list )
+		{
+			sxy::model::model_element_type vertex_type = 
+				model::model_element_type_from_string( get_object_member_string( sxe::ref( *json_external ), model::JSON_TYPE_NODE ) );
+			const std::string name = get_object_member_string( sxe::ref( *json_external ), model::JSON_NAME_NODE );
+			model_->add_external_vertex( SX_MAKE_UNIQUE<sxy::model::state_machine_external_element>( name, vertex_type ) );
+		}
+	}
+	catch( const sxy::model::exception& _e )
+	{
+		if( std::strcmp( _e.what(), "Member externals was not found!" ) != 0 )
+		{
+			throw;
+		}
+	}
+}
+
+
 void json_reader::read_json_file( const std::string& _file )
 {
-
 #ifndef SX_CPP03_BOOST
 	std::ifstream infile( _file, std::ios::in );
 #else
@@ -126,6 +156,22 @@ sxy::model::event_ids json_reader::read_deferred_events( const rapidjson::Value&
 }
 
 
+sxy::model::event_ids json_reader::read_error_events( const rapidjson::Value& _state ) const
+{
+	std::vector<const rapidjson::Value*> error_event_list =
+		extract_members_from_array( get_object_member_array( _state, model::JSON_ERROR_EVENT ) );
+
+	sxy::model::event_ids error_events;
+	SX_FOR( const rapidjson::Value* const an_event, error_event_list )
+	{
+		const std::string event_name = get_object_member_string( sxe::ref( *an_event ), model::JSON_EVENT_NAME );
+		sxy::model::event_id event_id = get_event_id_by_name( event_name );
+		error_events.push_back( event_id );
+	}
+	return( error_events );
+}
+
+
 model::composite_state_model_uptr json_reader::read_composite_state( const rapidjson::Value& _root )
 {
 	std::string name = get_object_member_string( sxe::ref(_root), model::JSON_NAME_NODE );
@@ -177,7 +223,21 @@ model::simple_state_model_uptr json_reader::read_simple_state( const rapidjson::
 	}
 	catch ( ... )
 	{
-		// Nothing to do...
+		// try to read error event as a list of error event objects
+		try
+		{
+			sxy::model::event_ids error_events = read_error_events( _state );
+			if( !error_events.empty() )
+			{
+				const std::string event_name = get_event_name( error_events.at( 0 ) );
+				error_event = SX_MAKE_SHARED<sxy::model::event_model>( event_name, error_events.at( 0 ),
+					get_event_priority_by_name( event_name ) );
+			}
+		}
+		catch( ... )
+		{
+			// Nothing to do...
+		}
 	}
 	sxe::SX_UNIQUE_PTR< model::simple_state_model_impl > simple_state =
 		SX_MAKE_UNIQUE< model::simple_state_model_impl >( name, enter_behavior,
@@ -197,21 +257,21 @@ model::final_state_model_uptr json_reader::read_final_state( const rapidjson::Va
 
 model::region_model_impl_uptr json_reader::read_region( const rapidjson::Value& _region )
 {
-	const std::string name = get_object_member_string( sxe::ref( _region), model::JSON_NAME_NODE );
+	const std::string name = get_object_member_string( sxe::ref( _region ), model::JSON_NAME_NODE );
 	sxe::SX_UNIQUE_PTR< model::region_model_impl > region =
 		SX_MAKE_UNIQUE< model::region_model_impl >( name );
-	std::vector<const rapidjson::Value*> vertices = 
+	std::vector<const rapidjson::Value*> vertices =
 		extract_members_from_array( get_object_member_array( _region, model::JSON_VERTICES_NODE ) );
 
 	SX_FOR( const rapidjson::Value* vertice, vertices )
 	{
-		sxy::model::model_element_type vertice_type = model::model_element_type_from_string( get_object_member_string( sxe::ref( *vertice ),
+		sxy::model::model_element_type vertex_type = model::model_element_type_from_string( get_object_member_string( sxe::ref( *vertice ),
 			model::JSON_TYPE_NODE ) );
 
-		if( vertice_type == sxy::model::model_element_type::TYE_SIMPLE_STATE || 
-				vertice_type == sxy::model::model_element_type::TYE_ASYNC_SIMPLE_STATE || 
-				vertice_type == sxy::model::model_element_type::TYE_COMPOSITE_STATE || 
-				vertice_type == sxy::model::model_element_type::TYE_FINAL_STATE )
+		if( vertex_type == sxy::model::model_element_type::TYE_SIMPLE_STATE ||
+			vertex_type == sxy::model::model_element_type::TYE_ASYNC_SIMPLE_STATE ||
+			vertex_type == sxy::model::model_element_type::TYE_COMPOSITE_STATE ||
+			vertex_type == sxy::model::model_element_type::TYE_FINAL_STATE )
 		{
 			sxy::model::state_model_uptr state = read_state( *vertice );
 			region->add_state( sxe::move( state ) );
@@ -220,6 +280,37 @@ model::region_model_impl_uptr json_reader::read_region( const rapidjson::Value& 
 		{
 			sxy::model::pseudostate_model_uptr pseudostate = read_pseudostate( *vertice );
 			region->add_pseudostate( sxe::move( pseudostate ) );
+		}
+	}
+
+	// backward compatibility -> in the region there is one list : 'vertices'. Before there were two: 'states' and 'pseudostates'.
+	try{
+		std::vector<const rapidjson::Value*> pseudostates_vertices =
+			extract_members_from_array( get_object_member_array( _region, model::JSON_PSEUDOSTATES_NODE ) );
+		SX_FOR( const rapidjson::Value* pseudostate_vertex, pseudostates_vertices )
+		{
+			sxy::model::model_element_type vertex_type = model::model_element_type_from_string( get_object_member_string( sxe::ref( *pseudostate_vertex ),
+				model::JSON_TYPE_NODE ) );
+
+			if( vertex_type == sxy::model::model_element_type::TYE_SIMPLE_STATE ||
+				vertex_type == sxy::model::model_element_type::TYE_ASYNC_SIMPLE_STATE ||
+				vertex_type == sxy::model::model_element_type::TYE_COMPOSITE_STATE ||
+				vertex_type == sxy::model::model_element_type::TYE_FINAL_STATE )
+			{
+				// Nothing to do...
+			}
+			else
+			{
+				sxy::model::pseudostate_model_uptr pseudostate = read_pseudostate( *pseudostate_vertex );
+				region->add_pseudostate( sxe::move( pseudostate ) );
+			}
+		}
+	}
+	catch( const model::exception& _e )
+	{
+		if( ::std::strcmp( _e.what(), "Member pseudostates was not found!" ) != 0 )
+		{
+			throw;
 		}
 	}
 
@@ -512,6 +603,26 @@ sxe::int32_t json_reader::get_event_id_by_name( const std::string& _name ) const
 	}
 
 	return( event_id );
+}
+
+
+std::string json_reader::get_event_name( const sxe::int32_t _event_id ) const
+{
+	std::string event_name = "";
+	std::vector<const rapidjson::Value*> event_list =
+		extract_members_from_array( get_object_member_array( document_, model::JSON_EVENT_LIST_NODE ) );
+
+	SX_FOR( const rapidjson::Value* const an_event, event_list )
+	{
+		// FixME: safe cast
+		sxe::int32_t event_id = static_cast< sxe::int32_t >( get_object_member_int( sxe::ref( *an_event ), model::JSON_EVENT_ID ) );
+		if( event_id == _event_id )
+		{
+			event_name = get_object_member_string( sxe::ref( *an_event ), model::JSON_EVENT_NAME );
+			break;
+		}
+	}
+	return( event_name );
 }
 
 

@@ -22,16 +22,11 @@ namespace sxy
 {
 
 
-	//!\brief The type alias for yasmine's event handle.
-	typedef sxe::uint32_t handle_type;
+//!\brief The type alias for yasmine's event handle.
+typedef sxe::uint32_t handle_type;
 
-#ifndef SX_CPP03_BOOST
-	extern const handle_type Y_INVALID_EVENT_CREATION_REQUEST_HANDLE;
-#else
-	#define Y_INVALID_EVENT_CREATION_REQUEST_HANDLE UINT_MAX
-#endif
-
-	extern const handle_type Y_DEFAULT_HANDLE;
+extern const handle_type Y_INVALID_EVENT_CREATION_REQUEST_HANDLE;
+extern const handle_type Y_DEFAULT_HANDLE;
 
 
 }

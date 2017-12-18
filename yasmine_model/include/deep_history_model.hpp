@@ -13,6 +13,7 @@
 
 
 #include "pseudostate_model.hpp"
+#include "deep_history_model_fwd.hpp"
 
 
 namespace sxy

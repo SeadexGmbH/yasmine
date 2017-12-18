@@ -1,0 +1,33 @@
+# Change log
+All notable changes to this project are documented in this file.
+
+
+##[0.3.2] - 2017-12-18
+
+### Changed
+• use essentials and hermes as libraries
+• CMake: use external CMakeHelpers files
+• CMake: refactoring of build files
+
+### Fixed
+• rename private method recipe::create to recipe::create_impl because of bug (warning in clang)
+• added SX_UNUSED_VARIABLE to is_delimiter_char, else a warning is generated in clang as it is not used (SX_ASSERT)
+
+
+##[0.2.0] - 2017-09-20
+
+### Added
+• Support for Visual Studio 2017 builds
+• C++03 compatibility
+
+### Changed
+• rename: condition_block's private method check_modifier to apply_modifier
+• method create_child of the class recipe_block is now protected
+
+### Fixed
+• added missing override specifier to template_block::create method
+
+
+##[0.1.0] - 2017-04-21
+
+• The very first release version of genesis

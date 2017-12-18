@@ -14,7 +14,7 @@
 
 #include "final_state_model.hpp"
 #include "state_model_impl.hpp"
-#include "region_model_fwd.hpp"
+#include "region_model.hpp"
 
 
 namespace sxy
@@ -46,6 +46,7 @@ public:
 	virtual const std::string& get_exit_behavior() const SX_OVERRIDE;
 	virtual void set_exit_behavior( const std::string& _exit_behavior ) SX_OVERRIDE;
 	virtual void accept( model_vertex_visitor& _constructor_visitor ) const SX_OVERRIDE;
+	virtual void accept_delete_visitor( delete_visitor& _delete_visitor ) SX_OVERRIDE;
 
 
 private:

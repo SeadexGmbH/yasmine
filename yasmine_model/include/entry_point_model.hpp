@@ -13,6 +13,7 @@
 
 
 #include "pseudostate_model.hpp"
+#include "entry_point_model_fwd.hpp"
 
 
 namespace sxy

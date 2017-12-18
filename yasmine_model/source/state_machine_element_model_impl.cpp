@@ -56,7 +56,13 @@ const state_machine_element_model* state_machine_element_model_impl::get_parent(
 }
 
 
-void state_machine_element_model_impl::set_parent( const state_machine_element_model* _parent )
+state_machine_element_model* state_machine_element_model_impl::get_parent()
+{
+	return( parent_ );
+}
+
+
+void state_machine_element_model_impl::set_parent( state_machine_element_model* _parent )
 {
 	parent_ = _parent;
 }

@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class deep_history_model;
+class deep_history_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<deep_history_model> deep_history_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<deep_history_model_impl> deep_history_model_uptr;
 
 
 }

@@ -50,6 +50,7 @@ extern const char* const JSON_EVENT_PRIORITY;
 extern const char* const JSON_VERSION;
 extern const char* const JSON_CURRENT_VERSION_VALUE;
 extern const char* const JSON_VERSION_1;
+extern const char* const JSON_EXTERNALS;
 
 
 extern const std::string TYPE_TRANSITION;

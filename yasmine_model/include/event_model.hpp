@@ -8,8 +8,8 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef EVENT_3677D50A_2158_4FCD_BB50_308B5C537D87
-#define EVENT_3677D50A_2158_4FCD_BB50_308B5C537D87
+#ifndef EVENT_MODEL_1280B0B7_E85B_4EFF_BF3D_D5548D88D0D8
+#define EVENT_MODEL_1280B0B7_E85B_4EFF_BF3D_D5548D88D0D8
 
 
 #include "essentials/non_copyable.hpp"
@@ -26,25 +26,29 @@ namespace model
 {
 
 
-//!\struct event_model
+//!\class event_model
 //!\brief An event in the model.
-struct event_model
+class event_model
 {
 public:
 	//!\brief Constructor.
-	event_model();
-	
-	//!\brief Constructor.
 	//!\param _name Name of the event.
-	//!\param _id Id of the event.
+	//!\param _id ID of the event.
 	//!\param _priority Priority of the event.
-	event_model( const std::string _name, const event_id _id, const event_priority _priority );
+	explicit event_model( const std::string _name, const event_id _id, const event_priority _priority = 0 );
 	~event_model() SX_NOEXCEPT;
+	const std::string& get_name() const;
+	void set_name( const std::string& _name );
+	const event_id get_id() const;
+	void set_id( const event_id _id );
+	const event_priority get_priority() const;
+	void set_priority( const event_priority _priority);
 
 
-	std::string name;
-	event_id id;
-	event_priority priority;
+private:
+	std::string name_;
+	event_id id_;
+	event_priority priority_;
 };
 
 

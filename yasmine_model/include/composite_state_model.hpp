@@ -48,8 +48,13 @@ public:
 
 	SX_NO_COPY( composite_state_model )
 	virtual void add_region( region_model_uptr _region ) = 0;
+	virtual region_model& get_region( const size_t _index ) = 0;
+	virtual void remove_region( const size_t _index ) = 0;
 	virtual raw_const_pseduostate_models get_state_pseudostates() const = 0;
+	virtual const size_t get_state_pseudostates_count() const = 0;
+	virtual pseudostate_model& get_state_pseudostate( const size_t _index ) = 0;
 	virtual void add_state_pseudostate( pseudostate_model_uptr _pseudostate ) = 0;
+	virtual void remove_state_pseudostate( const size_t _index ) = 0;
 };
 
 

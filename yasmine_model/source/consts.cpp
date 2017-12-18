@@ -46,6 +46,7 @@ const char* const JSON_EVENT_PRIORITY = "priority";
 const char* const JSON_VERSION = "version";
 const char* const JSON_CURRENT_VERSION_VALUE = "2.0";
 const char* const JSON_VERSION_1 = "1.0";
+const char* const JSON_EXTERNALS = "externals";
 
 
 const std::string TYPE_TRANSITION = "transition";

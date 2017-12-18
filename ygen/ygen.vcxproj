@@ -283,11 +283,11 @@
     <Import Project="..\build\use_essentials.props" />
     <Import Project="..\build\use_yasmine_model.props" />
     <Import Project="..\build\rapidjson.props" />
+    <Import Project="..\build\use_hermes.props" />
     <Import Project="..\build\use_genesis.props" />
-    <Import Project="..\build\use_boost.props" />
     <Import Project="..\build\use_libygen.props" />
+    <Import Project="..\build\use_boost.props" />
     <Import Project="..\build\debug_info.props" />
-    <Import Project="..\build\vs2013.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2017|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -419,7 +419,6 @@
     <Import Project="..\build\use_boost.props" />
     <Import Project="..\build\debug_info.props" />
     <Import Project="..\build\use_libygen.props" />
-    <Import Project="..\build\vs2013.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - VS 2017|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />

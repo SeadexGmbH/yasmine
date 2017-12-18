@@ -83,15 +83,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\externals\essentials\source\conversion.cpp" />
-    <ClCompile Include="..\externals\essentials\source\essentials_version.cpp" />
-    <ClCompile Include="..\externals\essentials\source\format_settings.cpp" />
-    <ClCompile Include="..\externals\essentials\source\sxprintf.cpp" />
-    <ClCompile Include="..\externals\essentials\source\uri.cpp" />
     <ClCompile Include="source\choice_model_impl.cpp" />
     <ClCompile Include="source\composite_state_model_impl.cpp" />
     <ClCompile Include="source\consts.cpp" />
     <ClCompile Include="source\deep_history_model_impl.cpp" />
+    <ClCompile Include="source\delete_visitor.cpp" />
     <ClCompile Include="source\entry_point_model_impl.cpp" />
     <ClCompile Include="source\event_model.cpp" />
     <ClCompile Include="source\event_model_id.cpp" />
@@ -111,6 +107,7 @@
     <ClCompile Include="source\shallow_history_model_impl.cpp" />
     <ClCompile Include="source\simple_state_model_impl.cpp" />
     <ClCompile Include="source\state_machine_element_model_impl.cpp" />
+    <ClCompile Include="source\state_machine_external_element.cpp" />
     <ClCompile Include="source\state_machine_model.cpp" />
     <ClCompile Include="source\state_model_impl.cpp" />
     <ClCompile Include="source\terminate_pseudostate_model_impl.cpp" />
@@ -118,21 +115,6 @@
     <ClCompile Include="source\transition_model_impl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\externals\essentials\include\essentials\base.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\exception_template.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\format_settings.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp" />
-    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp" />
     <ClInclude Include="include\build_number.hpp" />
     <ClInclude Include="include\choice_model.hpp" />
     <ClInclude Include="include\choice_model_fwd.hpp" />
@@ -144,6 +126,7 @@
     <ClInclude Include="include\deep_history_model.hpp" />
     <ClInclude Include="include\deep_history_model_fwd.hpp" />
     <ClInclude Include="include\deep_history_model_impl.hpp" />
+    <ClInclude Include="include\delete_visitor.hpp" />
     <ClInclude Include="include\entry_point_model.hpp" />
     <ClInclude Include="include\entry_point_model_fwd.hpp" />
     <ClInclude Include="include\entry_point_model_impl.hpp" />
@@ -153,6 +136,7 @@
     <ClInclude Include="include\exit_point_model.hpp" />
     <ClInclude Include="include\exit_point_model_fwd.hpp" />
     <ClInclude Include="include\exit_point_model_impl.hpp" />
+    <ClInclude Include="include\externals_fwd.hpp" />
     <ClInclude Include="include\final_state_model.hpp" />
     <ClInclude Include="include\final_state_model_fwd.hpp" />
     <ClInclude Include="include\final_state_model_impl.hpp" />
@@ -191,6 +175,7 @@
     <ClInclude Include="include\simple_state_model_impl.hpp" />
     <ClInclude Include="include\state_machine_element_model.hpp" />
     <ClInclude Include="include\state_machine_element_model_impl.hpp" />
+    <ClInclude Include="include\state_machine_external_element.hpp" />
     <ClInclude Include="include\state_machine_model.hpp" />
     <ClInclude Include="include\state_machine_model_fwd.hpp" />
     <ClInclude Include="include\state_model.hpp" />
@@ -419,10 +404,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\build\yasmine.props" />
     <Import Project="..\build\rapidjson.props" />
-    <Import Project="..\build\vs2013.props" />
     <Import Project="..\build\use_essentials.props" />
     <Import Project="..\build\debug_info.props" />
     <Import Project="..\build\use_boost.props" />
+    <Import Project="..\build\vs2013.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Clang|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />

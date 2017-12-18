@@ -8,10 +8,6 @@
 //                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-#ifdef SX_CPP03_BOOST
-
-
 #include "event_model_id.hpp"
 
 namespace sxy
@@ -27,25 +23,3 @@ namespace model
 
 
 }
-
-#else
-
-
-#include "event_model_id.hpp"
-
-namespace sxy
-{
-
-
-	namespace model
-	{
-
-		const event_id Y_MODEL_COMPLETION_EVENT_ID = std::numeric_limits<sxy::model::event_id>::max();
-
-	}
-
-
-}
-
-
-#endif

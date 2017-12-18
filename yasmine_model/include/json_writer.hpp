@@ -14,22 +14,8 @@
 
 #include <vector>
 
-#define RAPIDJSON_NO_SIZETYPEDEFINE
-
-
-namespace rapidjson
-{
-
-
-typedef std::size_t SizeType;
-
-
-}
-
-
-#include "state_machine_model.hpp"
-
 #include "rapidjson_document.hpp"
+#include "state_machine_model.hpp"
 
 
 namespace sxy
@@ -77,15 +63,17 @@ private:
 	static void add_transitions_from_model( const model::state_machine_model& _state_machine_model,
 		rapidjson::Value& _transitions, rapidjson::MemoryPoolAllocator< >& _allocator );
 	static void add_regions_from_model( const model::composite_state_model& _composite_state_model,
-		rapidjson::Value& _regions, rapidjson::MemoryPoolAllocator< >& _allocator );
+		rapidjson::Value& _regions, rapidjson::MemoryPoolAllocator< >& _allocator,
+		const model::state_machine_model& _state_machine_model );
 	static void fill_region_object( const model::region_model& _region_model, rapidjson::Value& _region,
-		rapidjson::MemoryPoolAllocator< >& _allocator );
+		rapidjson::MemoryPoolAllocator< >& _allocator, const model::state_machine_model& _state_machine_model );
 	static void fill_pseudostate_object( const model::pseudostate_model& _pseudostate_model, rapidjson::Value& _pseudostate,
 		rapidjson::MemoryPoolAllocator< >& _allocator );
 	static void fill_simple_state_object( const model::simple_state_model& _simple_state_model, rapidjson::Value& _simple_state,
-		rapidjson::MemoryPoolAllocator< >& _allocator );
+		rapidjson::MemoryPoolAllocator< >& _allocator, const model::state_machine_model& _state_machine_model );
 	static void fill_composite_state_object( const model::composite_state_model& _composite_state_model,
-		rapidjson::Value& _composite_state, rapidjson::MemoryPoolAllocator< >& _allocator );
+		rapidjson::Value& _composite_state, rapidjson::MemoryPoolAllocator< >& _allocator,
+		const model::state_machine_model& _state_machine_model );
 	static void fill_final_state_object( const model::final_state_model& _final_state_model,
 		rapidjson::Value& _final_state, rapidjson::MemoryPoolAllocator< >& _allocator );
 	static void add_state_pseudostates_from_model( const model::composite_state_model& _composite_state_model,
@@ -96,6 +84,10 @@ private:
 		rapidjson::MemoryPoolAllocator< >& _allocator );
 	static const std::string get_event_name_by_id( const sxy::model::event_id& _event_id,
 		const model::state_machine_model& _state_machine_model );
+	static const size_t get_event_index_by_id( const sxy::model::event_id& _event_id,
+		const model::state_machine_model& _state_machine_model );
+	void add_externals( const model::state_machine_model& _state_machine_model, rapidjson::Value& _document,
+		rapidjson::MemoryPoolAllocator< >& _allocator );
 };
 
 

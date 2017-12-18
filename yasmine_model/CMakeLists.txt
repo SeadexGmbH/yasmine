@@ -20,7 +20,7 @@ include(./../CMakeHelpers/addYasmineOptions.cmake)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
 include_directories("./../yasmine_model/include")
-include_directories("./../externals/essentials/include")
+include_directories("./../externals/essentials" "./../externals/essentials/source/essentials/include")
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	add_library(libyasmine_model ${LINK_TYPE} ${yasmine_model_SRC})
@@ -30,6 +30,12 @@ endif()
 
 set(link_libraries_list "")
 use_pthread(link_libraries_list)
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	add_library_for_linking(link_libraries_list libessentials)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	add_library_for_linking(link_libraries_list essentials)
+endif()
 
 if("${CPP_VERSION}" STREQUAL "03")	
 	use_boost_libraries(link_libraries_list)

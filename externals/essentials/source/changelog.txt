@@ -1,0 +1,38 @@
+# Change log
+All notable changes to this project are documented in this file.
+
+##[1.3.2] - 2017-12-18
+
+### Added
+• SX_UNUSED_VARIABLE macro for suppressing warnings for unreferenced variable.
+• backward compatibility for macros Y_NO_STD_MAKE_UNIQUE, Y_CPP03_BOOST, Y_UNIQUE_PTR, Y_MAKE_UNIQUE, Y_MAKE_SHARED, Y_UNUSED_PARAMETER
+
+### Changed 
+• CMake: use external CMakeHelpers files
+• CMake: refactoring of build scripts
+
+### Fixed
+• missing boost namespace in sxprintf
+
+
+##[1.1.0] - 2017-09-20
+
+### Added
+• Support for Visual Studio 2017 builds
+• conversion functions: to_lower and to_upper
+• added uri class
+
+
+##[1.0.1] - 2017-04-07
+
+### Changed
+• macro helpers improved to count up to 15 parameters
+• essentials file structure refactoring. All source files are now located in the 'source' folder, the header files for compatibility 
+are located in the 'include/essentials/compatibility' folder and other header files are located in the 'include/essentials' folder.
+
+
+##[1.0.0] - 2017-03-30
+
+• The very first released version of essentials
+
+

@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class join_model;
+class join_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<join_model> join_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<join_model_impl> join_model_uptr;
 
 
 }

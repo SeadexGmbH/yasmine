@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class fork_model;
+class fork_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<fork_model> fork_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<fork_model_impl> fork_model_uptr;
 
 
 }

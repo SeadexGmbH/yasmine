@@ -1,6 +1,30 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[0.2.0] - 2017-12-18
+
+### Added
+• new methods to interact with the elements (e.g. get_child, set_parent, ...)
+• new methods to interact with the state machine (e.g. remove_event, get_event, remove_transition, get_transition, ...)
+• rapidjson_document.hpp as a wrapper for rapidjson/document.h and rapidjson/prettywriter.h
+• delete_visitor for deleting elements
+• has_error_event to simple state model
+• add_deferred_event and remove_deferred_event to state model
+• constuctor to easily construct an async simple state model
+• setters in transition_model for behavior, guard, triggers, target, source, and kind
+• methods to get the element that deferes an event and to check if an element deferes an event
+• list of external vertices
+
+### Changed
+• internally use rapidjson_document.hpp instead of document.h
+• event_model is now a class and has getters and setters for its properties
+• use essentials as a library
+• CMake: use external CMakeHelpers files
+
+### Fixed
+• read/write error event from/to model file
+• read/write region from/to model file: 'pseudostates' list is read for backward compatibility. Just 'vertices' is written.
+
 
 ##[0.1.5] - 2017-11-10
 

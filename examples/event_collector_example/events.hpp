@@ -17,11 +17,11 @@
 
 
 #if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
-	#define	EVENT_1 1
-	#define	EVENT_2 2
-	#define	EVENT_3 3
-	#define	EVENT_4 4
-#else	
+	#define EVENT_1 1
+	#define EVENT_2 2
+	#define EVENT_3 3
+	#define EVENT_4 4
+#else
 	constexpr sxy::event_id EVENT_1 = 1;
 	constexpr sxy::event_id EVENT_2 = 2;
 	constexpr sxy::event_id EVENT_3 = 3;
@@ -31,16 +31,16 @@
 
 namespace	examples
 {
-	
+
 #if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
 	Y_EVENT_WITH_ID( E1, EVENT_1 )
 	Y_EVENT_WITH_ID( E2, EVENT_2 )
-	Y_EVENT_WITH_ID( E3, EVENT_3 )	
+	Y_EVENT_WITH_ID( E3, EVENT_3 )
 	Y_EVENT_1PARAM_WITH_ID( E4, std::string, get_message, EVENT_4 )
 #else
 	Y_EVENT_CREATE( E1, EVENT_1 )
-	Y_EVENT_CREATE( E2, EVENT_2 )	
-	Y_EVENT_CREATE( E3, EVENT_3 )	
+	Y_EVENT_CREATE( E2, EVENT_2 )
+	Y_EVENT_CREATE( E3, EVENT_3 )
 	Y_EVENT_CREATE( E4, EVENT_4, std::string, get_message )
 #endif
 

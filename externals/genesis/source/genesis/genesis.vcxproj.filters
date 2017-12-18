@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="license">
+      <UniqueIdentifier>{e4072d57-8fc3-45b0-8a55-890235596a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="license\essentials">
+      <UniqueIdentifier>{97c6b545-0106-4ab1-8645-a95c5e9add8b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="license\genesis_Anhang_Appendix_20170406.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="license\genesis_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="license\genesis_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="license\genesis_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="license\genesis_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="..\externals\essentials\license\essentials_Anhang_Appendix_20170406.pdf">
+      <Filter>license\essentials</Filter>
+    </None>
+    <None Include="..\externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf">
+      <Filter>license\essentials</Filter>
+    </None>
+    <None Include="..\externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf">
+      <Filter>license\essentials</Filter>
+    </None>
+    <None Include="..\externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf">
+      <Filter>license\essentials</Filter>
+    </None>
+    <None Include="..\externals\essentials\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf">
+      <Filter>license\essentials</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\condition_modifier.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file_writer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\recipe.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\recipe_callback.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\recipe_step.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\variable_step.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\condition_block.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\loop_block.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\recipe_block.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\text_step.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grammar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\template_block.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\messages.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file_reader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\genesis_exception.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\switch_block.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\build_number.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\version.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\condition_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\condition_modifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\file_writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\loop_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\recipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\text_step.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\variable_step.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\recipe_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\grammar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\template_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\messages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\file_reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\switch_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="changelog.txt" />
+  </ItemGroup>
+</Project>

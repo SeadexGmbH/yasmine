@@ -49,7 +49,11 @@ public:
 	SX_NO_COPY( state_model )
 	virtual raw_const_transition_models get_transitions() const = 0;
 	virtual const event_ids& get_deferred_events() const = 0;
+	virtual void add_deferred_event( const event_id _deferred_event_id ) = 0;
+	virtual void remove_deferred_event( const event_id _deferred_event_id ) = 0;
+	virtual bool defers_event( const event_id _id ) const = 0;
 	virtual const raw_const_region_models get_regions() const = 0;
+	virtual const size_t get_regions_count() const = 0;
 	virtual const std::string& get_enter_behavior() const = 0;
 	virtual void set_enter_behavior( const std::string& _enter_behavior ) = 0;
 	virtual const std::string& get_do_behavior() const = 0;
@@ -57,6 +61,8 @@ public:
 	virtual const std::string& get_exit_behavior() const = 0;
 	virtual void set_exit_behavior( const std::string& _exit_behavior ) = 0;
 	virtual void accept( model_vertex_visitor& _constructor_visitor ) const = 0;
+	virtual void get_event_references( std::vector<sxy::model::state_machine_element_model*>& _elements,
+		const event_sptr _event ) = 0;
 };
 
 

@@ -1,0 +1,1 @@
+add_subdirectory(html_page_generator)
