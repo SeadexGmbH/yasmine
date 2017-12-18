@@ -20,10 +20,10 @@ include(./../CMakeHelpers/addYasmineOptions.cmake)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
 include_directories("./include")
-include_directories("./../libyasmine" "./../genesis" "./../yasmine_model")
-include_directories("./../libyasmine/include" "./../genesis/include" "./../yasmine_model/include")
-include_directories("./../externals/essentials/include")
-
+include_directories("./../libyasmine/include")
+include_directories("./../yasmine_model/include")
+include_directories("./../externals/essentials/source/essentials/include")
+include_directories("./../externals/genesis/source/genesis/include")
 
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -39,9 +39,19 @@ if("${CPP_VERSION}" STREQUAL "03")
 endif()
 
 use_pthread(link_libraries_list)
+
 add_library_for_linking(link_libraries_list libyasmine)
-add_library_for_linking(link_libraries_list libgenesis)
-add_library_for_linking(link_libraries_list libyasmine_model)
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	add_library_for_linking(link_libraries_list libessentials)
+	add_library_for_linking(link_libraries_list libgenesis)
+	add_library_for_linking(link_libraries_list libyasmine_model)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	add_library_for_linking(link_libraries_list essentials)
+	add_library_for_linking(link_libraries_list genesis)
+	add_library_for_linking(link_libraries_list yasmine_model)
+endif()
+
 message(STATUS "libygen linking to libraries: ${link_libraries_list}" )
 target_link_libraries(libygen LINK_PUBLIC ${link_libraries_list})
 

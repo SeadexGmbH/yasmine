@@ -10,6 +10,14 @@
 
 #include "transition_model_impl.hpp"
 
+#include <algorithm>
+
+#include "essentials/base.hpp"
+
+#include "model_exception.hpp"
+#include "delete_visitor.hpp"
+
+
 namespace sxy
 {
 
@@ -45,9 +53,21 @@ transition_model_kind transition_model_impl::get_kind() const
 }
 
 
+void transition_model_impl::set_kind( transition_model_kind _kind )
+{
+	kind_ = _kind;
+}
+
+
 const std::string& transition_model_impl::get_behavior() const
 {
 	return( behavior_ );
+}
+
+
+void transition_model_impl::set_behavior( const std::string& _behavior )
+{
+	behavior_ = _behavior;
 }
 
 
@@ -57,9 +77,21 @@ const std::string& transition_model_impl::get_guard() const
 }
 
 
+void transition_model_impl::set_guard( const std::string& _guard )
+{
+	guard_ = _guard;
+}
+
+
 const sxe::uri& transition_model_impl::get_source() const
 {
 	return( source_ );
+}
+
+
+void transition_model_impl::set_source( const std::string& _source )
+{
+	source_ = sxe::uri( _source );
 }
 
 
@@ -69,9 +101,58 @@ const sxe::uri& transition_model_impl::get_target() const
 }
 
 
+void transition_model_impl::set_target( const std::string& _target )
+{
+	target_ = sxe::uri( _target );
+}
+
+
 const event_ids& transition_model_impl::get_event_ids() const
 {
 	return( events_ );
+}
+
+
+void transition_model_impl::set_event_ids( event_ids& _event_ids )
+{
+	events_ = _event_ids;
+}
+
+
+void transition_model_impl::add_event( const event_id _id )
+{
+	events_.push_back( _id );
+}
+
+
+void transition_model_impl::remove_event( const event_id _id )
+{
+	events_.erase( std::remove( events_.begin(), events_.end(), _id ), events_.end() );
+}
+
+
+bool transition_model_impl::has_trigger( event_id _id ) const
+{
+	bool transition_has_trigger = false;
+	if( std::find( events_.begin(), events_.end(), _id ) != events_.end() )
+	{
+		transition_has_trigger = true;
+	}
+
+	return( transition_has_trigger );
+}
+
+
+state_machine_element_model* transition_model_impl::get_child( const sxe::uri& _uri )
+{
+	SX_UNUSED_PARAMETER( _uri );
+	throw sxy::model::exception( "Transitions cannot have children!" );
+}
+
+
+void transition_model_impl::accept_delete_visitor( delete_visitor& _delete_visitor )
+{
+	_delete_visitor.visit( *this );
 }
 
 

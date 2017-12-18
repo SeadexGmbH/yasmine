@@ -22,10 +22,10 @@ namespace sxy
 namespace model
 {
 
-class junction_model;
+class junction_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<junction_model> junction_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<junction_model_impl> junction_model_uptr;
 
 
 }

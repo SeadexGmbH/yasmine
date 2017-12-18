@@ -166,7 +166,6 @@ namespace sxy
 		//!\return A reference to the newly created transition.
 		virtual transition& add_transition( const event_ids& _event_ids, vertex& _source, vertex& _target,
 			const behavior_function& _behavior, const sxy::transition_kind _kind = transition_kind::EXTERNAL );
-
 		virtual bool fire_event( const event_sptr& _event ) = 0;
 
 		//!\brief Check the state machine for defects by checking the constraints of each component.
@@ -211,9 +210,7 @@ namespace sxy
 
 	private:
 		virtual const events& get_deferred_events() const SX_OVERRIDE;
-	public:
 		virtual raw_const_states get_active_state_configuration() const SX_OVERRIDE;
-	private:
 		void get_active_states_from_region( raw_const_states& _active_state_configuration, const region& _region ) const;
 		void check_regions_for_active_states( raw_const_states& _active_state_configuration, const state& _state ) const;
 		void add_deferred_event( const event_sptr& _event_id );

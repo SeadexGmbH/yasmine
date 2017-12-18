@@ -28,7 +28,7 @@ namespace
 
 const sxe::uint16_t VERSION_MAJOR( 1 );
 const sxe::uint16_t VERSION_MINOR( 3 );
-const sxe::uint16_t VERSION_PATCH( 3 );
+const sxe::uint16_t VERSION_PATCH( 4 );
 
 
 }
@@ -37,6 +37,7 @@ const sxe::uint16_t VERSION_PATCH( 3 );
 #ifndef SX_NO_LOGGING
 
 
+// cppcheck-suppress unusedFunction
 void log_version()
 {
 	SX_LOG( hermes::log_level::LL_INFO, "yasmine library version %.%.%.%.", get_major_version(),

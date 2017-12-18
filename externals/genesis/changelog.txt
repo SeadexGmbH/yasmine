@@ -1,0 +1,16 @@
+# Change log
+All notable changes to this project are documented in this file.
+
+##[0.2.0] - 2017-09-20
+
+### Added
+• Support for Visual Studio 2017 builds
+
+### Changed
+• rename: condition_block's private method check_modifier to apply_modifier
+• method create_child of the class recipe_block is now pro
+
+
+##[0.1.0] - 2017-04-21
+
+• The very first release version of genesis

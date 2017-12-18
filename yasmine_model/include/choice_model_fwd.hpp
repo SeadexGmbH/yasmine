@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class choice_model;
+class choice_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<choice_model> choice_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<choice_model_impl> choice_model_uptr;
 
 
 }

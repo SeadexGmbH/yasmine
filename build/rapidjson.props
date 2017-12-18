@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <RAPIDJSON_PATH>..\..\..\..\..\3rd party\rapidjson\Content\rapidjson-1.0.2\rapidjson</RAPIDJSON_PATH>
+    <RAPIDJSON_PATH>..\..\..\..\3rd party\libs\rapidjson\Content\rapidjson-1.1.0\rapidjson</RAPIDJSON_PATH>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup>

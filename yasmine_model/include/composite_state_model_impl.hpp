@@ -43,23 +43,63 @@ public:
 	SX_NO_COPY( composite_state_model_impl )
 	virtual const std::string& get_do_behavior() const SX_OVERRIDE;
 	virtual void set_do_behavior( const std::string& _do_behavior ) SX_OVERRIDE;
+
 	//!\brief Get the entry behavior of the composite state.
 	virtual const std::string& get_enter_behavior() const SX_OVERRIDE;
+
 	//!\brief Set the entry behavior of the composite state.
 	void set_enter_behavior( const std::string& _enter_behavior ) SX_OVERRIDE;
+
 	//!\brief Get the exit behavior of the composite state.
 	virtual const std::string& get_exit_behavior() const SX_OVERRIDE;
+
 	//!\brief Set the exit behavior of the composite state.
 	void set_exit_behavior( const std::string& _exit_behavior ) SX_OVERRIDE;
+
 	//!\brief Get the regions of the composite state.
 	virtual const raw_const_region_models get_regions() const SX_OVERRIDE;
+
+	//!\brief Get the number of regions in the composite state.
+	virtual const size_t get_regions_count() const SX_OVERRIDE;
+
+	//!\brief Get the region of the composite state with the given index.
+	virtual region_model& get_region( const size_t _index ) SX_OVERRIDE;
+
 	//!\brief Add a region to the list of regions of the composite state.
 	virtual void add_region( region_model_uptr _region ) SX_OVERRIDE;
+
+	//!\brief Remove the region with the given index.
+	virtual void remove_region( const size_t _index ) SX_OVERRIDE;
+
 	//!\brief Get the state pseudostates of the composite state.
 	virtual raw_const_pseduostate_models get_state_pseudostates() const SX_OVERRIDE;
+
+	//!\brief Get the number of state pseudostates of the composite state.
+	virtual const size_t get_state_pseudostates_count() const SX_OVERRIDE;
+	
+	//!\brief Get the state pseudostate with the given index.
+	virtual pseudostate_model& get_state_pseudostate( const size_t _index ) SX_OVERRIDE;
+
 	//!\brief Add a state pseudostate to the list of the state pseudostates of the composite state.
 	virtual void add_state_pseudostate( pseudostate_model_uptr _pseudostate ) SX_OVERRIDE;
+
+	//!\brief Remove the state pseudostate with the given index.
+	virtual void remove_state_pseudostate( const size_t _index ) SX_OVERRIDE;
+
+	//!\brief Get the child element with the given uri.
+	//!\param _uri Uri of the requested element.
+	//!\return Pointer to the requested element.
+	//!\exception Throws sxy::model::exception if the element does not exists.
+	virtual state_machine_element_model* get_child( const sxe::uri& _uri ) SX_OVERRIDE;
+
+	//!\brief Get list of that defer the given event.
+	//!\param _elements List of elements to be filled.
+	//!\param _event Deferred event.
+	virtual void get_event_references( std::vector<sxy::model::state_machine_element_model* >& _elements,
+		const event_sptr _event ) SX_OVERRIDE;
+
 	virtual void accept( model_vertex_visitor& _constructor_visitor ) const SX_OVERRIDE;
+	virtual void accept_delete_visitor( delete_visitor& _delete_visitor ) SX_OVERRIDE;
 
 
 private:

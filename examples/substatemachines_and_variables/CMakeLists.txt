@@ -6,8 +6,7 @@ if(POLICY CMP0054)
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-set(HEADER_FILES "./*.hpp" "./../../libyasmine/include/*.hpp" "./../../externals/essentials/include/essentials/*.hpp" "./../../externals/essentials/include/compatibility/*.hpp" "./../../externals/hermes/include/hermes/*.hpp")
-file(GLOB substatemachines_and_variables_SRC "./*.cpp" ${HEADER_FILES})
+file(GLOB substatemachines_and_variables_SRC "./*.cpp" "./*.hpp")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -19,7 +18,9 @@ include(./../../CMakeHelpers/addYasmineOptions.cmake)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
 add_executable(substatemachines_and_variables ${substatemachines_and_variables_SRC})
-include_directories("./../../libyasmine/include" "./../../externals/essentials/include" "./../../externals/hermes/include")
+include_directories("./../../libyasmine/include")
+include_directories("./../../externals/essentials/source/essentials/include")
+include_directories("./../../externals/hermes/source/hermes/include")
 
 set(link_libraries_list "")
 

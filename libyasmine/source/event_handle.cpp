@@ -14,11 +14,15 @@
 
 namespace sxy
 {
-	
-#ifndef SX_CPP03_BOOST	
+
+
+#ifdef SX_CPP03_BOOST
+	const handle_type Y_INVALID_EVENT_CREATION_REQUEST_HANDLE = UINT_MAX;
+#else
 	const handle_type Y_INVALID_EVENT_CREATION_REQUEST_HANDLE = std::numeric_limits< handle_type >::max();
 #endif
 
-	const handle_type Y_DEFAULT_HANDLE = 0;
+const handle_type Y_DEFAULT_HANDLE = 0;
+
 
 }

@@ -11,7 +11,6 @@
 #ifndef MODEL_70A5CEB1_6704_4CA7_B205_65579AFDC215
 #define MODEL_70A5CEB1_6704_4CA7_B205_65579AFDC215
 
-
 #include "json_reader.hpp"
 #include "json_writer.hpp"
 
@@ -21,7 +20,21 @@
 #include "simple_state_model_impl.hpp"
 #include "composite_state_model_impl.hpp"
 #include "final_state_model_impl.hpp"
+
 #include "pseudostate_model_impl.hpp"
+#include "initial_pseudostate_model.hpp"
+#include "terminate_pseudostate_model.hpp"
+#include "join_model.hpp"
+#include "fork_model.hpp"
+#include "choice_model.hpp"
+#include "junction_model.hpp"
+
+#include "entry_point_model.hpp"
+#include "exit_point_model.hpp"
+#include "shallow_history_model.hpp"
+#include "deep_history_model.hpp"
+
+#include "delete_visitor.hpp"
 
 #include "model_exception.hpp"
 

@@ -14,6 +14,7 @@
 
 #include "model_vertex_visitor.hpp"
 #include "model_element_type.hpp"
+#include "delete_visitor.hpp"
 
 
 namespace sxy
@@ -85,6 +86,11 @@ void final_state_model_impl::accept( model_vertex_visitor& _constructor_visitor 
 	_constructor_visitor.visit( *this );
 }
 
+
+void final_state_model_impl::accept_delete_visitor( delete_visitor& _delete_visitor )
+{
+	_delete_visitor.visit( *this );
+}
 
 }
 

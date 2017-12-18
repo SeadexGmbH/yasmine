@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <ESSENTIALS_INCLUDE_PATH>..\essentials\include</ESSENTIALS_INCLUDE_PATH>
+    <ESSENTIALS_LIB_PATH>..\$(Platform)\$(Configuration)</ESSENTIALS_LIB_PATH>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ESSENTIALS_INCLUDE_PATH);$(ESSENTIALS_COMPATIBILITY_PATH);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+    </ClCompile>
+    <Lib />
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration);$(ESSENTIALS_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>essentials.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="ESSENTIALS_INCLUDE_PATH">
+      <Value>$(ESSENTIALS_INCLUDE_PATH)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ESSENTIALS_LIB_PATH">
+      <Value>$(ESSENTIALS_LIB_PATH)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

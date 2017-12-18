@@ -6,12 +6,12 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\externals\essentials\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\externals\essentials\source\essentials\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib />
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>essentials.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />

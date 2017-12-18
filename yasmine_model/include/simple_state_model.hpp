@@ -42,6 +42,7 @@ public:
 
 
 	SX_NO_COPY( simple_state_model )
+	virtual bool has_error_event() const = 0;
 	virtual event_sptr get_error_event() const = 0;
 	virtual void set_error_event( event_sptr _error_event ) = 0;
 	virtual bool is_async() const = 0;

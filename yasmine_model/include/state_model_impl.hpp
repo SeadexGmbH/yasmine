@@ -39,10 +39,36 @@ public:
 		const event_ids& _deferred_events = event_ids() );
 	virtual ~state_model_impl() SX_NOEXCEPT;
 	SX_NO_COPY( state_model_impl )
+
+	//!\brief Get the number of regions of the state.
+	virtual const size_t get_regions_count() const SX_OVERRIDE;
+
 	//!\brief Get the list of transitions of the state.
 	virtual raw_const_transition_models get_transitions() const SX_OVERRIDE;
-	//!\brief Get the list of IDs of deferred events.
+
+	//!\brief Get list of IDs of deferred events.
 	virtual const event_ids& get_deferred_events() const SX_OVERRIDE;
+
+	//!\brief Add a deferred event ID to the list of deferred events.
+	//!\param _deferred_event_id Event ID to add as deferred event.
+	virtual void add_deferred_event( const event_id _deferred_event_id ) SX_OVERRIDE;
+
+	//!\brief Remove a deferred event ID from the list of deferred events.
+	//!\param _deferred_event_id Event ID to remove from deferred events.
+	virtual void remove_deferred_event( const event_id _deferred_event_id ) SX_OVERRIDE;
+
+	//!\brief Check if the state defers the given event ID.
+	//!\param _id Event ID to check if it is deferred.
+	//!\return True if event ID is deferred, false otherwise.
+	virtual bool defers_event( const event_id _id ) const SX_OVERRIDE;
+
+	virtual state_machine_element_model* get_child( const sxe::uri& _uri ) SX_OVERRIDE;
+
+	//!\brief Fill the given list with the elements that defer the given event.
+	//!\param _elements List of elements that defer the given event.
+	//!\param _event Deferred event.
+	virtual void get_event_references( std::vector<sxy::model::state_machine_element_model*>& _elements,
+		const event_sptr _event ) SX_OVERRIDE;
 
 
 private:

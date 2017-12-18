@@ -11,6 +11,7 @@
 #include "shallow_history_model_impl.hpp"
 
 #include "model_vertex_visitor.hpp"
+#include "delete_visitor.hpp"
 
 
 namespace sxy
@@ -37,6 +38,12 @@ shallow_history_model_impl::~shallow_history_model_impl() SX_NOEXCEPT
 void shallow_history_model_impl::accept( model_vertex_visitor& _constructor_visitor ) const
 {
 	_constructor_visitor.visit( *this );
+}
+
+
+void shallow_history_model_impl::accept_delete_visitor( delete_visitor& _delete_visitor )
+{
+	_delete_visitor.visit( *this );
 }
 
 

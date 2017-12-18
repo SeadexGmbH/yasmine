@@ -8,13 +8,15 @@ if(POLICY CMP0054)
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-file(GLOB yasmine_SRC "include/*.hpp" "include_impl/*.hpp" "source/*.cpp" "../externals/essentials/include/essentials/*.hpp" "../externals/essentials/include/essentials/compatibility/*.hpp" "../externals/hermes/include/hermes/*.hpp" "../externals/essentials/source/*.cpp" "../externals/hermes/source/*.cpp")
+file(GLOB yasmine_SRC "include/*.hpp" "include_impl/*.hpp" "source/*.cpp")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-include_directories("./include" "./include_impl" "../externals/essentials/include" "../externals/hermes/include")
+include_directories("./include" "./include_impl")
+include_directories("./../externals/essentials" "./../externals/essentials/source/essentials/include")
+include_directories("./../externals/hermes" "./../externals/hermes/source/hermes/include")
 
 include(./../CMakeHelpers/addSpecificFlags.cmake)
 include(./../CMakeHelpers/addYasmineOptions.cmake)
@@ -26,6 +28,18 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	add_library(libyasmine STATIC ${yasmine_SRC})
 endif()
+
+set(link_libraries_list "")
+use_pthread(link_libraries_list)
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	add_library_for_linking(link_libraries_list libessentials)
+	add_library_for_linking(link_libraries_list libhermes)
+else()
+	add_library_for_linking(link_libraries_list essentials)
+	add_library_for_linking(link_libraries_list hermes)
+endif()
+message(STATUS "libyasmine linking to libraries: ${link_libraries_list}" )
+target_link_libraries(libyasmine LINK_PUBLIC ${link_libraries_list})
 
 SET_TARGET_PROPERTIES ( libyasmine PROPERTIES
   VERSION 1.3.1

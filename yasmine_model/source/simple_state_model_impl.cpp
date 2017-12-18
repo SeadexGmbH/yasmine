@@ -12,6 +12,7 @@
 
 #include "model_vertex_visitor.hpp"
 #include "model_element_type.hpp"
+#include "delete_visitor.hpp"
 
 
 namespace sxy
@@ -25,7 +26,7 @@ namespace model
 simple_state_model_impl::simple_state_model_impl( const std::string& _name, const std::string& _enter_behavior,
 	const std::string& _do_behavior, const std::string& _exit_behavior, const event_ids& _deferred_events,
 	event_sptr _error_event, bool _is_async)
-	: state_model_impl( _name, model_element_type::TYE_SIMPLE_STATE, _deferred_events ),
+	: state_model_impl( _name, _is_async ? model_element_type::TYE_ASYNC_SIMPLE_STATE : model_element_type::TYE_SIMPLE_STATE, _deferred_events ),
 		enter_behavior_( _enter_behavior ),
 		do_behavior_( _do_behavior ),
 		exit_behavior_( _exit_behavior ),
@@ -36,7 +37,21 @@ simple_state_model_impl::simple_state_model_impl( const std::string& _name, cons
 }
 
 
-simple_state_model_impl::~simple_state_model_impl()SX_NOEXCEPT
+simple_state_model_impl::simple_state_model_impl( const std::string& _name, bool _is_async, const std::string& _enter_behavior,
+	const std::string& _do_behavior, const std::string& _exit_behavior, const event_ids& _deferred_events,
+	event_sptr _error_event )
+	: state_model_impl( _name, _is_async ? model_element_type::TYE_ASYNC_SIMPLE_STATE : model_element_type::TYE_SIMPLE_STATE, _deferred_events ),
+	enter_behavior_( _enter_behavior ),
+	do_behavior_( _do_behavior ),
+	exit_behavior_( _exit_behavior ),
+	error_event_( _error_event ),
+	is_async_( _is_async )
+{
+	// Nothing to do...
+}
+
+
+simple_state_model_impl::~simple_state_model_impl() SX_NOEXCEPT
 {
 	// Nothing to do...
 }
@@ -91,6 +106,13 @@ void simple_state_model_impl::accept( model_vertex_visitor& _constructor_visitor
 }
 
 
+bool simple_state_model_impl::has_error_event() const
+{
+	const bool state_has_error_event = !!error_event_;
+	return( state_has_error_event );
+}
+
+
 event_sptr simple_state_model_impl::get_error_event() const
 {
 	return( error_event_ );
@@ -112,6 +134,29 @@ bool simple_state_model_impl::is_async() const
 void simple_state_model_impl::set_is_async( bool _is_async )
 {
 	is_async_ = _is_async;
+}
+
+
+void simple_state_model_impl::accept_delete_visitor( delete_visitor& _delete_visitor )
+{
+	_delete_visitor.visit( *this );
+}
+
+
+void simple_state_model_impl::get_event_references( std::vector<sxy::model::state_machine_element_model* >& _elements,
+	const event_sptr _event )
+{
+	if( error_event_ )
+	{
+		if( error_event_->get_id() == _event->get_id() )
+		{
+			_elements.push_back( this );
+		}
+	}
+	else
+	{
+		state_model_impl::get_event_references( _elements, _event );
+	}
 }
 
 

@@ -29,8 +29,8 @@ message(STATUS "ygen linking to libraries: ${link_libraries_list}" )
 target_link_libraries(ygen LINK_PUBLIC ${link_libraries_list})
 
 include_directories("./include")
-include_directories("./../externals/essentials/include")
-include_directories("./../genesis/include")
+include_directories("./../externals/essentials/source/essentials/include")
+include_directories("./../externals/genesis/source/genesis/include")
 include_directories("./../libygen/include")
 
 install(TARGETS ygen DESTINATION bin)

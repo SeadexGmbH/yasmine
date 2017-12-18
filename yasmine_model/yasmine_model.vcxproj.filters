@@ -52,20 +52,8 @@
     <Filter Include="Quelldateien\json">
       <UniqueIdentifier>{f23a6b72-fd79-4e80-94f0-df764a94a2fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien\externals">
-      <UniqueIdentifier>{31e6d6f0-beef-4573-a2ee-45bb97e3972d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\externals\essentials">
-      <UniqueIdentifier>{f3585f15-06be-4a13-8b57-021f06f33586}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\externals\essentials\compatibility">
-      <UniqueIdentifier>{c435bfdf-a901-42bf-8149-b5b498bd573f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\extenals">
-      <UniqueIdentifier>{ca791aac-15dc-4770-82a2-4af4749309bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\extenals\essentials">
-      <UniqueIdentifier>{558aca08-79e1-4822-82f2-d4294f22c133}</UniqueIdentifier>
+    <Filter Include="Quelldateien\state machine\visitors">
+      <UniqueIdentifier>{e4867d26-f01b-4da5-99ae-9c18747a3d19}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -147,26 +135,17 @@
     <ClCompile Include="source\event_model.cpp">
       <Filter>Quelldateien\state machine\element</Filter>
     </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\conversion.cpp">
-      <Filter>Quelldateien\extenals\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\essentials_version.cpp">
-      <Filter>Quelldateien\extenals\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\format_settings.cpp">
-      <Filter>Quelldateien\extenals\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\sxprintf.cpp">
-      <Filter>Quelldateien\extenals\essentials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\externals\essentials\source\uri.cpp">
-      <Filter>Quelldateien\extenals\essentials</Filter>
-    </ClCompile>
     <ClCompile Include="source\transition_model_kind.cpp">
       <Filter>Quelldateien\state machine\element</Filter>
     </ClCompile>
     <ClCompile Include="source\event_model_id.cpp">
       <Filter>Quelldateien\state machine\element</Filter>
+    </ClCompile>
+    <ClCompile Include="source\delete_visitor.cpp">
+      <Filter>Quelldateien\state machine\visitors</Filter>
+    </ClCompile>
+    <ClCompile Include="source\state_machine_external_element.cpp">
+      <Filter>Quelldateien\state machine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,48 +347,6 @@
     <ClInclude Include="include\event_model.hpp">
       <Filter>Headerdateien\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\chrono.hpp">
-      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\compatibility.hpp">
-      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\thread.hpp">
-      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\base.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\build_number.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\conversion.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\essentials_version.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\exception.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\exception_template.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\format_settings.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\macro_helpers.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\non_copyable.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\sxprintf.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\uri.hpp">
-      <Filter>Headerdateien\externals\essentials</Filter>
-    </ClInclude>
     <ClInclude Include="include\transition_model_kind.hpp">
       <Filter>Headerdateien\state machine\element</Filter>
     </ClInclude>
@@ -419,11 +356,17 @@
     <ClInclude Include="include\event_model_priority.hpp">
       <Filter>Headerdateien\state machine\element</Filter>
     </ClInclude>
-    <ClInclude Include="..\externals\essentials\include\essentials\compatibility\essentials_backward_compatibility.hpp">
-      <Filter>Headerdateien\externals\essentials\compatibility</Filter>
-    </ClInclude>
     <ClInclude Include="include\rapidjson_document.hpp">
       <Filter>Headerdateien\json</Filter>
+    </ClInclude>
+    <ClInclude Include="include\delete_visitor.hpp">
+      <Filter>Headerdateien\state machine\visitors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\externals_fwd.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\state_machine_external_element.hpp">
+      <Filter>Headerdateien\state machine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,10 +22,10 @@ namespace sxy
 namespace model
 {
 
-class initial_pseudostate_model;
+class initial_pseudostate_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR< initial_pseudostate_model > initial_pseudostate_model_uptr;
+typedef sxe::SX_UNIQUE_PTR< initial_pseudostate_model_impl > initial_pseudostate_model_uptr;
 
 
 }

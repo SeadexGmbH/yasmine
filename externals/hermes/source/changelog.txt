@@ -1,0 +1,29 @@
+# Change log
+All notable changes to this project are documented in this file.
+
+##[1.2.0] - 2017-12-18
+
+## Changed
+• use essentials as a library.
+• CMake: use external CMakeHelpers files
+• CMake: refactoring of build scripts
+
+
+##[1.1.0] - 2017-09-20
+
+### Added
+• Support for Visual Studio 2017 builds
+
+### Changed
+• removed uri delimiter from globals
+
+
+##[1.0.1] - 2017-04-07
+
+### Changed
+• 3rd party component 'essentials' was moved inside 'externals' folder.
+
+
+##[1.0.0] - 2017-04-03
+
+• The very first released version of hermes

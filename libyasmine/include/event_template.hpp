@@ -104,7 +104,7 @@ public: \
 //!\param _class_name Name of the event class.
 //!\param _event_id Event's id.
 #define Y_EVENT_WITH_ID( _class_name, _event_id ) Y_EVENT_WITH_ID_PRIORITY( _class_name, _event_id, Y_AUX_DEFAULT_EVENT_PRIORITY )
-							
+
 
 //!\brief Macro for creating an event class that inherits the specialized_event. The event has an ID, a priority and a given type parameter.
 //!\param _class_name Name of the event class.

@@ -24,8 +24,8 @@ namespace model
 {
 
 
-	//!\class join_model_impl
-	//!\brief A join pseudostate in the model.
+//!\class join_model_impl
+//!\brief A join pseudostate in the model.
 class join_model_impl SX_FINAL: 
 	public virtual join_model, public pseudostate_model_impl
 {
@@ -38,6 +38,7 @@ public:
 	virtual ~join_model_impl() SX_NOEXCEPT SX_OVERRIDE;
 	SX_NO_COPY( join_model_impl )
 	virtual void accept( model_vertex_visitor& _constructor_visitor ) const SX_OVERRIDE;
+	virtual void accept_delete_visitor( delete_visitor& _delete_visitor ) SX_OVERRIDE;
 };
 
 

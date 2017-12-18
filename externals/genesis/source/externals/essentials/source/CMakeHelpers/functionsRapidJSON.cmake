@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 2.8)
+
+if(POLICY CMP0054)
+  cmake_policy(SET CMP0054 NEW)
+endif()
+
+function(use_rapid_JSON)
+if(SX_RAPIDJSON)
+	message("SX_RAPIDJSON is set by user.")
+else()
+	message("SX_RAPIDJSON is not set by user. Setting default value.")
+	if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+		find_package(RapidJSON)
+		if(NOT ("${RAPIDJSON_INCLUDE_DIRS}" STREQUAL ""))
+			set(SX_RAPIDJSON ${RAPIDJSON_INCLUDE_DIRS})
+			message(STATUS "Found rapidjson on: ${RAPIDJSON_INCLUDE_DIRS}")
+		else()
+			set(SX_RAPIDJSON /usr/include)
+			message(STATUS "Set default value for rapidjson")
+		endif()
+	elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+		set(SX_RAPIDJSON "C:\\Program Files")
+	endif()
+endif()
+
+include_directories(${SX_RAPIDJSON})
+
+message(STATUS "include rapidJSON from: ${SX_RAPIDJSON}")
+
+endfunction()

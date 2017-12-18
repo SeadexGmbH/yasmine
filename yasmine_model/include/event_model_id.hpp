@@ -26,7 +26,7 @@ namespace model
 {
 
 
-struct event_model;
+class event_model;
 
 
 //!\brief The type alias for yasmine model's event IDs.
@@ -34,16 +34,7 @@ typedef sxe::uint32_t event_id;
 //!\brief The type alias for yasmine model's event ID list.
 typedef std::vector< event_id > event_ids;
 
-#if defined( SX_CPP03_BOOST ) || ( defined(_MSC_VER) && _MSC_VER <=1800 )
-
 extern const event_id Y_MODEL_COMPLETION_EVENT_ID;
-
-#else
-
-extern const event_id Y_MODEL_COMPLETION_EVENT_ID;
-
-#endif
-
 
 typedef sxe::shared_ptr< event_model > event_sptr;
 

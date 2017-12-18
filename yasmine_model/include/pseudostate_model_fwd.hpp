@@ -25,12 +25,13 @@ namespace model
 {
 
 
+class pseudostate_model_impl;
 class pseudostate_model;
 
 
-typedef sxe::SX_UNIQUE_PTR<pseudostate_model> pseudostate_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<pseudostate_model_impl> pseudostate_model_uptr;
 typedef std::vector<pseudostate_model_uptr> pseudostate_models_uptr;
-typedef std::vector< const pseudostate_model*> raw_const_pseduostate_models;
+typedef std::vector< const pseudostate_model_impl*> raw_const_pseduostate_models;
 
 
 }

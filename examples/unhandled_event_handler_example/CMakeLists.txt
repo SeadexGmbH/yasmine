@@ -6,7 +6,6 @@ if(POLICY CMP0054)
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-set(HEADER_FILES "./../../libyasmine/include/*.hpp" "./../../externals/essentials/include/essentials/*.hpp" "./../../externals/essentials/include/compatibility/*.hpp" "./../../externals/hermes/include/hermes/*.hpp")
 file(GLOB unhandled_event_handler_example_SRC "./*.cpp" ${HEADER_FILES})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -19,7 +18,9 @@ include(./../../CMakeHelpers/addYasmineOptions.cmake)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${extra_flags}")
 
 add_executable(unhandled_event_handler_example ${unhandled_event_handler_example_SRC})
-include_directories("./../../libyasmine/include" "./../../externals/essentials/include" "./../../externals/hermes/include")
+include_directories("./../../libyasmine/include")
+include_directories("./../../externals/essentials/source/essentials/include")
+include_directories("./../../externals/hermes/source/hermes/include")
 
 set(link_libraries_list "")
 

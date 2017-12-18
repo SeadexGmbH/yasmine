@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\compatibility">
+      <UniqueIdentifier>{4a8b49fc-8912-43d5-a33a-962f5e097001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="license">
+      <UniqueIdentifier>{13a9f023-217a-4d7a-946f-8147bce1d21a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\conversion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\format_settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sxprintf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\essentials_version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\uri.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\changelog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\license\essentials_Anhang_Appendix_20170406.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="..\..\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="..\..\license\essentials_Lizenz_und_Nutzungsbedingungen_geschaeftliche_Nutzung_Fassung_20170406_en.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="..\..\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406.pdf">
+      <Filter>license</Filter>
+    </None>
+    <None Include="..\..\license\essentials_Lizenz_und_Nutzungsbedingungen_private_und wissenschaftliche_Nutzung_Fassung_20170406_en.pdf">
+      <Filter>license</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\essentials\compatibility\chrono.hpp">
+      <Filter>Header Files\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\compatibility\compatibility.hpp">
+      <Filter>Header Files\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\compatibility\thread.hpp">
+      <Filter>Header Files\compatibility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\base.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\build_number.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\conversion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\exception.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\exception_template.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\format_settings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\macro_helpers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\non_copyable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\sxprintf.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\essentials_version.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\uri.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\essentials\compatibility\essentials_backward_compatibility.hpp">
+      <Filter>Header Files\compatibility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

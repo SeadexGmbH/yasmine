@@ -23,10 +23,10 @@ namespace model
 {
 
 
-class terminate_pseudostate_model;
+class terminate_pseudostate_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<terminate_pseudostate_model> terminate_pseudostate_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<terminate_pseudostate_model_impl> terminate_pseudostate_model_uptr;
 
 
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <BOOST_PATH>..\..\..\..\..\..\..\3rd party\libs\boost\Content\boost_1_65_1</BOOST_PATH>
+    <BOOST_LIB_PATH>..\..\..\..\..\..\..\3rd party\libs\boost\Content\boost_1_65_1\stage\win\$(Platform)\$(PlatformToolsetVersion)\lib</BOOST_LIB_PATH>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(BOOST_PATH);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>Y_USE_BOOST;BOOST_SP_USE_STD_ATOMIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(BOOST_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <Version />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="BOOST_PATH">
+      <Value>$(BOOST_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_LIB_PATH">
+      <Value>$(BOOST_LIB_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

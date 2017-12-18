@@ -11,10 +11,14 @@
 #ifndef JSON_READER_B84EDCFB_85B6_4060_971F_96D6FB6D87B7
 #define JSON_READER_B84EDCFB_85B6_4060_971F_96D6FB6D87B7
 
+#include <cstdlib>
+
 #include "essentials/non_copyable.hpp"
 #include "essentials/uri.hpp"
 
 #include "rapidjson_document.hpp"
+
+#include "consts.hpp"
 #include "transition_model_kind.hpp"
 #include "region_model_fwd.hpp"
 #include "pseudostate_model_fwd.hpp"
@@ -23,25 +27,31 @@
 #include "composite_state_model_fwd.hpp"
 #include "simple_state_model_fwd.hpp"
 #include "final_state_model_fwd.hpp"
+#include "initial_pseudostate_model_fwd.hpp"
+#include "terminate_pseudostate_model_fwd.hpp"
+#include "join_model_fwd.hpp"
+#include "fork_model_fwd.hpp"
+#include "choice_model_fwd.hpp"
+#include "junction_model_fwd.hpp"
 #include "entry_point_model_fwd.hpp"
 #include "exit_point_model_fwd.hpp"
 #include "deep_history_model_fwd.hpp"
 #include "shallow_history_model_fwd.hpp"
-#include "initial_pseudostate_model_fwd.hpp"
-#include "join_model_fwd.hpp"
-#include "junction_model_fwd.hpp"
-#include "fork_model_fwd.hpp"
-#include "terminate_pseudostate_model_fwd.hpp"
-#include "choice_model_fwd.hpp"
 #include "transition_model_fwd.hpp"
-#include "consts.hpp"
-#include "model_element_type.hpp"
 #include "json_parser_helper.hpp"
 #include "event_model.hpp"
+#include "externals_fwd.hpp"
 
 
 namespace sxy
 {
+
+
+namespace model
+{
+	class state_machine_element_model_impl;
+}
+
 
 //!\class json_reader
 //!\brief Provides the ability to read an yasmine model from a JSON file (.ym).
@@ -56,12 +66,15 @@ public:
 	//!\brief Retrieve the read model.
 	//!\return Pointer to the model.
 	model::state_machine_model_ptr get_model_ptr();
+	const model::external_vertices& get_external_vertices();
 
 
 private:
+	void read_externals();
 	void read_json_file( const std::string& _file );
 	model::state_machine_model_ptr read_into_model();
 	sxy::model::event_ids read_deferred_events( const rapidjson::Value& _state ) const;
+	sxy::model::event_ids read_error_events( const rapidjson::Value& _state ) const;
 	model::composite_state_model_uptr read_composite_state( const rapidjson::Value& _root );
 	model::simple_state_model_uptr read_simple_state( const rapidjson::Value& _state, bool _is_async = false );
 	model::final_state_model_uptr read_final_state( const rapidjson::Value& _state );
@@ -82,6 +95,7 @@ private:
 	model::transition_model_uptr read_transition( const rapidjson::Value& _transition );
 	static sxy::model::transition_model_kind get_transition_kind( sxe::int64_t _kind );
 	sxe::int32_t get_event_id_by_name( const std::string& _name ) const;
+	std::string get_event_name( const sxe::int32_t _event_id ) const;
 	sxe::int8_t get_event_priority_by_name( const std::string& _name ) const;
 	void get_event_list( model::state_machine_model_ptr& _model );
 	void check_document() const;
@@ -92,7 +106,7 @@ private:
 		const std::string pseudostate_name = get_object_member_string( sxe::ref( _pseudostate ), model::JSON_NAME_NODE );
 		sxe::SX_UNIQUE_PTR< pseudostate_impl > new_pseudostate =
 			SX_MAKE_UNIQUE< pseudostate_impl >( pseudostate_name );
-		return( sxe::move( new_pseudostate ) );
+		return( new_pseudostate );
 	}
 
 

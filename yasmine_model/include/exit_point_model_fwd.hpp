@@ -23,10 +23,10 @@ namespace model
 {
  
 
-class exit_point_model;
+class exit_point_model_impl;
 
 
-typedef sxe::SX_UNIQUE_PTR<exit_point_model> exit_point_model_uptr;
+typedef sxe::SX_UNIQUE_PTR<exit_point_model_impl> exit_point_model_uptr;
 
 
 }

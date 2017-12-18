@@ -12,8 +12,6 @@
 
 #include <fstream>
 
-#include <rapidjson/prettywriter.h>
-
 #include "essentials/exception.hpp"
 #include "essentials/base.hpp"
 
@@ -62,10 +60,13 @@ void json_writer::write_json_to_file( const std::string& _json_file, const model
 	
 	rapidjson::Value root( rapidjson::kObjectType );
 	sxy::model::composite_state_model_impl& root_state = _state_machine_model.get_root_state();
-	fill_composite_state_object( root_state, root, doc.GetAllocator() );	
+	fill_composite_state_object( root_state, root, doc.GetAllocator(), _state_machine_model );
 	json_state_machine.AddMember( rapidjson::StringRef( model::JSON_ROOT_NODE ), root, doc.GetAllocator() );
 
 	doc.AddMember( rapidjson::StringRef( model::JSON_STATE_MACHINE_NODE ), json_state_machine, doc.GetAllocator() );
+
+	add_externals( _state_machine_model, doc, doc.GetAllocator() );
+
 	rapidjson::StringBuffer string_buffer;
 	rapidjson::PrettyWriter< rapidjson::StringBuffer > writer( string_buffer );
 	doc.Accept( writer );
@@ -104,11 +105,11 @@ void json_writer::add_version( rapidjson::Value& _document, rapidjson::MemoryPoo
 void json_writer::add_events_from_model( const model::state_machine_model& _state_machine_model,
 	rapidjson::Value& _events, rapidjson::MemoryPoolAllocator< >& _allocator )
 {
-	SX_FOR( const sxy::model::event_model& an_event, _state_machine_model.get_events() )
+	SX_FOR( model::event_sptr an_event, _state_machine_model.get_events() )
 	{
-		const std::string name = an_event.name;
-		sxy::model::event_id id = an_event.id;
-		sxy::model::event_priority priority = an_event.priority;
+		const std::string name = an_event->get_name();
+		sxy::model::event_id id = an_event->get_id();
+		sxy::model::event_priority priority = an_event->get_priority();
 
 		rapidjson::Value json_event( rapidjson::kObjectType );
 		rapidjson::Value name_val;
@@ -168,12 +169,13 @@ void json_writer::add_transitions_from_model( const model::state_machine_model& 
 
 
 void json_writer::add_regions_from_model( const model::composite_state_model& _composite_state_model,
-	rapidjson::Value& _regions, rapidjson::MemoryPoolAllocator< >& _allocator )
+	rapidjson::Value& _regions, rapidjson::MemoryPoolAllocator< >& _allocator,
+	const model::state_machine_model& _state_machine_model )
 {
 	SX_FOR( const sxy::model::region_model* const region, _composite_state_model.get_regions() )
 	{
 		rapidjson::Value json_region( rapidjson::kObjectType );
-		fill_region_object( *region, json_region, _allocator );
+		fill_region_object( *region, json_region, _allocator, _state_machine_model );
 		if( json_region.IsObject() )
 		{
 			_regions.PushBack( json_region.Move(), _allocator );
@@ -183,12 +185,12 @@ void json_writer::add_regions_from_model( const model::composite_state_model& _c
 
 
 void json_writer::fill_region_object( const model::region_model& _region_model, rapidjson::Value& _region,
-	rapidjson::MemoryPoolAllocator< >& _allocator )
+	rapidjson::MemoryPoolAllocator< >& _allocator, const model::state_machine_model& _state_machine_model )
 {
 	rapidjson::Value name_node;
 	_region.AddMember( rapidjson::StringRef( model::JSON_NAME_NODE ),
 		create_rapidjson_string_value( _region_model.get_name(), name_node ).Move(), _allocator );
-	rapidjson::Value json_states( rapidjson::kArrayType );
+	rapidjson::Value json_vertices( rapidjson::kArrayType );
 
 	SX_FOR( const sxy::model::state_model* const one_state_model, _region_model.get_states() )
 	{
@@ -201,13 +203,14 @@ void json_writer::fill_region_object( const model::region_model& _region_model, 
 #endif
 		{
 		case model::model_element_type::TYE_SIMPLE_STATE:
+		case model::model_element_type::TYE_ASYNC_SIMPLE_STATE:
 		{
 			const model::simple_state_model_impl* simple_state_model = 
 				dynamic_cast< const model::simple_state_model_impl* >( one_state_model );
 			SX_ASSERT( simple_state_model, "Simple state cannot be written to json file!" );
 			rapidjson::Value json_state( rapidjson::kObjectType );
-			fill_simple_state_object( *simple_state_model, json_state, _allocator );
-			json_states.PushBack( json_state, _allocator );
+			fill_simple_state_object( *simple_state_model, json_state, _allocator, _state_machine_model );
+			json_vertices.PushBack( json_state, _allocator );
 			break;
 		}
 
@@ -217,8 +220,8 @@ void json_writer::fill_region_object( const model::region_model& _region_model, 
 				dynamic_cast< const model::composite_state_model_impl* >( one_state_model );
 			SX_ASSERT( composite_state_state_model, "Composite state cannot be written to json file!" );
 			rapidjson::Value json_state( rapidjson::kObjectType );
-			fill_composite_state_object( *composite_state_state_model, json_state, _allocator );
-			json_states.PushBack( json_state, _allocator );
+			fill_composite_state_object( *composite_state_state_model, json_state, _allocator, _state_machine_model );
+			json_vertices.PushBack( json_state, _allocator );
 			break;
 		}
 
@@ -229,7 +232,7 @@ void json_writer::fill_region_object( const model::region_model& _region_model, 
 			SX_ASSERT( final_state_model, "Final state cannot be written to json file!" );
 			rapidjson::Value json_state( rapidjson::kObjectType );
 			fill_final_state_object( *final_state_model, json_state, _allocator );
-			json_states.PushBack( json_state, _allocator );
+			json_vertices.PushBack( json_state, _allocator );
 			break;
 		}
 
@@ -238,17 +241,15 @@ void json_writer::fill_region_object( const model::region_model& _region_model, 
 		}
 	}
 
-	_region.AddMember( rapidjson::StringRef( model::JSON_VERTICES_NODE ), json_states, _allocator );
-	rapidjson::Value json_pseudostates( rapidjson::kArrayType );
-
 	SX_FOR( const sxy::model::pseudostate_model* const pseudostate, _region_model.get_pseudostates() )
 	{
 		rapidjson::Value json_pseudostate( rapidjson::kObjectType );
 		fill_pseudostate_object( *pseudostate, json_pseudostate, _allocator );
-		json_pseudostates.PushBack( json_pseudostate, _allocator );
+		json_vertices.PushBack( json_pseudostate, _allocator );
 	}
 
-	_region.AddMember( rapidjson::StringRef( model::JSON_PSEUDOSTATES_NODE ), json_pseudostates, _allocator );
+	_region.AddMember( rapidjson::StringRef( model::JSON_VERTICES_NODE ), json_vertices, _allocator );
+	rapidjson::Value json_pseudostates( rapidjson::kArrayType );
 }
 
 
@@ -260,7 +261,8 @@ void json_writer::fill_pseudostate_object( const model::pseudostate_model& _pseu
 
 
 void json_writer::fill_simple_state_object( const model::simple_state_model& _simple_state_model,
-	rapidjson::Value& _simple_state, rapidjson::MemoryPoolAllocator< >& _allocator )
+	rapidjson::Value& _simple_state, rapidjson::MemoryPoolAllocator< >& _allocator,
+	const model::state_machine_model& _state_machine_model )
 {
 	if( _simple_state_model.is_async() )
 	{
@@ -286,18 +288,39 @@ void json_writer::fill_simple_state_object( const model::simple_state_model& _si
 	_simple_state.AddMember( rapidjson::StringRef( model::JSON_EXIT_BEHAVIOR_NODE ),
 		create_rapidjson_string_value( _simple_state_model.get_exit_behavior(), transition_exit_behavior ).Move(), _allocator );
 	rapidjson::Value deferred_events( rapidjson::kArrayType );
+	SX_FOR( const sxy::model::event_id event_ID, _simple_state_model.get_deferred_events() )
+	{
+		rapidjson::Value json_deferred_event( rapidjson::kObjectType );
+		rapidjson::Value json_event_name;
+		const size_t deferred_event_index = get_event_index_by_id( event_ID, _state_machine_model );
+		json_deferred_event.AddMember( rapidjson::StringRef( model::JSON_NAME_NODE ),
+			create_rapidjson_string_value( _state_machine_model.get_event( deferred_event_index ).get_name(), json_event_name ).Move(), _allocator );
+		deferred_events.PushBack( json_deferred_event.Move(), _allocator );
+	}
 	_simple_state.AddMember( rapidjson::StringRef( model::JSON_DEFERRED_EVENTS ), deferred_events, _allocator );
+
+	rapidjson::Value error_events( rapidjson::kArrayType );
+	if( _simple_state_model.has_error_event() )
+	{
+		rapidjson::Value json_error_event( rapidjson::kObjectType );
+		rapidjson::Value json_event_name;
+		json_error_event.AddMember( rapidjson::StringRef( model::JSON_NAME_NODE ),
+			create_rapidjson_string_value( _simple_state_model.get_error_event()->get_name(), json_event_name ).Move(), _allocator );
+		error_events.PushBack( json_error_event.Move(), _allocator );
+	}
+	_simple_state.AddMember( rapidjson::StringRef( model::JSON_ERROR_EVENT ), error_events, _allocator );
 }
 
 
 void json_writer::fill_composite_state_object( const model::composite_state_model& _composite_state_model,
-	rapidjson::Value& _composite_state, rapidjson::MemoryPoolAllocator< >& _allocator )
+	rapidjson::Value& _composite_state, rapidjson::MemoryPoolAllocator< >& _allocator,
+	const model::state_machine_model& _state_machine_model )
 {
 	fill_base_info( _composite_state, _composite_state_model, _allocator );
 
 	// regions
 	rapidjson::Value json_regions( rapidjson::kArrayType );
-	add_regions_from_model( _composite_state_model, json_regions, _allocator );
+	add_regions_from_model( _composite_state_model, json_regions, _allocator, _state_machine_model );
 	_composite_state.AddMember( rapidjson::StringRef( model::JSON_REGIONS_NODE ), json_regions, _allocator );
 
 	// state_pseudostates
@@ -312,6 +335,18 @@ void json_writer::fill_composite_state_object( const model::composite_state_mode
 	rapidjson::Value transition_exit_behavior;
 	_composite_state.AddMember( rapidjson::StringRef( model::JSON_EXIT_BEHAVIOR_NODE ),
 		create_rapidjson_string_value( _composite_state_model.get_exit_behavior(), transition_exit_behavior ).Move(), _allocator );
+	
+	rapidjson::Value deferred_events( rapidjson::kArrayType );
+	SX_FOR( const sxy::model::event_id event_ID, _composite_state_model.get_deferred_events() )
+	{
+		rapidjson::Value json_deferred_event( rapidjson::kObjectType );
+		rapidjson::Value json_event_name;
+		const size_t deferred_event_index = get_event_index_by_id( event_ID, _state_machine_model );
+		json_deferred_event.AddMember( rapidjson::StringRef( model::JSON_NAME_NODE ),
+			create_rapidjson_string_value( _state_machine_model.get_event( deferred_event_index ).get_name(), json_event_name ).Move(), _allocator );
+		deferred_events.PushBack( json_deferred_event.Move(), _allocator );
+	}
+	_composite_state.AddMember( rapidjson::StringRef( model::JSON_DEFERRED_EVENTS ), deferred_events, _allocator );
 }
 
 
@@ -359,16 +394,58 @@ const std::string json_writer::get_event_name_by_id( const sxy::model::event_id&
 	const model::state_machine_model& _state_machine_model )
 {
 	std::string event_name = "";
-	SX_FOR( const sxy::model::event_model& an_event , _state_machine_model.get_events() )
+	SX_FOR( model::event_sptr an_event, _state_machine_model.get_events() )
 	{
-		if( _event_id == an_event.id )
+		if( _event_id == an_event->get_id() )
 		{
-			event_name = an_event.name;
+			event_name = an_event->get_name();
 			break;
 		}
 	}
 
 	return( event_name );
+}
+
+
+const size_t json_writer::get_event_index_by_id( const sxy::model::event_id& _event_id,
+	const model::state_machine_model& _state_machine_model )
+{
+	size_t index = _state_machine_model.get_transitions().size();
+	for( size_t i = 0; i < _state_machine_model.get_transitions().size(); ++i )
+	{
+		if( _state_machine_model.get_events().at( i )->get_id() == _event_id )
+		{
+			index = i;
+			break;
+		}
+	}
+	return( index );
+}
+
+
+void json_writer::add_externals( const model::state_machine_model& _state_machine_model, rapidjson::Value& _document,
+	rapidjson::MemoryPoolAllocator< >& _allocator )
+{
+	rapidjson::Value json_externals( rapidjson::kArrayType );
+	SX_FOR( const model::external_uptr& vertex, _state_machine_model.get_externals() )
+	{
+		rapidjson::Value json_vertex( rapidjson::kObjectType );
+
+		// name
+		rapidjson::Value name_node;
+		json_vertex.AddMember( rapidjson::StringRef( model::JSON_NAME_NODE ),
+			create_rapidjson_string_value( vertex->get_name(), name_node ).Move(), _allocator );
+
+		// type
+		rapidjson::Value type_node;
+		const std::string node_type = model_element_type_to_string( vertex->get_type() );
+		type_node.SetString( node_type.c_str(), node_type.length(), _allocator );
+		json_vertex.AddMember( rapidjson::StringRef( model::JSON_TYPE_NODE ), type_node.Move(), _allocator );
+
+		json_externals.PushBack( json_vertex, _allocator );
+	}
+
+	_document.AddMember( rapidjson::StringRef( model::JSON_EXTERNALS ), json_externals, _allocator );
 }
 
 

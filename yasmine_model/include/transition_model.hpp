@@ -45,11 +45,20 @@ public:
 
 	SX_NO_COPY( transition_model )
 	virtual transition_model_kind get_kind() const = 0;
+	virtual void set_kind( transition_model_kind _kind ) = 0;
 	virtual const std::string& get_behavior() const = 0;
+	virtual void set_behavior( const std::string& _behavior ) = 0;
 	virtual const std::string& get_guard() const = 0;
+	virtual void set_guard( const std::string& _guard ) = 0;
 	virtual const sxe::uri& get_source() const = 0;
+	virtual void set_source( const std::string& _source ) = 0;
 	virtual const sxe::uri& get_target() const = 0;
+	virtual void set_target( const std::string& _target ) = 0;
 	virtual const event_ids& get_event_ids() const = 0;
+	virtual void set_event_ids( event_ids& _event_ids ) = 0;
+	virtual void add_event( const event_id _id ) = 0;
+	virtual void remove_event( const event_id _id ) = 0;
+	virtual bool has_trigger( const event_id _id ) const = 0;
 };
 
 

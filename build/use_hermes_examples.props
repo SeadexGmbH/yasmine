@@ -8,8 +8,11 @@
     <Lib />
     <ClCompile />
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\externals\hermes\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\externals\hermes\source\hermes\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>hermes.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

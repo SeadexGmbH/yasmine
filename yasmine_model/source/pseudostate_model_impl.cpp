@@ -10,7 +10,10 @@
 
 #include "pseudostate_model_impl.hpp"
 
+#include "essentials/base.hpp"
+
 #include "transition_model.hpp"
+#include "model_exception.hpp"
 
 
 namespace sxy
@@ -65,6 +68,13 @@ raw_const_transition_models pseudostate_model_impl::get_outgoing_transitions() c
 void pseudostate_model_impl::add_outgoing_transition( transition_models _outgoing_transition )
 {
 	outgoing_transitions_ = sxe::move( _outgoing_transition );
+}
+
+
+state_machine_element_model* pseudostate_model_impl::get_child( const sxe::uri& _uri )
+{
+	SX_UNUSED_PARAMETER( _uri );
+	throw sxy::model::exception( "Pseudostates cannot have children!" );
 }
 
 
