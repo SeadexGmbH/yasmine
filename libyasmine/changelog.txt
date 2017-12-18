@@ -4,217 +4,220 @@ All notable changes to this project are documented in this file.
 ##[1.3.4] - 2017-12-18
 
 ### Added
-• (C++03) BOOST_BIND_OVER_9 - removes the limit of 7 methods/free functions as parameters for creating behaviors/guards using the assembly macros. The limit is because of boost::bind limitation to 9 arguments.
-• (C++11) Y_BEHAVIOR_FREE_ACTION macro for using a free function as a behavior
-• (C++11) Y_GUARD_FREE_ACTION macro for using a free function as guard
+â€¢ (C++03) BOOST_BIND_OVER_9 - removes the limit of 7 methods/free functions as parameters for creating behaviors/guards using the assembly macros. The is caused by boost::bind's limitation to 9 arguments.
+â€¢ (C++11) Y_BEHAVIOR_FREE_ACTION macro for using a free function as a behavior
+â€¢ (C++11) Y_GUARD_FREE_ACTION macro for using a free function as guard
 
 ### Changed
-• Y_INVALID_EVENT_CREATION_REQUEST_HANDLE is now „external“
-• use essentials and hermes as libraries
-• CMake: Adapt to use essentials and hermes as libraries. Applies to examples as well.
+â€¢ Y_INVALID_EVENT_CREATION_REQUEST_HANDLE is now â€žexternalâ€œ
+â€¢ use essentials and hermes as libraries
+â€¢ CMake: Adapt to use essentials and hermes as libraries. Applies to examples as well.
+
+### Fixed
+â€¢ bug with use of old method signature for macros Y_BEHAVIOR_ACTION and Y_GUARD_ACTION
 
 
 ##[1.3.3] - 2017-11-10
 
 ### Added
-• Y_USE_DEPRECATED to make deprecated features available
-• essentials: SX_UNUSED_VARIABLE macro for suppressing warnings for unreferenced variable.
+â€¢ Y_USE_DEPRECATED to make deprecated features available
+â€¢ essentials: SX_UNUSED_VARIABLE macro for suppressing warnings for unreferenced variable.
 
 ### Changed
-• split assembly header in two files: one for C++11 and up and one for C++03
-• caller.hpp become behavior_caller.hpp
-• caller_adapter.hpp become adapter.hpp
-• major improvements for C++03 support
+â€¢ split assembly header in two files: one for C++11 and up and one for C++03
+â€¢ caller.hpp became behavior_caller.hpp
+â€¢ caller_adapter.hpp became adapter.hpp
+â€¢ major improvements for C++03 support
 
 ### Fixed
-• create_behavior_function and create_guard_function (internally used in assembly.hpp) are now in namespace sxy
-• bug with missing get_error_event implementation in composite_state_impl
-• bug with missing dereference operator in behavior_caller and guard_caller
+â€¢ create_behavior_function and create_guard_function (internally used in assembly.hpp) are now in namespace sxy
+â€¢ bug with missing get_error_event implementation in composite_state_impl
+â€¢ bug with missing dereference operator in behavior_caller and guard_caller
 
 
 ##[1.3.2] - 2017-10-26
 
 ### Changed
-• CMake: changes of RapidJSON include path handling
+â€¢ CMake: changes of RapidJSON include path handling
 
 ### Fixed
-• bug: enqueuing of an event failed during the start of an async state machine
+â€¢ bug: enqueuing of an event failed during the start of an async state machine
 
 
 ##[1.3.1] - 2017-10-16
 
 ### Added
-• CMake: SX_STATIC flag to toggle library generation between static and shared.
-• CMake: SX_PEDANTIC flag to turn off pedantic flag for gcc/clang compilers.
-• SX_BOOST_LIB_INCLUDE and SX_BOOST_LIB_PATH for setting Boost headers and libraries paths.
+â€¢ CMake: SX_STATIC flag to toggle library generation between static and shared.
+â€¢ CMake: SX_PEDANTIC flag to turn off pedantic flag for gcc/clang compilers.
+â€¢ SX_BOOST_LIB_INCLUDE and SX_BOOST_LIB_PATH for setting Boost headers and libraries paths.
 
 ### Changed
-• Use pragma warning just for Microsoft Visual Studio compiler. Removed -Wunknown-pragmas from CMake file.
-• Y_BOOST_LIB_INCLUDE and Y_BOOST_LIB_PATH are deprecated. Use SX_BOOST_LIB_INCLUDE and SX_BOOST_LIB_PATH instead.
+â€¢ Use pragma warning just for Microsoft Visual Studio compiler. Removed -Wunknown-pragmas from CMake file.
+â€¢ Y_BOOST_LIB_INCLUDE and Y_BOOST_LIB_PATH are deprecated. Use SX_BOOST_LIB_INCLUDE and SX_BOOST_LIB_PATH instead.
 Y_BOOST_LIB_INCLUDE and Y_BOOST_LIB_PATH will still work.
 
 ### Fixed
-• sxprintf: added missing boost namespace
-• bug: SX_UNUSED_PARAMETER incorrectly appearing in return of functions in assembly.hpp
+â€¢ sxprintf: added missing boost namespace
+â€¢ bug: SX_UNUSED_PARAMETER incorrectly appearing in return of functions in assembly.hpp
 
 
 ##[1.3.0] - 2017-09-21
 
 ### Changed
-• get_name is now a public method of the state_machine class
+â€¢ get_name is now a public method of the state_machine class
 
 ### Added
-• Support for Visual Studio 2017 builds
-• complex states (root state of the state machine, simple states and composite states) now have a method called add_deferred_event.
+â€¢ Support for Visual Studio 2017 builds
+â€¢ complex states (root state of the state machine, simple states and composite states) now have a method called add_deferred_event.
 This method adds an event ID to the list of the deferred events IDs. This method is not thread-safe a must only be used before 
 starting the state machine.
 
 ### Fixed
-• On start of the state machine, the root state becomes active and on stop it becomes inactive.
-• bug with ::std::toupper and ::std::tolower (reported for VS2017 compiler, version 15.3.4)
+â€¢ On start of the state machine, the root state becomes active and on stop it becomes inactive.
+â€¢ bug with ::std::toupper and ::std::tolower (reported for VS2017 compiler, version 15.3.4)
 
 
 ##[1.2.3] - 2017-08-22
 
 ### Changed
-• CMake: setting rapidJSON path by setting the SX_RAPIDJSON variable
+â€¢ CMake: setting rapidJSON path by setting the SX_RAPIDJSON variable
 
 ### Fixed
-• SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG: workaround for bug in GCC with expansion of template parameter pack that appears in a lambda-expression (reported for GCC 4.8.4)
-• bug when passing template class member function to Y_BEHAVIOR_METHOD2 and Y_GUARD_METHOD2 (reported for GCC 5.0.4)
+â€¢ SX_GCC_EXPAND_TEMPLATE_PARAM_PACK_BUG: workaround for bug in GCC with expansion of template parameter pack that appears in a lambda-expression (reported for GCC 4.8.4)
+â€¢ bug when passing template class member function to Y_BEHAVIOR_METHOD2 and Y_GUARD_METHOD2 (reported for GCC 5.0.4)
 
 
 ##[1.2.2] - 2017-08-18
 
 ### Fix
-• changed const_iterator to iterator in methods vertex_impl::add_outgoing_transition and 
+â€¢ changed const_iterator to iterator in methods vertex_impl::add_outgoing_transition and 
 vertex_impl::find_first_transition_without_guard for compilers with incomplete C++11 support
-• fixed incorrect use of logging macro when compiling C++03 code
+â€¢ fixed incorrect use of logging macro when compiling C++03 code
 
 
 ##[1.2.1] - 2017-08-14
 
 ### Changed
-• CMake file improvements: Set C++-standard version (when using gcc) using CPP_VERSION with values '03' for C++03, '14' for C++14. Default is C++11.
+â€¢ CMake file improvements: Set C++-standard version (when using gcc) using CPP_VERSION with values '03' for C++03, '14' for C++14. Default is C++11.
 
 
 ##[1.2.0] - 2017-06-26
 
 ### Added
-• state machine handler for unhandled events
+â€¢ state machine handler for unhandled events
 
 
 ##[1.1.2] - 2017-04-25
 
 ### Changed
-• uri class moved to essentials
+â€¢ uri class moved to essentials
 
 
 ##[1.1.1] - 2017-04-07
 
 ### Added
-• SX_NO_ASSIGNMENT_OPERATOR in exception template class (created using SX_EXCEPTION macro)
+â€¢ SX_NO_ASSIGNMENT_OPERATOR in exception template class (created using SX_EXCEPTION macro)
 
 ### Changed
-• Y_CONSTEXPR to SX_CONSTEXPR
-• Y_FINAL to SX_FINAL
-• Y_NOEXCEPT to SX_NOEXCEPT
-• Y_OVERRIDE to SX_OVERRIDE
-• Y_NO_COPY to SX_NO_COPY
-• Y_NO_COPY_OPERATOR_EQUAL to SX_NO_ASSIGNMENT_OPERATOR
-• Y_UNIQUE_PTR to SX_UNIQUE_PTR
-• Y_MAKE_UNIQUE to SX_MAKE_UNIQUE
-• sxy::shared_ptr to sxe::shared_ptr
-• Y_MAKE_SHARED to SX_MAKE_SHARED
-• Y_UNUSED_PARAMETER to SX_UNUSED_PARAMETER
-• preprocessor definition Y_NO_LOGGING to SX_NO_LOGGING
-• Y_LOG to SX_LOG
-• Y_LOG_HEX to SX_LOG_HEX
-• Y_ASSERT to SX_ASSERT
-• Y_NULLPTR to SX_NULLPTR
-• Y_FOR to SX_FOR
-• preprocessor definition Y_CPP03_BOOST to SX_CPP03_BOOST
-• preprocessor definition Y_NO_STD_MAKE_UNIQUE to SX_NO_STD_MAKE_UNIQUE
-• preprocessor definition Y_NO_WINDOWS_H to SX_NO_WINDOWS_H
+â€¢ Y_CONSTEXPR to SX_CONSTEXPR
+â€¢ Y_FINAL to SX_FINAL
+â€¢ Y_NOEXCEPT to SX_NOEXCEPT
+â€¢ Y_OVERRIDE to SX_OVERRIDE
+â€¢ Y_NO_COPY to SX_NO_COPY
+â€¢ Y_NO_COPY_OPERATOR_EQUAL to SX_NO_ASSIGNMENT_OPERATOR
+â€¢ Y_UNIQUE_PTR to SX_UNIQUE_PTR
+â€¢ Y_MAKE_UNIQUE to SX_MAKE_UNIQUE
+â€¢ sxy::shared_ptr to sxe::shared_ptr
+â€¢ Y_MAKE_SHARED to SX_MAKE_SHARED
+â€¢ Y_UNUSED_PARAMETER to SX_UNUSED_PARAMETER
+â€¢ preprocessor definition Y_NO_LOGGING to SX_NO_LOGGING
+â€¢ Y_LOG to SX_LOG
+â€¢ Y_LOG_HEX to SX_LOG_HEX
+â€¢ Y_ASSERT to SX_ASSERT
+â€¢ Y_NULLPTR to SX_NULLPTR
+â€¢ Y_FOR to SX_FOR
+â€¢ preprocessor definition Y_CPP03_BOOST to SX_CPP03_BOOST
+â€¢ preprocessor definition Y_NO_STD_MAKE_UNIQUE to SX_NO_STD_MAKE_UNIQUE
+â€¢ preprocessor definition Y_NO_WINDOWS_H to SX_NO_WINDOWS_H
 
 ### Fixed
-• log double quote
-• log messages
-• code documentation improvements.
+â€¢ log double quote
+â€¢ log messages
+â€¢ code documentation improvements.
 
 ### Deprecated
-• macro Y_CONSTEXPR use SX_CONSTEXPR instead
-• macro Y_FINAL use SX_FINAL instead
-• macro Y_NOEXCEPT use SX_NOEXCEPT instead
-• macro Y_OVERRIDE use SX_OVERRIDE instead
-• macro Y_NO_COPY use SX_NO_COPY instead
-• macro Y_NO_COPY_OPERATOR_EQUAL use SX_NO_ASSIGNMENT_OPERATOR instead
-• macro Y_UNIQUE_PTR use SX_UNIQUE_PTR instead
-• macro Y_MAKE_UNIQUE use SX_MAKE_UNIQUE instead
-• sxy::shared_ptr use sxe::shared_ptr instead
-• macro Y_MAKE_SHARED use SX_MAKE_SHARED instead
-• macro Y_UNUSED_PARAMETER use SX_UNUSED_PARAMETER instead
-• preprocessor definition Y_NO_LOGGING use SX_NO_LOGGING instead
-• macro Y_LOG use SX_LOG instead
-• macro Y_LOG_HEX use SX_LOG_HEX instead
-• macro Y_ASSERT use SX_ASSERT instead
-• macro Y_NULLPTR use SX_NULLPTR instead
-• macro Y_FOR use SX_FOR instead
-• preprocessor definition Y_CPP03_BOOST use SX_CPP03_BOOST instead
-• preprocessor definition Y_NO_STD_MAKE_UNIQUE use SX_NO_STD_MAKE_UNIQUE instead
-• preprocessor definition Y_NO_WINDOWS_H use SX_NO_WINDOWS_H instead
+â€¢ macro Y_CONSTEXPR use SX_CONSTEXPR instead
+â€¢ macro Y_FINAL use SX_FINAL instead
+â€¢ macro Y_NOEXCEPT use SX_NOEXCEPT instead
+â€¢ macro Y_OVERRIDE use SX_OVERRIDE instead
+â€¢ macro Y_NO_COPY use SX_NO_COPY instead
+â€¢ macro Y_NO_COPY_OPERATOR_EQUAL use SX_NO_ASSIGNMENT_OPERATOR instead
+â€¢ macro Y_UNIQUE_PTR use SX_UNIQUE_PTR instead
+â€¢ macro Y_MAKE_UNIQUE use SX_MAKE_UNIQUE instead
+â€¢ sxy::shared_ptr use sxe::shared_ptr instead
+â€¢ macro Y_MAKE_SHARED use SX_MAKE_SHARED instead
+â€¢ macro Y_UNUSED_PARAMETER use SX_UNUSED_PARAMETER instead
+â€¢ preprocessor definition Y_NO_LOGGING use SX_NO_LOGGING instead
+â€¢ macro Y_LOG use SX_LOG instead
+â€¢ macro Y_LOG_HEX use SX_LOG_HEX instead
+â€¢ macro Y_ASSERT use SX_ASSERT instead
+â€¢ macro Y_NULLPTR use SX_NULLPTR instead
+â€¢ macro Y_FOR use SX_FOR instead
+â€¢ preprocessor definition Y_CPP03_BOOST use SX_CPP03_BOOST instead
+â€¢ preprocessor definition Y_NO_STD_MAKE_UNIQUE use SX_NO_STD_MAKE_UNIQUE instead
+â€¢ preprocessor definition Y_NO_WINDOWS_H use SX_NO_WINDOWS_H instead
 
 
 ##[1.1.0] - 2017-03-06
 
 ### Added
-• (C++11) overloaded macro Y_BEHAVIOR_METHOD2 with support for up to 10 parameters, replacing Y_BEHAVIOR_METHOD and Y_BEHAVIOR_METHOD_EVENT 
-• (C++11) overloaded macro Y_BEHAVIOR_FUNCTION2 with support for up to 10 parameters, replacing Y_BEHAVIOR_FUNCTION and Y_BEHAVIOR_FUNCTION_EVENT
-• (C++11) overloaded macro Y_GUARD_METHOD2 with support for up to 10 parameters, replacing Y_GUARD_METHOD
-• (C++11) overloaded macro Y_GUARD_FUNCTION2 with support for up to 10 parameters, replacing Y_GUARD_FUNCTION
-• (C++11) Y_BEHAVIOR_ACTION macro for using any type of action as a behavior.
-• (C++11) Y_GUARD_ACTION macro for using any type of action returning bool as a guard.
-• Y_EVENT_WITH_PRIORITY_CREATE overloaded macro for creating event class with event priority. It supports up to 10 event parameters.
-• Y_NO_WINDOWS_H macro: suppress inclusion of windows.h
-• new check for a transition emanating from an initial pseudostate: The transition has to target a state inside the initial pseudostate's region.
-• Y_EVENT_WITH_PRIORITY_CREATE overloaded macro for creating event classes with up to 10 parameters and event priority
-• logging of state machine construction
-• overloaded methods to add transitions that are enabled for multiple event IDs to state machine
-• log when a pseudostate is reached by a transition
-• interrupt method for the state machine: abort a state machine run even during a compound transition
-• possibility to fire event from within states and transitions
-• new example for demonstrating the feature of firing events from states and transitions
+â€¢ (C++11) overloaded macro Y_BEHAVIOR_METHOD2 with support for up to 10 parameters, replacing Y_BEHAVIOR_METHOD and Y_BEHAVIOR_METHOD_EVENT 
+â€¢ (C++11) overloaded macro Y_BEHAVIOR_FUNCTION2 with support for up to 10 parameters, replacing Y_BEHAVIOR_FUNCTION and Y_BEHAVIOR_FUNCTION_EVENT
+â€¢ (C++11) overloaded macro Y_GUARD_METHOD2 with support for up to 10 parameters, replacing Y_GUARD_METHOD
+â€¢ (C++11) overloaded macro Y_GUARD_FUNCTION2 with support for up to 10 parameters, replacing Y_GUARD_FUNCTION
+â€¢ (C++11) Y_BEHAVIOR_ACTION macro for using any type of action as a behavior.
+â€¢ (C++11) Y_GUARD_ACTION macro for using any type of action returning bool as a guard.
+â€¢ Y_EVENT_WITH_PRIORITY_CREATE overloaded macro for creating event class with event priority. It supports up to 10 event parameters.
+â€¢ Y_NO_WINDOWS_H macro: suppress inclusion of windows.h
+â€¢ new check for a transition emanating from an initial pseudostate: The transition has to target a state inside the initial pseudostate's region.
+â€¢ Y_EVENT_WITH_PRIORITY_CREATE overloaded macro for creating event classes with up to 10 parameters and event priority
+â€¢ logging of state machine construction
+â€¢ overloaded methods to add transitions that are enabled for multiple event IDs to state machine
+â€¢ log when a pseudostate is reached by a transition
+â€¢ interrupt method for the state machine: abort a state machine run even during a compound transition
+â€¢ possibility to fire event from within states and transitions
+â€¢ new example for demonstrating the feature of firing events from states and transitions
 
 ### Changed
-• moved 'conversion.hpp' from 'include_impl' to 'include'
-• 'halt' method of asynchronous behavior was renamed to 'halt_and_join'
+â€¢ moved 'conversion.hpp' from 'include_impl' to 'include'
+â€¢ 'halt' method of asynchronous behavior was renamed to 'halt_and_join'
 
 ### Fixed
-• broken log message when displaying event priority
+â€¢ broken log message when displaying event priority
 
 ### Deprecated
-• macro Y_BEHAVIOR_METHOD use Y_BEHAVIOR_METHOD2 instead
-• macro Y_BEHAVIOR_METHOD_NO_EVENT use Y_BEHAVIOR_METHOD2  instead
-• macro Y_BEHAVIOR_FUNCTION use Y_BEHAVIOR_FUNCTION2  instead
-• macro Y_BEHAVIOR_FUNCTION_NO_EVENT use Y_BEHAVIOR_FUNCTION2 instead
-• macro Y_GUARD_METHOD use Y_GUARD_METHOD2  instead
-• macro Y_GUARD_METHOD_NO_EVENT use Y_GUARD_METHOD2 instead
-• macro Y_GUARD_FUNCTION_NO_EVENT use Y_GUARD_FUNCTION2 instead
-• macro Y_GUARD_FUNCTION use Y_GUARD_FUNCTION2 instead
-• macros Y_EVENT_1PARAM_WITH_ID to Y_EVENT_10PARAM_WITH_ID use Y_EVENT_CREATE instead
-• macro Y_EVENT_WITH_ID use Y_EVENT_CREATE instead
-• macros Y_EVENT_1PARAM_WITH_ID_PRIORITY to Y_EVENT_10PARAM_WITH_ID_PRIORITY use Y_EVENT_WITH_PRIORITY_CREATE instead
-• macro Y_EVENT_WITH_ID_PRIORITY use Y_EVENT_WITH_PRIORITY_CREATE instead
-• typedef state_machine. Use sync_state_machine instead.
+â€¢ macro Y_BEHAVIOR_METHOD use Y_BEHAVIOR_METHOD2 instead
+â€¢ macro Y_BEHAVIOR_METHOD_NO_EVENT use Y_BEHAVIOR_METHOD2  instead
+â€¢ macro Y_BEHAVIOR_FUNCTION use Y_BEHAVIOR_FUNCTION2  instead
+â€¢ macro Y_BEHAVIOR_FUNCTION_NO_EVENT use Y_BEHAVIOR_FUNCTION2 instead
+â€¢ macro Y_GUARD_METHOD use Y_GUARD_METHOD2  instead
+â€¢ macro Y_GUARD_METHOD_NO_EVENT use Y_GUARD_METHOD2 instead
+â€¢ macro Y_GUARD_FUNCTION_NO_EVENT use Y_GUARD_FUNCTION2 instead
+â€¢ macro Y_GUARD_FUNCTION use Y_GUARD_FUNCTION2 instead
+â€¢ macros Y_EVENT_1PARAM_WITH_ID to Y_EVENT_10PARAM_WITH_ID use Y_EVENT_CREATE instead
+â€¢ macro Y_EVENT_WITH_ID use Y_EVENT_CREATE instead
+â€¢ macros Y_EVENT_1PARAM_WITH_ID_PRIORITY to Y_EVENT_10PARAM_WITH_ID_PRIORITY use Y_EVENT_WITH_PRIORITY_CREATE instead
+â€¢ macro Y_EVENT_WITH_ID_PRIORITY use Y_EVENT_WITH_PRIORITY_CREATE instead
+â€¢ typedef state_machine. Use sync_state_machine instead.
 
 
 ##[1.0.1] - 2017-02-08
 
 ### Changed
-• 'halt' method of asynchronous behavior was renamed to 'halt_and_join'
+â€¢ 'halt' method of asynchronous behavior was renamed to 'halt_and_join'
 
 ### Fixed
-• bug: Halting an async_state_machine lead to state machine::halt being called before joining the thread that processes events. 
+â€¢ bug: Halting an async_state_machine lead to state machine::halt being called before joining the thread that processes events. 
 This could trigger an assert if there were still events enqueued for processing. Also this could lead to the premature termination 
 of async do behaviors or to async do behaviors not being terminated at all.
 
@@ -222,152 +225,152 @@ of async do behaviors or to async do behaviors not being terminated at all.
 ##[1.0.0] - 2017-01-20
 
 ### Added
-• The logger now has got a halt_and_join method.
-• Logging: A message that can be waited for. Needed for Y_ASSERT in order to guarantee that the log message from the assert gets 
+â€¢ The logger now has got a halt_and_join method.
+â€¢ Logging: A message that can be waited for. Needed for Y_ASSERT in order to guarantee that the log message from the assert gets 
 written before the application terminates.
-• New check: The target of a transition emanating from an initial pseudostate: It has to be a state.
-• New check for local transitions: The target has to be a child of the source or the source itself.
-• New check: A transition's source is a child of the target's parent state or the parent state itself, when the target is an exit point.
-• wait methods in async state machine
-• terminated method in async state machine for checking if the state machine is terminated or stopped
-• (C++03) macros for creating event classes now support up to 10 parameters (from Y_EVENT_1PARAM_WITH_ID to Y_EVENT_10PARAM_WITH_ID 
+â€¢ New check: The target of a transition emanating from an initial pseudostate: It has to be a state.
+â€¢ New check for local transitions: The target has to be a child of the source or the source itself.
+â€¢ New check: A transition's source is a child of the target's parent state or the parent state itself, when the target is an exit point.
+â€¢ wait methods in async state machine
+â€¢ terminated method in async state machine for checking if the state machine is terminated or stopped
+â€¢ (C++03) macros for creating event classes now support up to 10 parameters (from Y_EVENT_1PARAM_WITH_ID to Y_EVENT_10PARAM_WITH_ID 
 and Y_EVENT_1PARAM_WITH_ID_PRIORITY to Y_EVENT_10PARAM_WITH_ID_PRIORITY)
-• Y_EVENT_CREATE overloaded macro for creating event classes with up to 10 parameters
-• overloaded macros Y_BEHAVIOR_METHOD_EVENT and Y_BEHAVIOR_FUNCTION_EVENT support up to 10 parameters
-• Y_EMPTY_GUARD for creating an empty guard
+â€¢ Y_EVENT_CREATE overloaded macro for creating event classes with up to 10 parameters
+â€¢ overloaded macros Y_BEHAVIOR_METHOD_EVENT and Y_BEHAVIOR_FUNCTION_EVENT support up to 10 parameters
+â€¢ Y_EMPTY_GUARD for creating an empty guard
 
 ### Changed
-• replaced platform/compiler specific code with a single solution, removed dead code, minor refactoring
-• renamed 'start_state_machine' method to 'run' for state_machine and async_state_machine
-• renamed 'stop_state_machine' method to 'halt' for state_machine
-• renamed 'stop_state_machine' method to 'halt_and_join' for async_state_machine
-• renamed 'start' method to 'run' for logger and async_behavior
-• renamed 'stop' method to 'halt' for logger and async_behavior
-• examples are no more using the sxy namespace
-• yasmine file structure refactoring. All source files are now located in the 'source' folder, the header files that compose yasmine's
+â€¢ replaced platform/compiler specific code with a single solution, removed dead code, minor refactoring
+â€¢ renamed 'start_state_machine' method to 'run' for state_machine and async_state_machine
+â€¢ renamed 'stop_state_machine' method to 'halt' for state_machine
+â€¢ renamed 'stop_state_machine' method to 'halt_and_join' for async_state_machine
+â€¢ renamed 'start' method to 'run' for logger and async_behavior
+â€¢ renamed 'stop' method to 'halt' for logger and async_behavior
+â€¢ examples are no more using the sxy namespace
+â€¢ yasmine file structure refactoring. All source files are now located in the 'source' folder, the header files that compose yasmine's
   external API are located in the 'include' folder, and internally used headers are in the 'include_impl' folder.
-• removed LL_PROTOCOL from log levels
-• version.hpp is now under sxy namespace instead of yasmine namespace
-• version.hpp is now included in the collection header yasmine.hpp
-• The event ID of the completion event, COMPLETION_EVENT_ID, was changed to Y_COMPLETION_EVENT_ID and resides inside the sxy namespace.
-• Transitions with guards are checked if they are active before transitions without guards.
+â€¢ removed LL_PROTOCOL from log levels
+â€¢ version.hpp is now under sxy namespace instead of yasmine namespace
+â€¢ version.hpp is now included in the collection header yasmine.hpp
+â€¢ The event ID of the completion event, COMPLETION_EVENT_ID, was changed to Y_COMPLETION_EVENT_ID and resides inside the sxy namespace.
+â€¢ Transitions with guards are checked if they are active before transitions without guards.
 
 ### Fixed
-• bug fix: invalid state exit on external transition returning into source state
-• bug fix: transition emanating from or targeting the root state caused crash
-• bug fix: when a composite state is entered via a choice, the parent state of the choice was not entered
-• usage of macros for creation of event classes outside of sxy namespace
-• log message from 'Searching for initial state in region' to 'Searching for initial pseudostate in region'
-• wrong unused parameter on transition check
+â€¢ bug fix: invalid state exit on external transition returning into source state
+â€¢ bug fix: transition emanating from or targeting the root state caused crash
+â€¢ bug fix: when a composite state is entered via a choice, the parent state of the choice was not entered
+â€¢ usage of macros for creation of event classes outside of sxy namespace
+â€¢ log message from 'Searching for initial state in region' to 'Searching for initial pseudostate in region'
+â€¢ wrong unused parameter on transition check
 
 
 ##[0.6.1] - 2016-12-12
 
 ### Changed
-• 'behaviour' to 'behavior' in code and documentation
-• replaced platform/compiler specific code with a single solution, removed dead code, minor refactoring
+â€¢ 'behaviour' to 'behavior' in code and documentation
+â€¢ replaced platform/compiler specific code with a single solution, removed dead code, minor refactoring
 
 ### Fixed
-• bug fix: invalid state exit on external transition returning into source state
+â€¢ bug fix: invalid state exit on external transition returning into source state
 
 
 ##[0.6.0] - 2016-12-09
 
 ### Added
-• C++03 compatibility
-• A new example: Events with parameters. It explains the use case of events with parameters macros.
-• a new example of using sub-machine and variables into a state machine: Sub state machine with variables
-• Macros for setting handlers (that expect a certain event type) as behaviors of states (do, enter, exit) or transitions.
+â€¢ C++03 compatibility
+â€¢ A new example: Events with parameters. It explains the use case of events with parameters macros.
+â€¢ a new example of using sub-machine and variables into a state machine: Sub state machine with variables
+â€¢ Macros for setting handlers (that expect a certain event type) as behaviors of states (do, enter, exit) or transitions.
 
 ### Changed
-• 'behavior' to 'behaviour' in code and documentation
-• Y_ASSERT instead of Y_LOG_AND_THROW when checking if the transition of an initial pseudostate was build in a compound transition
-• event ID of completion event, COMPLETION_EVENT, becomes COMPLETION_EVENT_ID
+â€¢ 'behavior' to 'behaviour' in code and documentation
+â€¢ Y_ASSERT instead of Y_LOG_AND_THROW when checking if the transition of an initial pseudostate was build in a compound transition
+â€¢ event ID of completion event, COMPLETION_EVENT, becomes COMPLETION_EVENT_ID
 
 
 ##[0.5.0] - 2016-11-07
 
 ### Added
-• Y_EMPTY_BEHAVIOR for creating a behavior that does nothing
-• CMake files for generators under Windows (Visual Studio) and Linux (gcc, clang)
+â€¢ Y_EMPTY_BEHAVIOR for creating a behavior that does nothing
+â€¢ CMake files for generators under Windows (Visual Studio) and Linux (gcc, clang)
 
 
 ##[0.4.0] - 2016-10-07
 
 ### Added
-• Y_OPTIMIZE_4_SPEED and Y_OPTIMIZE_4_MEMORY macros for internal optimization of ancestor lists (performance improvements)
-• Y_PROFILER macro was added. When compiled with this macro, the state machine will count the events that were processed.
+â€¢ Y_OPTIMIZE_4_SPEED and Y_OPTIMIZE_4_MEMORY macros for internal optimization of ancestor lists (performance improvements)
+â€¢ Y_PROFILER macro was added. When compiled with this macro, the state machine will count the events that were processed.
 
 ### Changed
-• 'LL_OFF' as default log level
-• assembly.hpp macros were improved to avoid ambiguous function calls
-• when Y_NO_LOGGING is defined, no log code will be compiled into the library at all
-• moved default implementation of dtor into cpp (behavior_impl and constraint_impl)
-• removed namespace from assembly.hpp
-• removed usage of unique pointer from timed event creator (performance improvements)
-• The handle generator for the timed events is no longer a random function.
-• vectors used inside algorithm are now created with a default capacity (performance improvements)
+â€¢ 'LL_OFF' as default log level
+â€¢ assembly.hpp macros were improved to avoid ambiguous function calls
+â€¢ when Y_NO_LOGGING is defined, no log code will be compiled into the library at all
+â€¢ moved default implementation of dtor into cpp (behavior_impl and constraint_impl)
+â€¢ removed namespace from assembly.hpp
+â€¢ removed usage of unique pointer from timed event creator (performance improvements)
+â€¢ The handle generator for the timed events is no longer a random function.
+â€¢ vectors used inside algorithm are now created with a default capacity (performance improvements)
 
 ### Fixed
-• error when compiling with gcc (const std::string transition_impl::get_transition_name)
-• warnings concerning override when compiling with Clang
-• if Y_NO_LOGGING is defined, the function 'log_version' is hidden
-• a bug in the check of incoming transitions of a join
+â€¢ error when compiling with gcc (const std::string transition_impl::get_transition_name)
+â€¢ warnings concerning override when compiling with Clang
+â€¢ if Y_NO_LOGGING is defined, the function 'log_version' is hidden
+â€¢ a bug in the check of incoming transitions of a join
 
 
 ##[0.3.0] - 2016-09-16
 
 ### Added
-• changelog.txt. It contains the changelog for the yasmine library
-• assembly.h. It contains macros used for different tasks like creating the lambda wrappers for behaviors and guards (constraints)
-• overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behavior
-• priority for events and event priority processing in the state machine
-• yasmine's interpretation of the choice pseudostate. The choice allows only one default outgoing transition (a transition with no guard).
-• 'Y_NOEXCEPT' for all destructors
-• log macro Y_LOG_HEX for logging hex editor style messages
-• get_name method for events. It returns the ID of the event as a string if not overloaded
-• event_template.hpp containing macros to created event_impl sub classes with fixed ID and priority (EVENT_WITH_ID, EVENT_WITH_ID_PRIORITY)
+â€¢ changelog.txt. It contains the changelog for the yasmine library
+â€¢ assembly.h. It contains macros used for different tasks like creating the lambda wrappers for behaviors and guards (constraints)
+â€¢ overloaded methods for adding transitions into state machine: different combinations of parameters for kind, guard and behavior
+â€¢ priority for events and event priority processing in the state machine
+â€¢ yasmine's interpretation of the choice pseudostate. The choice allows only one default outgoing transition (a transition with no guard).
+â€¢ 'Y_NOEXCEPT' for all destructors
+â€¢ log macro Y_LOG_HEX for logging hex editor style messages
+â€¢ get_name method for events. It returns the ID of the event as a string if not overloaded
+â€¢ event_template.hpp containing macros to created event_impl sub classes with fixed ID and priority (EVENT_WITH_ID, EVENT_WITH_ID_PRIORITY)
 
 ### Changed
-•The extension of the headers is now .hpp instead of .h.
-• Both the synchronous and asynchronous state machines use "start_state_machine" and "stop_state_machine" methods to start and stop the state machines.
-• "start_state_machine" will return now true if the state machine was started and is running and false if a terminate pseudostate was reached or the state machine encountered a problem and is shutting down. Before the opposite was true.
-• COMPLETION_EVENT will now have the maximum value of event_id (std::uint32_t -> 4.294.967.295 or 0xFFFFFFFF) instead of 0
-• simple state and asynchronous simple state store an error event instead of a behavior exception
-• Defects of the state machine will not be stored in the free store anymore. A copy of the object is stored instead.
-• event's 'create_event' is now called 'create'
-• constraint's (guard's) 'create_constraint' is now called 'create'
+â€¢The extension of the headers is now .hpp instead of .h.
+â€¢ Both the synchronous and asynchronous state machines use "start_state_machine" and "stop_state_machine" methods to start and stop the state machines.
+â€¢ "start_state_machine" will return now true if the state machine was started and is running and false if a terminate pseudostate was reached or the state machine encountered a problem and is shutting down. Before the opposite was true.
+â€¢ COMPLETION_EVENT will now have the maximum value of event_id (std::uint32_t -> 4.294.967.295 or 0xFFFFFFFF) instead of 0
+â€¢ simple state and asynchronous simple state store an error event instead of a behavior exception
+â€¢ Defects of the state machine will not be stored in the free store anymore. A copy of the object is stored instead.
+â€¢ event's 'create_event' is now called 'create'
+â€¢ constraint's (guard's) 'create_constraint' is now called 'create'
 
-• code improvements (e.g. reference instead of pointer in signature of async_behavior::run)
+â€¢ code improvements (e.g. reference instead of pointer in signature of async_behavior::run)
 
-• Removed the name parameter from transition and implicitly from state_machine::add_transition. A generated transition name can be retrieved by calling get_name()
+â€¢ Removed the name parameter from transition and implicitly from state_machine::add_transition. A generated transition name can be retrieved by calling get_name()
 
 ### Fixed
-• improved texts and log levels of logging calls
-• The forward declaration headers of classes are now consistently included in the header of the corresponding class. Thus duplicated included headers could be removed
-• 'event_priority = std::int8_t' instead of 'event_priority = int8_t'
-• Problem with the URI of the state machine elements. Now, the URI contains all the element's ancestors
+â€¢ improved texts and log levels of logging calls
+â€¢ The forward declaration headers of classes are now consistently included in the header of the corresponding class. Thus duplicated included headers could be removed
+â€¢ 'event_priority = std::int8_t' instead of 'event_priority = int8_t'
+â€¢ Problem with the URI of the state machine elements. Now, the URI contains all the element's ancestors
 
 
 ##[0.2.0] - 2016-08-19
 
 ### Added
-• asynchronous simple state
-• error handling for simple states
-• collection headers: yasmine.h, states.h, region_pseudostate.h, state_pseudostates.h, logging.h.
+â€¢ asynchronous simple state
+â€¢ error handling for simple states
+â€¢ collection headers: yasmine.h, states.h, region_pseudostate.h, state_pseudostates.h, logging.h.
 
 ### Changed
-• Source code formatting (class names, variable names, and other minor changes).
-• updated license
+â€¢ Source code formatting (class names, variable names, and other minor changes).
+â€¢ updated license
 
 
 ##[0.1.1] - 2016-07-22
 
 ### Changed
-• source code formatting (class names, variable names, and other minor changes).
-• updated license
+â€¢ source code formatting (class names, variable names, and other minor changes).
+â€¢ updated license
 
 
 ##[0.1.0] - 2016-06-20
 
-• The very first released version of yasmine
+â€¢ The very first released version of yasmine
