@@ -35,7 +35,7 @@ class transition:
 	public virtual state_machine_element
 {
 public:
-	transition()		
+	transition()
 	{
 		// Nothing to do...
 	}

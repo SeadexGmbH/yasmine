@@ -22,7 +22,7 @@ namespace sxy
 
 
 class deep_history_impl SX_FINAL:
-	public virtual deep_history, public history_impl
+	public deep_history, public history_impl
 {
 public:
 	explicit deep_history_impl( const std::string& _name );

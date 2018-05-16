@@ -26,7 +26,7 @@ namespace sxy
 
 
 class composite_state_impl SX_FINAL:
-	public virtual composite_state, public complex_state_impl
+	public composite_state, public complex_state_impl
 {
 public:
 	explicit composite_state_impl( const std::string& _name, behavior_uptr _entry_action = behavior_uptr(),

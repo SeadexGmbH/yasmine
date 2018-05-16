@@ -27,7 +27,7 @@ namespace model
 //!\class junction_model_impl
 //!\brief A junction pseudostate in the model.
 class junction_model_impl SX_FINAL: 
-	public virtual junction_model, public pseudostate_model_impl
+	public junction_model, public pseudostate_model_impl
 {
 
 

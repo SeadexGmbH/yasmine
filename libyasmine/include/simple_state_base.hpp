@@ -22,7 +22,7 @@ namespace sxy
 
 
 class simple_state_base:
-	public virtual simple_state, public complex_state_impl
+	public simple_state, public complex_state_impl
 {
 
 

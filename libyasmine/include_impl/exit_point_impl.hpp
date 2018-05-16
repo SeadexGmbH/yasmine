@@ -22,7 +22,7 @@ namespace sxy
 
 
 class exit_point_impl SX_FINAL:
-	public virtual exit_point, public state_pseudostate_impl
+	public exit_point, public state_pseudostate_impl
 {
 public:
 	explicit exit_point_impl( const std::string& _name );

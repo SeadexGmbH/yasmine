@@ -22,7 +22,7 @@ namespace sxy
 
 
 class terminate_pseudostate_impl SX_FINAL:
-	public virtual terminate_pseudostate, public region_pseudostate_impl
+	public terminate_pseudostate, public region_pseudostate_impl
 {
 public:
 	explicit terminate_pseudostate_impl( const std::string& _name );

@@ -27,7 +27,7 @@ namespace model
 //!\class join_model_impl
 //!\brief A join pseudostate in the model.
 class join_model_impl SX_FINAL: 
-	public virtual join_model, public pseudostate_model_impl
+	public join_model, public pseudostate_model_impl
 {
 
 

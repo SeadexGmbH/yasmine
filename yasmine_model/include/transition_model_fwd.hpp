@@ -24,7 +24,6 @@ namespace sxy
 namespace model
 {
 
-
 class transition_model;
 
 

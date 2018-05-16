@@ -31,7 +31,7 @@ class event_collector;
 
 
 class compound_transition:
-	public virtual compound_transition_consumer
+	public compound_transition_consumer
 {
 public:
 	compound_transition()

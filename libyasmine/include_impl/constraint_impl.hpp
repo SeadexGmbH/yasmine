@@ -21,7 +21,7 @@ namespace sxy
 
 
 class constraint_impl SX_FINAL:
-	public virtual constraint
+	public constraint
 {
 public:
 	explicit constraint_impl( const constraint_function& _function );

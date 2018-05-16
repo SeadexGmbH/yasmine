@@ -27,7 +27,7 @@ namespace model
 //!\class entry_point_model_impl
 //!\brief An entry point pseudostate in the model.
 class entry_point_model_impl SX_FINAL: 
-	public virtual entry_point_model, public pseudostate_model_impl
+	public entry_point_model, public pseudostate_model_impl
 {
 public:
 	//!\brief Constructor.

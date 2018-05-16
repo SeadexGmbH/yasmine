@@ -22,7 +22,7 @@ namespace sxy
 
 
 class choice_impl SX_FINAL:
-	public virtual choice, public region_pseudostate_impl
+	public choice, public region_pseudostate_impl
 {
 public:
 	explicit choice_impl( const std::string& _name );

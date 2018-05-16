@@ -26,7 +26,7 @@ class vertex;
 
 
 class states_to_enter_visitor_impl:
-	public virtual vertex_visitor
+	public vertex_visitor
 {
 public:
 	states_to_enter_visitor_impl( raw_states_by_nesting_level& _states_to_enter, 

@@ -31,7 +31,7 @@ class event_collector;
 
 
 class build_transition_steps_visitor SX_FINAL:
-	public virtual const_vertex_visitor
+	public const_vertex_visitor
 {
 public:
 	build_transition_steps_visitor(	transition& _current_transition,	transition_steps& _transitions_steps,

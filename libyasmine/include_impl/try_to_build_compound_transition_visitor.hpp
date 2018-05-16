@@ -28,7 +28,7 @@ class event_collector;
 
 
 class try_to_build_compound_transition_visitor:
-	public virtual const_vertex_visitor
+	public const_vertex_visitor
 {
 public:
 	try_to_build_compound_transition_visitor(	transition& _enabled_transition,	

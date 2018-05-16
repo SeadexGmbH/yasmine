@@ -27,7 +27,7 @@ namespace model
 //!\class shallow_history_model_impl
 //!\brief A shallow history pseudostate in the model.
 class shallow_history_model_impl SX_FINAL: 
-	public virtual shallow_history_model, public pseudostate_model_impl
+	public shallow_history_model, public pseudostate_model_impl
 {
 
 

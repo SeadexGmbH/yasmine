@@ -22,7 +22,7 @@ namespace sxy
 
 
 class junction_impl SX_FINAL:
-	public virtual junction, public region_pseudostate_impl
+	public junction, public region_pseudostate_impl
 {
 public:
 	explicit junction_impl( const std::string& _name );

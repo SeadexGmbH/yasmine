@@ -27,7 +27,7 @@ namespace model
 //!\class composite_state_model_impl
 //!\brief A composite state in the model.
 class composite_state_model_impl SX_FINAL: 
-	public virtual composite_state_model, public state_model_impl
+	public composite_state_model, public state_model_impl
 {
 
 

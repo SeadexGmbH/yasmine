@@ -133,9 +133,9 @@ const raw_transitions& vertex_impl::get_incoming_transitions() const
 
 sxe::uri vertex_impl::get_uri() const
 {
-	sxe::uri uri( get_name() );
-	add_ancestor_uri( uri );
-	return( uri );
+	sxe::uri vertex_uri( get_name() );
+	add_ancestor_uri( vertex_uri );
+	return( vertex_uri );
 }
 
 
