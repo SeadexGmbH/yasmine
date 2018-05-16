@@ -310,7 +310,7 @@ model::region_model_impl_uptr json_reader::read_region( const rapidjson::Value& 
 	{
 		if( ::std::strcmp( _e.what(), "Member pseudostates was not found!" ) != 0 )
 		{
-			throw;
+			throw sxe::exception( "Unexpected error occurred: %" , _e.what() );
 		}
 	}
 
@@ -548,7 +548,6 @@ model::transition_model_uptr json_reader::read_transition( const rapidjson::Valu
 		{
 			throw sxe::exception( "Event is not an JSON object! Structure is broken." );
 		}
-		
 	}
 
 	sxy::model::transition_model_kind kind = get_transition_kind( json_transition_kind );

@@ -30,7 +30,7 @@ class model_vertex_visitor;
 //!\class terminate_pseudostate_model_impl
 //!\brief A terminate pseudostate in the model.
 class terminate_pseudostate_model_impl SX_FINAL: 
-	public virtual terminate_pseudostate_model, public pseudostate_model_impl
+	public terminate_pseudostate_model, public pseudostate_model_impl
 {
 
 

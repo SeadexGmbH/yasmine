@@ -27,7 +27,7 @@ namespace model
 //!\class exit_point_model_impl
 //!\brief An exit point pseudostate in the model.
 class exit_point_model_impl SX_FINAL : 
-	public virtual exit_point_model, public pseudostate_model_impl
+	public exit_point_model, public pseudostate_model_impl
 {
 
 

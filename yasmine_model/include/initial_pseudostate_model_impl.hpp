@@ -30,7 +30,7 @@ class model_vertex_visitor;
 //!\class initial_pseudostate_model_impl
 //!\brief An initial pseudostate in the model.
 class initial_pseudostate_model_impl SX_FINAL: 
-	public virtual initial_pseudostate_model, public pseudostate_model_impl
+	public initial_pseudostate_model, public pseudostate_model_impl
 {
 
 

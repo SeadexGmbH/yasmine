@@ -22,7 +22,7 @@ namespace sxy
 
 
 class compound_transition_impl SX_FINAL:
-	public virtual compound_transition
+	public compound_transition
 {
 public:
 	compound_transition_impl();

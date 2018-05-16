@@ -22,7 +22,7 @@ namespace sxy
 
 
 class fork_impl SX_FINAL:
-	public virtual fork, public region_pseudostate_impl
+	public fork, public region_pseudostate_impl
 {
 public:
 	explicit fork_impl( const std::string& _name );

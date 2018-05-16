@@ -21,7 +21,7 @@ namespace sxy
 
 
 class join_impl SX_FINAL:
-	public virtual join, public region_pseudostate_impl
+	public join, public region_pseudostate_impl
 {
 public:
 	explicit join_impl( const std::string& _name );

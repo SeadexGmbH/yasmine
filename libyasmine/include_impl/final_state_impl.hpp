@@ -22,7 +22,7 @@ namespace sxy
 
 
 class final_state_impl SX_FINAL:
-	public virtual final_state, public state_impl
+	public final_state, public state_impl
 {
 public:
 	explicit final_state_impl( const std::string& _name );

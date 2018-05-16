@@ -15,6 +15,23 @@ All notable changes to this project are documented in this file.
 • missing boost namespace in sxprintf
 
 
+##[1.3.1] - 2017-08-14
+
+### Changed 
+• CMake file improvements: Set C++-standard version (when using gcc) using CPP_VERSION with values '03' for C++03, '14' for C++14. Default is C++11.
+
+
+##[1.3.0] - 2017-06-26
+
+
+##[1.2.0] - 2017-04-25
+
+### Changed 
+• internal structure update
+• printf code improvements
+• helper macro extended up to 15 parameters
+
+
 ##[1.1.0] - 2017-09-20
 
 ### Added

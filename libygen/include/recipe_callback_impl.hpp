@@ -75,7 +75,6 @@ private:
 	std::vector<std::string> namespaces_;
 	std::vector<std::string> behavior_classes_;
 	std::size_t namespace_index_;
-	std::size_t base_class_index_;
 	std::size_t behavior_classes_index_;
 	std::size_t transition_index_;
 	std::size_t pseudostate_index_;

@@ -22,7 +22,7 @@ namespace sxy
 
 
 class shallow_history_impl:
-	public virtual shallow_history, public history_impl
+	public shallow_history, public history_impl
 {
 public:
 	explicit shallow_history_impl( const std::string& _name );

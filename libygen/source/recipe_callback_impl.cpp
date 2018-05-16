@@ -40,7 +40,6 @@ recipe_callback_impl::recipe_callback_impl( const sxy::model::state_machine_mode
 		namespaces_( _namespaces ),
 		behavior_classes_( _behavior_classes ),
 		namespace_index_( 0 ),
-		base_class_index_( 0 ),
 		behavior_classes_index_( 0 ),
 		transition_index_( 0 ),
 		pseudostate_index_( 0 ),

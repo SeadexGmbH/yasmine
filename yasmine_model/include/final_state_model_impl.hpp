@@ -28,7 +28,7 @@ namespace model
 //!\class final_state_model_impl
 //!\brief A final state in the model.
 class final_state_model_impl SX_FINAL: 
-	public virtual final_state_model, public state_model_impl
+	public final_state_model, public state_model_impl
 {
 
 

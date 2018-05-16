@@ -22,7 +22,7 @@ namespace sxy
 
 
 class entry_point_impl SX_FINAL:
-	public virtual entry_point, public state_pseudostate_impl
+	public entry_point, public state_pseudostate_impl
 {
 public:
 	explicit entry_point_impl( const std::string& _name );

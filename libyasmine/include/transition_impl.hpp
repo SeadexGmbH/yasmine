@@ -27,7 +27,7 @@ class composite_state;
 
 
 class transition_impl SX_FINAL:
-	public virtual transition, public state_machine_element_impl
+	public transition, public state_machine_element_impl
 {
 public:
 	transition_impl( const event_id _event_id, vertex& _source, vertex& _target, 

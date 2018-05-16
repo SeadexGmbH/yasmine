@@ -27,7 +27,7 @@ namespace model
 //!\class fork_model_impl
 //!\brief A fork pseudostate in the model.
 class fork_model_impl SX_FINAL: 
-	public virtual fork_model, public pseudostate_model_impl
+	public fork_model, public pseudostate_model_impl
 {
 
 

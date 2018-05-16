@@ -24,7 +24,7 @@ class event;
 
 
 class behavior_impl SX_FINAL:
-	public virtual behavior
+	public behavior
 {
 public:
 	explicit behavior_impl( const behavior_function& _function );

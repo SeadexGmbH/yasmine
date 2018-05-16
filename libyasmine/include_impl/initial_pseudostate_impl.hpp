@@ -22,7 +22,7 @@ namespace sxy
 
 
 class initial_pseudostate_impl SX_FINAL:
-	public virtual initial_pseudostate, public region_pseudostate_impl
+	public initial_pseudostate, public region_pseudostate_impl
 {
 public:
 	explicit initial_pseudostate_impl( const std::string& _name );

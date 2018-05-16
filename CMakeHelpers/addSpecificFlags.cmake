@@ -12,7 +12,10 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		add_compiler_flag("-pedantic")
 	endif()
 	
-	if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+	# for release
+	if( "${CMAKE_BUILD_TYPE}" STREQUAL "Release" )	
+		add_compiler_flag("-03")
+	elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 		add_compiler_flag("-g")
 	endif()
 
@@ -20,7 +23,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
 		add_compiler_flag("-std=c++03")
 		add_compiler_flag("-D \"SX_CPP03_BOOST\"")
 		add_compiler_flag("-D \"SX_NO_VARIADIC_MACRO\"")
-	elseif("${CPP_VERSION}" STREQUAL "03")
+	elseif("${CPP_VERSION}" STREQUAL "14")
 		add_compiler_flag("-std=c++14")
 	else()
 		add_compiler_flag("-std=c++11")
