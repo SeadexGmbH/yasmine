@@ -100,9 +100,9 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="include\async_simple_state_impl.hpp" />
+    <ClInclude Include="include\backward_compatibility.hpp" />
     <ClInclude Include="include\create_behavior_function.hpp" />
     <ClInclude Include="include\create_guard_function.hpp" />
-    <ClInclude Include="include\libyasmine_backward_compatibility.hpp" />
     <ClInclude Include="include\y_assert.hpp" />
     <ClInclude Include="include\behavior_exception_fwd.hpp" />
     <ClInclude Include="include\adapter.hpp" />

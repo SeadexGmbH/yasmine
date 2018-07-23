@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                  //
 // This file is part of the Seadex yasmine ecosystem (http://yasmine.seadex.de).                    //
-// Copyright (C) 2016-2017 Seadex GmbH                                                              //
+// Copyright (C) 2016-2018 Seadex GmbH                                                              //
 //                                                                                                  //
 // Licensing information is available in the folder "license" which is part of this distribution.   //
 // The same information is available on the www @ http://yasmine.seadex.de/Licenses.html.           //
@@ -35,7 +35,7 @@ const SHORT MAX_ROWS = 9999;
 #ifdef WIN32
 
 // cppcheck-suppress unusedFunction
-void set_window_size(	const SHORT _width, const SHORT _height )
+void set_window_size( const SHORT _width, const SHORT _height )
 {
 	COORD coord;
 	coord.X = _width;
