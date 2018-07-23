@@ -564,9 +564,6 @@
     <ClInclude Include="include\logging.hpp">
       <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="include\libyasmine_backward_compatibility.hpp">
-      <Filter>Headerdateien\infrastructure</Filter>
-    </ClInclude>
     <ClInclude Include="include\create_behavior_function.hpp">
       <Filter>Headerdateien\core\state machine</Filter>
     </ClInclude>
@@ -593,6 +590,9 @@
     </ClInclude>
     <ClInclude Include="include\adapter_cpp11.hpp">
       <Filter>Headerdateien\core\state machine\caller</Filter>
+    </ClInclude>
+    <ClInclude Include="include\backward_compatibility.hpp">
+      <Filter>Headerdateien\infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

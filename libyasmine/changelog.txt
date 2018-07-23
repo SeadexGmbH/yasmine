@@ -1,6 +1,13 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[1.3.6] - 2018-07-23
+
+### Fixed
+• backward compatibility includes
+• CMake installation target refactored
+
+
 ##[1.3.5] - 2018-05-16
 
 ### Changed
