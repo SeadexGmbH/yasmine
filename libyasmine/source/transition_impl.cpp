@@ -14,6 +14,8 @@
 #include <algorithm>
 
 #include "essentials/uri.hpp"
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "vertex.hpp"

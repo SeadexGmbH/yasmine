@@ -11,6 +11,8 @@
 
 #include "transition_finder.hpp"
 
+#include "essentials/base.hpp"
+
 #include "hermes/log_and_throw.hpp"
 
 #include "composite_state.hpp"

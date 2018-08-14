@@ -13,6 +13,8 @@
 
 #include <algorithm>
 
+#include "essentials/base.hpp"
+
 #include "hermes/log_and_throw.hpp"
 
 #include "state.hpp"

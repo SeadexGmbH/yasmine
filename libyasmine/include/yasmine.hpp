@@ -18,6 +18,7 @@
 #include "essentials/compatibility/chrono.hpp"
 #include "essentials/compatibility/thread.hpp"
 #include "essentials/non_copyable.hpp"
+#include "essentials/base.hpp"
 
 #include "sync_state_machine.hpp"
 #include "async_state_machine.hpp"

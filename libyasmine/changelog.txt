@@ -1,6 +1,13 @@
 # Change log
 All notable changes to this project are documented in this file.
 
+##[1.3.7] - 2018-08-14
+
+### Fixed
+- added includes for the case when logging is disabled via SX_NO_LOGGING=NO
+- renamed Y_ASSERT to SX_ASSERT in region_impl.cpp
+- added essentials/base.hpp include in yasmine.hpp
+
 ##[1.3.6] - 2018-07-23
 
 ### Fixed
