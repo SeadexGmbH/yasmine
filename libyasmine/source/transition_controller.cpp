@@ -12,6 +12,8 @@
 #include "transition_controller.hpp"
 
 #include "essentials/conversion.hpp"
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 #include "hermes/log_and_throw.hpp"
 

@@ -11,6 +11,8 @@
 
 #include "transition_executor.hpp"
 
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "transition_executor_impl.hpp"

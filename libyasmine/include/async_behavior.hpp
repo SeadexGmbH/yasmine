@@ -29,7 +29,7 @@ class async_event_handler;
 class event_collector;
 
 
-class async_behavior	
+class async_behavior
 {
 
 
@@ -39,18 +39,18 @@ public:
 	SX_NO_COPY(async_behavior)
 	void run( const event& _event, event_collector& _event_collector, const simple_state_base& _simple_state, async_event_handler& _async_event_handler );
 	void halt_and_join();
-											 
+
 protected:
 	bool should_stop() const;
-											
 
-private:		
+
+private:
 	void work( const event& _event, event_collector& _event_collector, const simple_state_base& _simple_state, 
 		async_event_handler& _async_event_handler );
 	virtual void run_impl( const event& _event, event_collector& _event_collector, 
 		async_event_handler& _async_event_handler ) = 0;
 	virtual void notify_should_stop();
-	void join();		
+	void join();
 
 	sxe::SX_UNIQUE_PTR<sxe::thread> worker_;
 	mutable sxe::mutex mutex_;

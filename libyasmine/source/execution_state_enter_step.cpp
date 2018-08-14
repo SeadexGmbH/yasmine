@@ -11,6 +11,8 @@
 
 #include "execution_state_enter_step.hpp"
 
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "state.hpp"

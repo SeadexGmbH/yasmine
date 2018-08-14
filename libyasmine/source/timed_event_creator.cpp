@@ -39,7 +39,7 @@ timed_event_creator::timed_event_creator( async_state_machine& _async_state_mach
 
 
 timed_event_creator::~timed_event_creator() SX_NOEXCEPT
-{		
+{
 	SX_ASSERT( !run_, "Thread is still running! It was not stopped." );
 	SX_ASSERT( !worker_, "The thread still exists!" );
 }
@@ -151,7 +151,7 @@ handle_type timed_event_creator::generate_handle()
 		if( maximum_handle_ == Y_INVALID_EVENT_CREATION_REQUEST_HANDLE )
 		{
 			maximum_handle_ = 0;
-		}			
+		}
 	}
 	while( check_if_handle_exists( handle ) );
 
@@ -185,14 +185,14 @@ void timed_event_creator::generate_event()
 			}
 			else
 			{
-				const event_creation_request& event_creation_request = *event_creation_requests_.begin();								
-				condition_variable_.wait_until( lock, event_creation_request.get_time() );								
+				const event_creation_request& event_creation_request = *event_creation_requests_.begin();
+				condition_variable_.wait_until( lock, event_creation_request.get_time() );
 				if( run_ )
 				{
 					event_queue::const_iterator event_iterator = event_creation_requests_.begin();
 					while( event_iterator != event_creation_requests_.end() )
 					{
-						const sxe::time_point< sxe::system_clock > now = sxe::system_clock::now();						
+						const sxe::time_point< sxe::system_clock > now = sxe::system_clock::now();
 						SX_LOG( hermes::log_level::LL_TRACE, "Checking for event @ %.", now.time_since_epoch().count() );
 						if( ( *event_iterator ).get_time() <= now )
 						{

@@ -11,6 +11,8 @@
 
 #include "async_behavior.hpp"
 
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "behavior_exception.hpp"

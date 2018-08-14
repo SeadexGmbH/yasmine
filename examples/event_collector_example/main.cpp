@@ -17,16 +17,19 @@
 int main()
 {
 	int error_code = 0;
-
+#ifndef SX_NO_LOGGING
 	hermes::log_manager_template<hermes::std_timestamp_policy>& log_manager = hermes::log_manager::get_instance();
 	log_manager.set_log_level( hermes::log_level::LL_ERROR );
 	log_manager.add_logger( SX_MAKE_UNIQUE< hermes::cout_logger >() );
 	log_manager.run();
 	sxy::version::log_version();
+#endif
 
 	examples::machine machine_example;
 
+#ifndef SX_NO_LOGGING
 	log_manager.halt_and_join();
+#endif
 
 	return( error_code );
 }

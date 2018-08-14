@@ -11,6 +11,8 @@
 
 #include "try_to_build_compound_transition_visitor.hpp"
 
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "join.hpp"

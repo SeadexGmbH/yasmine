@@ -11,9 +11,11 @@
 
 #include "region_impl.hpp"
 
+#include "essentials/base.hpp"
 #include "essentials/uri.hpp"
 
-#include "y_assert.hpp"
+#include "hermes/log.hpp"
+
 #include "state.hpp"
 #include "initial_pseudostate_impl.hpp"
 #include "choice_impl.hpp"
@@ -230,7 +232,7 @@ state* region_impl::get_last_active_state()
 
 initial_pseudostate& region_impl::add_initial_pseudostate( initial_pseudostate_uptr _initial_state )
 {
-	Y_ASSERT( !initial_pseudostate_, "There is already an initial pseudostate in the region." );
+	SX_ASSERT( !initial_pseudostate_, "There is already an initial pseudostate in the region." );
 	_initial_state->set_parent_region( this );
 	initial_pseudostate_ = _initial_state.get();
 	pseudostates_.push_back( sxe::move( _initial_state ) );
@@ -243,7 +245,7 @@ initial_pseudostate& region_impl::add_initial_pseudostate( initial_pseudostate_u
 
 initial_pseudostate& region_impl::add_initial_pseudostate( const std::string& _initial_pseudostate_name )
 {
-	Y_ASSERT( !initial_pseudostate_, "There is already an initial pseudostate in the region." );
+	SX_ASSERT( !initial_pseudostate_, "There is already an initial pseudostate in the region." );
 	sxe::SX_UNIQUE_PTR< sxy::initial_pseudostate_impl > initial_state =
 		SX_MAKE_UNIQUE< sxy::initial_pseudostate_impl >( _initial_pseudostate_name );
 	initial_state->set_parent_region( this );

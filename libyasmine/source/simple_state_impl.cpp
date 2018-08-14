@@ -11,6 +11,8 @@
 
 #include "simple_state_impl.hpp"
 
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "behavior.hpp"

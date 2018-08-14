@@ -15,6 +15,8 @@
 #include <iostream>
 
 #include "essentials/uri.hpp"
+#include "essentials/base.hpp"
+
 #include "hermes/log.hpp"
 
 #include "composite_state.hpp"

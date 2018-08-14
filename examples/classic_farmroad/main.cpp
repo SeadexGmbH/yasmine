@@ -73,12 +73,14 @@ int main()
 #ifdef WIN32
 	sxy::utils::set_window_size( 250, 9999 );
 	sxy::utils::maximize_window();
-#endif	
+#endif
+#ifndef SX_NO_LOGGING
 	hermes::log_manager_template<hermes::std_timestamp_policy>& log_manager = hermes::log_manager::get_instance();
 	log_manager.set_log_level( hermes::log_level::LL_DEBUG );
 	log_manager.add_logger( SX_MAKE_UNIQUE< hermes::cout_logger >() );
 	log_manager.run();
 	sxy::version::log_version();
+#endif
 
 try
 {
@@ -106,7 +108,9 @@ catch ( ... )
 	error_code = 3;
 }
 
-log_manager.halt_and_join();
+#ifndef SX_NO_LOGGING
+	log_manager.halt_and_join();
+#endif
 
 	return( error_code );
 }
